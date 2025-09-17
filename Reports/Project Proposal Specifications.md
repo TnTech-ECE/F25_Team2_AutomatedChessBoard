@@ -78,7 +78,6 @@ Features
 Pros
 ⦁	Has a method for Collision Avoidance.
 
-
 Cons
 ⦁	Project has experience notable failures with the stepper motor design.
 ⦁	Incomplete BOM
@@ -91,7 +90,6 @@ Features
 ⦁	Utilizes Stepper motors on a XY trolley system with magnetized pieces and a electromagnet head used to move the pieces.
 ⦁	Uses a magnetic sensor, Reed Switch, to determine the displacement of the chess piece.
 ⦁	Multiplexers are used to connect the 64 sensors to arduino.
-
 
 Pros
 ⦁	Complete BOM
