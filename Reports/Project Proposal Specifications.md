@@ -68,55 +68,51 @@ Below are selected repositories with pros, cons, and key features, highlighting 
 
 8/8: Smart Chess Board [1]
 
-Features
-⦁	Uses a mechanism which will let the piece move at any given point on the board that is consistent with the motion a 3D printer makes while printing.
-⦁	Uses two lead screw mechanism to make movements in the XY direction.
-⦁	Moves the chess pieces with the electromagnetic head, utilizing pieces with magnetic bottoms.
-⦁	Controlled using a Raspberry Pi.
-⦁	Showcases stepper motors as the drivers.
+Features:
+- Uses a mechanism which will let the piece move at any given point on the board that is consistent with the motion a 3D printer makes while printing.
+-	Uses two lead screw mechanism to make movements in the XY direction.
+-	Moves the chess pieces with the electromagnetic head, utilizing pieces with magnetic bottoms.
+-	Controlled using a Raspberry Pi.
+-	Showcases stepper motors as the drivers.
 
-Pros
-⦁	Has a method for Collision Avoidance.
+Pros: 
+-	Has a method for Collision Avoidance.
 
-Cons
-⦁	Project has experience notable failures with the stepper motor design.
-⦁	Incomplete BOM
+Cons: 
+-	Project has experience notable failures with the stepper motor design.
+-	Incomplete BOM
 
 
 Techievince 8.0, Electronics Club IITG Project [2]
 
 Features
-⦁	Highlights of the technology used were Arduino, Embedded C and for AI Micro Max chess program is used based on Minimax and Alpha-Beta algorithms.
-⦁	Utilizes Stepper motors on a XY trolley system with magnetized pieces and a electromagnet head used to move the pieces.
-⦁	Uses a magnetic sensor, Reed Switch, to determine the displacement of the chess piece.
-⦁	Multiplexers are used to connect the 64 sensors to arduino.
+-	Highlights of the technology used were Arduino, Embedded C and for AI Micro Max chess program is used based on Minimax and Alpha-Beta algorithms.
+-	Utilizes Stepper motors on a XY trolley system with magnetized pieces and a electromagnet head used to move the pieces.
+-	Uses a magnetic sensor, Reed Switch, to determine the displacement of the chess piece.
+-	Multiplexers are used to connect the 64 sensors to arduino.
 
 Pros
-⦁	Complete BOM
-⦁	README thoroughly documents the team's thought process and specifics for each piece of the project.
-
+-	Complete BOM
+-	README thoroughly documents the team's thought process and specifics for each piece of the project.
 
 Cons
-⦁	 No obvious Cons
+-	 No obvious Cons
 
 
 Chess Automation Using Computer Vision [3]
 
 Features
-⦁	Leverages Computer Vision (CV) techniques to automate chessboard detection and piece tracking in real-time.
-⦁	Tracks the Game using a camera, identifies the piece(s) and the positions on the board, and determines the game moves.
-⦁	Uses OpenCV and Numpy to process images or video feeds of a chessboard. 
-⦁	Has a Game History Log.
-⦁	
+-	Leverages Computer Vision (CV) techniques to automate chessboard detection and piece tracking in real-time.
+-	Tracks the Game using a camera, identifies the piece(s) and the positions on the board, and determines the game moves.
+-	Uses OpenCV and Numpy to process images or video feeds of a chessboard. 
+-	Has a Game History Log.	
 
 Pros
-⦁	Includes a step by step Installation process.
-⦁	Has a project structure.
+-	Includes a step-by-step Installation process.
+-	Has a project structure.
 
 Cons
-⦁	 No obvious Cons
-
-
+- No obvious Cons
 
 
 Industrial Solutions: ...............
