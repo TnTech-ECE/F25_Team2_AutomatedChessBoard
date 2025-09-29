@@ -376,41 +376,41 @@ In summary, this project holds promise for positive, broader impacts by advancin
 
 ## References
 
-[1] ChessUp 2 Smart Chess Board. Bryght Labs. (n.d.). https://playchessup.com/products/chessup-2
+[1] Adafruit Industries. (n.d.). Stepper motor - NEMA-17 size - 200 steps/rev, 12V 350mA. https://www.adafruit.com/product/324
 
-[2] Miko Chess Grand. Miko. (n.d.). https://miko.ai/pages/miko-chess-grand 
+[2] Amazon.com: ELEGOO UNO R3 Board ATmega328P with USB Cable(Arduino-Compatible) for Arduino : Electronics. (n.d.). https://www.amazon.com/ELEGOO-Board-ATmega328P-ATMEGA16U2-Compliant/dp/B01EWOE0UU
 
-[3] Chessnutech. (n.d.). Chessnut move - advanced robotic chessboard with Plastic Pieces. Chessnut. https://www.chessnutech.com/products/chessnut-move-advanced-robotic-chessboard-with-plastic-pieces 
+[3] Amazon.com: NowTH USB Microphone Lavalier Lapel Clip on Mic With 6.56ft Cable for Laptop, Computer, PC, Streaming Conferencing,Interviews, Online Singing, Skype, MSN, Audio Video Recording : Electronics, n.d.
 
-[4] GoChess Mini. Particula. (n.d.). https://particula-tech.com/products/gochess-mini?variant=45806634402040&country=US&currency=USD&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic&srsltid=AfmBOooAY445sOW--M7GA0T4jbNkHE609yl_YKlFLR9iyhF7eX9KFsd9ubc
+[4] Chessnutech. (n.d.). Chessnut move - advanced robotic chessboard with Plastic Pieces. Chessnut. https://www.chessnutech.com/products/chessnut-move-advanced-robotic-chessboard-with-plastic-pieces
 
-[5] R. Lahood, "The Queen’s Gambit, the Chess Boom, and the Future of Chess," Michigan Journal of Economics, Apr. 5, 2021. https://sites.lsa.umich.edu/mje/2021/04/05/the-queens-gambit-the-chess-boom-and-the-future-of-chess/.
+[5] ChessUp 2 Smart Chess Board. Bryght Labs. (n.d.). https://playchessup.com/products/chessup-2
 
-[6] D. M. D. Iliescu, "The Impact of Artificial Intelligence on the Chess World," *JMIR Serious Games*, vol. 8, no. 4, p. e24049, Dec. 2020. https://pmc.ncbi.nlm.nih.gov/articles/PMC7759436/.
+[6] D. M. D. Iliescu, "The Impact of Artificial Intelligence on the Chess World," JMIR Serious Games, vol. 8, no. 4, p. e24049, Dec. 2020. https://pmc.ncbi.nlm.nih.gov/articles/PMC7759436/.
 
-[7] US Chess, "US Chess Guidelines for Accessible Chess Events," Apr. 2020. https://new.uschess.org/sites/default/files/wp-thumbnails/2020/04/Accessibility-Guidelines-April-2020.pdf.
+[7] Davis, E. (2023, November 12). The Rise of Board Game Cafes: Socializing through Analog Entertainment. Medium. https://ethan-davis.medium.com/the-rise-of-board-game-cafes-socializing-through-analog-entertainment-51857183f856
 
-[8] Davis, E. (2023, November 12). The Rise of Board Game Cafes: Socializing through Analog Entertainment. Medium. https://ethan-davis.medium.com/the-rise-of-board-game-cafes-socializing-through-analog-entertainment-51857183f856
+[8] GoChess Mini. Particula. (n.d.). https://particula-tech.com/products/gochess-mini?variant=45806634402040&country=US&currency=USD&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic&srsltid=AfmBOooAY445sOW--M7GA0T4jbNkHE609yl_YKlFLR9iyhF7eX9KFsd9ubc
 
-[9] MFOSSociety. (n.d.). MFOSSociety/8-8: 8/8: Smart Chess Board: An Automated Ai Chess Board. GitHub. https://github.com/MFOSSociety/8-8 
+[9] Instructables. (2019, September 13). CoreXY CNC Plotter. Instructables. https://www.instructables.com/CoreXY-CNC-Plotter/
 
-[10] sumit11899. (n.d.). SUMIT11899/automated-chessboard. GitHub. https://github.com/sumit11899/Automated-ChessBoard 
+[10] MFOSSociety. (n.d.). MFOSSociety/8-8: 8/8: Smart Chess Board: An Automated Ai Chess Board. GitHub. https://github.com/MFOSSociety/8-8
 
-[11] Simarmehta. (n.d.). Simarmehta/CHESSAUTOMATION_CV. GitHub. https://github.com/simarmehta/chessAutomation_CV 
+[11] Miko Chess Grand. Miko. (n.d.). https://miko.ai/pages/miko-chess-grand
 
-[12] Stockfish. (n.d.). Stockfish. https://stockfishchess.org/
+[12] PiShop. (n.d.). Raspberry Pi 4 Model B/4GB. PiShop.us. https://www.pishop.us/product/raspberry-pi-4-model-b-4gb/
 
-[13] VOSK Offline Speech Recognition API. (n.d.). VOSK Offline Speech Recognition API. https://alphacephei.com/vosk/
+[13] R. Lahood, "The Queen’s Gambit, the Chess Boom, and the Future of Chess," Michigan Journal of Economics, Apr. 5, 2021. https://sites.lsa.umich.edu/mje/2021/04/05/the-queens-gambit-the-chess-boom-and-the-future-of-chess/.
 
-[14] Instructables. (2019, September 13). CoreXY CNC Plotter. Instructables. https://www.instructables.com/CoreXY-CNC-Plotter/
+[14] Simarmehta. (n.d.). Simarmehta/CHESSAUTOMATION_CV. GitHub. https://github.com/simarmehta/chessAutomation_CV
 
-[15] PiShop. (n.d.). Raspberry Pi 4 Model B/4GB. PiShop.us. https://www.pishop.us/product/raspberry-pi-4-model-b-4gb/
+[15] Stockfish. (n.d.). Stockfish. https://stockfishchess.org/
 
-[16] Industries, A. (n.d.). Stepper motor - NEMA-17 size - 200 steps/rev, 12V 350mA. https://www.adafruit.com/product/324
+[16] sumit11899. (n.d.). SUMIT11899/automated-chessboard. GitHub. https://github.com/sumit11899/Automated-ChessBoard
 
-[17] (Amazon.com: NowTH USB Microphone Lavalier Lapel Clip on Mic With 6.56ft Cable for Laptop, Computer, PC, Streaming Conferencing,Interviews, Online Singing, Skype, MSN, Audio Video Recording : Electronics, n.d.)
+[17] US Chess, "US Chess Guidelines for Accessible Chess Events," Apr. 2020. https://new.uschess.org/sites/default/files/wp-thumbnails/2020/04/Accessibility-Guidelines-April-2020.pdf.
 
-[18] Amazon.com: ELEGOO UNO R3 Board ATmega328P with USB Cable(Arduino-Compatible) for Arduino : Electronics. (n.d.). https://www.amazon.com/ELEGOO-Board-ATmega328P-ATMEGA16U2-Compliant/dp/B01EWOE0UU
+[18] VOSK Offline Speech Recognition API. (n.d.). VOSK Offline Speech Recognition API. https://alphacephei.com/vosk/
 
 ## Statement of Contributions
 
