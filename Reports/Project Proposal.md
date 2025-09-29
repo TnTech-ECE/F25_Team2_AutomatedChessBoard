@@ -33,9 +33,9 @@ The chess board will meet the following requirements to ensure reliability and o
 1. **Voice Input**
 
     - Board shall recognize voice input with an accuracy of at least 80%.
-    - Board shall listen for input while a button is pressed to avoid accidental moves.
+    - Board shall listen for input while a button is pressed or after a command word is spoken to avoid accidental moves.
     - Board shall recognize commands in algebraic chess notation and other common variations (Knight to e5, Bishop a4, etc.).
-    - Board shall process commands within 2 seconds of button release.
+    - Board shall process commands within 5 seconds of button release or end of voice command.
 2. **Automated Piece Movement**
 
     - Board shall move pieces within half an inch of the center of each square.
