@@ -216,8 +216,8 @@ By meeting these success criteria, the project will demonstrate its effectivenes
 This project will include various hardware components, software, and mechanical parts in order to effectively move the chess pieces autonomously, integrate AI, process voice recognition, and present everything in a professional-looking chessboard. 
 
 #### Hardware Components
-1. Processing Unit: A Raspberry Pi 4 will handle Stockfish chess AI, voice recognition software, and communication with the Arduino [14].
-2. Control Unit: An Arduino Uno or Mega will directly control the stepper drivers and coordinate motor movement [18].
+1. Processing Unit: A microcontroller capable of handling system communications, voice recognition software, and chess AI processing [14].
+2. Control Unit: A dedicated microcontroller board will interface with the stepper drivers and coordinate motor movement, helping to reduce the processing load and latency on the main processing unit [18].
 3. Microphone: A USB microphone will capture player voice commands for the Vosk speech recognition engine [17].
 4. Power Supply: Provides regulated 12V for the stepper motors and 5V for the Raspberry Pi and control electronics [15] [16].
    
@@ -235,7 +235,7 @@ The CoreXY mechanism uses two stepper motors and a system of belts and pulleys a
 This is an estimate of the cost for the major materials needed:
 | Item                      | Description / Notes                      | Quantity | Approx Cost (USD) |
 |---------------------------|------------------------------------------|----------|-------------------|
-| Raspberry Pi 4 Model B    | 4GB RAM, runs Stockfish + voice software | 1        | $55–$65           |
+| Raspberry Pi              | 4GB RAM, runs Stockfish + voice software | 1        | $55–$65           |
 | MicroSD Card              | 32 GB, Class 10, holds OS + software     | 1        | $8–$12            |
 | Microphone                | USB for voice recognition                | 1        | $10–$20           |
 | NEMA 17 Stepper Motors    | Moves the pulley system                  | 2        | $12–$15 each      |
