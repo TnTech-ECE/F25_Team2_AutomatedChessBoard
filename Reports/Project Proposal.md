@@ -275,7 +275,7 @@ Total Estimated Cost: The project should fall within $250 on average, with a max
 - *Current Skills:* Digital Systems, Programming, Microcontroller knowledge, R  
 - *Skills to Learn:* Signal Processing, MATLAB, Mechanical Systems  
 
-**Jack Tolleston**  
+**Jack Tolleson**  
 - *Current Skills:* Digital Systems, Programming, Microcontroller knowledge, R, API / Networking  
 - *Skills to Learn:* AI, Embedded Systems, Magnetics  
 
@@ -287,7 +287,9 @@ Total Estimated Cost: The project should fall within $250 on average, with a max
 - *Current Skills:* Digital Systems, Embedded Systems, Microcontroller knowledge, Power Electronics, R  
 - *Skills to Learn:* Signal Processing, AI, Magnetics  
 
-*Note:* This list highlights each member’s strongest skills. Depending on the project, required skills or assignments may change.  
+*Note:* This list highlights each member’s strongest skills. Depending on the project, required skills or assignments may change.
+
+To learn the skills needed for the project, the team will determine what to focus on during conceptual design. To avoid wasting time on unnecessary skills, team members will prioritize learning new skills only after the project is divided into smaller sections. This approach ensures coverage across the skills necessary and minimizes overlap. If a team member encounters a skill they do not yet know while working on their section, they are responsible for dedicating the necessary time to learn it. If a skill required for a section is already known by another teammate, the responsible member may seek their advice, but the primary responsibility remains with the person working on that section. Should the responsible member encounter a roadblock that cannot be resolved with teammate support, they should seek guidance from the project advisor or other appropriate resources.
 
 
 #### Supervisor
