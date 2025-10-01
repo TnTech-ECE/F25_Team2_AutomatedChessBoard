@@ -20,31 +20,31 @@ Current automated chess boards are expensive and lack features such as online fu
 ### Background
 
 
-During the pandemic, chess increased in popularity [5]. Online chess specifically had a major influx of activity, with Chess.com adding 1 million accounts from March to November 2020, and a 2.8 million member increase in November alone [5]. This newfound popularity opens up opportunities for innovation on this classic game. An automated chess board would support primarily online chess players who want to improve their over-the-board (OTB) game.
+During the pandemic, chess increased in popularity [13]. Online chess specifically had a major influx of activity, with Chess.com adding 1 million accounts from March to November 2020, and a 2.8 million member increase in November alone [13]. This newfound popularity opens up opportunities for innovation on this classic game. An automated chess board would support primarily online chess players who want to improve their over-the-board (OTB) game.
 
 AI has had a major impact in the world of chess, especially in the context of online play [6]. It provides learning opportunities, as certain AI can beat any human player. Chess games played OTB do not usually have this capability except for automated boards. AI in OTB implementations will allow players to improve by progressively increasing the strength of their opponent. This function would aid online players transitioning to OTB play, as they could play against AI before a human opponent. This feature also supports those who want to play OTB chess but cannot do so alone.
 
-Many efforts have been made to ensure that chess tournaments are accommodating to those with disabilities [7]. These accommodations still could be improved upon for player autonomy and ease in preparing. For those with Alzheimer’s, other dementias, dyslexia, dysgraphia, fine/gross motor needs, who are blind, or those with a temporary disability such as a broken hand, an accommodation that can be made is the assignment of a Game Assistant (GA) [7]. In cases such as these, the GA may be needed for piece movement, clock pressing, and/or scoring [7]. An automated board could help as an alternative to a GA by helping with piece movement, automatically keeping time, and automating scoring. This would allow players more independence, as they would not have to rely on the assistance of a GA, and fewer volunteers would be needed for tournaments.
+Many efforts have been made to ensure that chess tournaments are accommodating to those with disabilities [17]. These accommodations still could be improved upon for player autonomy and ease in preparing. For those with Alzheimer’s, other dementias, dyslexia, dysgraphia, fine/gross motor needs, who are blind, or those with a temporary disability such as a broken hand, an accommodation that can be made is the assignment of a Game Assistant (GA) [17]. In cases such as these, the GA may be needed for piece movement, clock pressing, and/or scoring [17]. An automated board could help as an alternative to a GA by helping with piece movement, automatically keeping time, and automating scoring. This would allow players more independence, as they would not have to rely on the assistance of a GA, and fewer volunteers would be needed for tournaments.
 
 ## Specifications
 
-The chess board will meet the following requirements to ensure reliability and operability:
+The chessboard will meet the following requirements to ensure reliability and operability:
 
 1. **Voice Input**
 
     - Board shall recognize voice input with an accuracy of at least 80%.
-    - Board shall listen for input while a button is pressed to avoid accidental moves.
+    - Board shall listen for input while a button is pressed or after a command word is spoken to avoid accidental moves.
     - Board shall recognize commands in algebraic chess notation and other common variations (Knight to e5, Bishop a4, etc.).
-    - Board shall process commands within 2 seconds of button release.
+    - Board shall process commands within 5 seconds of button release or end of voice command.
 2. **Automated Piece Movement**
 
     - Board shall move pieces within half an inch of the center of each square.
     - Board shall ensure that all pieces remain upright and stable while moving.
-    - Board shall finish any single piece move within 5 seconds of beginning the movement.
+    - Board shall finish any single-piece move within 5 seconds of beginning the movement.
     - Board shall notice and remove 95% of captured pieces without piece collision.
 3. **Portability and Accessibility**
 
-    - Board shall weigh less than 30 pounds such that it can be moved by one person.
+    - Board shall weigh less than 30 pounds such that one person can move it.
     - Board shall have labels on each file and rank to assist users in locating each square.
     - Board may have a carrying case or handle.
 4. **Power and Safety**
@@ -74,7 +74,7 @@ The chessboard will be designed to operate efficiently while adhering to the fol
 
 3. **Accessibility and Ergonomic Constraints**
 
-    - Board shall conform to the Section 508 of the Rehabilitation Act for electronic systems, ensuring digital interfaces (e.g., voice command, status indicators) are accessible to users with disabilities.
+    - Board shall conform to Section 508 of the Rehabilitation Act for electronic systems, ensuring digital interfaces (e.g., voice command, status indicators) are accessible to users with disabilities.
     - Board shall follow ergonomic interface design principles from ANSI/HFES 100-2007, including appropriate control placement, spacing, and feedback mechanisms.
     - Board shall avoid design elements that may cause confusion or usability issues for individuals with cognitive or motor impairments, adhering to universal design principles where possible.
 
@@ -82,17 +82,17 @@ The chessboard will be designed to operate efficiently while adhering to the fol
 
 Existing solutions for automated chessboards range from DIY projects to commercially-produced boards:
 
-* **Industrial Solutions**: Several companies offer high-end automated boards with AI opponents and online connectivity. These solutions, however, are often too expensive for the average user, making them impractical for this application.
+**Industrial Solutions**: Several companies offer high-end automated boards with AI opponents and online connectivity. These solutions, however, are often too expensive for the average user, making them impractical for this application.
 
 Below are multiple Industrial solutions that have implications for our project:
 
-*ChessUp 2 Smart Chess Board [1]: A WiFi-enabled smart chessboard featuring chip recognition technology and direct integration with Chess.com, offered at a relatively lower cost of $399.99.
+*ChessUp 2 Smart Chess Board: A WiFi-enabled smart chessboard featuring chip recognition technology and direct integration with Chess.com, offered at a relatively lower cost of $399.99.[5]
 
 Cons:
 * Cannot move pieces autonomously.
 * Requires a stable WiFi connection to Chess.com for AI functionality.
 
-*Miko Chess Grand [2]: A premium wooden smart chessboard equipped with a magnetic robotic arm beneath the surface for automated piece movement. It includes wooden pieces, a high-quality 12-pound wooden board, and dedicated storage space for captured pieces, priced at $549.99.
+*Miko Chess Grand: A premium wooden smart chessboard equipped with a magnetic robotic arm beneath the surface for automated piece movement. It includes wooden pieces, a high-quality 12-pound wooden board, and dedicated storage space for captured pieces, priced at $549.99.[11]
 
 Cons:
 * The board’s weight makes it less portable.
@@ -100,14 +100,14 @@ Cons:
 * The robotic arm cannot make moves for the first player except when removing pieces from the board.
 * Does not include voice recognition functionality.
 
-*Chessnut Move [3]: An advanced robotic chessboard featuring integrated voice command support, offline AI gameplay, and connectivity with Chess.com. Priced at $899.99, it provides one of the most interactive experiences currently available.
+*Chessnut Move: An advanced robotic chessboard featuring integrated voice command support, offline AI gameplay, and connectivity with Chess.com. Priced at $899.99, it provides one of the most interactive experiences currently available.[4]
 
 Cons:
 * Pieces occasionally collide during automated movement.
 * The design relies on each piece containing its own robotic base, which significantly increases cost.
 * Oversized piece bases reduce aesthetic appeal and make the board feel crowded.
 
-*GoChess Mini [4]: A compact and lightweight smart chessboard featuring illuminated path indicators for piece movement, Bluetooth connectivity, adjustable AI difficulty, and Chess.com integration. Priced at $249.95 and weighing 6.6 pounds, it offers an affordable entry point into smart chessboards.
+*GoChess Mini: A compact and lightweight smart chessboard featuring illuminated path indicators for piece movement, Bluetooth connectivity, adjustable AI difficulty, and Chess.com integration. Priced at $249.95 and weighing 6.6 pounds, it offers an affordable entry point into smart chessboards.[8]
 
 Cons:
 * Battery-powered system requires two hours to fully charge, supporting up to 100 hours of playtime (reduced to about five hours when lights are enabled).
@@ -115,25 +115,25 @@ Cons:
 * Lacks an automated reset function for returning pieces to their starting positions.
 
 
-* **DIY Solutions**: Several open-source projects present designs of varying complexity. Some rely on stepper motors and Arduinos for piece movement, while others incorporate Raspberry Pis and computer vision to track pieces and issue precise directions via microcontrollers.
+**DIY Solutions**: Several open-source projects present designs of varying complexity. Some rely on stepper motors and Arduinos for piece movement, while others incorporate Raspberry Pis and computer vision to track pieces and issue precise directions via microcontrollers.
 
 Below are multiple DIY solutions that have implications for our project:
 
 
-*8x8 Smart Chess Board [9]: A Raspberry Pi–controlled prototype that uses stepper motors, lead screw mechanisms, and an electromagnetic head to move magnetized chess pieces. The design mimics the motion of a 3D printer to achieve movement across the XY plane. The design utilizes a min-max algorithm to generate the best move predictions.
+*8x8 Smart Chess Board: A Raspberry Pi–controlled prototype that uses stepper motors, lead screw mechanisms, and an electromagnetic head to move magnetized chess pieces. The design mimics the motion of a 3D printer to achieve movement across the XY plane. The design utilizes a min-max algorithm to generate the best move predictions.[10]
 
 Cons:
 * The stepper motor system has experienced notable failures.
 * The bill of materials (BOM) is incomplete.
 
-*Techievince 8.0 – Electronics Club IITG Project [10]: An Arduino-based system programmed in Embedded C that integrates the Micro Max chess engine using Minimax and Alpha-Beta algorithms. It employs an XY trolley system with stepper motors, magnetized pieces, and an electromagnetic head, along with multiplexed reed switch sensors for piece displacement detection.
+*Techievince 8.0 – Electronics Club IITG Project: An Arduino-based system programmed in Embedded C that integrates the Micro Max chess engine using Minimax and Alpha-Beta algorithms. It employs an XY trolley system with stepper motors, magnetized pieces, and an electromagnetic head, along with multiplexed reed switch sensors for piece displacement detection.[16]
 
 Cons:
 * Visually less appealing compared to other designs.
 * Requires specialized magnetic chess pieces, increasing overall cost.
 * Does not include voice recognition functionality.
 
-*Chess Automation Using Computer Vision [11]: A computer vision–driven approach that uses a camera, OpenCV, and NumPy to detect the chessboard, track pieces in real time, and record game history. The system identifies moves directly from image or video input without requiring embedded magnets or sensors.
+*Chess Automation Using Computer Vision: A computer vision–driven approach that uses a camera, OpenCV, and NumPy to detect the chessboard, track pieces in real time, and record game history. The system identifies moves directly from image or video input without requiring embedded magnets or sensors.[14]
 
 Cons:
 * Lacks integrated AI functionality.
@@ -216,51 +216,43 @@ By meeting these success criteria, the project will demonstrate its effectivenes
 This project will include various hardware components, software, and mechanical parts in order to effectively move the chess pieces autonomously, integrate AI, process voice recognition, and present everything in a professional-looking chessboard. 
 
 #### Hardware Components
-1. Processing Unit: A microcontroller capable of handling system communications, voice recognition software, and chess AI processing [14].
-2. Control Unit: A dedicated microcontroller board will interface with the stepper drivers and coordinate motor movement, helping to reduce the processing load and latency on the main processing unit [18].
-3. Microphone: A USB microphone will capture player voice commands for the Vosk speech recognition engine [17].
-4. Power Supply: Provides regulated 12V for the stepper motors and 5V for the processing unit and control electronics [15] [16].
+1. Processing Unit: A Raspberry Pi 4 will handle Stockfish chess AI, voice recognition software, and communication with the Arduino [9].
+2. Control Unit: An Arduino Uno or Mega will directly control the stepper drivers and coordinate motor movement [2].
+3. Microphone: A USB microphone will capture player voice commands for the Vosk speech recognition engine [3].
+4. Power Supply: Provides regulated 12V for the stepper motors and 5V for the Raspberry Pi and control electronics [12] [1].
    
 #### Software 
 
-Stockfish: Open-source chess engine that will handle AI decision-making and gameplay logic [12].
+Stockfish: Open-source chess engine that will handle AI decision-making and gameplay logic [15].
 
-Vosk: Lightweight offline speech recognition engine for translating spoken commands into text for system input [13].
+Vosk: Lightweight offline speech recognition engine for translating spoken commands into text for system input [18].
 
 #### CoreXY 
-The CoreXY mechanism uses two stepper motors and a system of belts and pulleys arranged so that coordinated motor movements move a single carriage in both X and Y directions [14]. The carriage will hold a strong neodymium magnet, which moves underneath the board to drag metal-based chess pieces across the surface. This setup allows smooth, precise, and fast motion across the entire 8×8 chess grid.
+The CoreXY mechanism uses two stepper motors and a system of belts and pulleys arranged so that coordinated motor movements move a single carriage in both X and Y directions [9]. The carriage will hold a strong neodymium magnet, which moves underneath the board to drag metal-based chess pieces across the surface. This setup allows smooth, precise, and fast motion across the entire 8×8 chess grid.
 
 ### Budget
 <!-- This will increase/change over time not 100% sure about materials -->
 This is an estimate of the cost for the major materials needed:
 | Item                      | Description / Notes                      | Quantity | Approx Cost (USD) |
 |---------------------------|------------------------------------------|----------|-------------------|
-| Processing Unit           | Runs Stockfish + voice software          | 1        | $55–$65           |
-| MicroSD Card              | Holds OS + software                      | 1        | $8–$12            |
+| Raspberry Pi 4 Model B    | 4GB RAM, runs Stockfish + voice software | 1        | $55–$65           |
+| MicroSD Card              | 32 GB, Class 10, holds OS + software     | 1        | $8–$12            |
 | Microphone                | USB for voice recognition                | 1        | $10–$20           |
-| Stepper Motors            | Moves the pulley system                  | 2        | $12–$15 each      |
-| Belt + Pulleys            | 2 pulleys                                | 1 set    | $8–$12            |
+| NEMA 17 Stepper Motors    | Moves the pulley system                  | 2        | $12–$15 each      |
+| GT2 Belt + Pulleys        | 6mm width, 2m length + 2 pulleys         | 1 set    | $8–$12            |
 | CoreXY / XY Framework     | Rails, idlers, frame                     | 1        | $40–$80           |
-| Control Unit              | Controls stepper drivers (from PU input) | 1        | $10–$20           |
+| Arduino Uno / Mega        | Controls stepper drivers (from Pi input) | 1        | $10–$20           |
 | Stepper Driver Boards     | Big Easy Driver / A4988 / DRV8825        | 2        | $5–$20 each       |
-| Magnet                    | Will be used to attach CoreXY to pieces  | 1–2      | $5–$10            |
-| Power Supply              | 12V (for motors) + 5V 3A (for PU)        | 1        | $15–$25           |
+| Neodymium Magnet          | 20–30 mm diameter, strong grade (N42+)   | 1–2      | $5–$10            |
+| Power Supply              | 12V (for motors) + 5V 3A (for Pi)        | 1        | $15–$25           |
 | Chessboard Frame          | Wooden or 3D printed                     | 1        | $20–$40           |
-| Chess Piece Set           | With metal in bases                      | 1        | $15–$30           |
-| Prototyping Cost          | Extra material, spares, test components  |          | $150              |
+| Chess Piece Set           | With metal washers in bases              | 1        | $15–$30           |
 
-
-Primary Costs: The largest expenses will be the processing unit (for AI + speech recognition) and the CoreXY mechanical framework (belts, rails, and frame) [14] [15].
+Primary Costs: The largest expenses will be the Raspberry Pi (for AI + speech recognition) and the CoreXY mechanical framework (belts, rails, and frame) [9] [12].
 
 Cost-Saving Options: The chessboard and pieces could be 3D printed to reduce costs. Drawer slides or DIY wood rails could possibly replace linear rails for a cheaper CoreXY build.
 
-Prototyping Costs: These may include replacement parts in the event of component failure, testing materials such as alternative chessboard frame options, and any additional components identified as necessary during the development process.
-
-Total Estimated Cost: 
-   Core build: ~$250 average, up to $350 max.
-   
-   With prototyping extras: ~$400 average, up to $500 max.
-   
+Total Estimated Cost: The project should fall within $250 on average, with a maximum of $350 if higher-quality parts are chosen.
 
 
 
@@ -283,7 +275,7 @@ Total Estimated Cost:
 - *Current Skills:* Digital Systems, Programming, Microcontroller knowledge, R  
 - *Skills to Learn:* Signal Processing, MATLAB, Mechanical Systems  
 
-**Jack Tolleston**  
+**Jack Tolleson**  
 - *Current Skills:* Digital Systems, Programming, Microcontroller knowledge, R, API / Networking  
 - *Skills to Learn:* AI, Embedded Systems, Magnetics  
 
@@ -295,7 +287,9 @@ Total Estimated Cost:
 - *Current Skills:* Digital Systems, Embedded Systems, Microcontroller knowledge, Power Electronics, R  
 - *Skills to Learn:* Signal Processing, AI, Magnetics  
 
-*Note:* This list highlights each member’s strongest skills. Depending on the project, required skills or assignments may change.  
+*Note:* This list highlights each member’s strongest skills. Depending on the project, required skills or assignments may change.
+
+To learn the skills needed for the project, the team will determine what to focus on during conceptual design. To avoid wasting time on unnecessary skills, team members will prioritize learning new skills only after the project is divided into smaller sections. This approach ensures coverage across the skills necessary and minimizes overlap. If a team member encounters a skill they do not yet know while working on their section, they are responsible for dedicating the necessary time to learn it. If a skill required for a section is already known by another teammate, the responsible member may seek their advice, but the primary responsibility remains with the person working on that section. Should the responsible member encounter a roadblock that cannot be resolved with teammate support, they should seek guidance from the project advisor or other appropriate resources.
 
 
 #### Supervisor
@@ -384,41 +378,41 @@ In summary, this project holds promise for positive, broader impacts by advancin
 
 ## References
 
-[1] ChessUp 2 Smart Chess Board. Bryght Labs. (n.d.). https://playchessup.com/products/chessup-2
+[1] Adafruit Industries. (n.d.). Stepper motor - NEMA-17 size - 200 steps/rev, 12V 350mA. https://www.adafruit.com/product/324
 
-[2] Miko Chess Grand. Miko. (n.d.). https://miko.ai/pages/miko-chess-grand 
+[2] Amazon.com: ELEGOO UNO R3 Board ATmega328P with USB Cable(Arduino-Compatible) for Arduino : Electronics. (n.d.). https://www.amazon.com/ELEGOO-Board-ATmega328P-ATMEGA16U2-Compliant/dp/B01EWOE0UU
 
-[3] Chessnutech. (n.d.). Chessnut move - advanced robotic chessboard with Plastic Pieces. Chessnut. https://www.chessnutech.com/products/chessnut-move-advanced-robotic-chessboard-with-plastic-pieces 
+[3] Amazon.com: NowTH USB Microphone Lavalier Lapel Clip on Mic With 6.56ft Cable for Laptop, Computer, PC, Streaming Conferencing,Interviews, Online Singing, Skype, MSN, Audio Video Recording : Electronics, n.d.
 
-[4] GoChess Mini. Particula. (n.d.). https://particula-tech.com/products/gochess-mini?variant=45806634402040&country=US&currency=USD&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic&srsltid=AfmBOooAY445sOW--M7GA0T4jbNkHE609yl_YKlFLR9iyhF7eX9KFsd9ubc
+[4] Chessnutech. (n.d.). Chessnut move - advanced robotic chessboard with Plastic Pieces. Chessnut. https://www.chessnutech.com/products/chessnut-move-advanced-robotic-chessboard-with-plastic-pieces
 
-[5] R. Lahood, "The Queen’s Gambit, the Chess Boom, and the Future of Chess," Michigan Journal of Economics, Apr. 5, 2021. https://sites.lsa.umich.edu/mje/2021/04/05/the-queens-gambit-the-chess-boom-and-the-future-of-chess/.
+[5] ChessUp 2 Smart Chess Board. Bryght Labs. (n.d.). https://playchessup.com/products/chessup-2
 
-[6] D. M. D. Iliescu, "The Impact of Artificial Intelligence on the Chess World," *JMIR Serious Games*, vol. 8, no. 4, p. e24049, Dec. 2020. https://pmc.ncbi.nlm.nih.gov/articles/PMC7759436/.
+[6] D. M. D. Iliescu, "The Impact of Artificial Intelligence on the Chess World," JMIR Serious Games, vol. 8, no. 4, p. e24049, Dec. 2020. https://pmc.ncbi.nlm.nih.gov/articles/PMC7759436/.
 
-[7] US Chess, "US Chess Guidelines for Accessible Chess Events," Apr. 2020. https://new.uschess.org/sites/default/files/wp-thumbnails/2020/04/Accessibility-Guidelines-April-2020.pdf.
+[7] Davis, E. (2023, November 12). The Rise of Board Game Cafes: Socializing through Analog Entertainment. Medium. https://ethan-davis.medium.com/the-rise-of-board-game-cafes-socializing-through-analog-entertainment-51857183f856
 
-[8] Davis, E. (2023, November 12). The Rise of Board Game Cafes: Socializing through Analog Entertainment. Medium. https://ethan-davis.medium.com/the-rise-of-board-game-cafes-socializing-through-analog-entertainment-51857183f856
+[8] GoChess Mini. Particula. (n.d.). https://particula-tech.com/products/gochess-mini?variant=45806634402040&country=US&currency=USD&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic&srsltid=AfmBOooAY445sOW--M7GA0T4jbNkHE609yl_YKlFLR9iyhF7eX9KFsd9ubc
 
-[9] MFOSSociety. (n.d.). MFOSSociety/8-8: 8/8: Smart Chess Board: An Automated Ai Chess Board. GitHub. https://github.com/MFOSSociety/8-8 
+[9] Instructables. (2019, September 13). CoreXY CNC Plotter. Instructables. https://www.instructables.com/CoreXY-CNC-Plotter/
 
-[10] sumit11899. (n.d.). SUMIT11899/automated-chessboard. GitHub. https://github.com/sumit11899/Automated-ChessBoard 
+[10] MFOSSociety. (n.d.). MFOSSociety/8-8: 8/8: Smart Chess Board: An Automated Ai Chess Board. GitHub. https://github.com/MFOSSociety/8-8
 
-[11] Simarmehta. (n.d.). Simarmehta/CHESSAUTOMATION_CV. GitHub. https://github.com/simarmehta/chessAutomation_CV 
+[11] Miko Chess Grand. Miko. (n.d.). https://miko.ai/pages/miko-chess-grand
 
-[12] Stockfish. (n.d.). Stockfish. https://stockfishchess.org/
+[12] PiShop. (n.d.). Raspberry Pi 4 Model B/4GB. PiShop.us. https://www.pishop.us/product/raspberry-pi-4-model-b-4gb/
 
-[13] VOSK Offline Speech Recognition API. (n.d.). VOSK Offline Speech Recognition API. https://alphacephei.com/vosk/
+[13] R. Lahood, "The Queen’s Gambit, the Chess Boom, and the Future of Chess," Michigan Journal of Economics, Apr. 5, 2021. https://sites.lsa.umich.edu/mje/2021/04/05/the-queens-gambit-the-chess-boom-and-the-future-of-chess/.
 
-[14] Instructables. (2019, September 13). CoreXY CNC Plotter. Instructables. https://www.instructables.com/CoreXY-CNC-Plotter/
+[14] Simarmehta. (n.d.). Simarmehta/CHESSAUTOMATION_CV. GitHub. https://github.com/simarmehta/chessAutomation_CV
 
-[15] PiShop. (n.d.). Raspberry Pi 4 Model B/4GB. PiShop.us. https://www.pishop.us/product/raspberry-pi-4-model-b-4gb/
+[15] Stockfish. (n.d.). Stockfish. https://stockfishchess.org/
 
-[16] Industries, A. (n.d.). Stepper motor - NEMA-17 size - 200 steps/rev, 12V 350mA. https://www.adafruit.com/product/324
+[16] sumit11899. (n.d.). SUMIT11899/automated-chessboard. GitHub. https://github.com/sumit11899/Automated-ChessBoard
 
-[17] (Amazon.com: NowTH USB Microphone Lavalier Lapel Clip on Mic With 6.56ft Cable for Laptop, Computer, PC, Streaming Conferencing,Interviews, Online Singing, Skype, MSN, Audio Video Recording : Electronics, n.d.)
+[17] US Chess, "US Chess Guidelines for Accessible Chess Events," Apr. 2020. https://new.uschess.org/sites/default/files/wp-thumbnails/2020/04/Accessibility-Guidelines-April-2020.pdf.
 
-[18] Amazon.com: ELEGOO UNO R3 Board ATmega328P with USB Cable(Arduino-Compatible) for Arduino : Electronics. (n.d.). https://www.amazon.com/ELEGOO-Board-ATmega328P-ATMEGA16U2-Compliant/dp/B01EWOE0UU
+[18] VOSK Offline Speech Recognition API. (n.d.). VOSK Offline Speech Recognition API. https://alphacephei.com/vosk/
 
 ## Statement of Contributions
 
@@ -433,4 +427,4 @@ Allison Givens - Formulating the Problem, Background, Personnel, Timeline
 
 Lewis Forrest Bates - Specific Implications, Broader Implications, Ethics, and Responsibility as Engineers, Survey of Existing Solutions
 
-All - Proofreading and Editing        
+All - Proofreading and Editing
