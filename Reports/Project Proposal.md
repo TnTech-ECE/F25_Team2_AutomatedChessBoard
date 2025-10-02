@@ -4,13 +4,13 @@
 
 As chess continues to grow in popularity, the demand for new, more interesting chess technology has become increasingly apparent. One of the newest innovations made to meet this demand is the automated chess board. Automated chess boards are capable of moving each piece around the board without human intervention, allowing users to play over the board against computers, people with disabilities, and friends across the world. Although this advancement has provided many new and exciting opportunities in the world of chess, automated boards prove to be too expensive for widespread use by average consumers. This project aims to design an automated chess board at a cheaper price, providing its benefits to more people around the world.
 
-The remainder of this proposal will:
-- Identify and further define the problems with current automated chess boards.
-- Create specifications and constraints for voice input, piece movement, accessibility, safety, and affordability to ensure that we solve our problem.
-- Examine current automated chess boards in greater detail, identifying where they can be improved.
-- Define our goals so that we may measure in hindsight how successful we were in solving our problem.
-- List what resources we have and what we need to be able to create our chess board.
-- Discuss the outward implications this chess board may have to wider audiences.
+This project will serve two main purposes:
+
+1. **Moving chess pieces automatically:** Automated chess board movement allows people with disabilities or vision issues to enjoy the game of chess more, while also being an interesting and new experience for a general audience. This chess board will individually grab, move and capture pieces to provide a clean user experience.
+   
+2. **Making automatic chess more accessible:** Most existing automated chess boards are extremely expensive, preventing a wide audience from being able to enjoy it. By not operating for profit and keeping detailed notes on the creation and assembly of the board, this chess board will be dramatically cheaper than existing solutions.
+
+By allowing the autonomous movement of pieces upon receiving a spoken command at a cheaper price, this product will allow a larger audience to enjoy the experience and impact of automated chess boards.
 
 
 ## Formulating the Problem
