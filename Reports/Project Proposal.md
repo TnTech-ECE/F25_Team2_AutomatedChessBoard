@@ -216,43 +216,50 @@ By meeting these success criteria, the project will demonstrate its effectivenes
 This project will include various hardware components, software, and mechanical parts in order to effectively move the chess pieces autonomously, integrate AI, process voice recognition, and present everything in a professional-looking chessboard. 
 
 #### Hardware Components
-1. Processing Unit: A Raspberry Pi 4 will handle Stockfish chess AI, voice recognition software, and communication with the Arduino [9].
-2. Control Unit: An Arduino Uno or Mega will directly control the stepper drivers and coordinate motor movement [2].
-3. Microphone: A USB microphone will capture player voice commands for the Vosk speech recognition engine [3].
-4. Power Supply: Provides regulated 12V for the stepper motors and 5V for the Raspberry Pi and control electronics [12] [1].
+1. Processing Unit: A microcontroller capable of handling system communications, voice recognition software, and chess AI processing [14].
+2. Control Unit: A dedicated microcontroller board will interface with the stepper drivers and coordinate motor movement, helping to reduce the processing load and latency on the main processing unit [18].
+3. Microphone: A USB microphone will capture player voice commands for the Vosk speech recognition engine [17].
+4. Power Supply: Provides regulated 12V for the stepper motors and 5V for the processing unit and control electronics [15] [16].
    
 #### Software 
 
-Stockfish: Open-source chess engine that will handle AI decision-making and gameplay logic [15].
+Stockfish: Open-source chess engine that will handle AI decision-making and gameplay logic [12].
 
-Vosk: Lightweight offline speech recognition engine for translating spoken commands into text for system input [18].
+Vosk: Lightweight offline speech recognition engine for translating spoken commands into text for system input [13].
 
 #### CoreXY 
-The CoreXY mechanism uses two stepper motors and a system of belts and pulleys arranged so that coordinated motor movements move a single carriage in both X and Y directions [9]. The carriage will hold a strong neodymium magnet, which moves underneath the board to drag metal-based chess pieces across the surface. This setup allows smooth, precise, and fast motion across the entire 8×8 chess grid.
+The CoreXY mechanism uses two stepper motors and a system of belts and pulleys arranged so that coordinated motor movements move a single carriage in both X and Y directions [14]. The carriage will hold a strong neodymium magnet, which moves underneath the board to drag metal-based chess pieces across the surface. This setup allows smooth, precise, and fast motion across the entire 8×8 chess grid.
 
 ### Budget
 <!-- This will increase/change over time not 100% sure about materials -->
 This is an estimate of the cost for the major materials needed:
 | Item                      | Description / Notes                      | Quantity | Approx Cost (USD) |
 |---------------------------|------------------------------------------|----------|-------------------|
-| Raspberry Pi 4 Model B    | 4GB RAM, runs Stockfish + voice software | 1        | $55–$65           |
-| MicroSD Card              | 32 GB, Class 10, holds OS + software     | 1        | $8–$12            |
+| Processing Unit           | Runs Stockfish + voice software          | 1        | $55–$65           |
+| MicroSD Card              | Holds OS + software                      | 1        | $8–$12            |
 | Microphone                | USB for voice recognition                | 1        | $10–$20           |
-| NEMA 17 Stepper Motors    | Moves the pulley system                  | 2        | $12–$15 each      |
-| GT2 Belt + Pulleys        | 6mm width, 2m length + 2 pulleys         | 1 set    | $8–$12            |
+| Stepper Motors            | Moves the pulley system                  | 2        | $12–$15 each      |
+| Belt + Pulleys            | 2 pulleys                                | 1 set    | $8–$12            |
 | CoreXY / XY Framework     | Rails, idlers, frame                     | 1        | $40–$80           |
-| Arduino Uno / Mega        | Controls stepper drivers (from Pi input) | 1        | $10–$20           |
+| Control Unit              | Controls stepper drivers (from PU input) | 1        | $10–$20           |
 | Stepper Driver Boards     | Big Easy Driver / A4988 / DRV8825        | 2        | $5–$20 each       |
-| Neodymium Magnet          | 20–30 mm diameter, strong grade (N42+)   | 1–2      | $5–$10            |
-| Power Supply              | 12V (for motors) + 5V 3A (for Pi)        | 1        | $15–$25           |
+| Magnet                    | Will be used to attach CoreXY to pieces  | 1–2      | $5–$10            |
+| Power Supply              | 12V (for motors) + 5V 3A (for PU)        | 1        | $15–$25           |
 | Chessboard Frame          | Wooden or 3D printed                     | 1        | $20–$40           |
-| Chess Piece Set           | With metal washers in bases              | 1        | $15–$30           |
+| Chess Piece Set           | With metal in bases                      | 1        | $15–$30           |
+| Prototyping Cost          | Extra material, spares, test components  |          | $150              |
 
-Primary Costs: The largest expenses will be the Raspberry Pi (for AI + speech recognition) and the CoreXY mechanical framework (belts, rails, and frame) [9] [12].
+
+Primary Costs: The largest expenses will be the processing unit (for AI + speech recognition) and the CoreXY mechanical framework (belts, rails, and frame) [14] [15].
 
 Cost-Saving Options: The chessboard and pieces could be 3D printed to reduce costs. Drawer slides or DIY wood rails could possibly replace linear rails for a cheaper CoreXY build.
 
-Total Estimated Cost: The project should fall within $250 on average, with a maximum of $350 if higher-quality parts are chosen.
+Prototyping Costs: These may include replacement parts in the event of component failure, testing materials such as alternative chessboard frame options, and any additional components identified as necessary during the development process.
+
+Total Estimated Cost: 
+   Core build: ~$250 average, up to $350 max.
+   
+   With prototyping extras: ~$400 average, up to $500 max.
 
 
 
