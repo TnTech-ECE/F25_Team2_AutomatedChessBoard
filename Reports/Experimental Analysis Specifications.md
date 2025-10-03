@@ -1,16 +1,17 @@
 # Experimental Analysis
 
-The goal of experimental analysis is to systematically evaluate how well your project meets its critical specifications, constraints, and measures of success. This process consists of three main stages:
+The goal of experimental analysis is to systematically evaluate how well your project meets its critical specifications, constraints, and measures of success. This process consists of four main stages:
 
 1. **Designing Experiments**
 2. **Conducting Experiments**
 3. **Analyzing Results and Drawing Conclusions**
+4. **Documenting and Tracking Components**
 
 After you are done with experimentation, write a report to document your findings.
 
 ## Designing Experiments
 
-Start by revisiting your conceptual design and clearly identifying the most critical requirements and success criteria impacting your project's overall goals. Collaborate as a team to determine these critical aspects. It is recommended to obtain instructor approval to confirm that these identified criteria are appropriate and sufficient for thorough evaluation.
+Start by revisiting your conceptual design and clearly identifying the most critical requirements and success criteria impacting your project's overall goals. Collaborate as a team to determine these critical aspects. It is required to obtain instructor/advisor approval to confirm that these identified criteria are appropriate and sufficient for thorough evaluation.
 
 Clearly define the following aspects for each experiment:
 
@@ -26,6 +27,7 @@ Clearly define the following aspects for each experiment:
   - Provide detailed, step-by-step instructions outlining how the experiment will be conducted.
   - Include specifics such as required equipment, environmental conditions, and preparation steps.
   - Procedures should be detailed enough to ensure repeatability and clarity.
+  - **Explicitly reference which items from your project inventory will be used in each step.**
 
 - **Data Collection**:
 
@@ -54,6 +56,7 @@ When carrying out experiments:
 - Conduct each trial consistently to ensure reliable and comparable results.
 - Record all data accurately and methodically.
 - Organize your data clearly, using appropriate formats such as tables, charts, or graphs for ease of analysis.
+- **Log all components used, damaged, or replaced during the experiment.**
 
 
 
@@ -68,7 +71,27 @@ After completing experiments:
 
 If analysis uncovers questions or uncertainties, consider designing and executing additional targeted experiments to refine your understanding.
 
+## Documenting and Tracking Components
 
+Each team must maintain a **complete and accurate record** of all components acquired or assigned during the semester. This will be stricttly enforced. This component tracking is not optional. Failure to keep a complete and accurate inventory will result in automatic failure of the Experimental Analysis report. At the end of the semester, all items must be accounted for and stations must be clean. Missing items or incomplete records will be treated as a failure to meet critical project requirements.
+
+- **Initial Inventory**
+  - List every item ordered, borrowed, or assigned.
+  - Include vendor, order number, cost, and assigned storage location.
+
+- **Usage Tracking**
+  - For each experiment, identify which inventory items were used.
+  - Record condition changes (e.g., damaged, consumed, modified).
+
+- **Final Inventory Check**
+  - At semester's end, all items must be returned or accounted for.
+  - Lab stations must be clean and organized.
+  - Missing items or incomplete documentation will result in **automatic failure of this assignment**.
+
+### Required Table Format  
+
+| Item # | Description | Quantity | Vendor/Source | Order # / ID | Storage Location (Lab Station / Box #) | Date Acquired | Condition (New/Used) | Notes (Experiment Used, Damaged, Returned) |  
+|--------|-------------|----------|---------------|--------------|-----------------------------------------|---------------|----------------------|--------------------------------------------|
 
 ## Writing the Report
 
@@ -101,7 +124,7 @@ For each documented experiment, you must include:
 
 
 
-When you have complete all of the experiments: clearly summarize whether your experiments demonstrated that your project meets the original success criteria outlined in your conceptual design. If success criteria were not met, discuss the reasons and outline steps for improvement.
+When you have complete all of the experiments: clearly summarize whether your experiments demonstrated that your project meets the original success criteria outlined in your conceptual design. If success criteria were not met, discuss the reasons and outline steps for improvement. At the end of the report, include your **complete, updated component inventory table.**
 
 
 
