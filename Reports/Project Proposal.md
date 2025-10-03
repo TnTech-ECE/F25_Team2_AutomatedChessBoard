@@ -11,16 +11,16 @@ The remainder of this proposal will:
 - Identify and further define the problems with current automated chess boards.
 
 
-- Create specifications and constraints for voice input, piece movement, accessibility, safety, and affordability to ensure that we solve our problem.
+- Create specifications and constraints for voice input, piece movement, accessibility, safety, and affordability.
 
 
 - Examine current automated chess boards in greater detail, identifying where they can be improved.
 
 
-- Define our goals so that we may measure in hindsight how successful we were in solving our problem.
+- Define ways to measure this chess board's effectiveness and successfulness.
 
 
-- List what resources we have and what we need to be able to create our chess board.
+- List what resources will be needed and used to create the chess board.
 
 
 - Discuss the outward implications this chess board may have to wider audiences.
