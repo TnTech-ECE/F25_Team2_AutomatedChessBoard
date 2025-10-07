@@ -67,16 +67,16 @@ Commercial smart chessboards provide refined integrations of automation, AI, and
    
 2. **Miko Chess Grand**
 
-  * Cost: $549.00
+    * Cost: $549.00
+    
+    * Pros: Offers online connectivity, an automatic board reset, and an adaptive AI.
   
-  * Pros: Offers online connectivity, an automatic board reset, and an adaptive AI.
-
-  * Cons:
- 
-   * The board’s weight makes it less portable.
-   * High-quality materials increase overall cost.
-   * The robotic arm cannot make moves for the first player except when removing pieces from the board.
-   * Does not include voice recognition functionality.
+    * Cons:
+   
+       * The board’s weight makes it less portable.
+       * High-quality materials increase overall cost.
+       * The robotic arm cannot make moves for the first player except when removing pieces from the board.
+       * Does not include voice recognition functionality.
 
 3. **Chessnut Move**
 
