@@ -38,8 +38,39 @@ The fully formulated problem is the overall objective and scope complete with th
 
 ## Comparative Analysis of Potential Solutions
 
-In this section, various potential solutions are hypothesized, design considerations are discussed, and factors influencing the selection of a solution are outlined. The chosen solution is then identified with justifications for its selection.
+Automated chessboards have emerged as innovative tools for enhancing gameplay, integrating automation and dynamic AI opponents. Current solutions range from DIY implementations to industrial-grade smart boards, each offering unique advantages and drawbacks. Below, we analyze multiple existing solutions to determine their suitability for addressing the challenges of affordability, automated capabilities, and accessibility.
 
+**DIY Solutions**
+
+....
+
+Advantages:
+
+* ....
+* ....
+* ....
+
+**Industrial Solutions**
+
+Industrial smart chessboards provide refined integrations of automation, AI, and connectivity but often come at a premium cost and complexity level. Below is the analysis of several existing options:
+
+1. Name here
+
+  * Cost: $____.00
+
+  * Pros: .....
+
+  * Cons:
+
+    * ....
+    * ....
+    * ....
+
+
+
+
+
+"In this section, various potential solutions are hypothesized, design considerations are discussed, and factors influencing the selection of a solution are outlined. The chosen solution is then identified with justifications for its selection."
 
 ## High-Level Solution
 
