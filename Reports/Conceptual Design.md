@@ -38,7 +38,7 @@ The fully formulated problem is the overall objective and scope complete with th
 
 ## Comparative Analysis of Potential Solutions
 
-Automated chessboards have emerged as innovative tools for enhancing gameplay, integrating automation and dynamic AI opponents. Current solutions range from DIY implementations to industrial-grade smart boards, each offering unique advantages and drawbacks. Below, we analyze multiple existing solutions to determine their suitability for addressing the challenges of affordability, automated capabilities, and accessibility.
+Automated chessboards have emerged as innovative tools for enhancing gameplay, integrating automation and dynamic AI opponents. Current solutions range from DIY implementations to commercially-available smart boards, each offering unique advantages and drawbacks. Below, we analyze multiple existing solutions to determine their suitability for addressing the challenges of affordability, automated capabilities, and accessibility.
 
 **DIY Solutions**
 
@@ -50,27 +50,70 @@ Advantages:
 * ....
 * ....
 
-**Industrial Solutions**
+**Commercial Solutions**
 
-Industrial smart chessboards provide refined integrations of automation, AI, and connectivity but often come at a premium cost and complexity level. Below is the analysis of several existing options:
+Commercial smart chessboards provide refined integrations of automation, AI, and connectivity but often come at a premium cost and complexity level. Below is the analysis of several existing options:
 
-1. Name here
+1. **ChessUp 2 Smart Chess Board**
 
-  * Cost: $____.00
+  * Cost: $399.99
 
-  * Pros: .....
+  * Pros: Provides piece placement tracking, piece movement lights, and an adjustable AI skill level
 
   * Cons:
 
-    * ....
-    * ....
-    * ....
+    * Cannot move pieces autonomously.
+    * Requires a stable WiFi connection to Chess.com for AI functionality.
+   
+2. **Miko Chess Grand**
 
+ * Cost: $549.00
+ 
+ * Pros: Offers online connectivity, an automatic board reset, and an adaptive AI.
+ * Cons:
 
+  * The board’s weight makes it less portable.
+  * High-quality materials increase overall cost.
+  * The robotic arm cannot make moves for the first player except when removing pieces from the board.
+  * Does not include voice recognition functionality.
 
+3. **Chessnut Move**
 
+  * Cost: $899.00
 
-"In this section, various potential solutions are hypothesized, design considerations are discussed, and factors influencing the selection of a solution are outlined. The chosen solution is then identified with justifications for its selection."
+  * Pros: Offers unique micro-robotics piece movement, precise piece tracking, and simulataneous piece movement.
+
+  * Cons:
+
+    * Pieces occasionally collide during automated movement.
+    * The design relies on each piece containing its own robotic base, which significantly increases cost.
+    * Oversized piece bases reduce aesthetic appeal and make the board feel crowded.
+
+4. **GoChess Mini**
+
+  * Cost: $299.95
+
+  * Pros: Compact, lightweight, and simple to set up
+
+  * Cons:
+
+    * Battery-powered system requires two hours to fully charge, supporting up to 100 hours of playtime (reduced to about five hours when lights are enabled).
+    * Does not support automated piece movement, requiring players to manually move all pieces.
+    * Lacks an automated reset function for returning pieces to their starting positions.
+
+**Analysis and Selection**
+
+Current solutions often remain too costly or inaccessible for the average user. In addition, many systems lack essential capabilities such as offline functionality, voice recognition, and reliable automated piece movement, leading to frequent piece collisions and reduced usability.
+
+After assessing the strengths and limitations of existing systems, it is evident that a new solution must address the following shortcomings:
+
+1. __CHECK MEASURES OF SUCCESS(?)__
+2. ...
+3. ...
+4. ...
+5. ...
+
+By integrating these features into a single cohesive system, the proposed design aims to bridge the gap between DIY and commercial smart chessboards, delivering a cost-effective, lightweight, and user-friendly solution that enhances accessibility and functionality for disabled chess players.
 
 ## High-Level Solution
 
