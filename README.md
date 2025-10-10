@@ -1,4 +1,4 @@
-# {Name of the Project} - Your project should have a catchy and functional name
+# Automated Chess Board - Your project should have a catchy and functional name
 
 The descriptions and information in all readme files in the starter repo (including this one) must be edited. All section descriptions must be deleted. Any failure to remove the description information (like the statement that you are currently reading) will be heavily penalized!
 
