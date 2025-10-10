@@ -38,83 +38,65 @@ The fully formulated problem is the overall objective and scope complete with th
 
 ## Comparative Analysis of Potential Solutions
 
-Automated chessboards have emerged as innovative tools for enhancing gameplay, integrating automation and dynamic AI opponents. Current solutions range from DIY implementations to commercially-available smart boards, each offering unique advantages and drawbacks. Below, we analyze multiple existing solutions to determine their suitability for addressing the challenges of affordability, automated capabilities, and accessibility.
+Automated chessboards have emerged as innovative tools for enhancing gameplay, integrating automation and dynamic AI opponents. Below, we analyze multiple existing solutions to determine their suitability for addressing the challenges of affordability, automated capabilities, and accessibility.
 
-**DIY Solutions**
+### Stepper Driver Boards
 
-....
+**Big Easy Driver** [1]
 
-Advantages:
-
-* ....
-* ....
-* ....
-
-**Commercial Solutions**
-
-Commercial smart chessboards provide refined integrations of automation, AI, and connectivity but often come at a premium cost and complexity level. Below is the analysis of several existing options:
-
-1. **ChessUp 2 Smart Chess Board**
-
-   * Cost: $399.99
- 
-   * Pros: Provides piece placement tracking, piece movement lights, and an adjustable AI skill level
- 
-   * Cons:
- 
-     * Cannot move pieces autonomously.
-     * Requires a stable WiFi connection to Chess.com for AI functionality.
-   
-2. **Miko Chess Grand**
-
-    * Cost: $549.00
-    
-    * Pros: Offers online connectivity, an automatic board reset, and an adaptive AI.
+  _Price:_ $22
   
-    * Cons:
-   
-       * The board’s weight makes it less portable.
-       * High-quality materials increase overall cost.
-       * The robotic arm cannot make moves for the first player except when removing pieces from the board.
-       * Does not include voice recognition functionality.
+  * _Pros:_
+  
+    * Based on the common A4988 architecture with extensive community resources.
+  
+    * Simple STEP/DIR interface requires minimal setup.
+  
+    * Drives most NEMA 17 motors comfortably (up to ~1.7 A/phase).
+  
+    * Simplifies power wiring by providing onboard 5 V logic.
+  
+  * _Cons:_
+  
+    * Produces audible hum or whine due to older A4988 microstepping.
+  
+    * Only up to 16× microstepping, resulting in less smooth motion.
+  
+    * Requires heatsinking near 2A current draw.
+  
+    * Lacks stall detection, UART control, or current auto-tuning.
+  
+    * May underperform with heavier loads or larger motors.
 
-3. **Chessnut Move**
 
-   * Cost: $899.00
- 
-   * Pros: Offers unique micro-robotics piece movement, precise piece tracking, and simulataneous piece movement.
- 
-   * Cons:
- 
-     * Pieces occasionally collide during automated movement.
-     * The design relies on each piece containing its own robotic base, which significantly increases cost.
-     * Oversized piece bases reduce aesthetic appeal and make the board feel crowded.
+**TMC2209 Stepper Driver** [2]
 
-4. **GoChess Mini**
+  _Price:_ $7
+  
+  * _Pros:_
+  
+    * Extremely quiet operation using StealthChop technology.
+    
+    * Supports up to 1/256 microstepping.
+    
+    * Handles up to 2.0A RMS (≈2.8A peak) with proper cooling, suitable for most NEMA 17 motors.
+    
+    * Includes UART communication for advanced tuning, diagnostics, and stall detection.
+    
+    * Compatible with both 3.3 V and 5 V logic.
+  
+  * _Cons:_
+  
+    * Slightly more complex setup when using UART or advanced features.
+    
+    * Requires adequate heat dissipation at higher currents to maintain stability.
+    
+    * More sensitive to wiring and grounding issues.
+    
+    * Overkill for basic motion control applications.
+    
+    * Some breakout boards lack onboard cooling or jumpers, requiring careful configuration.
 
-   * Cost: $299.95
- 
-   * Pros: Compact, lightweight, and simple to set up
- 
-   * Cons:
- 
-     * Battery-powered system requires two hours to fully charge, supporting up to 100 hours of playtime (reduced to about five hours when lights are enabled).
-     * Does not support automated piece movement, requiring players to manually move all pieces.
-     * Lacks an automated reset function for returning pieces to their starting positions.
-
-**Analysis and Selection**
-
-Current solutions often remain too costly or inaccessible for the average user. In addition, many systems lack essential capabilities such as offline functionality, voice recognition, and reliable automated piece movement, leading to frequent piece collisions and reduced usability.
-
-After assessing the strengths and limitations of existing systems, it is evident that a new solution must address the following shortcomings:
-
-1. __CHECK MEASURES OF SUCCESS(?)__
-2. ...
-3. ...
-4. ...
-5. ...
-
-By integrating these features into a single cohesive system, the proposed design aims to bridge the gap between DIY and commercial smart chessboards, delivering a cost-effective, lightweight, and user-friendly solution that enhances accessibility and functionality for disabled chess players.
 
 ## High-Level Solution
 
@@ -176,41 +158,13 @@ Revise the detailed timeline (Gantt chart) you created in the project proposal. 
 
 ## References
 
-[1] Adafruit Industries. (n.d.). Stepper motor - NEMA-17 size - 200 steps/rev, 12V 350mA. https://www.adafruit.com/product/324
+[1] "Big Easy Driver," Sparkfun.com, 2023. https://www.sparkfun.com/big-easy-driver.html (accessed Oct. 10, 2025).
 
-[2] Amazon.com: ELEGOO UNO R3 Board ATmega328P with USB Cable(Arduino-Compatible) for Arduino : Electronics. (n.d.). https://www.amazon.com/ELEGOO-Board-ATmega328P-ATMEGA16U2-Compliant/dp/B01EWOE0UU
+[2] "BIGTREETECH TMC2209 V1.3 Stepper Motor Driver," Biqu Equipment, 2022. https://biqu.equipment/products/bigtreetech-tmc2209-stepper-motor-driver-for-3d-printer-board-vs-tmc2208 (accessed Oct. 10, 2025).
+‌
 
-[3] Amazon.com: NowTH USB Microphone Lavalier Lapel Clip on Mic With 6.56ft Cable for Laptop, Computer, PC, Streaming Conferencing,Interviews, Online Singing, Skype, MSN, Audio Video Recording : Electronics, n.d.
+[200] Adafruit Industries. (n.d.). Stepper motor - NEMA-17 size - 200 steps/rev, 12V 350mA. https://www.adafruit.com/product/324
 
-[4] Chessnutech. (n.d.). Chessnut move - advanced robotic chessboard with Plastic Pieces. Chessnut. https://www.chessnutech.com/products/chessnut-move-advanced-robotic-chessboard-with-plastic-pieces
-
-[5] ChessUp 2 Smart Chess Board. Bryght Labs. (n.d.). https://playchessup.com/products/chessup-2
-
-[6] D. M. D. Iliescu, "The Impact of Artificial Intelligence on the Chess World," JMIR Serious Games, vol. 8, no. 4, p. e24049, Dec. 2020. https://pmc.ncbi.nlm.nih.gov/articles/PMC7759436/.
-
-[7] Davis, E. (2023, November 12). The Rise of Board Game Cafes: Socializing through Analog Entertainment. Medium. https://ethan-davis.medium.com/the-rise-of-board-game-cafes-socializing-through-analog-entertainment-51857183f856
-
-[8] GoChess Mini. Particula. (n.d.). https://particula-tech.com/products/gochess-mini?variant=45806634402040&country=US&currency=USD&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic&srsltid=AfmBOooAY445sOW--M7GA0T4jbNkHE609yl_YKlFLR9iyhF7eX9KFsd9ubc
-
-[9] Instructables. (2019, September 13). CoreXY CNC Plotter. Instructables. https://www.instructables.com/CoreXY-CNC-Plotter/
-
-[10] MFOSSociety. (n.d.). MFOSSociety/8-8: 8/8: Smart Chess Board: An Automated Ai Chess Board. GitHub. https://github.com/MFOSSociety/8-8
-
-[11] Miko Chess Grand. Miko. (n.d.). https://miko.ai/pages/miko-chess-grand
-
-[12] PiShop. (n.d.). Raspberry Pi 4 Model B/4GB. PiShop.us. https://www.pishop.us/product/raspberry-pi-4-model-b-4gb/
-
-[13] R. Lahood, "The Queen’s Gambit, the Chess Boom, and the Future of Chess," Michigan Journal of Economics, Apr. 5, 2021. https://sites.lsa.umich.edu/mje/2021/04/05/the-queens-gambit-the-chess-boom-and-the-future-of-chess/.
-
-[14] Simarmehta. (n.d.). Simarmehta/CHESSAUTOMATION_CV. GitHub. https://github.com/simarmehta/chessAutomation_CV
-
-[15] Stockfish. (n.d.). Stockfish. https://stockfishchess.org/
-
-[16] sumit11899. (n.d.). SUMIT11899/automated-chessboard. GitHub. https://github.com/sumit11899/Automated-ChessBoard
-
-[17] US Chess, "US Chess Guidelines for Accessible Chess Events," Apr. 2020. https://new.uschess.org/sites/default/files/wp-thumbnails/2020/04/Accessibility-Guidelines-April-2020.pdf.
-
-[18] VOSK Offline Speech Recognition API. (n.d.). VOSK Offline Speech Recognition API. https://alphacephei.com/vosk/
 
 
 ## Statement of Contributions
