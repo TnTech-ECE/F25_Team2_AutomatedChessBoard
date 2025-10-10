@@ -44,7 +44,7 @@ Automated chessboards have emerged as innovative tools for enhancing gameplay, i
 
 **Big Easy Driver** [1]
 
-  _Price:_ $22
+  _Price:_ ~$22
   
   * _Pros:_
   
@@ -71,7 +71,7 @@ Automated chessboards have emerged as innovative tools for enhancing gameplay, i
 
 **TMC2209 Stepper Driver** [2]
 
-  _Price:_ $7
+  _Price:_ ~$7
   
   * _Pros:_
   
@@ -97,6 +97,70 @@ Automated chessboards have emerged as innovative tools for enhancing gameplay, i
     
     * Some breakout boards lack onboard cooling or jumpers, requiring careful configuration.
 
+### Stepper Motors
+
+**StepperOnline NEMA 17 59N·cm 2A** [3]
+
+  _Price:_ ~$10 
+
+
+  * _Pros:_
+
+    * Strong holding torque (59N·cm) gives good margin for movement and overcoming friction. 
+
+    * Rated 2A per phase, well within the capability of both Big Easy (with cooling) and TMC2209 stepper drivers.
+
+    * Plenty of community references and public data.
+
+  * _Cons:_
+
+    * Moderate power draw and heat generation, especially under load (requires good cooling).
+    
+    * At high speeds, inductance may limit torque delivery (requires thorough testing).
+    
+    * More mass/inertia than a weaker motor (may require more careful tuning of acceleration and jerk).
+   
+
+**StepperOnline NEMA 17 0.9° 2A** [4]
+
+  _Price:_ ~$11
+
+  * _Pros:_
+
+    * Higher angular resolution (0.9° per step) gives finer positional control (twice the steps of a typical 1.8° motor).
+    
+    * 2A current rating is a good match for either driver, giving torque and flexibility.
+    
+    * Good choice for more precision in aligning the magnectic CoreXY attachment.
+
+  * _Cons:_
+
+    * Control pulses must be more frequent (higher step rate demands).
+    
+    * More sensitive to microstepping errors or driver jitter.
+    
+    * Slightly lower torque per step vs a 1.8° motor with same current (though overall torque is same if properly driven).
+
+
+**StepperOnline E‑Series NEMA 17 60N·cm 2.1A** [5]
+
+  _Price:_ ~$9
+
+  * _Pros:_
+
+    * Strong torque (60N·cm) offers good overhead for higher friction or heavier carriage.
+    
+    * Slightly higher current rating (2.1A) gives margin in design.
+    
+    * Economical price for a robust motor.
+
+  * _Cons:_
+
+    * At 2.1 A, it may push the thermal limits of simpler drivers (Big Easy especially) unless well cooled.
+    
+    * Heavier and more inert — slower acceleration or more stress on belts.
+    
+    * More demanding in driver tuning (current limiting, microsteps) to avoid overshoot or resonance.
 
 ## High-Level Solution
 
@@ -158,12 +222,15 @@ Revise the detailed timeline (Gantt chart) you created in the project proposal. 
 
 ## References
 
-[1] "Big Easy Driver," Sparkfun.com, 2023. https://www.sparkfun.com/big-easy-driver.html (accessed Oct. 10, 2025).
+[1] "Big Easy Driver," Sparkfun.com, 2023. https://www.sparkfun.com/big-easy-driver.html
 
-[2] "BIGTREETECH TMC2209 V1.3 Stepper Motor Driver," Biqu Equipment, 2022. https://biqu.equipment/products/bigtreetech-tmc2209-stepper-motor-driver-for-3d-printer-board-vs-tmc2208 (accessed Oct. 10, 2025).
-‌
+[2] "BIGTREETECH TMC2209 V1.3 Stepper Motor Driver," Biqu Equipment, 2022. https://biqu.equipment/products/bigtreetech-tmc2209-stepper-motor-driver-for-3d-printer-board-vs-tmc2208
 
-[200] Adafruit Industries. (n.d.). Stepper motor - NEMA-17 size - 200 steps/rev, 12V 350mA. https://www.adafruit.com/product/324
+[3] "Nema 17 Bipolar 59Ncm (84oz.in) 2A 42x48mm 4 Wires w/ 1m Cable & Connector," www.omc-stepperonline.com. https://www.omc-stepperonline.com/nema-17-bipolar-59ncm-84oz-in-2a-42x48mm-4-wires-w-1m-cable-connector-17hs19-2004s1
+
+[4] "Nema 17 Bipolar 0.9deg 46Ncm(65.1oz.in) 2A 42x42x48mm 4 Wires - 17HM19-2004S | StepperOnline," Omc-stepperonline.com, 2024. https://www.omc-stepperonline.com/nema-17-bipolar-0-9deg-46ncm-65-1oz-in-2a-2-9v-42x42x48mm-4-wires-17hm19-2004s
+
+[5] "E Series Nema 17 Stepper Motor 1.8deg 60Ncm(84.97oz.in) 2.1A 42x42x60mm 4 Wires - 17HE24-2104S | StepperOnline," Omc-stepperonline.com, 2024. https://www.omc-stepperonline.com/e-series-nema-17-stepper-motor-1-8deg-60ncm-84-97oz-in-2-1a-42x42x60mm-4-wires-17he24-2104s
 
 
 
