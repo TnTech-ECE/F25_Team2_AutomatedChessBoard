@@ -162,6 +162,37 @@ Automated chessboards have emerged as innovative tools for enhancing gameplay, i
     
     * More demanding in driver tuning (current limiting, microsteps) to avoid overshoot or resonance.
 
+
+### Magnets
+
+**MagPop 10 Switchable Magnet** [6]
+
+  _Price:_ ~$30
+
+  * _Pros:_
+
+    * Compact and lightweight design (~32g, footprint only 11mm × 15mm), ideal for small mechanisms like CoreXY.
+    
+    * True mechanical on/off switching.
+    
+    * Provides up to 10lb (4.5kg) of holding force.
+    
+    * Precise, low-profile form factor simplifies mounting and integration.
+    
+    * Manufactured by a reputable company (Magswitch), with detailed specifications and support.
+
+  * _Cons:_
+
+    * Requires a manual switch motion to toggle on/off (would need a servo or linkage for remote actuation).
+    
+    * Must have direct contact with steel for maximum holding performance; air gaps or thick board layers reduce strength.
+    
+    * Limited holding force compared to larger magnetic bases.
+    
+    * Mechanical switch may wear over long-term repeated cycles.
+    
+    * More expensive per-unit compared to similarly sized permanent or electromagnets.
+
 ## High-Level Solution
 
 This section presents a comprehensive, high-level solution aimed at efficiently fulfilling all specified requirements and constraints. The solution is designed to maximize stakeholder goal attainment, adhere to established constraints, minimize risks, and optimize resource utilization. Please elaborate on how your design accomplishes these objectives.
@@ -231,6 +262,8 @@ Revise the detailed timeline (Gantt chart) you created in the project proposal. 
 [4] "Nema 17 Bipolar 0.9deg 46Ncm(65.1oz.in) 2A 42x42x48mm 4 Wires - 17HM19-2004S | StepperOnline," Omc-stepperonline.com, 2024. https://www.omc-stepperonline.com/nema-17-bipolar-0-9deg-46ncm-65-1oz-in-2a-2-9v-42x42x48mm-4-wires-17hm19-2004s
 
 [5] "E Series Nema 17 Stepper Motor 1.8deg 60Ncm(84.97oz.in) 2.1A 42x42x60mm 4 Wires - 17HE24-2104S | StepperOnline," Omc-stepperonline.com, 2024. https://www.omc-stepperonline.com/e-series-nema-17-stepper-motor-1-8deg-60ncm-84-97oz-in-2-1a-42x42x60mm-4-wires-17he24-2104s
+
+[6] "MagPop 10 Switchable Magnet (2 pack) - 81001561-2," Magswitch Technologies, 2025. https://magswitch.com/products/magpop-10-switchable-magnet-81001561?srsltid=AfmBOoqucE-6aWsplzoEZwuSVC073VE7-7Ts_mIalXZBY2dR0Sdcex_f
 
 
 
