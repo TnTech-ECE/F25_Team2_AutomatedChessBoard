@@ -192,6 +192,35 @@ Automated chessboards have emerged as innovative tools for enhancing gameplay, i
     * Mechanical switch may wear over long-term repeated cycles.
     
     * More expensive per-unit compared to similarly sized permanent or electromagnets.
+  
+
+**EM100-12-122 Round Electromagnet** [7]
+
+  _Price:_ ~$28
+
+  * _Pros:_
+
+    * 1 inch diameter and compact design.
+    
+    * Holding force: 19 lbs when in direct contact with steel.
+    
+    * Operates at 4W. 
+    
+    * Includes through-hole mounting (with shoulder bolt) for mechanical attachment.
+
+    * Quick-release design ensures the magnet disengages rapidly when power is cut.
+
+  * _Cons:_
+
+    * Power required is continuous while holding.
+    
+    * Height (~0.78") is relatively thick; may require substantial vertical clearance in carriage design.
+    
+    * Weight not specified by the vendor, so will need to be estimated or requested (will add carriage inertia).
+    
+    * Holding force is ideal under perfect steel contact, but any air gap (wood board + shim) will reduce effective pull.
+    
+    * Thermal considerations: prolonged current may lead to heating, so cooling or duty cycling may be required.
 
 ## High-Level Solution
 
@@ -264,6 +293,8 @@ Revise the detailed timeline (Gantt chart) you created in the project proposal. 
 [5] "E Series Nema 17 Stepper Motor 1.8deg 60Ncm(84.97oz.in) 2.1A 42x42x60mm 4 Wires - 17HE24-2104S | StepperOnline," Omc-stepperonline.com, 2024. https://www.omc-stepperonline.com/e-series-nema-17-stepper-motor-1-8deg-60ncm-84-97oz-in-2-1a-42x42x60mm-4-wires-17he24-2104s
 
 [6] "MagPop 10 Switchable Magnet (2 pack) - 81001561-2," Magswitch Technologies, 2025. https://magswitch.com/products/magpop-10-switchable-magnet-81001561?srsltid=AfmBOoqucE-6aWsplzoEZwuSVC073VE7-7Ts_mIalXZBY2dR0Sdcex_f
+
+[7] "EM100-12-122 - Round Electromagnet 1 inch Dia. 12 volts DC - Holding 19 lbs. - APW Company," APW Company, Sep. 29, 2025. https://apwcompany.com/em100-12-122/
 
 
 
