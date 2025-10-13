@@ -30,7 +30,22 @@ With these guidelines, each team is expected to create a suitable document to ac
 
 ## Introduction
 
-The introduction is intended to reintroduce the fully formulated problem. 
+Chess is a complex and strategic game that allows players to compete against each other on an even playing field with no hidden information. 
+As it has grown more popular, new ways to enjoy this age old game have been developed. One of the most interesting examples of this is the automated chess board.
+Automated chess boards are able to improve the user experience by changing the way that they interact with over the board chess. 
+Vocal input is often used, making the board more accessible to people with a reduced range of motion while also being a fresh and new way to play.
+These chess boards must also be able to move pieces around the board on their own, allowing users to compete against a computer and even other opponents online.
+Although automated chess enhances over the board play, it is inaccessible to most due to its high price point. 
+
+The demand for a cheaper option that does not compromise on functionality is clear. The proposed project aims to create a chess board that reliably recognizes voice input, automates piece movement, and integrates with computer opponents, all while continuing to be affordable.
+The primary objective of this board is to bring the benefits that come with automated chess to a wider audience.
+
+The conceptual design document will:
+- Outline and define constraints to ensure that it is functional, reliable, and affordable.
+- Examine potential solutions, comparing them and determining the best approach to meet the project's goals.
+- Present a high level solution, detailing the board's internal architecture as well as its operational flow.
+- Specify the details of individual subsystems.
+- Address the standards the project must adhere to, as well as ethical and professional specifications.
 
 
 ## Restating the Fully Formulated Problem
