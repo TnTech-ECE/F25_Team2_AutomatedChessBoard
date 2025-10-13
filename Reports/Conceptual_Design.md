@@ -65,7 +65,7 @@ The Power Unit supplies regulated electrical power to all other subsystems. It w
 
 ### Operational Flow Chart
 
-I WILL PUT DIAGRAM HERE
+![Block_Diagram](Chess_Flow_Diagram.png)
 
 This diagram illustrates the overall operational flow of the automatic chessboard system, including both user interactions and the underlying processes required to generate the on-screen display. At startup, all hardware and software components initialize and configure their respective systems. Once initialization is complete, the display indicates that the board is ready for user input.
 
