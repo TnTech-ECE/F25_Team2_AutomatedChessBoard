@@ -301,6 +301,81 @@ When comparing the three power configurations, the hybrid system clearly offers 
 
 The Hybrid Power System was therefore selected as the most practical and flexible option. It provides uninterrupted operation whether plugged in or on battery power, supports demonstrations and transportability, and ensures a professional, user-friendly design well-suited for the automated chessboard.
 
+
+
+### Peripheral Subsystem
+
+_**Button Input and LED Response System**_
+
+In this configuration, user input is handled through a small set of physical buttons, while system feedback is provided by LEDs. Each LED color corresponds to specific system states, such as move confirmation and error detection. This design is simple and inexpensive, but less intuitive and less scalable for complex command sets.
+
+  * _Pros:_
+  
+    * Extremely simple, durable, and low-cost hardware.
+    
+    * Provides immediate and reliable feedback without display lag.
+    
+    * Highly power efficient and resilient to environmental noise.
+    
+  * _Cons:_
+
+    * Does not meet hands-free accessibility goals of the project.
+    
+    * Not suitable for complex communication or detailed error reporting.
+    
+    * Requires user memorization of LED meanings or tone patterns.
+
+
+_**Microphone and Computer-Voice Response System**_
+
+This option uses a microphone for user voice commands and a synthesized computer voice for system feedback. The system reads back recognized commands, requests confirmation, and communicates status or errors verbally. It eliminates the need for a screen, relying entirely on audio-based interaction. While fully hands-free, this setup depends heavily on clear audio input and output, which can be unreliable in noisy or shared environments.
+
+  * _Pros:_
+  
+    * Fully hands-free operation enhances user convenience and accessibility.
+    
+    * Provides a more interactive and conversational user experience.
+    
+    * Reduces physical hardware needs by removing displays or buttons.
+    
+  * _Cons:_
+    
+    * Audio feedback can be difficult to hear or distinguish in noisy environments.
+    
+    * Lack of visual feedback may lead to miscommunication or missed confirmations.
+    
+    * Requires reliable speech synthesis and recognition performance.
+    
+    * Adds processing overhead and complexity to handle real-time voice interaction.
+
+_**Microphone and LCD Display System**_
+
+This setup integrates a microphone for voice command input and an LCD display for visual feedback. The user speaks a command (e.g., "move knight to F3"), which the system processes and displays on the screen for confirmation. The LCD also reports move confirmations, invalid commands, or mechanical errors detected during operation. The player can then issue a "confirm" or "cancel" voice command to finalize or reject the action. This configuration provides a balanced mix of hands-free control and clear, visual verification for reliable gameplay.
+
+  * _Pros:_
+  
+    * Offers clear, readable feedback for every system action and voice command.
+    
+    * Enables confirmation and error display directly on the board, improving user confidence.
+    
+    * Hands-free operation through voice commands enhances accessibility and modern design appeal.
+    
+    * Allows debugging and system messages to be shown without external devices.
+    
+  * _Cons:_
+    
+    * Requires both voice recognition and display integration, slightly increasing hardware and coding complexity.
+    
+    * LCD may have limited viewing angles or space for longer messages.
+    
+    * Voice command errors may require multiple attempts in noisy environments.
+
+**Evaluation and Selection**
+
+When evaluating the three interface approaches, key considerations included clarity of communication, accessibility, error handling, and ease of integration. The button and LED system, while simple and robust, cannot effectively convey complex messages or support conversational operation. The fully audio-based system offers modern appeal but lacks the reliability and clarity needed for precise chess move confirmations.
+
+The Microphone and LCD Display System was selected as the most balanced and functional approach. It merges the hands-free convenience of voice input with the reliability of visual confirmation, allowing players to verify actions before execution. This hybrid interface supports clear communication, flexible debugging, and a polished user experience aligned with the chessboard’s intelligent design goals.
+
 ## High-Level Solution
 
 This section presents a comprehensive, high-level solution aimed at efficiently fulfilling all specified requirements and constraints. The solution is designed to maximize stakeholder goal attainment, adhere to established constraints, minimize risks, and optimize resource utilization. Please elaborate on how your design accomplishes these objectives.
