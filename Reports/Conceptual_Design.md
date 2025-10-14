@@ -42,6 +42,63 @@ Automated chessboards have emerged as innovative tools for enhancing gameplay, i
 
 ### Chess Piece Movement
 
+_**Robotic Arm Manipulator System**_
+
+The robotic arm manipulator system consists of a multi-jointed mechanical arm mounted above the chessboard, equipped with a claw or gripper to pick up and move chess pieces between positions. Controlled by servo or stepper motors, this approach mimics human motion, offering precise vertical and horizontal control for piece manipulation.
+
+  * _Pros:_
+  
+    * Provides full 3D control and can directly lift pieces instead of sliding them.
+    
+    * Capable of handling a wide range of object shapes and sizes with a properly designed gripper.
+    
+    * Visually engaging and intuitive to observers due to its human-like movement.
+    
+    * Modular and programmable for other potential tasks or demonstrations.
+
+  * _Cons:_
+    
+    * Mechanically complex with multiple degrees of freedom requiring advanced kinematic control.
+    
+    * Requires precise calibration to avoid collisions with other pieces or the board.
+    
+    * Considerably slower than planar motion systems.
+    
+    * Bulky structure obstructs the player's view.
+    
+    * Increased cost and mechanical wear due to multiple servos or stepper motors.
+    
+    * Noise and vibration from multiple moving joints can degrade precision.
+    
+    * Requires a robust frame or enclosure to maintain stability and alignment.
+
+
+_**Individual Micro-Robot System**_
+
+This system places a small, self-contained micro-robot beneath each chess piece. Each robot can move independently under the board, guided by sensors or wireless communication, to reposition its corresponding piece as commanded. This concept is similar to systems used in high-end commercial robotic chessboards (such as the Chessnut Move[1]).
+
+  * _Pros:_
+  
+    * Allows completely independent movement of each chess piece.
+    
+    * Eliminates the need for moving gantries, belts, or overhead mechanisms.
+    
+    * Offers smooth and realistic piece motion directly from below the board.
+
+  * _Cons:_
+    
+    * Extremely expensive and complex to implement, requiring many individual actuators.
+    
+    * Difficult to synchronize multiple robots for coordinated movement.
+    
+    * Maintenance is cumbersome: each unit must be powered, calibrated, and serviced individually.
+    
+    * Requires precise alignment with chessboard grid and consistent magnetic coupling.
+    
+    * Limited battery life and power management challenges under a closed board.
+    
+    * Communication interference or loss can result in desynchronized or failed moves.
+
 _**CoreXY Motion System**_
 
 The CoreXY motion system uses two stepper motors connected through a pair of pulley and belt assemblies to enable precise, planar motion along the X and Y axes. A magnet is mounted to the movable head, allowing the system to position and actuate magnetic pieces from below the chessboard. This design provides a compact, fast, and mechanically efficient method for two-dimensional positioning, without requiring independent motorized axes.
@@ -65,6 +122,13 @@ The CoreXY motion system uses two stepper motors connected through a pair of pul
     * Limited Z-axis functionality unless supplemented by another mechanism.
     
     * Performance depends on magnet strength and carriage rigidity for consistent actuation.
+
+
+**Evaluation and Selection**
+
+When evaluating the three systems, several key factors were considered: mechanical complexity, cost, precision, scalability, and ease of maintenance. The robotic arm, while versatile, introduces high mechanical complexity, slower operation speeds, and increased cost due to multiple motors and linkages. The micro-robot system provides independent piece control but is prohibitively expensive, difficult to synchronize, and challenging to maintain.
+
+The CoreXY motion system was determined to be the most balanced and practical approach. Its two-motor planar configuration minimizes mechanical components while maximizing precision and speed. It integrates smoothly with magnetic actuation methods, provides consistent and predictable motion, and offers an excellent trade-off between performance and design simplicity.
 
 ## High-Level Solution
 
@@ -126,19 +190,7 @@ Revise the detailed timeline (Gantt chart) you created in the project proposal. 
 
 ## References
 
-[1] "Big Easy Driver," Sparkfun.com, 2023. https://www.sparkfun.com/big-easy-driver.html
-
-[2] "BIGTREETECH TMC2209 V1.3 Stepper Motor Driver," Biqu Equipment, 2022. https://biqu.equipment/products/bigtreetech-tmc2209-stepper-motor-driver-for-3d-printer-board-vs-tmc2208
-
-[3] "Nema 17 Bipolar 59Ncm (84oz.in) 2A 42x48mm 4 Wires w/ 1m Cable & Connector," www.omc-stepperonline.com. https://www.omc-stepperonline.com/nema-17-bipolar-59ncm-84oz-in-2a-42x48mm-4-wires-w-1m-cable-connector-17hs19-2004s1
-
-[4] "Nema 17 Bipolar 0.9deg 46Ncm(65.1oz.in) 2A 42x42x48mm 4 Wires - 17HM19-2004S | StepperOnline," Omc-stepperonline.com, 2024. https://www.omc-stepperonline.com/nema-17-bipolar-0-9deg-46ncm-65-1oz-in-2a-2-9v-42x42x48mm-4-wires-17hm19-2004s
-
-[5] "E Series Nema 17 Stepper Motor 1.8deg 60Ncm(84.97oz.in) 2.1A 42x42x60mm 4 Wires - 17HE24-2104S | StepperOnline," Omc-stepperonline.com, 2024. https://www.omc-stepperonline.com/e-series-nema-17-stepper-motor-1-8deg-60ncm-84-97oz-in-2-1a-42x42x60mm-4-wires-17he24-2104s
-
-[6] "MagPop 10 Switchable Magnet (2 pack) - 81001561-2," Magswitch Technologies, 2025. https://magswitch.com/products/magpop-10-switchable-magnet-81001561?srsltid=AfmBOoqucE-6aWsplzoEZwuSVC073VE7-7Ts_mIalXZBY2dR0Sdcex_f
-
-[7] "EM100-12-122 - Round Electromagnet 1 inch Dia. 12 volts DC - Holding 19 lbs. - APW Company," APW Company, Sep. 29, 2025. https://apwcompany.com/em100-12-122/
+[1] Chessnutech. (n.d.). Chessnut move - advanced robotic chessboard with Plastic Pieces. Chessnut. https://www.chessnutech.com/products/chessnut-move-advanced-robotic-chessboard-with-plastic-pieces
 
 
 
