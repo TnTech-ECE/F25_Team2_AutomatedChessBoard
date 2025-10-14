@@ -130,6 +130,94 @@ When evaluating the three systems, several key factors were considered: mechanic
 
 The CoreXY motion system was determined to be the most balanced and practical approach. Its two-motor planar configuration minimizes mechanical components while maximizing precision and speed. It integrates smoothly with magnetic actuation methods, provides consistent and predictable motion, and offers an excellent trade-off between performance and design simplicity.
 
+
+### Power System
+
+_**Corded Power System**_
+
+The corded power configuration supplies energy directly from a wall outlet through a DC power adapter, providing continuous and stable voltage to all internal components. This setup eliminates the need for internal energy storage and simplifies circuit design, relying entirely on an external power connection for operation.
+
+  * _Pros:_
+  
+    * Provides stable, uninterrupted power during operation.
+    
+    * Simplifies internal circuitry, with no need for charging or battery management systems.
+    
+    * Reduces weight by eliminating onboard batteries.
+    
+    * Inexpensive and straightforward to implement.
+  
+  * _Cons:_
+    
+    * Requires a constant connection to a wall outlet, limiting portability.
+    
+    * Operation is impossible without external power.
+    
+    * Increases cable clutter and reduces design aesthetics.
+    
+    * Potential tripping or cable strain hazards in user environments.
+    
+    * Less appealing for demonstration or mobile use cases due to lack of autonomy.
+
+_**Wireless Inductive Power System**_
+
+A wireless inductive power setup transfers energy through magnetic coupling between a transmitter coil (in a base station) and a receiver coil integrated into the chessboard. This provides a cable-free appearance and continuous power when the board is positioned on its charging pad.
+
+  * _Pros:_
+  
+    * Provides a modern, cable-free aesthetic for clean presentation.
+    
+    * Reduces wear on connectors from frequent plugging and unplugging.
+    
+    * Safe, low-voltage energy transfer suitable for consumer environments.
+  
+  * _Cons:_
+    
+    * Significantly lower power transfer efficiency.
+    
+    * Requires precise alignment between coils for consistent operation.
+    
+    * Limited power output, unsuitable for high-current loads like motors or magnets.
+    
+    * Increased system cost and design complexity.
+    
+    * Inefficient for continuous or high-load use, especially with moving actuators.
+    
+    * Thermal buildup during long operation could reduce component lifespan.
+   
+ _**Hybrid Power System**_
+
+The hybrid power system integrates a rechargeable battery pack with an AC adapter and power management circuitry. This configuration allows the chessboard to operate from wall power while simultaneously charging the batteries, and to continue functioning seamlessly on battery power when unplugged. It ensures both reliability and portability, making it ideal for extended demonstrations or classroom use.
+
+  * _Pros:_
+  
+    * Enables uninterrupted operation whether plugged in or running on battery power.
+    
+    * Provides portability without sacrificing power availability.
+    
+    * Extends battery life through managed charging cycles and pass-through power.
+    
+    * Offers redundancy, where if one power source fails, the other maintains functionality.
+    
+    * Clean, professional design with minimal cable dependency.
+    
+  * _Cons:_
+    
+    * Slightly higher cost due to the inclusion of power management circuitry.
+    
+    * Requires careful design to balance charging and discharge loads.
+    
+    * Batteries will eventually require replacement after several hundred charge cycles.
+    
+    * Slightly heavier than a purely corded design.
+
+
+**Evaluation and Selection**
+
+When comparing the three power configurations, the hybrid system clearly offers the best balance of reliability, mobility, and functionality. The corded design, while simple and inexpensive, limits the system’s usability by requiring a constant power connection. The wireless inductive setup, although sleek, introduces inefficiency and insufficient power transfer for motor-driven systems.
+
+The Hybrid Power System was therefore selected as the most practical and flexible option. It provides uninterrupted operation whether plugged in or on battery power, supports demonstrations and transportability, and ensures a professional, user-friendly design well-suited for the automated chessboard.
+
 ## High-Level Solution
 
 This section presents a comprehensive, high-level solution aimed at efficiently fulfilling all specified requirements and constraints. The solution is designed to maximize stakeholder goal attainment, adhere to established constraints, minimize risks, and optimize resource utilization. Please elaborate on how your design accomplishes these objectives.
