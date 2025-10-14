@@ -72,7 +72,6 @@ The robotic arm manipulator system consists of a multi-jointed mechanical arm mo
     
     * Requires a robust frame or enclosure to maintain stability and alignment.
 
-
 _**Individual Micro-Robot System**_
 
 This system places a small, self-contained micro-robot beneath each chess piece. Each robot can move independently under the board, guided by sensors or wireless communication, to reposition its corresponding piece as commanded. This concept is similar to systems used in high-end commercial robotic chessboards (such as the Chessnut Move[1]).
@@ -129,6 +128,90 @@ The CoreXY motion system uses two stepper motors connected through a pair of pul
 When evaluating the three systems, several key factors were considered: mechanical complexity, cost, precision, scalability, and ease of maintenance. The robotic arm, while versatile, introduces high mechanical complexity, slower operation speeds, and increased cost due to multiple motors and linkages. The micro-robot system provides independent piece control but is prohibitively expensive, difficult to synchronize, and challenging to maintain.
 
 The CoreXY motion system was determined to be the most balanced and practical approach. Its two-motor planar configuration minimizes mechanical components while maximizing precision and speed. It integrates smoothly with magnetic actuation methods, provides consistent and predictable motion, and offers an excellent trade-off between performance and design simplicity.
+
+
+### Processing and Control Subsystem
+
+_**Centralized Processing Unit**_
+
+In this setup, a single embedded processor (such as a Raspberry Pi) handles all major system functions, including speech recognition, chess logic, and motion control. The processor directly interfaces with motor driver boards, eliminating the need for a secondary control unit. This approach simplifies wiring and reduces communication overhead between devices, but places greater computational and timing demands on the processor.
+
+  * _Pros:_
+  
+    * Simplified system architecture with fewer components and communication links.
+    
+    * Reduced latency and failure points, since all logic resides on one board.
+    
+    * Compact, space-efficient design requiring minimal wiring.
+    
+    * Suitable for small-scale prototypes or cost-sensitive builds.
+  
+  * _Cons:_
+    
+    * The single processor is not optimized for precise real-time control, potentially introducing motor timing inconsistencies.
+    
+    * Processor overload may occur when running several chess management programs and motion control tasks simultaneously.
+    
+    * A single hardware failure halts all system functionality.
+    
+    * Difficult to scale or maintain if additional sensors or actuators are later added.
+
+_**Cloud-Assisted or Network-Based Processing**_
+
+In this configuration, the chessboard’s hardware handles only low-level control, while cloud or networked servers perform computationally heavy tasks such as speech recognition and chess AI. The local system sends input data (like voice or board state) to remote services, which return processed results. This approach leverages powerful external resources, but introduces significant dependency on network availability.
+
+  * _Pros:_
+  
+    * Reduces on-board processing requirements, enabling smaller and lower-power hardware.
+    
+    * Allows use of advanced AI models beyond embedded capabilities.
+    
+    * Simplifies software maintenance through centralized, remotely updatable systems.
+  
+  * _Cons:_
+    
+    * Requires continuous internet connectivity, meaning the system is non-functional offline.
+    
+    * Introduces latency that can affect responsiveness in move execution and voice feedback.
+    
+    * Raises data security and privacy concerns.
+    
+    * Dependent on third-party APIs or services that may change or become unavailable.
+    
+    * Reduces autonomy and portability, making it unsuitable for standalone operation.
+
+_**Distributed Processing and Control System**_
+
+This architecture separates high-level processing from real-time motor control. A Raspberry Pi acts as the main processing unit, running the voice recognition and chess piece tracking programs. It communicates with a dedicated Arduino control unit, which manages the CoreXY stepper motors through two motor driver boards. The Arduino executes time-critical control loops for precise movement, while the Raspberry Pi handles strategic computation and user interaction.
+
+  * _Pros:_
+  
+    * Divides workload between two optimized processors, improving performance and reliability.
+    
+    * Provides smooth, accurate motion via the Arduino’s real-time control capabilities.
+    
+    * Enhances modularity, wherer each subsystem can be tested, replaced, or upgraded independently.
+    
+    * Allows the Raspberry Pi to focus on higher-level logic and communication, without timing interruptions.
+    
+    * Supports future expansion with minimal redesign.
+  
+  * _Cons:_
+    
+    * Requires careful synchronization between Pi and Arduino via serial or I²C communication.
+    
+    * Slightly higher cost and wiring complexity.
+    
+    * Debugging inter-device communication can be more challenging.
+    
+    * Adds a small latency overhead in transmitting commands between processors.
+
+
+**Evaluation and Selection**
+
+For this project, we prioritized reliable offline performance, precise motion control, and efficient processing distribution. The centralized processing system, while simple, risks performance bottlenecks when running both AI and motor control on one processor, and a single failure would disable the entire board. The cloud-assisted approach, although powerful, depends on constant internet connectivity and introduces latency, making it unreliable for real-time, portable use.
+
+The Distributed Processing and Control System offers the best balance between responsiveness, modularity, and performance. By assigning real-time motion control to the Arduino and high-level processing to the Raspberry Pi, the system maintains smooth CoreXY operation (while supporting advanced features like voice recognition and chess logic). This design ensures scalability, reliability, and consistent offline operation, meeting all project goals effectively.
 
 
 ### Power System
