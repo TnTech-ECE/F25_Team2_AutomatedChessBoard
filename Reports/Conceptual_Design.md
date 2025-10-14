@@ -40,7 +40,31 @@ The fully formulated problem is the overall objective and scope complete with th
 
 Automated chessboards have emerged as innovative tools for enhancing gameplay, integrating automation and dynamic AI opponents. Below, we analyze multiple existing solutions to determine their suitability for addressing the challenges of affordability, automated capabilities, and accessibility.
 
+### Chess Piece Movement
 
+_**CoreXY Motion System**_
+
+The CoreXY motion system uses two stepper motors connected through a pair of pulley and belt assemblies to enable precise, planar motion along the X and Y axes. A magnet is mounted to the movable head, allowing the system to position and actuate magnetic pieces from below the chessboard. This design provides a compact, fast, and mechanically efficient method for two-dimensional positioning, without requiring independent motorized axes.
+  
+  * _Pros:_
+  
+    * Provides high-speed, precise planar movement using only two motors.
+    
+    * Lightweight and mechanically efficient due to stationary motors and crossed belt layout.
+    
+    * Compatible with a wide range of stepper drivers.
+    
+    * Smooth, coordinated motion reduces mechanical vibration and improves accuracy.
+  
+  * _Cons:_
+    
+    * Requires careful calibration to prevent skewed or uneven motion.
+    
+    * Mechanical backlash or belt stretch can reduce repeatability over time.
+    
+    * Limited Z-axis functionality unless supplemented by another mechanism.
+    
+    * Performance depends on magnet strength and carriage rigidity for consistent actuation.
 
 ## High-Level Solution
 
