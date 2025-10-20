@@ -464,7 +464,7 @@ The user then provides a command, which the system processes to determine whethe
 
 Next, the opposing player (either the integrated AI engine or another human participant) takes a turn following the same sequence of validation, movement, and display update. This turn-based cycle continues until one player achieves checkmate. When the game concludes, the display presents the final result and the board automatically resets the pieces to their starting positions. Finally, the system prompts the user to decide whether to begin a new game.
 
-#### Key Features
+### Key Features
 
 1. Voice Controls
    - The microphone captures user commands upon a designated button press or voice command trigger.
@@ -490,7 +490,7 @@ Next, the opposing player (either the integrated AI engine or another human part
 8. Cost Efficiency
    - The system is designed to remain under $350 USD in material costs while maintaining or exceeding the quality of comparable solutions.
 
-
+### Relevant Constraints
 #### Processing Unit Constraints: 
 - Shall comply with FCC Part 15 Subpart B (Class B) for electromagnetic interference in residential environments.  
 - Shall operate below 50 V DC, following UL low-voltage safety thresholds to eliminate the need for high-voltage insulation.  
