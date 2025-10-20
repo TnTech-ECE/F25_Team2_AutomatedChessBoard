@@ -863,4 +863,6 @@ Nathan MacPherson: Introduction, Atomic Subsystem Specifications
 
 Jack Tolleson: High-Level Solution, Resources
 
+Noah Beaty: Comparative Analysis of Potential Solutions
+
 All: General Proofreading/Editing
