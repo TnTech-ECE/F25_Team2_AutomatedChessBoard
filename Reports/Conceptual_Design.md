@@ -1,32 +1,6 @@
 
 # Conceptual Design
 
-This document outlines the objectives of a conceptual design. After reading your conceptual design, the reader should understand:
-
-- The fully formulated problem.
-- The fully decomposed conceptual solution.
-- Specifications for each of the atomic pieces of the solution.
-- Any additional constraints and their origins.
-- How the team will accomplish their goals given the available resources.
-
-With these guidelines, each team is expected to create a suitable document to achieve the intended objectives and effectively inform their stakeholders.
-
-
-## General Requirements for the Document
-- Submissions must be composed in Markdown format. Submitting PDFs or Word documents is not permitted.
-- All information that is not considered common knowledge among the audience must be properly cited.
-- The document should be written in the third person.
-- An introduction section should be included.
-- The latest fully formulated problem must be clearly articulated using explicit "shall" statements.
-- A comparative analysis of potential solutions must be performed
-- The document must present a comprehensive, well-specified high-level solution.
-- The solution must contain a hardware block diagram.
-- The solution must contain an operational flowchart.
-- For every atomic subsystem, a detailed functional description, inputs, outputs, and specifications must be provided.
-- The document should include an acknowledgment of ethical, professional, and standards considerations, explaining the specific constraints imposed.
-- The solution must include a refined estimate of the resources needed, including: costs, allocation of responsibilities for each subsystem, and a Gantt chart.
-
-
 ## Introduction
 
 Chess is a complex and strategic game that allows players to compete against each other on an even playing field with no hidden information. 
