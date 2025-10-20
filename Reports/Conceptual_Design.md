@@ -1,4 +1,3 @@
-##CHANGE ME
 
 # Conceptual Design
 
