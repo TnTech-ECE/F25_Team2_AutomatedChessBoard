@@ -102,17 +102,17 @@ The following section outlines the estimated costs associated with each subsyste
 #### Processing Unit
 | Item                                 | Description / Notes                                                                                       | Quantity | Approx. Cost (USD) |
 | ------------------------------------ | --------------------------------------------------------------------------------------------------------- | -------- | ------------------ |
-| **Raspberry Pi (Processing Unit)**   | Handles high-level logic, Stockfish chess engine, and Vosk speech recognition; coordinates all subsystems | 1        | $50–$60            |
+| **Raspberry Pi**                     | Handles high-level logic, Stockfish chess engine, and Vosk speech recognition; coordinates all subsystems | 1        | $50–$60            |
 | **MicroSD Card**                     | Stores OS, chess engine, and voice recognition software                                                   | 1        | $6–$10             |
 
-The Processing Unit is the computational core of the system. A Raspberry Pi sould be chosen for its balance of performance and cost, capable of running Stockfish and the Vosk speech engine simultaneously. A MicroSD card provides non-volatile storage for the operating system and application software.
+The Processing Unit is the computational core of the system. A Raspberry Pi should be chosen for its balance of performance and cost, capable of running Stockfish and the Vosk speech engine simultaneously. A MicroSD card provides non-volatile storage for the operating system and application software.
 #### Control Unit
 | Item                                              | Description / Notes                                                              | Quantity | Approx. Cost (USD) |
 | ------------------------------------------------- | -------------------------------------------------------------------------------- | -------- | ------------------ |
 | **Arduino**                                       | Converts Pi commands into motor control signals; interfaces with stepper drivers | 1        | $20–$30            |
 | **Stepper Driver Boards**                         | Amplify control signals and drive the stepper motors                             | 2        | $5–$10 each        |
 
-The Control Unit acts as the intermediary between the Processing Unit and the mechanical motion subsystem. The Arduino should provide precise control timing for motor drivers and support flexible integration with the magnet mechanism. Dual stepper drivers enable independent X and Y axis movement.
+The Control Unit acts as the intermediary between the Processing Unit and the mechanical motion subsystem. The Arduino chosen should provide precise control timing for motor drivers and support flexible integration with the magnet mechanism. Dual stepper drivers enable independent X and Y axis movement.
 #### CoreXY Unit
 | Item                                    | Description / Notes                              | Quantity | Approx. Cost (USD) |
 | --------------------------------------- | ------------------------------------------------ | -------- | ------------------ |
