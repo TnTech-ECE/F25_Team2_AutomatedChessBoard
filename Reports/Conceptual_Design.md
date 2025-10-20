@@ -1022,6 +1022,47 @@ Revise the detailed timeline (Gantt chart) you created in the project proposal. 
 
 
 
+[1] https://52pi.com/products/52pi-ups-board-with-rtc-coulometer-for-raspberry-pi  
+[2] https://geekworm.com/products/x728  
+[3] https://lilygo.cc/products/lilygo%25C2%25AE-ttgo-t-display-1-14-inch-lcd-esp32-control-board  
+[4] https://libre.computer/products/all-h3-cc/  
+[5] https://libre.computer/products/aml-s805x-ac/  
+[6] https://libre.computer/products/aml-s905x-cc/  
+[7] https://libre.computer/products/aml-s905x-cc-v2/  
+[8] https://microbit.org/buy/bbc-microbit-single/  
+[9] https://onion.io/store/omega2/  
+[10] https://sequentmicrosystems.com/products/super-watchdog-hat-with-battery-backup-for-raspberry-pi  
+[11] https://sixfab.com/product/raspberry-pi-power-management-ups-hat/  
+[12] https://store.arduino.cc/products/arduino-nano  
+[13] https://store.arduino.cc/products/arduino-uno-rev3  
+[14] https://wiki.pine64.org/wiki/ROCK64  
+[15] https://www.amazon.com/Battery-Backup-Uninterruptible-Supply-Security/dp/B0C1YRSBMN  
+[16] https://www.amazon.com/Geekworm-Raspberry-Management-Expansion-Shield/dp/B07VPWFK9H  
+[17] https://www.amazon.com/MakerHawk-Raspberry-Uninterruptible-Management-Expansion/dp/B082CVWH3R  
+[18] https://www.amazon.com/SunFounder-Raspberry-Expansion-Compatible-Included/dp/B0C1GFX5LW  
+[19] https://www.beagleboard.org/boards/beaglebone-black  
+[20] https://www.beagleboard.org/boards/pocketbeagle-original  
+[21] https://www.clockworkpi.com/product-page/cpi-v3-1  
+[22] https://www.dfrobot.com/product-2840.html  
+[23] https://www.espressif.com/en/products/devkits/esp32-devkitc/overview  
+[24] https://www.microchip.com/en-us/product/atmega328p  
+[25] https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/  
+[26] https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/nano-super-developer-kit/  
+[27] https://www.pisugar.com/products/pisugar-s-plus-raspberry-pi-ups  
+[28] https://www.pjrc.com/store/teensy41.html  
+[29] https://www.raspberrypi.com/products/raspberry-pi-2-model-b/  
+[30] https://www.raspberrypi.com/products/raspberry-pi-3-model-b/  
+[31] https://www.raspberrypi.com/products/raspberry-pi-4-model-b/  
+[32] https://www.raspberrypi.com/products/raspberry-pi-5/  
+[33] https://www.raspberrypi.com/products/raspberry-pi-pico/  
+[34] https://www.raspberrypi.com/products/raspberry-pi-pico-2/  
+[35] https://www.seeedstudio.com/Seeeduino-Nano-p-4111.html  
+[36] https://www.seeedstudio.com/Seeeduino-V4-2-p-2517.html  
+[37] https://www.waveshare.com/ups-hat-e.htm  
+[38] https://www.waveshare.com/ups-hat.htm
+
+
+
 ## Statement of Contributions
 
 Each team member is required to make a meaningful contribution to the project proposal. In this section, each team member is required to document their individual contributions to the report. One team member may not record another member's contributions on their behalf. By submitting, the team certifies that each member's statement of contributions is accurate.
