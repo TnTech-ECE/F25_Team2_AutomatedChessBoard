@@ -137,3 +137,13 @@ Relevant Constraints:
 - Shall use cord sets and connectors compliant with NEC Article 400 for safe routing and reduced tripping risk.  
 - Shall include grounding and protection per OSHA 1910 Subpart S to minimize shock hazards.  
 - Shall include ANSI Z535.4-compliant warning labels for user-facing hazards such as moving parts and power indicators.  
+
+### Division of Labor
+
+First, conduct a thorough analysis of the skills currently available within the team, and then compare these skills to the specific requirements of each subsystem. Based on this analysis, appoint a team member to take the specifications for each subsystem and generate a corresponding solution (i.e. detailed design). If there are more team members than subsystems, consider further subdividing the solutions into smaller tasks or components, thereby allowing each team member the opportunity to design a subsystem.
+
+### Timeline
+
+Revise the detailed timeline (Gantt chart) you created in the project proposal. Ensure that the timeline is optimized for detailed design. Address critical unknowns early and determine if a prototype needs to be constructed before the final build to validate a subsystem. Additionally, if subsystem $A$ imposes constraints on subsystem $B$, generally, subsystem $A$ should be designed first.
+
+<img width="3589" height="1393" alt="image" src="https://github.com/user-attachments/assets/a23461c9-3263-4377-a40b-db57cef274e5" />
