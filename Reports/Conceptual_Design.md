@@ -1555,10 +1555,6 @@ In summary, these considerations elevate the project from a novel gadget to a th
 
 
 
-// original
-In the project proposal, each team must evaluate the broader impacts of the project on culture, society, the environment, public health, public safety, and the economy. Additionally, teams must consider relevant standards organizations that will inform the design process. A comprehensive discussion should be included on how these considerations have influenced the design. This includes detailing constraints, specifications, and practices implemented as a result, and how these address the identified considerations.
-// end original
-
 ## Resources
 
 You have already estimated the resources needed to complete the solution. Now, let's refine those estimates.
