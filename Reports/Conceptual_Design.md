@@ -866,4 +866,6 @@ Noah Beaty: Comparative Analysis of Potential Solutions
 
 Allison Givens: Fully Formulated Problem, High-Level Solution, Resources
 
+Lewis Forrest Bates: Comparative Analysis of Potential Solutions, and Ethical, Professional, and Standards Considerations
+
 All: General Proofreading/Editing
