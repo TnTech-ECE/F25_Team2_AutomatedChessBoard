@@ -860,5 +860,7 @@ Revise the detailed timeline (Gantt chart) you created in the project proposal. 
 ## Statement of Contributions
 
 Nathan MacPherson: Introduction, Atomic Subsystem Specifications
+
 Jack Tolleson: High-Level Solution, Resources
+
 All: General Proofreading/Editing
