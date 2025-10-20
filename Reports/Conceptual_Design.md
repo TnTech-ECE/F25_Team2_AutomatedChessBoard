@@ -97,11 +97,64 @@ In the project proposal, each team must evaluate the broader impacts of the proj
 
 ## Resources
 
-You have already estimated the resources needed to complete the solution. Now, let's refine those estimates.
-
 ### Budget
+The following section outlines the estimated costs associated with each subsystem, including justifications for major components and materials.
+#### Processing Unit
+| Item                                 | Description / Notes                                                                                       | Quantity | Approx. Cost (USD) |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------- | -------- | ------------------ |
+| **Raspberry Pi (Processing Unit)**   | Handles high-level logic, Stockfish chess engine, and Vosk speech recognition; coordinates all subsystems | 1        | $50–$60            |
+| **MicroSD Card**                     | Stores OS, chess engine, and voice recognition software                                                   | 1        | $6–$10             |
 
-Develop a budget proposal with justifications for expenses associated with each subsystem. Note that the total of this budget proposal can also serve as a specification for each subsystem. After creating the budgets for individual subsystems, merge them to create a comprehensive budget for the entire solution.
+The Processing Unit is the computational core of the system. A Raspberry Pi sould be chosen for its balance of performance and cost, capable of running Stockfish and the Vosk speech engine simultaneously. A MicroSD card provides non-volatile storage for the operating system and application software.
+#### Control Unit
+| Item                                              | Description / Notes                                                              | Quantity | Approx. Cost (USD) |
+| ------------------------------------------------- | -------------------------------------------------------------------------------- | -------- | ------------------ |
+| **Arduino**                                       | Converts Pi commands into motor control signals; interfaces with stepper drivers | 1        | $20–$30            |
+| **Stepper Driver Boards**                         | Amplify control signals and drive the stepper motors                             | 2        | $5–$10 each        |
+
+The Control Unit acts as the intermediary between the Processing Unit and the mechanical motion subsystem. The Arduino should provide precise control timing for motor drivers and support flexible integration with the magnet mechanism. Dual stepper drivers enable independent X and Y axis movement.
+#### CoreXY Unit
+| Item                                    | Description / Notes                              | Quantity | Approx. Cost (USD) |
+| --------------------------------------- | ------------------------------------------------ | -------- | ------------------ |
+| **Stepper Motors**                      | Drive CoreXY belts to move the magnetic carriage | 2        | $10–$12 each       |
+| **Belt and Pulley Set**                 | Transmits motion from motors to carriage         | 1 set    | $8–$10             |
+| **CoreXY / XY Framework**               | Includes rails, idlers, carriage, and frame      | 1        | $40–$65            |
+| **Magnet Assembly**                     | Moves chess pieces via magnetic coupling         | 1–2      | $15–$20            |
+
+The CoreXY Unit performs all physical motion, requiring precise linear motion components. Stepper motors provide high positional accuracy, while the belt-and-pulley system converts rotational motion into planar movement. The magnet mechanism allows non-contact manipulation of chess pieces.
+#### Peripherals Unit
+| Item                             | Description / Notes                                 | Quantity | Approx. Cost (USD) |
+| -------------------------------- | --------------------------------------------------- | -------- | ------------------ |
+| **Microphone**                   | Captures user voice commands for recognition        | 1        | $8–$10             |
+| **Display Screen**               | Provides system feedback, messages, and game status | 1        | $12–$18            |
+
+The Peripherals Unit establishes user interaction. A microphone allows for voice-based input processed by the Raspberry Pi, while a display delivers visual feedback and system prompts.
+#### Power Unit
+| Item                                                      | Description / Notes                                             | Quantity | Approx. Cost (USD) |
+| --------------------------------------------------------- | --------------------------------------------------------------- | -------- | ------------------ |
+| **Power Supply**                                          | Provides regulated power to motors, Pi, and control electronics | 1        | $30–$40            |
+
+A stable, regulated power supply is essential for reliable operation. The system should support both a 12V line supports the stepper motors and drivers, and a 5V output powers logic components and peripherals. Proper power distribution ensures electrical safety and prevents system instability.
+#### Miscellaneous/Structural Components
+| Item                                        | Description / Notes                                | Quantity | Approx. Cost (USD) |
+| ------------------------------------------- | -------------------------------------------------- | -------- | ------------------ |
+| **Chessboard Frame (Wood or 3D Printed)**   | Supports CoreXY mechanism and aesthetic housing    | 1        | $20–$30            |
+| **Chess Piece Set (Metal Base)**            | Enables magnetic manipulation                      | 1        | $15–$25            |
+| **Prototyping and Miscellaneous Materials** | Spare wiring, connectors, mounts, testing supplies | —        | $150               |
+
+These components complete the mechanical and visual integration of the system. The chessboard frame houses the motion platform, while magnetized pieces enable interaction. The prototyping budget accounts for iteration and testing materials necessary for functional validation.
+#### Comprehensive Budget Summary
+| Subsystem                       | Estimated Cost Range (USD) |
+| ------------------------------- | -------------------------- |
+| Processing Unit                 | $56–$70                    |
+| Control Unit                    | $30–$50                    |
+| CoreXY Unit                     | $73–$107                   |
+| Peripherals Unit                | $20–$28                    |
+| Power Unit                      | $30–$40                    |
+| Structural Components           | $35–$55                    |
+| **Estimated System Cost**       | **≈ $244 – $350**          |
+| **Prototyping Cost**            | **$150**                   |
+| **Estimated Total Cost**        | **≈ $394 – $500**          |
 
 ### Division of Labor
 
