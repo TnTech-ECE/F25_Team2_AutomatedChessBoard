@@ -844,7 +844,23 @@ These components complete the mechanical and visual integration of the system. T
 
 ### Division of Labor
 
-First, conduct a thorough analysis of the skills currently available within the team, and then compare these skills to the specific requirements of each subsystem. Based on this analysis, appoint a team member to take the specifications for each subsystem and generate a corresponding solution (i.e. detailed design). If there are more team members than subsystems, consider further subdividing the solutions into smaller tasks or components, thereby allowing each team member the opportunity to design a subsystem.
+Each team member was assigned to a subsystem that best matches their technical strengths, ensuring efficient development and balanced workload across hardware and software domains.
+
+### Nathan MacPherson – Peripherals Unit
+Nathan’s skills in Digital Systems, Programming, Networks, and Electrical CAD align with integrating the microphone and display. His experience supports reliable data communication and hardware interfacing with the Processing Unit.
+
+### Noah Beaty – Processing Unit
+With strengths in Programming, Digital Systems, and Microcontroller knowledge, Noah is well-suited for the Raspberry Pi–based Processing Unit, handling speech recognition, chess logic, and coordination between subsystems.
+
+### Jack Tolleson – Control Unit
+Jack’s background in Microcontrollers, Programming, and Networking fits the Arduino-driven Control Unit, where precise motor control and communication with the Processing Unit are key.
+
+### Allison Givens – CoreXY Unit
+Allison’s expertise in CAD, 3D Printing, and Microcontroller programming supports the CoreXY mechanical subsystem, combining hardware design with control integration for accurate motion.
+
+### Lewis Bates – Power Unit
+Lewis’s knowledge of Embedded Systems and Power Electronics makes him ideal for managing the Power Unit, ensuring stable, efficient energy delivery to all components.
+
 
 ### Timeline
 
