@@ -40,6 +40,23 @@ The fully formulated problem is the overall objective and scope complete with th
 
 In this section, various potential solutions are hypothesized, design considerations are discussed, and factors influencing the selection of a solution are outlined. The chosen solution is then identified with justifications for its selection.
 
+**DIY Solutions**
+
+DIY implementations offer customizability and enable source code analysis. However, many such projects remain incomplete or lack essential successive revisions to achieve a well-formed, formalized state.
+Below is a survey of several GitHub projects that reasonably meet our project's criteria:
+
+1. **8x8 Smart Chess Board**
+  * Pros: Allows for user control over the movement of pieces, contains relevant pictures displaying board structure and organization, checks for legal moves, and provides CLI feedback.
+  * Cons: Partial/ incomplete BOM list, does not account for the chess pieces and wooden board, has documented issues with the stepper motors, and horrible documentation of the code base.
+   
+2. **Techievince 8.0 – Electronics Club IITG Project**
+  * Pros: Complete BOM, has an Implementation of an AI Opponent along with the micro max algorithm, and fully explains the schematic of the board controls.
+  * Cons: code is not organized into a proper directory structure, it is primarily organized into one large file; it lacks a full schematic of the GPIOS and parts used.
+   
+3. **Chess Automation Using Computer Vision**
+  * Pros: Contains a Complete Project Structure, builds a complete CLI environment for the project to contain itself, complete with CLI parameters and MAN files, and has an app interface.
+  * Cons: Uses CV, which is not our desired implementation.
+
 
 ## High-Level Solution
 
