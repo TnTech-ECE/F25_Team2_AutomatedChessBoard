@@ -1,32 +1,5 @@
-##CHANGE ME
 
 # Conceptual Design
-
-This document outlines the objectives of a conceptual design. After reading your conceptual design, the reader should understand:
-
-- The fully formulated problem.
-- The fully decomposed conceptual solution.
-- Specifications for each of the atomic pieces of the solution.
-- Any additional constraints and their origins.
-- How the team will accomplish their goals given the available resources.
-
-With these guidelines, each team is expected to create a suitable document to achieve the intended objectives and effectively inform their stakeholders.
-
-
-## General Requirements for the Document
-- Submissions must be composed in Markdown format. Submitting PDFs or Word documents is not permitted.
-- All information that is not considered common knowledge among the audience must be properly cited.
-- The document should be written in the third person.
-- An introduction section should be included.
-- The latest fully formulated problem must be clearly articulated using explicit "shall" statements.
-- A comparative analysis of potential solutions must be performed
-- The document must present a comprehensive, well-specified high-level solution.
-- The solution must contain a hardware block diagram.
-- The solution must contain an operational flowchart.
-- For every atomic subsystem, a detailed functional description, inputs, outputs, and specifications must be provided.
-- The document should include an acknowledgment of ethical, professional, and standards considerations, explaining the specific constraints imposed.
-- The solution must include a refined estimate of the resources needed, including: costs, allocation of responsibilities for each subsystem, and a Gantt chart.
-
 
 ## Introduction
 
@@ -63,7 +36,6 @@ The chessboard will meet the following requirements to ensure reliability and op
     - Microphone (Peripheral Input): The device shall capture vocal output from users and transmit it to the processing unit for analysis.
     - Processing Unit: The unit shall utilize Vosk to process and filter voice input with a minimum accuracy of 80%. It shall listen for input only while a designated button is pressed or after a command word is detected, recognize commands in algebraic chess notation and common variations (e.g., “Knight to e5,” “Bishop a4”), and process commands within 5 seconds of button release or the end of voice input.
 2. Piece Positioning XY Frame: The system shall magnetically drag pieces to the proper square using stepper motors to position pieces based on their x and y coordinates.
-
     - Processing Unit: The unit shall utilize Stockfish to enable single-player gameplay against an AI opponent.
     - Control Unit: The unit shall use an Arduino with Big Easy Drivers to interpret vocal commands, drive the XY movement, complete any piece movement within 5 seconds, and remove 95% of captured pieces without collision.
     - Core XY: The unit shall precisely position the magnetic actuator to relocate pieces while ensuring all pieces remain upright and stable during movement.
@@ -82,6 +54,7 @@ These specifications were developed in collaboration with stakeholders to define
     - Shall operate below 50 V DC, following UL low-voltage safety thresholds to eliminate the need for high-voltage insulation.  
     - Shall meet NEC (NFPA 70) requirements for low-voltage indoor consumer systems.  
     - Shall avoid any materials or configurations violating CPSC consumer electronics safety guidelines.
+    - Shall operate within safe limits per UL 2054 to prevent thermal or electrical hazards.
 - Electrical and Safety Constraints: To prevent electrical, thermal, and physical hazards during operation.
     - Shall limit external surface temperatures to ≤104°F (40°C) during continuous operation (per UL 94 and general safety guidance).  
     - Shall use cord sets and connectors compliant with NEC Article 400 for safe routing and reduced tripping risk.  
@@ -435,23 +408,37 @@ The Microphone and LCD Display System was selected as the most balanced and func
 
 ## High-Level Solution
 
-This section presents a comprehensive, high-level solution aimed at efficiently fulfilling all specified requirements and constraints. The solution is designed to maximize stakeholder goal attainment, adhere to established constraints, minimize risks, and optimize resource utilization. Please elaborate on how your design accomplishes these objectives.
+The automated chess board integrates mechanical motion, artificial intelligence, and voice recognition into a unified platform that will enable users to play chess naturally through verbal commands. By coordinating the different sections of the chess board, the design achieves helpful communication, precise motion control, and user interaction. The accompanying block diagram illustrates how each subsystem contributes to the overall architecture through defined input-output relationships, such as power distribution and data flow. Meanwhile, the operational flowchart illustrates the sequence of system interactions, showing how changes in the chessboard’s state drive corresponding user inputs and system responses. This representation highlights the system’s flow, making sure of the communication between components while also minimizing latency, reducing processing overhead, and maintaining performance. Together, these design diagrams present a resource efficient solution that effectively balances system complexity, computational performance, and user experience.
 
 
 ### Hardware Block Diagram
 
-Block diagrams are an excellent way to provide an overarching understanding of a system and the relationships among its individual components. Generally, block diagrams draw from visual modeling languages like the Universal Modeling Language (UML). Each block represents a subsystem, and each connection indicates a relationship between the connected blocks. Typically, the relationship in a system diagram denotes an input-output interaction.
+![Block_Diagram](Chess_Block.png)
 
-In the block diagram, each subsystem should be depicted by a single block. For each block, there should be a brief explanation of its functional expectations and associated constraints. Similarly, each connection should have a concise description of the relationship it represents, including the nature of the connection (such as power, analog signal, serial communication, or wireless communication) and any relevant constraints.
-
-The end result should present a comprehensive view of a well-defined system, delegating all atomic responsibilities necessary to accomplish the project scope to their respective subsystems.
-
+#### Processing Unit
+The Processing Unit will consist of a Raspberry Pi responsible for coordinating all high-level system operations. Its primary functions are fourfold. First, it will interpret incoming audio signals from the microphone using the Vosk speech recognition engine to convert spoken commands into recognizable text, while also supplying power to the microphone. Second, it will maintain the internal state of the chessboard and verify the legality of player moves using the Stockfish chess engine. Third, it will transmit validated and legal move commands to the Control Unit (Arduino) for conversion into motion control instructions. Lastly, the Raspberry Pi will send display data to the screen, providing the user with real-time visual feedback on system activity and game status.
+#### Control Unit
+The Control Unit will oversee all motion control operations and act as the communication bridge between the Processing Unit and the mechanical subsystems. It will receive movement instructions from the Raspberry Pi, translate them into executable control signals for the CoreXY motors, and relay status or confirmation messages back to the Processing Unit. These functions will be facilitated by the Arduino, which will coordinate communication with the stepper motor drivers integrated within the Control Unit. Additionally, the Arduino may supply power to the magnetic mechanism, depending on the final design implementation.
+#### Core XY Unit
+The CoreXY Unit is responsible for executing all physical movements required to reposition chess pieces on the board. Upon receiving step and direction signals from the Control Unit, it operates two stepper motors that drive a system of belts and pulleys to move a magnetic carriage along the X and Y axes. The integrated magnetic mechanism enables the controlled relocation of individual chess pieces without disturbing adjacent pieces.
+#### Peripherals Unit
+The Peripherals Unit comprises the system’s input and output devices — the microphone and the display screen. The microphone captures user voice commands, potentially utilizing software-based noise filtering to enhance accuracy and clarity. The display provides visual feedback to the player, presenting system messages such as “Not a Legal Move” or “Pawn to A5,” along with overall game status updates. Both peripherals interface directly with the Raspberry Pi, receiving data and power as needed to support their respective software components. Together, these peripherals establish the user interface that enables effective interaction with the system.
+#### Power Unit
+The Power Unit supplies regulated electrical power to all other subsystems. It will consist of a battery-based power source designed to provide multiple voltage levels to meet the varying current and voltage requirements of each component. The 12V rail will supply power to the stepper motors and drivers, while the 5V rail will support the Raspberry Pi, Arduino, and other control and peripheral electronics. Proper power regulation and distribution are essential to ensure safe, stable, and efficient system operation.
 
 ### Operational Flow Chart
 
-Similar to a block diagram, the flow chart aims to specify the system, but from the user's point of view rather than illustrating the arrangement of each subsystem. It outlines the steps a user needs to perform to use the device and the screens/interfaces they will encounter. A diagram should be drawn to represent this process. Each step should be represented in the diagram to visually depict the sequence of actions and corresponding screens/interfaces the user will encounter while using the device.
 
-#### Key Features
+![Block_Diagram](Chess_Flow_Diagram.png)
+
+
+This diagram illustrates the overall operational flow of the automatic chessboard system, including both user interactions and the underlying processes required to generate the on-screen display. At startup, all hardware and software components initialize and configure their respective systems. Once initialization is complete, the display indicates that the board is ready for user input.
+
+The user then provides a command, which the system processes to determine whether it represents a valid chess move. If the command is both recognized and legal, the system executes the move by physically repositioning the piece and updating the visual display to reflect the new board state.
+
+Next, the opposing player (either the integrated AI engine or another human participant) takes a turn following the same sequence of validation, movement, and display update. This turn-based cycle continues until one player achieves checkmate. When the game concludes, the display presents the final result and the board automatically resets the pieces to their starting positions. Finally, the system prompts the user to decide whether to begin a new game.
+
+### Key Features
 
 1. Voice Controls
    - The microphone captures user commands upon a designated button press or voice command trigger.
@@ -476,47 +463,356 @@ Similar to a block diagram, the flow chart aims to specify the system, but from 
    - The system is constructed from durable materials to prevent damage during normal use.
 8. Cost Efficiency
    - The system is designed to remain under $350 USD in material costs while maintaining or exceeding the quality of comparable solutions.
-________________________________________
 
+### Relevant Constraints
+#### Processing Unit Constraints: 
+- Shall comply with FCC Part 15 Subpart B (Class B) for electromagnetic interference in residential environments.  
+- Shall operate below 50 V DC, following UL low-voltage safety thresholds to eliminate the need for high-voltage insulation.  
+- Shall meet NEC (NFPA 70) requirements for low-voltage indoor consumer systems.  
+- Shall avoid any materials or configurations violating CPSC consumer electronics safety guidelines.  
+- Shall limit external surface temperatures to ≤104°F (40°C) during continuous operation (per UL 94 and general safety guidance).  
+- Shall use cord sets and connectors compliant with NEC Article 400 for safe routing and reduced tripping risk.  
+- Shall include grounding and protection per OSHA 1910 Subpart S to minimize shock hazards.  
+- Shall include ANSI Z535.4-compliant warning labels for user-facing hazards such as moving parts and power indicators.
 
+#### Control Unit Constraints: 
+- Shall comply with FCC Part 15 Subpart B (Class B) for electromagnetic interference in residential environments.  
+- Shall operate below 50 V DC, following UL low-voltage safety thresholds to eliminate the need for high-voltage insulation.  
+- Shall meet NEC (NFPA 70) requirements for low-voltage indoor consumer systems.  
+- Shall avoid any materials or configurations violating CPSC consumer electronics safety guidelines.  
+- Shall limit external surface temperatures to ≤104°F (40°C) during continuous operation (per UL 94 and general safety guidance).  
+- Shall use cord sets and connectors compliant with NEC Article 400 for safe routing and reduced tripping risk.  
+- Shall include grounding and protection per OSHA 1910 Subpart S to minimize shock hazards.  
+- Shall include ANSI Z535.4-compliant warning labels for user-facing hazards such as moving parts and power indicators.
+
+#### Core XY Unit Constraints: 
+- Shall comply with FCC Part 15 Subpart B (Class B) for electromagnetic interference in residential environments.  
+- Shall operate below 50 V DC, following UL low-voltage safety thresholds to eliminate the need for high-voltage insulation.  
+- Shall meet NEC (NFPA 70) requirements for low-voltage indoor consumer systems.  
+- Shall avoid any materials or configurations violating CPSC consumer electronics safety guidelines.  
+- Shall limit external surface temperatures to ≤104°F (40°C) during continuous operation (per UL 94 and general safety guidance).  
+- Shall use cord sets and connectors compliant with NEC Article 400 for safe routing and reduced tripping risk.  
+- Shall include grounding and protection per OSHA 1910 Subpart S to minimize shock hazards.  
+- Shall include ANSI Z535.4-compliant warning labels for user-facing hazards such as moving parts and power indicators.  
+
+#### Peripherals Unit Constraints: 
+- Shall comply with FCC Part 15 Subpart B (Class B) for electromagnetic interference in residential environments.  
+- Shall operate below 50 V DC, following UL low-voltage safety thresholds to eliminate the need for high-voltage insulation.  
+- Shall meet NEC (NFPA 70) requirements for low-voltage indoor consumer systems.  
+- Shall avoid any materials or configurations violating CPSC consumer electronics safety guidelines.  
+- Shall limit external surface temperatures to ≤104°F (40°C) during continuous operation (per UL 94 and general safety guidance).  
+- Shall use cord sets and connectors compliant with NEC Article 400 for safe routing and reduced tripping risk.  
+- Shall include grounding and protection per OSHA 1910 Subpart S to minimize shock hazards.  
+- Shall conform to Section 508 of the Rehabilitation Act, ensuring accessible interfaces for users with disabilities.  
+- Shall follow ergonomic layout guidelines from ANSI/HFES 100-2007, ensuring proper control placement and feedback.  
+- Shall follow universal design principles to minimize cognitive and physical usability barriers.  
+
+#### Power Unit Constraints: 
+- Shall comply with FCC Part 15 Subpart B (Class B) for electromagnetic interference in residential environments.  
+- Shall operate below 50 V DC, following UL low-voltage safety thresholds to eliminate the need for high-voltage insulation.  
+- Shall meet NEC (NFPA 70) requirements for low-voltage indoor consumer systems.  
+- Shall avoid any materials or configurations violating CPSC consumer electronics safety guidelines.
+- Shall operate within safe limits per UL 2054 to prevent thermal or electrical hazards.
+- Shall limit external surface temperatures to ≤104°F (40°C) during continuous operation (per UL 94 and general safety guidance).  
+- Shall use cord sets and connectors compliant with NEC Article 400 for safe routing and reduced tripping risk.  
+- Shall include grounding and protection per OSHA 1910 Subpart S to minimize shock hazards.  
+- Shall include ANSI Z535.4-compliant warning labels for user-facing hazards such as moving parts and power indicators. 
 ## Atomic Subsystem Specifications
 
-Based on the high-level design, provide a comprehensive description of the functions each subsection will perform.
+#### Processing Unit
+The Processing Unit will consist of a Raspberry Pi responsible for coordinating all high-level system operations. Its primary functions are fourfold. First, it will interpret incoming audio signals from the microphone using the Vosk speech recognition engine to convert spoken commands into recognizable text, while also supplying power to the microphone. Second, it will maintain the internal state of the chessboard and verify the legality of player moves using the Stockfish chess engine. Third, it will transmit validated and legal move commands to the Control Unit (Arduino) for conversion into motion control instructions. Lastly, the Raspberry Pi will send display data to the screen, providing the user with real-time visual feedback on system activity and game status.
 
-Inclued a description of the interfaces between this subsystem and other subsystems:
-- Give the type of signal (e.g. power, analog signal, serial communication, wireless communication, etc).
-- Clearly define the direction of the signal (input or output).
-- Document the communication protocols used.
-- Specifying what data will be sent and what will be received.
+Functions:
 
-Detail the operation of the subsystem:
-- Illustrate the expected user interface, if applicable.
-- Include functional flowcharts that capture the major sequential steps needed to achieve the desired functionalities.
+  - Process voice commands and execute chess logic.
+  - Coordinate overall system operations.
+  - Communicate with user interface (microphone/display) and control logic.
+    
+Inputs:
 
-For all subsystems, formulate detailed "shall" statements. Ensure these statements are comprehensive enough so that an engineer who is unfamiliar with your project can design the subsystem based on your specifications. Assume the role of the customer in this context to provide clear and precise requirements.
+  - Voice commands via Microphone.
+  - System status from Control Unit.
+  - Power from Power Unit.
 
+    
+Outputs:
+
+  - Chess move instructions to Control Unit.
+  - Feedback to user (via Screen Display).
+    
+Interfaces:
+
+- Data exchange with Peripherals (Mic, Display).
+- Data connection to Control Unit (Arduino).
+- Power from Power Unit.
+  
+High-Level Requirements:
+
+  - Shall process speech using Vosk speech recognition engine.
+  - Shall interpret and validate moves using Stockfish chess engine.
+  - Shall serve as the central decision-making and coordination hub.
+
+
+#### Control Unit
+The Control Unit will manage all motion control functions and serve as the intermediary between the Processing Unit and the mechanical subsystems. It will receive move instructions from the Raspberry Pi, interpret them into executable signals for the CoreXY motors, and transmit confirmation messages back to the Processing Unit. This will be achieved through the Arduino’s coordination of communication with stepper motor drivers housed within the Control Unit. The servo motor responsible for magnetic actuation will receive direct control signals from the Arduino to ensure precise vertical (Z-axis) movement.
+
+Functions:
+
+  - Translate move instructions into motor control signals.
+  - Manage stepper motor drivers for coordinated movement.
+  - Relay system status back to the Processing Unit.
+    
+Inputs:
+
+  - Move commands from Processing Unit.
+  - Power from Power Unit.
+
+    
+Outputs:
+
+  - Control signals to motors.
+  - Feedback to Processing Unit.
+    
+Interfaces:
+
+  - Arduino microcontroller.
+  - Motor Drivers.
+  - Data connection with Processing Unit.
+    
+High-Level Requirements:
+
+  - Shall convert logical chess moves into physical movement instructions.
+  - Shall ensure movement reliability and position accuracy.
+
+
+#### Core XY Unit
+The CoreXY Unit will execute all physical motion required to reposition chess pieces on the board. Upon receiving step and direction commands from the Control Unit, it will drive two stepper motors to manipulate belts and pulleys that move a magnetic carriage across the X and Y axes. A servo-driven magnet will function as the Z-axis actuator, enabling the magnet to raise and lower as needed. This mechanism minimizes magnetic interference with nearby pieces and prevents unintentional displacement during movement.
+
+Functions:
+
+  - Physically move chess pieces on the board using a Core XY mechanism.
+    
+Inputs:
+
+  - Power and control signals from Control Unit.
+  - Power from Power Unit.
+
+    
+Outputs:
+
+  - Physical movement of chess pieces.
+    
+Interfaces:
+
+  - Stepper Motors (controlled by drivers).
+  - Pulley system (for piece movement).
+    
+High-Level Requirements:
+
+  - Shall move the chess pieces accurately to specified coordinates.
+  - Shall allow for capturing, placing, and repositioning of chess pieces.
+  - Shall execute moves smoothly and quietly.
+    
+
+#### Peripherals Unit
+The Peripherals Unit consists of the system’s input and output devices — the microphone and display screen. The microphone captures user voice commands, potentially supported by software-based noise filtering to improve accuracy and clarity. The display provides feedback to the player by showing system messages such as “Not a Legal Move” or “Pawn to A5”, as well as overall game status updates. Together, these peripherals form the user interface that enables intuitive interaction with the system.
+
+Functions:
+
+  - Provide user interaction via input and output interfaces.
+  - Capture voice commands and display system responses.
+    
+Inputs:
+
+  - User voice input.
+  - Data from Processing Unit.
+  - Power from Power Unit.
+
+    
+Outputs:
+
+  - Display messages, move feedback, and prompts to the user.
+    
+Interfaces:
+
+  - Microphone (voice capture).
+  - Screen Display (visual output).
+  - Data connection with Processing Unit.
+    
+High-Level Requirements:
+
+  - Shall receive voice input for game commands.
+  - Shall display helpful information for the user while playing.
+
+
+#### Power Unit
+The Power Unit supplies regulated electrical power to all other subsystems. It will consist of a battery-based power source designed to provide multiple voltage levels to meet the varying current and voltage requirements of each component. The 12V rail will supply power to the stepper motors and drivers, while the 5V rail will support the Raspberry Pi, Arduino, and other control and peripheral electronics. Proper power regulation and distribution are essential to ensure safe, stable, and efficient system operation.
+
+Functions:
+
+  - Supply consistent power to all subsystems.
+  - Enable portable and uninterrupted operation.
+    
+Inputs:
+
+  - Wall outlet when charging
+
+Outputs:
+
+  - Regulated power to Processing, Control, Core XY, and Peripherals units.
+    
+Interfaces:
+
+  - Power lines to each subsystem.
+    
+High-Level Requirements:
+
+  - Shall provide stable power for all electronic components.
+  - Shall have a large enough battery for extended gameplay.
 
 ## Ethical, Professional, and Standards Considerations
 
-In the project proposal, each team must evaluate the broader impacts of the project on culture, society, the environment, public health, public safety, and the economy. Additionally, teams must consider relevant standards organizations that will inform the design process. A comprehensive discussion should be included on how these considerations have influenced the design. This includes detailing constraints, specifications, and practices implemented as a result, and how these address the identified considerations.
+The development of the Audio Actuated Chessboard—a robotic system that enables voice-commanded chess moves, automated piece movement via electromagnets and stepper motors, and integration with chess engines—presents a unique opportunity to blend recreational gaming with accessible technology. This section evaluates the project's ethical implications, professional responsibilities, and adherence to relevant standards, while assessing its broader impacts on culture, society, the environment, public health, public safety, and the economy. These considerations have directly shaped the conceptual design, imposing specific constraints, specifications, and practices to ensure responsible innovation.
+
+### Ethical Situations Expected to Encounter
+Several ethical challenges may arise during the project lifecycle. First, **privacy concerns** stem from the voice recognition component, which processes user audio inputs to interpret chess moves (e.g., "knight to e4"). Without proper safeguards, this could inadvertently capture unrelated conversations or sensitive data, raising issues of data consent and storage. To address this, the design incorporates on-device processing where feasible, and ensures audio is not persistently stored.
+
+Second, **accessibility equity** is a key ethical tension: while the system aims to include visually impaired players, it could inadvertently exclude those with speech impairments or non-standard accents if the speech-to-text model lacks diversity in training data. Ethical sourcing of datasets (e.g., diverse voice samples) will be prioritized to avoid bias.
+
+Third, **intellectual property (IP) risks** involve open-source chess engines (e.g., Stockfish) and hardware designs (e.g., Arduino libraries for stepper motors). Unattributed use could lead to plagiarism claims, so all code and schematics will be documented with licenses and contributions credited.
+
+Finally, as a capstone project, team dynamics may introduce ethical dilemmas, such as unequal workload distribution or pressure to prioritize functionality over safety testing. Professional ethics, guided by the ACM Code of Ethics, will mandate transparent collaboration and peer reviews.
+
+### Broader Impacts on the Community
+The Audio Actuated Chessboard has predominantly positive, albeit modest, impacts across multiple domains, fostering inclusivity while mitigating potential negatives.
+
+- **Cultural Impacts**: Chess is a global cultural artifact symbolizing strategy and intellectual heritage. This project enhances its cultural relevance by modernizing traditional over-the-board (OTB) play, appealing to younger, tech-savvy demographics and bridging analog and digital divides. It could revive interest in chess clubs or tournaments by making play more engaging and shareable (e.g., via integrated online play), potentially increasing cultural participation in underserved communities.
+
+- **Societal Impacts**: On society, the board promotes cognitive health through accessible chess, which research links to improved problem-solving and memory. For the community—particularly students, hobbyists, and rehabilitation centers—it democratizes gaming, enabling remote or solo play against AI. Broader societal benefits include educational outreach; the open-source design could inspire STEM curricula, encouraging underrepresented groups to engage in robotics and AI. However, if commercialized, it risks widening the digital divide if priced accessibly only to affluent users.
+
+- **Environmental Impacts**: As a low-volume prototype, direct environmental effects are minimal, but the design emphasizes sustainability to model responsible engineering. Components like neodymium magnets and lithium polymer batteries pose e-waste risks if not recycled; thus, modular hardware allows for easy upgrades and disassembly. Compared to mass-produced commercial boards (e.g., Square Off or GoChess), our DIY approach reduces manufacturing emissions by using off-the-shelf parts, potentially lowering the carbon footprint for hobbyist replication.
+
+- **Public Health Impacts**: Positively, the system supports mental health by providing therapeutic, low-physical-effort recreation, ideal for elderly users or those with mobility limitations. Voice actuation reduces screen time versus app-based chess, promoting social interaction in group settings. No significant negative health risks are anticipated, assuming proper electromagnetic shielding to prevent interference with pacemakers.
+
+- **Public Safety Impacts**: Safety is paramount in a device with moving parts (e.g., under-board actuators) and electrical components. Potential hazards include pinching from stepper mechanisms or electrical shorts, but these are mitigated through fail-safes. Overall, the project enhances safety by enabling contactless play, reducing germ transmission in shared environments like schools.
+
+- **Economic Impacts**: For the local community (e.g., university ecosystem), the project boosts skill-building in high-demand fields like AI and mechatronics, potentially leading to startup opportunities or job placements. Economically, an open-source release could spur a niche market for custom boards, benefiting small-scale makers. However, it competes with commercial products, so IP strategies will balance innovation with fair competition.
+
+
+### Application of Identified Standards
+The project has identified key standards organizations that inform the design, ensuring compliance, interoperability, and safety. These include:
+
+- **IEEE Standards Association (IEEE 802.15.4 for low-power wireless communication)**: Applied to Bluetooth or Zigbee modules for voice data transmission between the microphone and microcontroller. This standard ensures low-latency, energy-efficient connectivity, critical for real-time move actuation without lag that could frustrate users.
+
+- **ASTM International (ASTM F963 for toy safety, adapted for recreational devices)**: Guides material selection and edge rounding on the wooden board to prevent injuries, treating the chessboard as a "toy-like" interactive device.
+
+- **UL (Underwriters Laboratories) Standards (UL 60950-1 for IT equipment safety)**: Influences electrical design, specifying insulation and grounding for the 5-24V power supply to avoid shocks or fires.
+
+- **W3C Web Accessibility Initiative (WCAG 2.1 for voice interfaces)**: Ensures the speech recognition adheres to accessibility guidelines, such as providing text fallbacks for voice commands and supporting multiple languages/accents.
+
+- **ISO/IEC 27001 for information security**: Applied to any data handling in voice processing, enforcing encryption for transmitted audio snippets.
+
+These standards are not merely checkboxes; they are integrated into the requirements phase via traceability matrices, linking each to testable design elements (e.g., IEEE compliance verified through signal integrity tests).
+
+### Comprehensive Discussion: Influence on the Design
+These ethical, professional, and standards considerations have profoundly influenced the conceptual design, transforming abstract concerns into actionable constraints, specifications, and practices. This iterative process—conducted through design reviews and ethical audits—ensures the final product is robust, equitable, and aligned with societal good.
+
+#### Key influences include:
+
+- **Constraints Imposed**: Privacy ethics constrained cloud reliance, mandating edge computing on a Raspberry Pi or Arduino, which limits processing power to lightweight models  but ensures data sovereignty. Environmental concerns capped component count at <50 units per prototype, favoring reusable parts like salvaged steppers to minimize resource use. Safety standards (UL/ASTM) restricted voltage to 12V max and required physical barriers (e.g., acrylic underlay) around actuators, preventing hazards.
+
+- **Specifications Derived**: Broader societal impacts drove accessibility specs, such as 95% voice command accuracy across accents (tested via diverse datasets) and adjustable audio feedback volumes (WCAG-compliant). Economic and cultural goals specified an open-source license (MIT) for schematics, with modular firmware for easy engine swaps (e.g., Stockfish integration). Professional ethics added logging features for auditing team decisions, ensuring transparency.
+
+- **Practices Implemented**: Standards application manifests in validation protocols: IEEE tests for wireless reliability (e.g., <50ms latency) and ISO security scans for vulnerabilities. These practices address impacts holistically; for instance, public health specs include haptic feedback alternatives to voice, reducing exclusion risks, while economic practices like cost modeling (<$200 BOM) promote community replication.
+
+In summary, these considerations elevate the project from a novel gadget to a thoughtful intervention in accessible gaming. By embedding them early, the design complies with expectations and allows for future scalability. Ongoing monitoring via post-prototype surveys will refine these elements, embodying continuous professional improvement.
+
 
 
 ## Resources
 
-You have already estimated the resources needed to complete the solution. Now, let's refine those estimates.
-
 ### Budget
+The following section outlines the estimated costs associated with each subsystem, including justifications for major components and materials.
+#### Processing Unit
+| Item                                 | Description / Notes                                                                                       | Quantity | Approx. Cost (USD) |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------- | -------- | ------------------ |
+| **Raspberry Pi**                     | Handles high-level logic, Stockfish chess engine, and Vosk speech recognition; coordinates all subsystems | 1        | $50–$60            |
+| **MicroSD Card**                     | Stores OS, chess engine, and voice recognition software                                                   | 1        | $6–$10             |
 
-Develop a budget proposal with justifications for expenses associated with each subsystem. Note that the total of this budget proposal can also serve as a specification for each subsystem. After creating the budgets for individual subsystems, merge them to create a comprehensive budget for the entire solution.
+The Processing Unit is the computational core of the system. A Raspberry Pi should be chosen for its balance of performance and cost, capable of running Stockfish and the Vosk speech engine simultaneously. A MicroSD card provides non-volatile storage for the operating system and application software.
+#### Control Unit
+| Item                                              | Description / Notes                                                              | Quantity | Approx. Cost (USD) |
+| ------------------------------------------------- | -------------------------------------------------------------------------------- | -------- | ------------------ |
+| **Arduino**                                       | Converts Pi commands into motor control signals; interfaces with stepper drivers | 1        | $20–$30            |
+| **Stepper Driver Boards**                         | Amplify control signals and drive the stepper motors                             | 2        | $5–$10 each        |
+
+The Control Unit acts as the intermediary between the Processing Unit and the mechanical motion subsystem. The Arduino chosen should provide precise control timing for motor drivers and support flexible integration with the magnet mechanism. Dual stepper drivers enable independent X and Y axis movement.
+#### CoreXY Unit
+| Item                                    | Description / Notes                              | Quantity | Approx. Cost (USD) |
+| --------------------------------------- | ------------------------------------------------ | -------- | ------------------ |
+| **Stepper Motors**                      | Drive CoreXY belts to move the magnetic carriage | 2        | $10–$12 each       |
+| **Belt and Pulley Set**                 | Transmits motion from motors to carriage         | 1 set    | $8–$10             |
+| **CoreXY / XY Framework**               | Includes rails, idlers, carriage, and frame      | 1        | $40–$65            |
+| **Magnet Assembly**                     | Moves chess pieces via magnetic coupling         | 1–2      | $15–$20            |
+
+The CoreXY Unit performs all physical motion, requiring precise linear motion components. Stepper motors provide high positional accuracy, while the belt-and-pulley system converts rotational motion into planar movement. The magnet mechanism allows non-contact manipulation of chess pieces.
+#### Peripherals Unit
+| Item                             | Description / Notes                                 | Quantity | Approx. Cost (USD) |
+| -------------------------------- | --------------------------------------------------- | -------- | ------------------ |
+| **Microphone**                   | Captures user voice commands for recognition        | 1        | $8–$10             |
+| **Display Screen**               | Provides system feedback, messages, and game status | 1        | $12–$18            |
+
+The Peripherals Unit establishes user interaction. A microphone allows for voice-based input processed by the Raspberry Pi, while a display delivers visual feedback and system prompts.
+#### Power Unit
+| Item                                                      | Description / Notes                                             | Quantity | Approx. Cost (USD) |
+| --------------------------------------------------------- | --------------------------------------------------------------- | -------- | ------------------ |
+| **Power Supply**                                          | Provides regulated power to motors, Pi, and control electronics | 1        | $30–$40            |
+
+A stable, regulated power supply is essential for reliable operation. The system should support both a 12V line supports the stepper motors and drivers, and a 5V output powers logic components and peripherals. Proper power distribution ensures electrical safety and prevents system instability.
+#### Miscellaneous/Structural Components
+| Item                                        | Description / Notes                                | Quantity | Approx. Cost (USD) |
+| ------------------------------------------- | -------------------------------------------------- | -------- | ------------------ |
+| **Chessboard Frame (Wood or 3D Printed)**   | Supports CoreXY mechanism and aesthetic housing    | 1        | $20–$30            |
+| **Chess Piece Set (Metal Base)**            | Enables magnetic manipulation                      | 1        | $15–$25            |
+| **Prototyping and Miscellaneous Materials** | Spare wiring, connectors, mounts, testing supplies | —        | $150               |
+
+These components complete the mechanical and visual integration of the system. The chessboard frame houses the motion platform, while magnetized pieces enable interaction. The prototyping budget accounts for iteration and testing materials necessary for functional validation.
+#### Comprehensive Budget Summary
+| Subsystem                       | Estimated Cost Range (USD) |
+| ------------------------------- | -------------------------- |
+| Processing Unit                 | $56–$70                    |
+| Control Unit                    | $30–$50                    |
+| CoreXY Unit                     | $73–$107                   |
+| Peripherals Unit                | $20–$28                    |
+| Power Unit                      | $30–$40                    |
+| Structural Components           | $35–$55                    |
+| **Estimated System Cost**       | **≈ $244 – $350**          |
+| **Prototyping Cost**            | **$150**                   |
+| **Estimated Total Cost**        | **≈ $394 – $500**          |
 
 ### Division of Labor
 
-First, conduct a thorough analysis of the skills currently available within the team, and then compare these skills to the specific requirements of each subsystem. Based on this analysis, appoint a team member to take the specifications for each subsystem and generate a corresponding solution (i.e. detailed design). If there are more team members than subsystems, consider further subdividing the solutions into smaller tasks or components, thereby allowing each team member the opportunity to design a subsystem.
+Each team member was assigned to a subsystem that best matches their technical strengths, ensuring efficient development and balanced workload across hardware and software domains.
+
+#### Nathan MacPherson – Peripherals Unit
+Nathan’s skills in Digital Systems, Programming, Networks, and Electrical CAD align with integrating the microphone and display. His experience supports reliable data communication and hardware interfacing with the Processing Unit.
+
+#### Noah Beaty – Control Unit
+Noah’s background in Microcontrollers, Programming, and Networking fits the Arduino-driven Control Unit, where precise motor control and communication with the Processing Unit are key.
+
+#### Jack Tolleson – Processing Unit
+With strengths in Programming, Digital Systems, and Microcontroller knowledge, Jack is well-suited for the Raspberry Pi–based Processing Unit, handling speech recognition, chess logic, and coordination between subsystems.
+
+#### Allison Givens – CoreXY Unit
+Allison’s expertise in CAD, 3D Printing, and Microcontroller programming supports the CoreXY mechanical subsystem, combining hardware design with control integration for accurate motion.
+
+#### Lewis Bates – Power Unit
+Lewis’s knowledge of Embedded Systems and Power Electronics makes him ideal for managing the Power Unit, ensuring stable, efficient energy delivery to all components.
+
 
 ### Timeline
 
-Revise the detailed timeline (Gantt chart) you created in the project proposal. Ensure that the timeline is optimized for detailed design. Address critical unknowns early and determine if a prototype needs to be constructed before the final build to validate a subsystem. Additionally, if subsystem $A$ imposes constraints on subsystem $B$, generally, subsystem $A$ should be designed first.
-
+<img width="3589" height="1393" alt="image" src="https://github.com/user-attachments/assets/a23461c9-3263-4377-a40b-db57cef274e5" />
 
 ## References
 
@@ -526,4 +822,14 @@ Revise the detailed timeline (Gantt chart) you created in the project proposal. 
 
 ## Statement of Contributions
 
-Each team member is required to make a meaningful contribution to the project proposal. In this section, each team member is required to document their individual contributions to the report. One team member may not record another member's contributions on their behalf. By submitting, the team certifies that each member's statement of contributions is accurate.
+Nathan MacPherson: Introduction, Atomic Subsystem Specifications
+
+Jack Tolleson: High-Level Solution, Resources
+
+Noah Beaty: Comparative Analysis of Potential Solutions
+
+Allison Givens: Fully Formulated Problem, High-Level Solution, Resources
+
+Lewis Forrest Bates: Comparative Analysis of Potential Solutions, and Ethical, Professional, and Standards Considerations
+
+All: General Proofreading/Editing
