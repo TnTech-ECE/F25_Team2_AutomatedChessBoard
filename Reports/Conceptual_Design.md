@@ -74,7 +74,7 @@ Automated chessboards have emerged as innovative tools for enhancing gameplay, i
 
 _**Robotic Arm Manipulator System**_
 
-![Robot Arm](Robot_Gripper_Arm.png)
+![Robotic Arm](Robot_Gripper_Arm)
 
 The robotic arm manipulator system consists of a multi-jointed mechanical arm mounted above the chessboard, equipped with a claw or gripper to pick up and move chess pieces between positions. Controlled by servo or stepper motors, this approach mimics human motion, offering precise vertical and horizontal control for piece manipulation.
 
