@@ -168,7 +168,9 @@ The CoreXY motion system was determined to be the most balanced and practical ap
 
 ### Processing and Control Subsystem
 
-_**Centralized Processing Unit**_
+_**Centralized Processing Unit**_ [5]
+
+![Centralized Processing Unit](./Concept_Images/Raspberry_Pi_to_Motor.png)
 
 In this setup, a single embedded processor (such as a Raspberry Pi) handles all major system functions, including speech recognition, chess logic, and motion control. The processor directly interfaces with motor driver boards, eliminating the need for a secondary control unit. This approach simplifies wiring and reduces communication overhead between devices, but places greater computational and timing demands on the processor.
 
@@ -192,7 +194,9 @@ In this setup, a single embedded processor (such as a Raspberry Pi) handles all 
     
     * Difficult to scale or maintain if additional sensors or actuators are later added.
 
-_**Cloud-Assisted or Network-Based Processing**_
+_**Cloud-Assisted or Network-Based Processing**_ [6]
+
+![Cloud Processing](./Concept_Images/Raspberry_Cloud.jpg)
 
 In this configuration, the chessboard’s hardware handles only low-level control, while cloud or networked servers perform computationally heavy tasks such as speech recognition and chess AI. The local system sends input data (like voice or board state) to remote services, which return processed results. This approach leverages powerful external resources, but introduces significant dependency on network availability.
 
@@ -216,7 +220,9 @@ In this configuration, the chessboard’s hardware handles only low-level contro
     
     * Reduces autonomy and portability, making it unsuitable for standalone operation.
 
-_**Distributed Processing and Control System**_
+_**Distributed Processing and Control System**_ [7]
+
+![Distributed Processing](./Concept_Images/Raspberry_Pi_to_Arduino.png)
 
 This architecture separates high-level processing from real-time motor control. A Raspberry Pi acts as the main processing unit, running the voice recognition and chess piece tracking programs. It communicates with a dedicated Arduino control unit, which manages the CoreXY stepper motors through two motor driver boards. The Arduino executes time-critical control loops for precise movement, while the Raspberry Pi handles strategic computation and user interaction.
 
@@ -829,6 +835,12 @@ Lewis’s knowledge of Embedded Systems and Power Electronics makes him ideal fo
 [3] "Chessnut Move | Review | Are you ready for robot chess?," Adventures of a Chess Noob, Jul. 08, 2025. https://adventuresofachessnoob.com/2025/07/08/%F0%9F%94%A5-chessnut-move-review-are-you-ready-for-robot-chess-%F0%9F%A4%96%E2%99%9F%EF%B8%8F%F0%9F%A4%94/
 
 [4] Admin, "Why the Core3D printer uses CoreXY," Core3D Custom Printers, Jun. 10, 2017. https://core3d.tech/2017/06/10/why-core3d-printer-uses-corexy/
+
+[5] H. M. | R. Pi | 0, "How to Use DC Motors on the Raspberry Pi," Circuit Basics, Jun. 10, 2021. https://www.circuitbasics.com/introduction-to-dc-motors/
+
+[6] ella, "Transform Your Raspberry Pi Into a Powerful Cloud Storage Server - Pidora," Pidora, Feb. 08, 2025. https://pidora.ca/transform-your-raspberry-pi-into-a-powerful-cloud-storage-server/
+
+[7] "Raspberry Pi Arduino Serial Communication - Everything You Need To Know," The Robotics Back-End, Nov. 11, 2019. https://roboticsbackend.com/raspberry-pi-arduino-serial-communication/
 
 
 
