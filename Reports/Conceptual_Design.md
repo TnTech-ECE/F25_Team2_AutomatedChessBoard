@@ -258,7 +258,9 @@ The Distributed Processing and Control System offers the best balance between re
 
 ### Power System
 
-_**Corded Power System**_
+_**Corded Power System**_ [8]
+
+![Corded Power](./Concept_Images/Corded_Power.png)
 
 The corded power configuration supplies energy directly from a wall outlet through a DC power adapter, providing continuous and stable voltage to all internal components. This setup eliminates the need for internal energy storage and simplifies circuit design, relying entirely on an external power connection for operation.
 
@@ -284,7 +286,9 @@ The corded power configuration supplies energy directly from a wall outlet throu
     
     * Less appealing for demonstration or mobile use cases due to lack of autonomy.
 
-_**Wireless Inductive Power System**_
+_**Wireless Inductive Power System**_ [9]
+
+![Wireless Power](./Concept_Images/Wireless_Power.png)
 
 A wireless inductive power setup transfers energy through magnetic coupling between a transmitter coil (in a base station) and a receiver coil integrated into the chessboard. This provides a cable-free appearance and continuous power when the board is positioned on its charging pad.
 
@@ -310,7 +314,9 @@ A wireless inductive power setup transfers energy through magnetic coupling betw
     
     * Thermal buildup during long operation could reduce component lifespan.
    
- _**Hybrid Power System**_
+ _**Hybrid Power System**_ [10]
+
+ ![Hybrid Power](./Concept_Images/Power_Supply.jpg)
 
 The hybrid power system integrates a rechargeable battery pack with an AC adapter and power management circuitry. This configuration allows the chessboard to operate from wall power while simultaneously charging the batteries, and to continue functioning seamlessly on battery power when unplugged. It ensures both reliability and portability, making it ideal for extended demonstrations or classroom use.
 
@@ -841,6 +847,12 @@ Lewis’s knowledge of Embedded Systems and Power Electronics makes him ideal fo
 [6] ella, "Transform Your Raspberry Pi Into a Powerful Cloud Storage Server - Pidora," Pidora, Feb. 08, 2025. https://pidora.ca/transform-your-raspberry-pi-into-a-powerful-cloud-storage-server/
 
 [7] "Raspberry Pi Arduino Serial Communication - Everything You Need To Know," The Robotics Back-End, Nov. 11, 2019. https://roboticsbackend.com/raspberry-pi-arduino-serial-communication/
+
+[8] "AC-DC Universal Power Adapter Multi Voltage Output: 1.5VDC-12VDC @ 1000 mA; 7-plugs," AC-DC PowerShack, 2020. https://www.acdcpowershack.com/products/ac-dc-universal-power-adapter-multi-voltage-output-1-5vdc-12vdc-1000-ma-7-plugs-part-hc-1000?srsltid=AfmBOoorP4FP2Ja8toe44_u3KtCVAu-6VT5A_EYw7hLsAXEnxIjn6Unr
+
+[9] J. Hanna, “Wireless AC/DC Module," PASCO scientific, 2019. https://www.pasco.com/products/lab-apparatus/electricity-and-magnetism/circuits-and-components/wireless-ac-dc-module?srsltid=AfmBOoosJiE8trk5GcxQhZ3MOylGAMg9a4AADy_21YH-kvJihaN8bgUQ
+
+[10] "EXTRALINK Power Supply with Battery Charger 12V/13.8V 55W (EL-PSUPPLY-AD-55A) - The source for WiFi products at best prices in Europe - wifi-stock.com," Wifi-stock.com, 2025. https://www.wifi-stock.com/details/extralink-power-supply-with-battery-charger-12v13-8v-55w-el-psupply-ad-55a.html
 
 
 
