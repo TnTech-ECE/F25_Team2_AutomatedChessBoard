@@ -72,9 +72,9 @@ Automated chessboards have emerged as innovative tools for enhancing gameplay, i
 
 ### Chess Piece Movement
 
-_**Robotic Arm Manipulator System**_
+_**Robotic Arm Manipulator System**_ [2]
 
-![Robotic Arm](Robot_Gripper_Arm.png)
+![Robotic Arm](./Concept_Images/Robot_Gripper_Arm.png)
 
 The robotic arm manipulator system consists of a multi-jointed mechanical arm mounted above the chessboard, equipped with a claw or gripper to pick up and move chess pieces between positions. Controlled by servo or stepper motors, this approach mimics human motion, offering precise vertical and horizontal control for piece manipulation.
 
@@ -104,7 +104,9 @@ The robotic arm manipulator system consists of a multi-jointed mechanical arm mo
     
     * Requires a robust frame or enclosure to maintain stability and alignment.
 
-_**Individual Micro-Robot System**_
+_**Individual Micro-Robot System**_ [3]
+
+![Micro Robotics](./Concept_Images/Micro_Robot_Pieces.png)
 
 This system places a small, self-contained micro-robot beneath each chess piece. Each robot can move independently under the board, guided by sensors or wireless communication, to reposition its corresponding piece as commanded. This concept is similar to systems used in high-end commercial robotic chessboards (such as the Chessnut Move[1]).
 
@@ -130,7 +132,9 @@ This system places a small, self-contained micro-robot beneath each chess piece.
     
     * Communication interference or loss can result in desynchronized or failed moves.
 
-_**CoreXY Motion System**_
+_**CoreXY Motion System**_ [4]
+
+![CoreXY Two-Axis](./Concept_Images/CoreXY.png)
 
 The CoreXY motion system uses two stepper motors connected through a pair of pulley and belt assemblies to enable precise, planar motion along the X and Y axes. A magnet is mounted to the movable head, allowing the system to position and actuate magnetic pieces from below the chessboard. This design provides a compact, fast, and mechanically efficient method for two-dimensional positioning, without requiring independent motorized axes.
   
@@ -819,6 +823,12 @@ Lewis’s knowledge of Embedded Systems and Power Electronics makes him ideal fo
 ## References
 
 [1] Chessnutech. (n.d.). Chessnut move - advanced robotic chessboard with Plastic Pieces. Chessnut. https://www.chessnutech.com/products/chessnut-move-advanced-robotic-chessboard-with-plastic-pieces
+
+[2] "Wlkata Mirobot Professional Kit - 6 Axis Robotic Arm - Ros & Matlab Simulation Teaching," Wlkata, 2025. https://www.wlkata.com/products/professional-kit-of-wlkata-mirobot-six-axis-robot-arm-robotic-arm-k12-education-equipment?srsltid=AfmBOorDYl5EVi5f-2_VhlTFHhlSARGG2zWaSqZx4XfDo7etzcfOX9D1
+
+[3] "Chessnut Move | Review | Are you ready for robot chess?," Adventures of a Chess Noob, Jul. 08, 2025. https://adventuresofachessnoob.com/2025/07/08/%F0%9F%94%A5-chessnut-move-review-are-you-ready-for-robot-chess-%F0%9F%A4%96%E2%99%9F%EF%B8%8F%F0%9F%A4%94/
+
+[4] Admin, "Why the Core3D printer uses CoreXY," Core3D Custom Printers, Jun. 10, 2017. https://core3d.tech/2017/06/10/why-core3d-printer-uses-corexy/
 
 
 
