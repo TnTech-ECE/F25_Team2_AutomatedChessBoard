@@ -516,7 +516,8 @@ Next, the opposing player (either the integrated AI engine or another human part
 - Shall limit external surface temperatures to ≤104°F (40°C) during continuous operation (per UL 94 and general safety guidance).  
 - Shall use cord sets and connectors compliant with NEC Article 400 for safe routing and reduced tripping risk.  
 - Shall include grounding and protection per OSHA 1910 Subpart S to minimize shock hazards.  
-- Shall include ANSI Z535.4-compliant warning labels for user-facing hazards such as moving parts and power indicators. 
+- Shall include ANSI Z535.4-compliant warning labels for user-facing hazards such as moving parts and power indicators.
+
 ## Atomic Subsystem Specifications
 
 #### Processing Unit
@@ -670,21 +671,22 @@ High-Level Requirements:
   - Shall provide stable power for all electronic components.
   - Shall have a large enough battery for extended gameplay.
 
-Ethical, Professional, and Standards Considerations
+
+# Ethical, Professional, and Standards Considerations
 
 The development of the Chess 2 Impress Audio Actuated Chessboard—a robotic system that enables voice-commanded chess moves, automated piece movement via electromagnets and stepper motors, and integration with chess engines—presents a unique opportunity to blend recreational gaming with accessible technology. This section evaluates the project's ethical implications, professional responsibilities, and adherence to relevant standards, while assessing its broader impacts on culture, society, the environment, public health, public safety, and the economy. These considerations have directly shaped the conceptual design, imposing specific constraints, specifications, and practices to ensure responsible innovation.
 
-#Ethical Situations Expected to Encounter
+## Ethical Situations Expected to Encounter
 
-Several ethical challenges may arise during the project lifecycle. First, privacy concerns stem from the voice recognition component, which processes user audio inputs to interpret chess moves (e.g., "knight to e4"). Without proper safeguards, this could inadvertently capture unrelated conversations or sensitive data, raising issues of data consent and storage. To address this, the design incorporates on-device processing where feasible, and ensures audio is not persistently stored.[^1]
+Several ethical challenges may arise during the project lifecycle. First, privacy concerns stem from the voice recognition component, which processes user audio inputs to interpret chess moves (e.g., "knight to e4"). Without proper safeguards, this could inadvertently capture unrelated conversations or sensitive data, raising issues of data consent and storage. To address this, the design incorporates on-device processing where feasible, and ensures audio is not persistently stored.[1]
 
-Second, accessibility equity is a key ethical tension: while the system aims to include visually impaired players, it could inadvertently exclude those with speech impairments or non-standard accents if the speech-to-text model lacks diversity in training data. Ethical sourcing of datasets (e.g., diverse voice samples) will be prioritized to avoid bias.[^2]
+Second, accessibility equity is a key ethical tension: while the system aims to include visually impaired players, it could inadvertently exclude those with speech impairments or non-standard accents if the speech-to-text model lacks diversity in training data. Ethical sourcing of datasets (e.g., diverse voice samples) will be prioritized to avoid bias.[2]
 
-Third, intellectual property (IP) risks involve open-source chess engines (e.g., Stockfish) and hardware designs (e.g., Arduino libraries for stepper motors). Unattributed use could lead to plagiarism claims, so all code and schematics will be documented with licenses and contributions credited.[^3]
+Third, intellectual property (IP) risks involve open-source chess engines (e.g., Stockfish) and hardware designs (e.g., Arduino libraries for stepper motors). Unattributed use could lead to plagiarism claims, so all code and schematics will be documented with licenses and contributions credited.[3]
 
-Finally, as a capstone project, team dynamics may introduce ethical dilemmas, such as unequal workload distribution or pressure to prioritize functionality over safety testing. Professional ethics, guided by the ACM Code of Ethics, will mandate transparent collaboration and peer reviews.[^4]
+Finally, as a capstone project, team dynamics may introduce ethical dilemmas, such as unequal workload distribution or pressure to prioritize functionality over safety testing. Professional ethics, guided by the ACM Code of Ethics, will mandate transparent collaboration and peer reviews.[4]
 
-##Broader Impacts on the Community
+## Broader Impacts on the Community
 
 The Chess 2 Impress Audio Actuated Chessboard has predominantly positive, albeit modest, impacts across multiple domains, fostering inclusivity while mitigating potential negatives.
 
@@ -692,13 +694,13 @@ The Chess 2 Impress Audio Actuated Chessboard has predominantly positive, albeit
 Cultural Impacts: Chess is a global cultural artifact symbolizing strategy and intellectual heritage. This project enhances its cultural relevance by modernizing traditional over-the-board (OTB) play, appealing to younger, tech-savvy demographics and bridging analog and digital divides. It could revive interest in chess clubs or tournaments by making play more engaging and shareable (e.g., via integrated online play), potentially increasing cultural participation in underserved communities.
 
 
-Societal Impacts: On society, the board promotes cognitive health through accessible chess, which research links to improved problem-solving and memory.[^5] For the community—particularly students, hobbyists, and rehabilitation centers—it democratizes gaming, enabling remote or solo play against AI. Broader societal benefits include educational outreach; the open-source design could inspire STEM curricula, encouraging underrepresented groups to engage in robotics and AI. However, if commercialized, it risks widening the digital divide if priced accessibly only to affluent users.[^6]
+Societal Impacts: On society, the board promotes cognitive health through accessible chess, which research links to improved problem-solving and memory.[5] For the community—particularly students, hobbyists, and rehabilitation centers—it democratizes gaming, enabling remote or solo play against AI. Broader societal benefits include educational outreach; the open-source design could inspire STEM curricula, encouraging underrepresented groups to engage in robotics and AI. However, if commercialized, it risks widening the digital divide if priced accessibly only to affluent users.[6]
 
 
-Environmental Impacts: As a low-volume prototype, direct environmental effects are minimal, but the design emphasizes sustainability to model responsible engineering. Components like neodymium magnets and lithium polymer batteries pose e-waste risks if not recycled;[^7] thus, modular hardware allows for easy upgrades and disassembly. Compared to mass-produced commercial boards (e.g., Square Off or GoChess), our DIY approach reduces manufacturing emissions by using off-the-shelf parts, potentially lowering the carbon footprint for hobbyist replication.
+Environmental Impacts: As a low-volume prototype, direct environmental effects are minimal, but the design emphasizes sustainability to model responsible engineering. Components like neodymium magnets and lithium polymer batteries pose e-waste risks if not recycled; [7] thus, modular hardware allows for easy upgrades and disassembly. Compared to mass-produced commercial boards (e.g., Square Off or GoChess), our DIY approach reduces manufacturing emissions by using off-the-shelf parts, potentially lowering the carbon footprint for hobbyist replication.
 
 
-Public Health Impacts: Positively, the system supports mental health by providing therapeutic, low-physical-effort recreation, ideal for elderly users or those with mobility limitations. Voice actuation reduces screen time versus app-based chess, promoting social interaction in group settings. No significant negative health risks are anticipated, assuming proper electromagnetic shielding to prevent interference with pacemakers.[^8]
+Public Health Impacts: Positively, the system supports mental health by providing therapeutic, low-physical-effort recreation, ideal for elderly users or those with mobility limitations. Voice actuation reduces screen time versus app-based chess, promoting social interaction in group settings. No significant negative health risks are anticipated, assuming proper electromagnetic shielding to prevent interference with pacemakers.[8]
 
 
 Public Safety Impacts: Safety is paramount in a device with moving parts (e.g., under-board actuators) and electrical components. Potential hazards include pinching from stepper mechanisms or electrical shorts, but these are mitigated through fail-safes. Overall, the project enhances safety by enabling contactless play, reducing germ transmission in shared environments like schools.
@@ -706,32 +708,32 @@ Public Safety Impacts: Safety is paramount in a device with moving parts (e.g., 
 
 Economic Impacts: For the local community (e.g., university ecosystem), the project boosts skill-building in high-demand fields like AI and mechatronics, potentially leading to startup opportunities or job placements. Economically, an open-source release could spur a niche market for custom boards, benefiting small-scale makers. However, it competes with commercial products, so IP strategies will balance innovation with fair competition.
 
-##Application of Identified Standards
+## Application of Identified Standards
 
 The project has identified key standards organizations that inform the design, ensuring compliance, interoperability, and safety. These include:
 
 
-IEEE Standards Association (IEEE 802.15.4 for low-power wireless communication): Applied to Bluetooth or Zigbee modules for voice data transmission between the microphone and microcontroller. This standard ensures low-latency, energy-efficient connectivity, critical for real-time move actuation without lag that could frustrate users.[^9]
+IEEE Standards Association (IEEE 802.15.4 for low-power wireless communication): Applied to Bluetooth or Zigbee modules for voice data transmission between the microphone and microcontroller. This standard ensures low-latency, energy-efficient connectivity, critical for real-time move actuation without lag that could frustrate users.[9]
 
 
-ASTM International (ASTM F963 for toy safety, adapted for recreational devices): Guides material selection and edge rounding on the wooden board to prevent injuries, treating the chessboard as a "toy-like" interactive device.[^10]
+ASTM International (ASTM F963 for toy safety, adapted for recreational devices): Guides material selection and edge rounding on the wooden board to prevent injuries, treating the chessboard as a "toy-like" interactive device.[10]
 
 
-UL (Underwriters Laboratories) Standards (UL 60950-1 for IT equipment safety): Influences electrical design, specifying insulation and grounding for the 5-24V power supply to avoid shocks or fires.[^11]
+UL (Underwriters Laboratories) Standards (UL 60950-1 for IT equipment safety): Influences electrical design, specifying insulation and grounding for the 5-24V power supply to avoid shocks or fires.[11]
 
 
-W3C Web Accessibility Initiative (WCAG 2.1 for voice interfaces): Ensures the speech recognition adheres to accessibility guidelines, such as providing text fallbacks for voice commands and supporting multiple languages/accents.[^12]
+W3C Web Accessibility Initiative (WCAG 2.1 for voice interfaces): Ensures the speech recognition adheres to accessibility guidelines, such as providing text fallbacks for voice commands and supporting multiple languages/accents.[12]
 
 
-ISO/IEC 27001 for information security: Applied to any data handling in voice processing, enforcing encryption for transmitted audio snippets.[^13]
+ISO/IEC 27001 for information security: Applied to any data handling in voice processing, enforcing encryption for transmitted audio snippets.[13]
 
 These standards are not merely checkboxes; they are integrated into the requirements phase via traceability matrices, linking each to testable design elements (e.g., IEEE compliance verified through signal integrity tests).
 
-Comprehensive Discussion: Influence on the Design
+## Comprehensive Discussion: Influence on the Design
 
 These ethical, professional, and standards considerations have profoundly influenced the conceptual design, transforming abstract concerns into actionable constraints, specifications, and practices. This iterative process—conducted through design reviews and ethical audits—ensures the final product is robust, equitable, and aligned with societal good.
 
-Key influences include:
+## Key influences include:
 
 
 Constraints Imposed: Privacy ethics constrained cloud reliance, mandating edge computing on a Raspberry Pi or Arduino, which limits processing power to lightweight models but ensures data sovereignty. Environmental concerns capped component count at <50 units per prototype, favoring reusable parts like salvaged steppers to minimize resource use. Safety standards (UL/ASTM) restricted voltage to 12V max and required physical barriers (e.g., acrylic underlay) around actuators, preventing hazards.
@@ -835,6 +837,32 @@ Lewis’s knowledge of Embedded Systems and Power Electronics makes him ideal fo
 
 [1] Chessnutech. (n.d.). Chessnut move - advanced robotic chessboard with Plastic Pieces. Chessnut. https://www.chessnutech.com/products/chessnut-move-advanced-robotic-chessboard-with-plastic-pieces
 
+
+[1]: National Institute of Standards and Technology. (2021). NIST Privacy Framework: A Tool for Improving Privacy through Enterprise Risk Management, Version 1.0. https://doi.org/10.6028/NIST.CSWP.01162021
+
+[2]: Buolamwini, J., & Gebru, T. (2018). Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification. Proceedings of Machine Learning Research, 81, 77–91. http://proceedings.mlr.press/v81/buolamwini18a.html
+
+[3]: Stockfish. (2024). Stockfish Open Source Chess Engine – License. GitHub Repository. https://github.com/official-stockfish/Stockfish/blob/master/COPYING
+
+[4]: Association for Computing Machinery. (2018). ACM Code of Ethics and Professional Conduct. https://www.acm.org/code-of-ethics
+
+[5]: Sala, G., & Gobet, F. (2017). Does chess instruction improve mathematical problem-solving ability? Two experimental designs and a meta-analysis. Frontiers in Psychology, 8, 1981. https://doi.org/10.3389/fpsyg.2017.01981
+
+[6]: Warschauer, M., & Matuchniak, T. (2010). New technology and digital worlds: Analyzing evidence of equity in access, use, and outcomes. Review of Research in Education, 34(1), 179–225. https://doi.org/10.3102/0091732X09349791
+
+[7]: United Nations Environment Programme. (2020). Global E-waste Monitor 2020. https://ewastemonitor.info/
+
+[8]: U.S. Food and Drug Administration. (2021). Electromagnetic Compatibility (EMC) of Medical Devices – Guidance for Industry and Food and Drug Administration Staff. https://www.fda.gov/regulatory-information/search-fda-guidance-documents/electromagnetic-compatibility-emc-medical-devices
+
+[9]: IEEE Standards Association. (2020). IEEE Std 802.15.4-2020: Low-Rate Wireless Personal Area Networks (LR-WPANs). https://standards.ieee.org/standard/802_15_4-2020.html
+
+[10]: ASTM International. (2023). ASTM F963-23: Standard Consumer Safety Specification for Toy Safety. https://www.astm.org/f0963-23.html
+
+[11]: Underwriters Laboratories. (2019). UL 60950-1: Information Technology Equipment – Safety – Part 1: General Requirements (now superseded by UL 62368-1, but referenced for legacy applicability). https://www.shopulstandards.com
+
+[12]: World Wide Web Consortium. (2018). Web Content Accessibility Guidelines (WCAG) 2.1. https://www.w3.org/TR/WCAG21/
+
+[13]: International Organization for Standardization. (2022). ISO/IEC 27001:2022 – Information security, cybersecurity and privacy protection. https://www.iso.org/standard/27001
 
 
 ## Statement of Contributions
