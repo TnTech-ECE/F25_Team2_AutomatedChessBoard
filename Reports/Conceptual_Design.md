@@ -161,6 +161,18 @@ The CoreXY motion system uses two stepper motors connected through a pair of pul
 
 **Evaluation and Selection**
 
+| | **Robotic Arm Manipulator** | **Individual Micro-Robot System** | **CoreXY Motion System** |
+|:--|:--|:--|:--|
+| **Mechanical Complexity** | High: multiple joints and servos | High: dozens of independent robots | Low: simple two-motor planar motion |
+| **Precision and Accuracy** | Medium: depends on calibration | High: direct piece control | High: smooth and consistent positioning |
+| **Speed of Operation** | Low: slow due to arm motion | Medium: piece-by-piece movement | High: fast planar translation |
+| **Cost** | High: many actuators and materials | Very High: one robot per piece | Low: minimal motors and hardware |
+| **Ease of Maintenance** | Low: mechanical wear and calibration | Very Low: each robot must be serviced | High: few components to maintain |
+| **Scalability / Expandability** | Medium: modular but bulky | Low: limited by robot count and battery | High: adaptable to larger boards |
+| **Reliability** | Medium: prone to alignment drift | Low: multiple failure points | High: robust motion structure |
+| **Aesthetic / User Experience** | High: visually engaging | Medium: hidden motion below board | Medium: minimalistic, functional |
+| **Overall Suitability** | Acceptable but inefficient | Impractical and costly | Optimal balance of performance and simplicity |
+
 When evaluating the three systems, several key factors were considered: mechanical complexity, cost, precision, scalability, and ease of maintenance. The robotic arm, while versatile, introduces high mechanical complexity, slower operation speeds, and increased cost due to multiple motors and linkages. The micro-robot system provides independent piece control but is prohibitively expensive, difficult to synchronize, and challenging to maintain.
 
 The CoreXY motion system was determined to be the most balanced and practical approach. Its two-motor planar configuration minimizes mechanical components while maximizing precision and speed. It integrates smoothly with magnetic actuation methods, provides consistent and predictable motion, and offers an excellent trade-off between performance and design simplicity.
@@ -250,6 +262,19 @@ This architecture separates high-level processing from real-time motor control. 
 
 
 **Evaluation and Selection**
+
+| | **Centralized Processing Unit** | **Cloud-Assisted Processing** | **Distributed Processing and Control System** |
+|:--|:--|:--|:--|
+| **Processing Performance** | Medium: single processor handles all tasks | Very High: uses powerful remote servers | High: tasks divided between Pi and Arduino |
+| **Real-Time Control** | Low: limited motor timing precision | Very Low: dependent on network latency | High: Arduino provides dedicated control loop |
+| **System Reliability** | Medium: single-point failure risk | Low: relies on external network and servers | High: separate units improve fault tolerance |
+| **Offline Functionality** | High: operates fully offline | Very Low: requires continuous internet | High: fully self-contained system |
+| **Scalability / Expandability** | Medium: limited by single processor | Medium: scalable through cloud resources | High: modular and easily extendable design |
+| **Latency and Responsiveness** | High: direct control, minimal communication delay | Low: network delay affects interaction | High: responsive with minimal inter-device delay |
+| **Maintenance and Debugging** | High: single board simplifies updates | Medium: dependent on external software updates | Medium: slightly complex multi-device debugging |
+| **Hardware Cost** | Low: only one main board needed | Medium: requires network hardware or subscription | Medium: two controllers and wiring required |
+| **Data Security and Privacy** | High: all processing local | Low: sensitive data passes through cloud | High: secure local processing and control |
+| **Overall Suitability** | Acceptable for simple systems | Poor for standalone real-time control | Excellent balance of performance and reliability |
 
 For this project, we prioritized reliable offline performance, precise motion control, and efficient processing distribution. The centralized processing system, while simple, risks performance bottlenecks when running both AI and motor control on one processor, and a single failure would disable the entire board. The cloud-assisted approach, although powerful, depends on constant internet connectivity and introduces latency, making it unreliable for real-time, portable use.
 
@@ -345,6 +370,21 @@ The hybrid power system integrates a rechargeable battery pack with an AC adapte
 
 **Evaluation and Selection**
 
+| | **Corded Power System** | **Wireless Inductive Power System** | **Hybrid Power System** |
+|:--|:--|:--|:--|
+| **Power Reliability** | Very High: continuous stable voltage from wall outlet | Low: alignment and efficiency issues cause inconsistent delivery | Very High: reliable from wall or battery |
+| **Efficiency** | High: minimal conversion loss with direct DC supply | Low: magnetic coupling losses reduce power transfer rate | Medium: conversion losses during charge and discharge |
+| **Portability** | Very Low: requires constant outlet connection | Medium: limited to operation on charging pad | High: operates on battery or wall power |
+| **System Complexity** | Low: no battery or management circuitry required | High: requires coil alignment and driver hardware | Medium: includes charge management and control circuits |
+| **Cost** | Low: inexpensive and simple implementation | High: inductive components increase cost | Medium: additional circuitry and batteries add moderate cost |
+| **Weight** | Low: no batteries required | Low: minimal internal hardware | Medium: includes rechargeable battery pack |
+| **Safety** | Medium: tripping and strain hazards from cables | High: sealed, low-voltage energy transfer | High: regulated circuits and protected battery system |
+| **Aesthetics** | Low: visible cords reduce visual appeal | Very High: clean, fully wireless appearance | High: minimal cables with clean overall design |
+| **Suitability for Motors and Magnets** | Very High: provides stable, high-current supply | Very Low: limited power capacity for motor loads | Very High: supports actuator demands via wall or battery |
+| **Overall Suitability** | Acceptable for stationary setups | Poor for high-load mobile operation | Excellent balance of flexibility, reliability, and performance |
+
+
+
 When comparing the three power configurations, the hybrid system clearly offers the best balance of reliability, mobility, and functionality. The corded design, while simple and inexpensive, limits the system’s usability by requiring a constant power connection. The wireless inductive setup, although sleek, introduces inefficiency and insufficient power transfer for motor-driven systems.
 
 The Hybrid Power System was therefore selected as the most practical and flexible option. It provides uninterrupted operation whether plugged in or on battery power, supports demonstrations and transportability, and ensures a professional, user-friendly design well-suited for the automated chessboard.
@@ -425,6 +465,19 @@ This setup integrates a microphone for voice command input and an LCD display fo
     * Voice command errors may require multiple attempts in noisy environments.
 
 **Evaluation and Selection**
+
+| | **Button Input and LED Response System** | **Microphone and Computer-Voice Response System** | **Microphone and LCD Display System** |
+|:--|:--|:--|:--|
+| **Accessibility / Hands-Free Operation** | Very Low: requires manual interaction | Very High: fully voice-based operation | High: hands-free input with clear visual confirmation |
+| **Communication Clarity** | Low: limited to color and tone cues | Medium: relies on clear audio input/output | Very High: clear text-based display feedback |
+| **Error Handling / Feedback Detail** | Low: difficult to convey detailed error messages | Medium: audio feedback can miss details | High: LCD provides precise feedback and debugging info |
+| **Environmental Reliability** | Very High: unaffected by noise or lighting | Low: performance drops in noisy environments | High: visual display unaffected by ambient sound |
+| **Hardware Complexity** | Low: minimal components and wiring | Medium: requires microphone and speaker setup | Medium: integrates microphone and LCD circuitry |
+| **Software Complexity** | Low: simple logic for LEDs and buttons | High: needs speech recognition and synthesis | Medium: speech recognition plus display interface |
+| **Power Consumption** | Very Low: efficient LED operation | Medium: continuous audio I/O consumes more power | Medium: LCD backlight and voice processing use more power |
+| **Cost** | Very Low: cheapest option | Medium: added cost for audio hardware | Medium: cost of LCD balanced by small component count |
+| **User Experience** | Low: unintuitive and limited feedback | Medium: interactive but prone to voice errors | Very High: combines clarity, control, and accessibility |
+| **Overall Suitability** | Acceptable for simple systems | Adequate for fully voice-based setups | Excellent balance of usability, feedback, and accessibility |
 
 When evaluating the three interface approaches, key considerations included clarity of communication, accessibility, error handling, and ease of integration. The button and LED system, while simple and robust, cannot effectively convey complex messages or support conversational operation. The fully audio-based system offers modern appeal but lacks the reliability and clarity needed for precise chess move confirmations.
 
