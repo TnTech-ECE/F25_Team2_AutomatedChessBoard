@@ -28,21 +28,21 @@ These specifications were developed in collaboration with stakeholders to define
 
 ### Constraints
 - Regulatory and Compliance Constraints: To ensure the system meets U.S. consumer electronics and electrical standards.
-    - Shall comply with FCC Part 15 Subpart B (Class B) for electromagnetic interference in residential environments.  
-    - Shall operate below 50 V DC, following UL low-voltage safety thresholds to eliminate the need for high-voltage insulation.  
-    - Shall meet NEC (NFPA 70) requirements for low-voltage indoor consumer systems.  
-    - Shall avoid any materials or configurations violating CPSC consumer electronics safety guidelines.
-    - Shall operate within safe limits per UL 2054 to prevent thermal or electrical hazards.
+    - Shall comply with FCC Part 15 Subpart B (Class B) limits for electromagnetic interference (EMI) in residential environments, which specify maximum conducted emissions of up to 0.15–30 MHz at 66–56 dBµV, decreasing with frequency, and radiated emissions of up to 30–1000 MHz at 40–54 dBµV/m measured at 3 meters. [2]  
+    - Shall operate below 50 V DC, following UL low-voltage safety thresholds for maximum hazardous touch voltage to eliminate the need for high-voltage insulation. [3]  
+    - Shall meet the requirements of NEC, NFPA 70 for low-voltage indoor consumer systems, which defines low-voltage circuits as those operating at 50 V or less and requires compliance with wiring methods specified in Article 725 for Class 1, 2, and 3 circuits, including protection against overcurrent, proper conductor sizing, and insulation rated for the circuit’s voltage. [4] 
+    - Shall avoid use of materials or configurations that violate CPSC safety guidance for consumer electronics, including specification of materials with hazardous chemical content (e.g., lead, phthalates) or components lacking documented compliance with CPSC’s best-practice manufacturing guidance and material-change-testing requirements. [5]
+    - Shall operate within the safe limits defined by UL 2054 for household and commercial batteries, ensuring that under normal use and foreseeable abuse conditions the battery does not exceed 302°F, remains between 32-140°F while charging, remains between -4–140 °F while discharging, does not catch fire or explode, and is protected against overcharge, short-circuit, mechanical abuse (crush, impact, vibration), and thermal extremes. [6]
 - Electrical and Safety Constraints: To prevent electrical, thermal, and physical hazards during operation.
-    - Shall limit external surface temperatures to ≤104°F (40°C) during continuous operation (per UL 94 and general safety guidance).  
-    - Shall use cord sets and connectors compliant with NEC Article 400 for safe routing and reduced tripping risk.  
-    - Shall include grounding and protection per OSHA 1910 Subpart S to minimize shock hazards.  
-    - Shall include ANSI Z535.4-compliant warning labels for user-facing hazards such as moving parts and power indicators.  
+    - Shall limit external surface temperatures to ≤104 °F (40 °C) during continuous operation, in accordance with UL 94 flammability requirements for plastic materials and the CPSC maximum surface temperature guidelines (16 CFR 1505.7) to prevent thermal hazards. [7] [8]
+    - Shall use cord sets, flexible cables, and connectors compliant with NEC Article 400, ensuring cords are rated for the system’s voltage and current and provide appropriate insulation and temperature rating, are routed to avoid sharp edges, pinch points, or areas of high foot traffic, with bends maintained above the minimum bend radius, connectors provide proper grounding continuity and are rated for the system’s operating voltage and current, and are secured using clips, cable trays, or protective raceways to minimize tripping hazards and mechanical damage. [9]
+    - Shall include grounding, bonding, and electrical protection measures in accordance with OSHA 29 CFR 1910 Subpart S to minimize electrical shock hazards, ensuring all exposed conductive parts are properly grounded and circuit protection devices are installed where required [10].
+    - Shall include ANSI Z535.4-compliant safety labels for all user-facing hazards, including moving parts, power indicators, and other electrical or mechanical hazards, ensuring labels are legible, durable, and placed conspicuously to effectively warn users of potential risks. [11]  
 - Accessibility and Ergonomic Constraints: To ensure usability for a wide range of users.
-    - Shall conform to Section 508 of the Rehabilitation Act, ensuring accessible interfaces for users with disabilities.  
-    - Shall follow ergonomic layout guidelines from ANSI/HFES 100-2007, ensuring proper control placement and feedback.  
-    - Shall follow universal design principles to minimize cognitive and physical usability barriers.
-
+    - Shall conform to Section 508 of the Rehabilitation Act, ensuring that all user interfaces, controls, and displays are accessible to individuals with disabilities, including compatibility with assistive technologies such as screen readers and alternative input devices. [12]
+    - Shall follow ANSI/HFES 100‑2007 ergonomic guidelines, ensuring that controls and displays are positioned for comfortable reach, appropriate viewing angles, and clear tactile, visual, or auditory feedback to reduce operator fatigue and errors. [13] 
+    - Shall apply universal design principles, minimizing cognitive and physical barriers by providing intuitive operation, clear labeling, and adjustable settings where feasible to accommodate a wide range of users. [14]
+ 
 #### Key Features
 
 1. Voice Controls
@@ -74,69 +74,69 @@ ________________________________________
 The Processing Unit will consist of a Raspberry Pi responsible for coordinating all high-level system operations. Its primary functions are fourfold. First, it will interpret incoming audio signals from the microphone using the Vosk speech recognition engine to convert spoken commands into recognizable text, while also supplying power to the microphone. Second, it will maintain the internal state of the chessboard and verify the legality of player moves using the Stockfish chess engine. Third, it will transmit validated and legal move commands to the Control Unit (Arduino) for conversion into motion control instructions. Lastly, the Raspberry Pi will send display data to the screen, providing the user with real-time visual feedback on system activity and game status.
 
 Relevant Constraints: 
-- Shall comply with FCC Part 15 Subpart B (Class B) for electromagnetic interference in residential environments.  
-- Shall operate below 50 V DC, following UL low-voltage safety thresholds to eliminate the need for high-voltage insulation.  
-- Shall meet NEC (NFPA 70) requirements for low-voltage indoor consumer systems.  
-- Shall avoid any materials or configurations violating CPSC consumer electronics safety guidelines.  
-- Shall limit external surface temperatures to ≤104°F (40°C) during continuous operation (per UL 94 and general safety guidance).  
-- Shall use cord sets and connectors compliant with NEC Article 400 for safe routing and reduced tripping risk.  
-- Shall include grounding and protection per OSHA 1910 Subpart S to minimize shock hazards.  
-- Shall include ANSI Z535.4-compliant warning labels for user-facing hazards such as moving parts and power indicators.
+- Shall comply with FCC Part 15 Subpart B (Class B) limits for electromagnetic interference (EMI) in residential environments, which specify maximum conducted emissions of up to 0.15–30 MHz at 66–56 dBµV, decreasing with frequency, and radiated emissions of up to 30–1000 MHz at 40–54 dBµV/m measured at 3 meters. [2]
+- Shall operate below 50 V DC, following UL low-voltage safety thresholds for maximum hazardous touch voltage to eliminate the need for high-voltage insulation. [3]  
+- Shall meet the requirements of NEC, NFPA 70 for low-voltage indoor consumer systems, which defines low-voltage circuits as those operating at 50 V or less and requires compliance with wiring methods specified in Article 725 for Class 1, 2, and 3 circuits, including protection against overcurrent, proper conductor sizing, and insulation rated for the circuit’s voltage. [4]
+- Shall avoid use of materials or configurations that violate CPSC safety guidance for consumer electronics, including specification of materials with hazardous chemical content (e.g., lead, phthalates) or components lacking documented compliance with CPSC’s best-practice manufacturing guidance and material-change-testing requirements. [5]
+- Shall limit external surface temperatures to ≤104 °F (40 °C) during continuous operation, in accordance with UL 94 flammability requirements for plastic materials and the CPSC maximum surface temperature guidelines (16 CFR 1505.7) to prevent thermal hazards. [7] [8] 
+- Shall use cord sets, flexible cables, and connectors compliant with NEC Article 400, ensuring cords are rated for the system’s voltage and current and provide appropriate insulation and temperature rating, are routed to avoid sharp edges, pinch points, or areas of high foot traffic, with bends maintained above the minimum bend radius, connectors provide proper grounding continuity and are rated for the system’s operating voltage and current, and are secured using clips, cable trays, or protective raceways to minimize tripping hazards and mechanical damage. [9]
+- Shall include grounding, bonding, and electrical protection measures in accordance with OSHA 29 CFR 1910 Subpart S to minimize electrical shock hazards, ensuring all exposed conductive parts are properly grounded and circuit protection devices are installed where required. [10]
+- Shall include ANSI Z535.4-compliant safety labels for all user-facing hazards, including moving parts, power indicators, and other electrical or mechanical hazards, ensuring labels are legible, durable, and placed conspicuously to effectively warn users of potential risks. [11] 
 
 Control Unit
 The Control Unit will manage all motion control functions and serve as the intermediary between the Processing Unit and the mechanical subsystems. It will receive move instructions from the Raspberry Pi, interpret them into executable signals for the CoreXY motors, and transmit confirmation messages back to the Processing Unit. This will be achieved through the Arduino’s coordination of communication with stepper motor drivers housed within the Control Unit. The servo motor responsible for magnetic actuation will receive direct control signals from the Arduino to ensure precise vertical (Z-axis) movement.
 
 Relevant Constraints: 
-- Shall comply with FCC Part 15 Subpart B (Class B) for electromagnetic interference in residential environments.  
-- Shall operate below 50 V DC, following UL low-voltage safety thresholds to eliminate the need for high-voltage insulation.  
-- Shall meet NEC (NFPA 70) requirements for low-voltage indoor consumer systems.  
-- Shall avoid any materials or configurations violating CPSC consumer electronics safety guidelines.  
-- Shall limit external surface temperatures to ≤104°F (40°C) during continuous operation (per UL 94 and general safety guidance).  
-- Shall use cord sets and connectors compliant with NEC Article 400 for safe routing and reduced tripping risk.  
-- Shall include grounding and protection per OSHA 1910 Subpart S to minimize shock hazards.  
-- Shall include ANSI Z535.4-compliant warning labels for user-facing hazards such as moving parts and power indicators.
+- Shall comply with FCC Part 15 Subpart B (Class B) limits for electromagnetic interference (EMI) in residential environments, which specify maximum conducted emissions of up to 0.15–30 MHz at 66–56 dBµV, decreasing with frequency, and radiated emissions of up to 30–1000 MHz at 40–54 dBµV/m measured at 3 meters. [2]
+- Shall operate below 50 V DC, following UL low-voltage safety thresholds for maximum hazardous touch voltage to eliminate the need for high-voltage insulation. [3]  
+- Shall meet the requirements of NEC, NFPA 70 for low-voltage indoor consumer systems, which defines low-voltage circuits as those operating at 50 V or less and requires compliance with wiring methods specified in Article 725 for Class 1, 2, and 3 circuits, including protection against overcurrent, proper conductor sizing, and insulation rated for the circuit’s voltage. [4]
+- Shall avoid use of materials or configurations that violate CPSC safety guidance for consumer electronics, including specification of materials with hazardous chemical content (e.g., lead, phthalates) or components lacking documented compliance with CPSC’s best-practice manufacturing guidance and material-change-testing requirements. [5]
+-  Shall limit external surface temperatures to ≤104 °F (40 °C) during continuous operation, in accordance with UL 94 flammability requirements for plastic materials and the CPSC maximum surface temperature guidelines (16 CFR 1505.7) to prevent thermal hazards. [7] [8]
+- Shall use cord sets, flexible cables, and connectors compliant with NEC Article 400, ensuring cords are rated for the system’s voltage and current and provide appropriate insulation and temperature rating, are routed to avoid sharp edges, pinch points, or areas of high foot traffic, with bends maintained above the minimum bend radius, connectors provide proper grounding continuity and are rated for the system’s operating voltage and current, and are secured using clips, cable trays, or protective raceways to minimize tripping hazards and mechanical damage. [9]  
+- Shall include grounding, bonding, and electrical protection measures in accordance with OSHA 29 CFR 1910 Subpart S to minimize electrical shock hazards, ensuring all exposed conductive parts are properly grounded and circuit protection devices are installed where required. [10]  
+- Shall include ANSI Z535.4-compliant safety labels for all user-facing hazards, including moving parts, power indicators, and other electrical or mechanical hazards, ensuring labels are legible, durable, and placed conspicuously to effectively warn users of potential risks. [11]
 
 Core XY Unit
 The CoreXY Unit will execute all physical motion required to reposition chess pieces on the board. Upon receiving step and direction commands from the Control Unit, it will drive two stepper motors to manipulate belts and pulleys that move a magnetic carriage across the X and Y axes. A servo-driven magnet will function as the Z-axis actuator, enabling the magnet to raise and lower as needed. This mechanism minimizes magnetic interference with nearby pieces and prevents unintentional displacement during movement.
 
 Relevant Constraints: 
-- Shall comply with FCC Part 15 Subpart B (Class B) for electromagnetic interference in residential environments.  
-- Shall operate below 50 V DC, following UL low-voltage safety thresholds to eliminate the need for high-voltage insulation.  
-- Shall meet NEC (NFPA 70) requirements for low-voltage indoor consumer systems.  
-- Shall avoid any materials or configurations violating CPSC consumer electronics safety guidelines.  
-- Shall limit external surface temperatures to ≤104°F (40°C) during continuous operation (per UL 94 and general safety guidance).  
-- Shall use cord sets and connectors compliant with NEC Article 400 for safe routing and reduced tripping risk.  
-- Shall include grounding and protection per OSHA 1910 Subpart S to minimize shock hazards.  
-- Shall include ANSI Z535.4-compliant warning labels for user-facing hazards such as moving parts and power indicators.  
+- Shall comply with FCC Part 15 Subpart B (Class B) limits for electromagnetic interference (EMI) in residential environments, which specify maximum conducted emissions of up to 0.15–30 MHz at 66–56 dBµV, decreasing with frequency, and radiated emissions of up to 30–1000 MHz at 40–54 dBµV/m measured at 3 meters. [2] 
+- Shall operate below 50 V DC, following UL low-voltage safety thresholds for maximum hazardous touch voltage to eliminate the need for high-voltage insulation. [3] 
+- Shall meet the requirements of NEC, NFPA 70 for low-voltage indoor consumer systems, which defines low-voltage circuits as those operating at 50 V or less and requires compliance with wiring methods specified in Article 725 for Class 1, 2, and 3 circuits, including protection against overcurrent, proper conductor sizing, and insulation rated for the circuit’s voltage. [4]
+- Shall avoid use of materials or configurations that violate CPSC safety guidance for consumer electronics, including specification of materials with hazardous chemical content (e.g., lead, phthalates) or components lacking documented compliance with CPSC’s best-practice manufacturing guidance and material-change-testing requirements. [5]
+- Shall limit external surface temperatures to ≤104 °F (40 °C) during continuous operation, in accordance with UL 94 flammability requirements for plastic materials and the CPSC maximum surface temperature guidelines (16 CFR 1505.7) to prevent thermal hazards. [7] [8]  
+- Shall use cord sets, flexible cables, and connectors compliant with NEC Article 400, ensuring cords are rated for the system’s voltage and current and provide appropriate insulation and temperature rating, are routed to avoid sharp edges, pinch points, or areas of high foot traffic, with bends maintained above the minimum bend radius, connectors provide proper grounding continuity and are rated for the system’s operating voltage and current, and are secured using clips, cable trays, or protective raceways to minimize tripping hazards and mechanical damage. [9] 
+- Shall include grounding, bonding, and electrical protection measures in accordance with OSHA 29 CFR 1910 Subpart S to minimize electrical shock hazards, ensuring all exposed conductive parts are properly grounded and circuit protection devices are installed where required. [10] 
+- Shall include ANSI Z535.4-compliant safety labels for all user-facing hazards, including moving parts, power indicators, and other electrical or mechanical hazards, ensuring labels are legible, durable, and placed conspicuously to effectively warn users of potential risks. [11] 
 
 Peripherals Unit
 The Peripherals Unit consists of the system’s input and output devices — the microphone and display screen. The microphone captures user voice commands, potentially supported by software-based noise filtering to improve accuracy and clarity. The display provides feedback to the player by showing system messages such as “Not a Legal Move” or “Pawn to A5”, as well as overall game status updates. Together, these peripherals form the user interface that enables intuitive interaction with the system.
 
 Relevant Constraints: 
-- Shall comply with FCC Part 15 Subpart B (Class B) for electromagnetic interference in residential environments.  
-- Shall operate below 50 V DC, following UL low-voltage safety thresholds to eliminate the need for high-voltage insulation.  
-- Shall meet NEC (NFPA 70) requirements for low-voltage indoor consumer systems.  
-- Shall avoid any materials or configurations violating CPSC consumer electronics safety guidelines.  
-- Shall limit external surface temperatures to ≤104°F (40°C) during continuous operation (per UL 94 and general safety guidance).  
-- Shall use cord sets and connectors compliant with NEC Article 400 for safe routing and reduced tripping risk.  
-- Shall include grounding and protection per OSHA 1910 Subpart S to minimize shock hazards.  
-- Shall conform to Section 508 of the Rehabilitation Act, ensuring accessible interfaces for users with disabilities.  
-- Shall follow ergonomic layout guidelines from ANSI/HFES 100-2007, ensuring proper control placement and feedback.  
-- Shall follow universal design principles to minimize cognitive and physical usability barriers.  
+- Shall comply with FCC Part 15 Subpart B (Class B) limits for electromagnetic interference (EMI) in residential environments, which specify maximum conducted emissions of up to 0.15–30 MHz at 66–56 dBµV, decreasing with frequency, and radiated emissions of up to 30–1000 MHz at 40–54 dBµV/m measured at 3 meters. [2]
+- Shall operate below 50 V DC, following UL low-voltage safety thresholds for maximum hazardous touch voltage to eliminate the need for high-voltage insulation. [3]
+- Shall meet the requirements of NEC, NFPA 70 for low-voltage indoor consumer systems, which defines low-voltage circuits as those operating at 50 V or less and requires compliance with wiring methods specified in Article 725 for Class 1, 2, and 3 circuits, including protection against overcurrent, proper conductor sizing, and insulation rated for the circuit’s voltage. [4]
+- Shall avoid use of materials or configurations that violate CPSC safety guidance for consumer electronics, including specification of materials with hazardous chemical content (e.g., lead, phthalates) or components lacking documented compliance with CPSC’s best-practice manufacturing guidance and material-change-testing requirements. [5]
+- Shall limit external surface temperatures to ≤104 °F (40 °C) during continuous operation, in accordance with UL 94 flammability requirements for plastic materials and the CPSC maximum surface temperature guidelines (16 CFR 1505.7) to prevent thermal hazards. [7] [8]
+- Shall use cord sets, flexible cables, and connectors compliant with NEC Article 400, ensuring cords are rated for the system’s voltage and current and provide appropriate insulation and temperature rating, are routed to avoid sharp edges, pinch points, or areas of high foot traffic, with bends maintained above the minimum bend radius, connectors provide proper grounding continuity and are rated for the system’s operating voltage and current, and are secured using clips, cable trays, or protective raceways to minimize tripping hazards and mechanical damage. [9]  
+- Shall include grounding, bonding, and electrical protection measures in accordance with OSHA 29 CFR 1910 Subpart S to minimize electrical shock hazards, ensuring all exposed conductive parts are properly grounded and circuit protection devices are installed where required [10]
+- Shall conform to Section 508 of the Rehabilitation Act, ensuring that all user interfaces, controls, and displays are accessible to individuals with disabilities, including compatibility with assistive technologies such as screen readers and alternative input devices. [12]
+- Shall follow ANSI/HFES 100‑2007 ergonomic guidelines, ensuring that controls and displays are positioned for comfortable reach, appropriate viewing angles, and clear tactile, visual, or auditory feedback to reduce operator fatigue and errors. [13] 
+- Shall apply universal design principles, minimizing cognitive and physical barriers by providing intuitive operation, clear labeling, and adjustable settings where feasible to accommodate a wide range of users. [14] 
 
 Power Unit
 The Power Unit supplies regulated electrical power to all other subsystems. It will consist of a battery-based power source designed to provide multiple voltage levels to meet the varying current and voltage requirements of each component. The 12V rail will supply power to the stepper motors and drivers, while the 5V rail will support the Raspberry Pi, Arduino, and other control and peripheral electronics. Proper power regulation and distribution are essential to ensure safe, stable, and efficient system operation.
 
 Relevant Constraints: 
-- Shall comply with FCC Part 15 Subpart B (Class B) for electromagnetic interference in residential environments.  
-- Shall operate below 50 V DC, following UL low-voltage safety thresholds to eliminate the need for high-voltage insulation.  
-- Shall meet NEC (NFPA 70) requirements for low-voltage indoor consumer systems.  
-- Shall avoid any materials or configurations violating CPSC consumer electronics safety guidelines.
-- Shall operate within safe limits per UL 2054 to prevent thermal or electrical hazards.
-- Shall limit external surface temperatures to ≤104°F (40°C) during continuous operation (per UL 94 and general safety guidance).  
-- Shall use cord sets and connectors compliant with NEC Article 400 for safe routing and reduced tripping risk.  
-- Shall include grounding and protection per OSHA 1910 Subpart S to minimize shock hazards.  
-- Shall include ANSI Z535.4-compliant warning labels for user-facing hazards such as moving parts and power indicators.  
+- Shall comply with FCC Part 15 Subpart B (Class B) limits for electromagnetic interference (EMI) in residential environments, which specify maximum conducted emissions of up to 0.15–30 MHz at 66–56 dBµV, decreasing with frequency, and radiated emissions of up to 30–1000 MHz at 40–54 dBµV/m measured at 3 meters. [2]
+- Shall operate below 50 V DC, following UL low-voltage safety thresholds for maximum hazardous touch voltage to eliminate the need for high-voltage insulation. [3]
+- Shall meet the requirements of NEC, NFPA 70 for low-voltage indoor consumer systems, which defines low-voltage circuits as those operating at 50 V or less and requires compliance with wiring methods specified in Article 725 for Class 1, 2, and 3 circuits, including protection against overcurrent, proper conductor sizing, and insulation rated for the circuit’s voltage. [4]
+- Shall avoid use of materials or configurations that violate CPSC safety guidance for consumer electronics, including specification of materials with hazardous chemical content (e.g., lead, phthalates) or components lacking documented compliance with CPSC’s best-practice manufacturing guidance and material-change-testing requirements. [5]
+- Shall operate within the safe limits defined by UL 2054 for household and commercial batteries, ensuring that under normal use and foreseeable abuse conditions the battery does not exceed 302°F, remains between 32-140°F while charging, remains between -4–140 °F while discharging, does not catch fire or explode, and is protected against overcharge, short-circuit, mechanical abuse (crush, impact, vibration), and thermal extremes. [6]
+- Shall limit external surface temperatures to ≤104 °F (40 °C) during continuous operation, in accordance with UL 94 flammability requirements for plastic materials and the CPSC maximum surface temperature guidelines (16 CFR 1505.7) to prevent thermal hazards. [7] [8]
+- Shall use cord sets, flexible cables, and connectors compliant with NEC Article 400, ensuring cords are rated for the system’s voltage and current and provide appropriate insulation and temperature rating, are routed to avoid sharp edges, pinch points, or areas of high foot traffic, with bends maintained above the minimum bend radius, connectors provide proper grounding continuity and are rated for the system’s operating voltage and current, and are secured using clips, cable trays, or protective raceways to minimize tripping hazards and mechanical damage. [9]  
+- Shall include grounding, bonding, and electrical protection measures in accordance with OSHA 29 CFR 1910 Subpart S to minimize electrical shock hazards, ensuring all exposed conductive parts are properly grounded and circuit protection devices are installed where required. [10]
+- Shall include ANSI Z535.4-compliant safety labels for all user-facing hazards, including moving parts, power indicators, and other electrical or mechanical hazards, ensuring labels are legible, durable, and placed conspicuously to effectively warn users of potential risks. [11] 
 
 ### Division of Labor
 
@@ -147,3 +147,30 @@ First, conduct a thorough analysis of the skills currently available within the 
 Revise the detailed timeline (Gantt chart) you created in the project proposal. Ensure that the timeline is optimized for detailed design. Address critical unknowns early and determine if a prototype needs to be constructed before the final build to validate a subsystem. Additionally, if subsystem $A$ imposes constraints on subsystem $B$, generally, subsystem $A$ should be designed first.
 
 <img width="3589" height="1393" alt="image" src="https://github.com/user-attachments/assets/a23461c9-3263-4377-a40b-db57cef274e5" />
+
+### Citations
+[2] U.S. Federal Communications Commission, “47 CFR Part 15, Subpart B: Unintentional Radiators,” Electronic Code of Federal Regulations, Title 47, Chapter I, Subchapter A, Part 15, Subpart B. [Online]. Available: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15/subpart-B. Accessed: Oct. 27, 2025.
+
+[3] U.S. company UL Solutions, “Protection from Electrical Hazards,” Nov. 2024. [Online]. Available: https://www.ul.com/resources/protection-electrical-hazards. [Accessed: Oct. 28 2025].
+
+[4] National Fire Protection Association, NFPA 70, National Electrical Code®, 2017 ed. Quincy, MA: NFPA, 2016.
+
+[5] U.S. Consumer Product Safety Commission, “Manufacturing Best Practices,” Business Education, Manufacturing, [Online]. Available: https://www.cpsc.gov/business--manufacturing/business-education/business-guidance/BestPractices. [Accessed: Oct. 28 2025].
+
+[6] “Underwriters Laboratories, UL 2054 Standard for Household and Commercial Batteries, 3rd ed., Nov. 17 2021.”
+
+[7] Underwriters Laboratories, UL 94: Standard for Safety of Flammability of Plastic Materials for Parts in Devices and Appliances, 5th ed., Northbrook, IL: UL, 2024.
+
+[8] U.S. Consumer Product Safety Commission, “Maximum acceptable surface temperatures,” Code of Federal Regulations, Title 16, Part 1505.7. [Online]. Available: https://www.law.cornell.edu/cfr/text/16/1505.7. [Accessed: Oct. 28, 2025].
+
+[9] National Fire Protection Association, NFPA 70, National Electrical Code®, 2023 ed., Quincy, MA: NFPA, 2022.
+
+[10] U.S. Occupational Safety and Health Administration, OSHA Standards – Subpart S: Electrical, 29 CFR 1910, Washington, D.C.: OSHA, 2025.
+
+[11] American National Standards Institute, ANSI Z535.4: Product Safety Signs and Labels, 2011 ed., Washington, DC: ANSI, 2011.
+
+[12] U.S. Government, Rehabilitation Act of 1973, Section 508, Washington, DC, 1998.
+
+[13] American National Standards Institute / Human Factors and Ergonomics Society, ANSI/HFES 100‑2007: Human Factors Engineering of Computer Workstations, 2007.
+
+[14] Center for Universal Design, Principles of Universal Design, North Carolina State University, 1997.
