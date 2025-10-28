@@ -72,7 +72,9 @@ Automated chessboards have emerged as innovative tools for enhancing gameplay, i
 
 ### Chess Piece Movement
 
-_**Robotic Arm Manipulator System**_
+_**Robotic Arm Manipulator System**_ [2]
+
+![Robotic Arm](./Concept_Images/Robot_Gripper_Arm.png)
 
 The robotic arm manipulator system consists of a multi-jointed mechanical arm mounted above the chessboard, equipped with a claw or gripper to pick up and move chess pieces between positions. Controlled by servo or stepper motors, this approach mimics human motion, offering precise vertical and horizontal control for piece manipulation.
 
@@ -102,7 +104,9 @@ The robotic arm manipulator system consists of a multi-jointed mechanical arm mo
     
     * Requires a robust frame or enclosure to maintain stability and alignment.
 
-_**Individual Micro-Robot System**_
+_**Individual Micro-Robot System**_ [3]
+
+![Micro Robotics](./Concept_Images/Micro_Robot_Pieces.png)
 
 This system places a small, self-contained micro-robot beneath each chess piece. Each robot can move independently under the board, guided by sensors or wireless communication, to reposition its corresponding piece as commanded. This concept is similar to systems used in high-end commercial robotic chessboards (such as the Chessnut Move[1]).
 
@@ -128,7 +132,9 @@ This system places a small, self-contained micro-robot beneath each chess piece.
     
     * Communication interference or loss can result in desynchronized or failed moves.
 
-_**CoreXY Motion System**_
+_**CoreXY Motion System**_ [4]
+
+![CoreXY Two-Axis](./Concept_Images/CoreXY.png)
 
 The CoreXY motion system uses two stepper motors connected through a pair of pulley and belt assemblies to enable precise, planar motion along the X and Y axes. A magnet is mounted to the movable head, allowing the system to position and actuate magnetic pieces from below the chessboard. This design provides a compact, fast, and mechanically efficient method for two-dimensional positioning, without requiring independent motorized axes.
   
@@ -155,6 +161,18 @@ The CoreXY motion system uses two stepper motors connected through a pair of pul
 
 **Evaluation and Selection**
 
+| | **Robotic Arm Manipulator** | **Individual Micro-Robot System** | **CoreXY Motion System** |
+|:--|:--|:--|:--|
+| **Mechanical Complexity** | High: multiple joints and servos | High: dozens of independent robots | Low: simple two-motor planar motion |
+| **Precision and Accuracy** | Medium: depends on calibration | High: direct piece control | High: smooth and consistent positioning |
+| **Speed of Operation** | Low: slow due to arm motion | Medium: piece-by-piece movement | High: fast planar translation |
+| **Cost** | High: many actuators and materials | Very High: one robot per piece | Low: minimal motors and hardware |
+| **Ease of Maintenance** | Low: mechanical wear and calibration | Very Low: each robot must be serviced | High: few components to maintain |
+| **Scalability / Expandability** | Medium: modular but bulky | Low: limited by robot count and battery | High: adaptable to larger boards |
+| **Reliability** | Medium: prone to alignment drift | Low: multiple failure points | High: robust motion structure |
+| **Aesthetic / User Experience** | High: visually engaging | Medium: hidden motion below board | Medium: minimalistic, functional |
+| **Overall Suitability** | Acceptable but inefficient | Impractical and costly | Optimal balance of performance and simplicity |
+
 When evaluating the three systems, several key factors were considered: mechanical complexity, cost, precision, scalability, and ease of maintenance. The robotic arm, while versatile, introduces high mechanical complexity, slower operation speeds, and increased cost due to multiple motors and linkages. The micro-robot system provides independent piece control but is prohibitively expensive, difficult to synchronize, and challenging to maintain.
 
 The CoreXY motion system was determined to be the most balanced and practical approach. Its two-motor planar configuration minimizes mechanical components while maximizing precision and speed. It integrates smoothly with magnetic actuation methods, provides consistent and predictable motion, and offers an excellent trade-off between performance and design simplicity.
@@ -162,7 +180,9 @@ The CoreXY motion system was determined to be the most balanced and practical ap
 
 ### Processing and Control Subsystem
 
-_**Centralized Processing Unit**_
+_**Centralized Processing Unit**_ [5]
+
+![Centralized Processing Unit](./Concept_Images/Raspberry_Pi_to_Motor.png)
 
 In this setup, a single embedded processor (such as a Raspberry Pi) handles all major system functions, including speech recognition, chess logic, and motion control. The processor directly interfaces with motor driver boards, eliminating the need for a secondary control unit. This approach simplifies wiring and reduces communication overhead between devices, but places greater computational and timing demands on the processor.
 
@@ -186,7 +206,9 @@ In this setup, a single embedded processor (such as a Raspberry Pi) handles all 
     
     * Difficult to scale or maintain if additional sensors or actuators are later added.
 
-_**Cloud-Assisted or Network-Based Processing**_
+_**Cloud-Assisted or Network-Based Processing**_ [6]
+
+![Cloud Processing](./Concept_Images/Raspberry_Cloud.jpg)
 
 In this configuration, the chessboard’s hardware handles only low-level control, while cloud or networked servers perform computationally heavy tasks such as speech recognition and chess AI. The local system sends input data (like voice or board state) to remote services, which return processed results. This approach leverages powerful external resources, but introduces significant dependency on network availability.
 
@@ -210,7 +232,9 @@ In this configuration, the chessboard’s hardware handles only low-level contro
     
     * Reduces autonomy and portability, making it unsuitable for standalone operation.
 
-_**Distributed Processing and Control System**_
+_**Distributed Processing and Control System**_ [7]
+
+![Distributed Processing](./Concept_Images/Raspberry_Pi_to_Arduino.png)
 
 This architecture separates high-level processing from real-time motor control. A Raspberry Pi acts as the main processing unit, running the voice recognition and chess piece tracking programs. It communicates with a dedicated Arduino control unit, which manages the CoreXY stepper motors through two motor driver boards. The Arduino executes time-critical control loops for precise movement, while the Raspberry Pi handles strategic computation and user interaction.
 
@@ -239,6 +263,19 @@ This architecture separates high-level processing from real-time motor control. 
 
 **Evaluation and Selection**
 
+| | **Centralized Processing Unit** | **Cloud-Assisted Processing** | **Distributed Processing and Control System** |
+|:--|:--|:--|:--|
+| **Processing Performance** | Medium: single processor handles all tasks | Very High: uses powerful remote servers | High: tasks divided between Pi and Arduino |
+| **Real-Time Control** | Low: limited motor timing precision | Very Low: dependent on network latency | High: Arduino provides dedicated control loop |
+| **System Reliability** | Medium: single-point failure risk | Low: relies on external network and servers | High: separate units improve fault tolerance |
+| **Offline Functionality** | High: operates fully offline | Very Low: requires continuous internet | High: fully self-contained system |
+| **Scalability / Expandability** | Medium: limited by single processor | Medium: scalable through cloud resources | High: modular and easily extendable design |
+| **Latency and Responsiveness** | High: direct control, minimal communication delay | Low: network delay affects interaction | High: responsive with minimal inter-device delay |
+| **Maintenance and Debugging** | High: single board simplifies updates | Medium: dependent on external software updates | Medium: slightly complex multi-device debugging |
+| **Hardware Cost** | Low: only one main board needed | Medium: requires network hardware or subscription | Medium: two controllers and wiring required |
+| **Data Security and Privacy** | High: all processing local | Low: sensitive data passes through cloud | High: secure local processing and control |
+| **Overall Suitability** | Acceptable for simple systems | Poor for standalone real-time control | Excellent balance of performance and reliability |
+
 For this project, we prioritized reliable offline performance, precise motion control, and efficient processing distribution. The centralized processing system, while simple, risks performance bottlenecks when running both AI and motor control on one processor, and a single failure would disable the entire board. The cloud-assisted approach, although powerful, depends on constant internet connectivity and introduces latency, making it unreliable for real-time, portable use.
 
 The Distributed Processing and Control System offers the best balance between responsiveness, modularity, and performance. By assigning real-time motion control to the Arduino and high-level processing to the Raspberry Pi, the system maintains smooth CoreXY operation (while supporting advanced features like voice recognition and chess logic). This design ensures scalability, reliability, and consistent offline operation, meeting all project goals effectively.
@@ -246,7 +283,9 @@ The Distributed Processing and Control System offers the best balance between re
 
 ### Power System
 
-_**Corded Power System**_
+_**Corded Power System**_ [8]
+
+![Corded Power](./Concept_Images/Corded_Power.png)
 
 The corded power configuration supplies energy directly from a wall outlet through a DC power adapter, providing continuous and stable voltage to all internal components. This setup eliminates the need for internal energy storage and simplifies circuit design, relying entirely on an external power connection for operation.
 
@@ -272,7 +311,9 @@ The corded power configuration supplies energy directly from a wall outlet throu
     
     * Less appealing for demonstration or mobile use cases due to lack of autonomy.
 
-_**Wireless Inductive Power System**_
+_**Wireless Inductive Power System**_ [9]
+
+![Wireless Power](./Concept_Images/Wireless_Power.png)
 
 A wireless inductive power setup transfers energy through magnetic coupling between a transmitter coil (in a base station) and a receiver coil integrated into the chessboard. This provides a cable-free appearance and continuous power when the board is positioned on its charging pad.
 
@@ -298,7 +339,9 @@ A wireless inductive power setup transfers energy through magnetic coupling betw
     
     * Thermal buildup during long operation could reduce component lifespan.
    
- _**Hybrid Power System**_
+ _**Hybrid Power System**_ [10]
+
+ ![Hybrid Power](./Concept_Images/Power_Supply.jpg)
 
 The hybrid power system integrates a rechargeable battery pack with an AC adapter and power management circuitry. This configuration allows the chessboard to operate from wall power while simultaneously charging the batteries, and to continue functioning seamlessly on battery power when unplugged. It ensures both reliability and portability, making it ideal for extended demonstrations or classroom use.
 
@@ -327,6 +370,21 @@ The hybrid power system integrates a rechargeable battery pack with an AC adapte
 
 **Evaluation and Selection**
 
+| | **Corded Power System** | **Wireless Inductive Power System** | **Hybrid Power System** |
+|:--|:--|:--|:--|
+| **Power Reliability** | Very High: continuous stable voltage from wall outlet | Low: alignment and efficiency issues cause inconsistent delivery | Very High: reliable from wall or battery |
+| **Efficiency** | High: minimal conversion loss with direct DC supply | Low: magnetic coupling losses reduce power transfer rate | Medium: conversion losses during charge and discharge |
+| **Portability** | Very Low: requires constant outlet connection | Medium: limited to operation on charging pad | High: operates on battery or wall power |
+| **System Complexity** | Low: no battery or management circuitry required | High: requires coil alignment and driver hardware | Medium: includes charge management and control circuits |
+| **Cost** | Low: inexpensive and simple implementation | High: inductive components increase cost | Medium: additional circuitry and batteries add moderate cost |
+| **Weight** | Low: no batteries required | Low: minimal internal hardware | Medium: includes rechargeable battery pack |
+| **Safety** | Medium: tripping and strain hazards from cables | High: sealed, low-voltage energy transfer | High: regulated circuits and protected battery system |
+| **Aesthetics** | Low: visible cords reduce visual appeal | Very High: clean, fully wireless appearance | High: minimal cables with clean overall design |
+| **Suitability for Motors and Magnets** | Very High: provides stable, high-current supply | Very Low: limited power capacity for motor loads | Very High: supports actuator demands via wall or battery |
+| **Overall Suitability** | Acceptable for stationary setups | Poor for high-load mobile operation | Excellent balance of flexibility, reliability, and performance |
+
+
+
 When comparing the three power configurations, the hybrid system clearly offers the best balance of reliability, mobility, and functionality. The corded design, while simple and inexpensive, limits the system’s usability by requiring a constant power connection. The wireless inductive setup, although sleek, introduces inefficiency and insufficient power transfer for motor-driven systems.
 
 The Hybrid Power System was therefore selected as the most practical and flexible option. It provides uninterrupted operation whether plugged in or on battery power, supports demonstrations and transportability, and ensures a professional, user-friendly design well-suited for the automated chessboard.
@@ -335,7 +393,9 @@ The Hybrid Power System was therefore selected as the most practical and flexibl
 
 ### Peripheral Subsystem
 
-_**Button Input and LED Response System**_
+_**Button Input and LED Response System**_ [11]
+
+![Buttons and LEDs output](./Concept_Images/Button_LED.jpg)
 
 In this configuration, user input is handled through a small set of physical buttons, while system feedback is provided by LEDs. Each LED color corresponds to specific system states, such as move confirmation and error detection. This design is simple and inexpensive, but less intuitive and less scalable for complex command sets.
 
@@ -356,7 +416,9 @@ In this configuration, user input is handled through a small set of physical but
     * Requires user memorization of LED meanings or tone patterns.
 
 
-_**Microphone and Computer-Voice Response System**_
+_**Microphone and Computer-Voice Response System**_ [12]
+
+![Microphone input and Speaker output](./Concept_Images/Microphone_Speaker.jpg)
 
 This option uses a microphone for user voice commands and a synthesized computer voice for system feedback. The system reads back recognized commands, requests confirmation, and communicates status or errors verbally. It eliminates the need for a screen, relying entirely on audio-based interaction. While fully hands-free, this setup depends heavily on clear audio input and output, which can be unreliable in noisy or shared environments.
 
@@ -378,7 +440,9 @@ This option uses a microphone for user voice commands and a synthesized computer
     
     * Adds processing overhead and complexity to handle real-time voice interaction.
 
-_**Microphone and LCD Display System**_
+_**Microphone and LCD Display System**_ [13]
+
+![Microphone input and LCD output](./Concept_Images/Microphone_LCD.png)
 
 This setup integrates a microphone for voice command input and an LCD display for visual feedback. The user speaks a command (e.g., "move knight to F3"), which the system processes and displays on the screen for confirmation. The LCD also reports move confirmations, invalid commands, or mechanical errors detected during operation. The player can then issue a "confirm" or "cancel" voice command to finalize or reject the action. This configuration provides a balanced mix of hands-free control and clear, visual verification for reliable gameplay.
 
@@ -401,6 +465,19 @@ This setup integrates a microphone for voice command input and an LCD display fo
     * Voice command errors may require multiple attempts in noisy environments.
 
 **Evaluation and Selection**
+
+| | **Button Input and LED Response System** | **Microphone and Computer-Voice Response System** | **Microphone and LCD Display System** |
+|:--|:--|:--|:--|
+| **Accessibility / Hands-Free Operation** | Very Low: requires manual interaction | Very High: fully voice-based operation | High: hands-free input with clear visual confirmation |
+| **Communication Clarity** | Low: limited to color and tone cues | Medium: relies on clear audio input/output | Very High: clear text-based display feedback |
+| **Error Handling / Feedback Detail** | Low: difficult to convey detailed error messages | Medium: audio feedback can miss details | High: LCD provides precise feedback and debugging info |
+| **Environmental Reliability** | Very High: unaffected by noise or lighting | Low: performance drops in noisy environments | High: visual display unaffected by ambient sound |
+| **Hardware Complexity** | Low: minimal components and wiring | Medium: requires microphone and speaker setup | Medium: integrates microphone and LCD circuitry |
+| **Software Complexity** | Low: simple logic for LEDs and buttons | High: needs speech recognition and synthesis | Medium: speech recognition plus display interface |
+| **Power Consumption** | Very Low: efficient LED operation | Medium: continuous audio I/O consumes more power | Medium: LCD backlight and voice processing use more power |
+| **Cost** | Very Low: cheapest option | Medium: added cost for audio hardware | Medium: cost of LCD balanced by small component count |
+| **User Experience** | Low: unintuitive and limited feedback | Medium: interactive but prone to voice errors | Very High: combines clarity, control, and accessibility |
+| **Overall Suitability** | Acceptable for simple systems | Adequate for fully voice-based setups | Excellent balance of usability, feedback, and accessibility |
 
 When evaluating the three interface approaches, key considerations included clarity of communication, accessibility, error handling, and ease of integration. The button and LED system, while simple and robust, cannot effectively convey complex messages or support conversational operation. The fully audio-based system offers modern appeal but lacks the reliability and clarity needed for precise chess move confirmations.
 
@@ -836,6 +913,30 @@ Lewis’s knowledge of Embedded Systems and Power Electronics makes him ideal fo
 ## References
 
 [1] Chessnutech. (n.d.). Chessnut move - advanced robotic chessboard with Plastic Pieces. Chessnut. https://www.chessnutech.com/products/chessnut-move-advanced-robotic-chessboard-with-plastic-pieces
+
+[2] "Wlkata Mirobot Professional Kit - 6 Axis Robotic Arm - Ros & Matlab Simulation Teaching," Wlkata, 2025. https://www.wlkata.com/products/professional-kit-of-wlkata-mirobot-six-axis-robot-arm-robotic-arm-k12-education-equipment?srsltid=AfmBOorDYl5EVi5f-2_VhlTFHhlSARGG2zWaSqZx4XfDo7etzcfOX9D1
+
+[3] "Chessnut Move | Review | Are you ready for robot chess?," Adventures of a Chess Noob, Jul. 08, 2025. https://adventuresofachessnoob.com/2025/07/08/%F0%9F%94%A5-chessnut-move-review-are-you-ready-for-robot-chess-%F0%9F%A4%96%E2%99%9F%EF%B8%8F%F0%9F%A4%94/
+
+[4] Admin, "Why the Core3D printer uses CoreXY," Core3D Custom Printers, Jun. 10, 2017. https://core3d.tech/2017/06/10/why-core3d-printer-uses-corexy/
+
+[5] H. M. | R. Pi | 0, "How to Use DC Motors on the Raspberry Pi," Circuit Basics, Jun. 10, 2021. https://www.circuitbasics.com/introduction-to-dc-motors/
+
+[6] ella, "Transform Your Raspberry Pi Into a Powerful Cloud Storage Server - Pidora," Pidora, Feb. 08, 2025. https://pidora.ca/transform-your-raspberry-pi-into-a-powerful-cloud-storage-server/
+
+[7] "Raspberry Pi Arduino Serial Communication - Everything You Need To Know," The Robotics Back-End, Nov. 11, 2019. https://roboticsbackend.com/raspberry-pi-arduino-serial-communication/
+
+[8] "AC-DC Universal Power Adapter Multi Voltage Output: 1.5VDC-12VDC @ 1000 mA; 7-plugs," AC-DC PowerShack, 2020. https://www.acdcpowershack.com/products/ac-dc-universal-power-adapter-multi-voltage-output-1-5vdc-12vdc-1000-ma-7-plugs-part-hc-1000?srsltid=AfmBOoorP4FP2Ja8toe44_u3KtCVAu-6VT5A_EYw7hLsAXEnxIjn6Unr
+
+[9] J. Hanna, “Wireless AC/DC Module," PASCO scientific, 2019. https://www.pasco.com/products/lab-apparatus/electricity-and-magnetism/circuits-and-components/wireless-ac-dc-module?srsltid=AfmBOoosJiE8trk5GcxQhZ3MOylGAMg9a4AADy_21YH-kvJihaN8bgUQ
+
+[10] "EXTRALINK Power Supply with Battery Charger 12V/13.8V 55W (EL-PSUPPLY-AD-55A) - The source for WiFi products at best prices in Europe - wifi-stock.com," Wifi-stock.com, 2025. https://www.wifi-stock.com/details/extralink-power-supply-with-battery-charger-12v13-8v-55w-el-psupply-ad-55a.html
+
+[11] circuitgeeks, "Arduino Buttons and LEDs | Push Button Tutorial," Circuit Geeks, Jan. 16, 2022. https://www.circuitgeeks.com/arduino-push-button-tutorial/
+
+[12] E. Electronics et al., "Simple Microphone to Speaker Amplifier Circuit," Circuit Digest, Nov. 13, 2018. https://circuitdigest.com/electronic-circuits/simple-microphone-to-speaker-circuit
+
+[13] Instructables, "Audio Visualizer With an LCD Display," Instructables, Jun. 07, 2022. https://www.instructables.com/Audio-Visualizer-With-an-LCD-Display/
 
 
 ETHICS Section
