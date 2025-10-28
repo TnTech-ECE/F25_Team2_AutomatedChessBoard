@@ -353,7 +353,9 @@ The Hybrid Power System was therefore selected as the most practical and flexibl
 
 ### Peripheral Subsystem
 
-_**Button Input and LED Response System**_
+_**Button Input and LED Response System**_ [11]
+
+![Buttons and LEDs output](./Concept_Images/Button_LED.jpg)
 
 In this configuration, user input is handled through a small set of physical buttons, while system feedback is provided by LEDs. Each LED color corresponds to specific system states, such as move confirmation and error detection. This design is simple and inexpensive, but less intuitive and less scalable for complex command sets.
 
@@ -374,7 +376,9 @@ In this configuration, user input is handled through a small set of physical but
     * Requires user memorization of LED meanings or tone patterns.
 
 
-_**Microphone and Computer-Voice Response System**_
+_**Microphone and Computer-Voice Response System**_ [12]
+
+![Microphone input and Speaker output](./Concept_Images/Microphone_Speaker.jpg)
 
 This option uses a microphone for user voice commands and a synthesized computer voice for system feedback. The system reads back recognized commands, requests confirmation, and communicates status or errors verbally. It eliminates the need for a screen, relying entirely on audio-based interaction. While fully hands-free, this setup depends heavily on clear audio input and output, which can be unreliable in noisy or shared environments.
 
@@ -396,7 +400,9 @@ This option uses a microphone for user voice commands and a synthesized computer
     
     * Adds processing overhead and complexity to handle real-time voice interaction.
 
-_**Microphone and LCD Display System**_
+_**Microphone and LCD Display System**_ [13]
+
+![Microphone input and LCD output](./Concept_Images/Microphone_LCD.png)
 
 This setup integrates a microphone for voice command input and an LCD display for visual feedback. The user speaks a command (e.g., "move knight to F3"), which the system processes and displays on the screen for confirmation. The LCD also reports move confirmations, invalid commands, or mechanical errors detected during operation. The player can then issue a "confirm" or "cancel" voice command to finalize or reject the action. This configuration provides a balanced mix of hands-free control and clear, visual verification for reliable gameplay.
 
@@ -853,6 +859,12 @@ Lewis’s knowledge of Embedded Systems and Power Electronics makes him ideal fo
 [9] J. Hanna, “Wireless AC/DC Module," PASCO scientific, 2019. https://www.pasco.com/products/lab-apparatus/electricity-and-magnetism/circuits-and-components/wireless-ac-dc-module?srsltid=AfmBOoosJiE8trk5GcxQhZ3MOylGAMg9a4AADy_21YH-kvJihaN8bgUQ
 
 [10] "EXTRALINK Power Supply with Battery Charger 12V/13.8V 55W (EL-PSUPPLY-AD-55A) - The source for WiFi products at best prices in Europe - wifi-stock.com," Wifi-stock.com, 2025. https://www.wifi-stock.com/details/extralink-power-supply-with-battery-charger-12v13-8v-55w-el-psupply-ad-55a.html
+
+[11] circuitgeeks, "Arduino Buttons and LEDs | Push Button Tutorial," Circuit Geeks, Jan. 16, 2022. https://www.circuitgeeks.com/arduino-push-button-tutorial/
+
+[12] E. Electronics et al., "Simple Microphone to Speaker Amplifier Circuit," Circuit Digest, Nov. 13, 2018. https://circuitdigest.com/electronic-circuits/simple-microphone-to-speaker-circuit
+
+[13] Instructables, "Audio Visualizer With an LCD Display," Instructables, Jun. 07, 2022. https://www.instructables.com/Audio-Visualizer-With-an-LCD-Display/
 
 
 
