@@ -838,6 +838,8 @@ Lewis’s knowledge of Embedded Systems and Power Electronics makes him ideal fo
 [1] Chessnutech. (n.d.). Chessnut move - advanced robotic chessboard with Plastic Pieces. Chessnut. https://www.chessnutech.com/products/chessnut-move-advanced-robotic-chessboard-with-plastic-pieces
 
 
+ETHICS Section
+
 [1]: National Institute of Standards and Technology. (2021). NIST Privacy Framework: A Tool for Improving Privacy through Enterprise Risk Management, Version 1.0. https://doi.org/10.6028/NIST.CSWP.01162021
 
 [2]: Buolamwini, J., & Gebru, T. (2018). Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification. Proceedings of Machine Learning Research, 81, 77–91. http://proceedings.mlr.press/v81/buolamwini18a.html
