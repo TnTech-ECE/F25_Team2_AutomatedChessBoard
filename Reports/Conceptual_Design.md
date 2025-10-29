@@ -90,15 +90,15 @@ Functions:
     
 Inputs:
 
-  - Voice commands via Microphone.
-  - System status from Control Unit.
+  - Voice commands from microphone over I2S, allowing for clear, low latency input. [1] 
+  - System status from Control Unit via UART for a simple and reliable method for two way communication. [2]
   - Power from Power Unit.
 
     
 Outputs:
 
-  - Chess move instructions to Control Unit.
-  - Feedback to user (via Screen Display).
+  - Chess move instructions to Control Unit, also using UART.
+  - Feedback to user (via Screen Display) using I2C for a clean and reliable way of communicating. [3]
     
 Interfaces:
 
@@ -124,14 +124,14 @@ Functions:
     
 Inputs:
 
-  - Move commands from Processing Unit.
+  - Move commands from Processing Unit, using UART as previously stated.
   - Power from Power Unit.
 
     
 Outputs:
 
-  - Control signals to motors.
-  - Feedback to Processing Unit.
+  - Control signals to motors from motor drivers.
+  - Feedback to Processing Unit over UART.
     
 Interfaces:
 
@@ -154,7 +154,7 @@ Functions:
     
 Inputs:
 
-  - Power and control signals from Control Unit.
+  - Control signals from motor drivers in Control Unit.
   - Power from Power Unit.
 
     
@@ -185,13 +185,14 @@ Functions:
 Inputs:
 
   - User voice input.
-  - Data from Processing Unit.
+  - Data from Processing Unit, transmitted using I2C for simple and reliable communication. 
   - Power from Power Unit.
 
     
 Outputs:
 
   - Display messages, move feedback, and prompts to the user.
+  - Microphone output to Processing Unit via I2S.
     
 Interfaces:
 
@@ -254,7 +255,10 @@ Revise the detailed timeline (Gantt chart) you created in the project proposal. 
 ## References
 
 All sources utilized in the conceptual design that are not considered common knowledge must be properly cited. Multiple references should be included.
-
+Atomic Subsystems:
+[1]: https://www.allaboutcircuits.com/technical-articles/introduction-to-the-i2s-interface/
+[2]: https://www.rohde-schwarz.com/us/products/test-and-measurement/essentials-test-equipment/digital-oscilloscopes/understanding-uart_254524.html
+[3]: https://www.ti.com/lit/an/sbaa565/sbaa565.pdf
 
 ## Statement of Contributions
 
