@@ -90,15 +90,15 @@ Functions:
     
 Inputs:
 
-  - Voice commands from microphone over I2S, allowing for clear, low latency input. [1] 
-  - System status from Control Unit via UART for a simple and reliable method for two way communication. [2]
+  - Voice commands from microphone over USB for easy, reliable compatibility.
+  - System status from Control Unit via UART for a simple and reliable method for two way communication. [1]
   - Power from Power Unit.
 
     
 Outputs:
 
   - Chess move instructions to Control Unit, also using UART.
-  - Feedback to user (via Screen Display) using I2C for a clean and reliable way of communicating. [3]
+  - Feedback to user (via Screen Display) using I2C for a clean and reliable way of communicating. [2]
     
 Interfaces:
 
@@ -192,7 +192,7 @@ Inputs:
 Outputs:
 
   - Display messages, move feedback, and prompts to the user.
-  - Microphone output to Processing Unit via I2S.
+  - Microphone output to Processing Unit via USB.
     
 Interfaces:
 
@@ -253,12 +253,8 @@ Revise the detailed timeline (Gantt chart) you created in the project proposal. 
 
 
 ## References
-
-All sources utilized in the conceptual design that are not considered common knowledge must be properly cited. Multiple references should be included.
-Atomic Subsystems:
-[1]: https://www.allaboutcircuits.com/technical-articles/introduction-to-the-i2s-interface/
-[2]: https://www.rohde-schwarz.com/us/products/test-and-measurement/essentials-test-equipment/digital-oscilloscopes/understanding-uart_254524.html
-[3]: https://www.ti.com/lit/an/sbaa565/sbaa565.pdf
+[1]: https://www.rohde-schwarz.com/us/products/test-and-measurement/essentials-test-equipment/digital-oscilloscopes/understanding-uart_254524.html
+[2]: https://www.ti.com/lit/an/sbaa565/sbaa565.pdf
 
 ## Statement of Contributions
 
