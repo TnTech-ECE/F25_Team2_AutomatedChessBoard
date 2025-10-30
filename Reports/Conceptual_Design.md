@@ -71,7 +71,7 @@ Automated chessboards have emerged as innovative tools for enhancing gameplay, i
 
 ### Chess Piece Movement
 
-_**Robotic Arm Manipulator System**_ [38]
+_**Robotic Arm Manipulator System**_ [40]
 
 ![Robotic Arm](./Concept_Images/Robot_Gripper_Arm.png)
 
@@ -607,15 +607,15 @@ Functions:
     
 Inputs:
 
-  - Voice commands via Microphone.
-  - System status from Control Unit.
+  - Voice commands from microphone over USB for easy, reliable compatibility.
+  - System status from Control Unit via UART for a simple and reliable method for two way communication. [37]
   - Power from Power Unit.
 
     
 Outputs:
 
-  - Chess move instructions to Control Unit.
-  - Feedback to user (via Screen Display).
+  - Chess move instructions to Control Unit, also using UART.
+  - Feedback to user (via Screen Display) using I2C for a clean and reliable way of communicating. [38]
     
 Interfaces:
 
@@ -641,14 +641,14 @@ Functions:
     
 Inputs:
 
-  - Move commands from Processing Unit.
+  - Move commands from Processing Unit, using UART as previously stated.
   - Power from Power Unit.
 
     
 Outputs:
 
-  - Control signals to motors.
-  - Feedback to Processing Unit.
+  - Control signals to motors from motor drivers.
+  - Feedback to Processing Unit over UART.
     
 Interfaces:
 
@@ -671,7 +671,7 @@ Functions:
     
 Inputs:
 
-  - Power and control signals from Control Unit.
+  - Control signals from motor drivers in Control Unit.
   - Power from Power Unit.
 
     
@@ -702,13 +702,14 @@ Functions:
 Inputs:
 
   - User voice input.
-  - Data from Processing Unit.
+  - Data from Processing Unit, transmitted using I2C for simple and reliable communication. 
   - Power from Power Unit.
 
     
 Outputs:
 
   - Display messages, move feedback, and prompts to the user.
+  - Microphone output to Processing Unit via USB.
     
 Interfaces:
 
@@ -770,7 +771,7 @@ The Chess 2 Impress Audio Actuated Chessboard has predominantly positive, albeit
 Cultural Impacts: Chess is a global cultural artifact symbolizing strategy and intellectual heritage. This project enhances its cultural relevance by modernizing traditional over-the-board (OTB) play, appealing to younger, tech-savvy demographics and bridging analog and digital divides. It could revive interest in chess clubs or tournaments by making play more engaging and shareable (e.g., via integrated online play), potentially increasing cultural participation in underserved communities.
 
 
-Societal Impacts: On society, the board promotes cognitive health through accessible chess, which research links to improved problem-solving and memory.[24] For the community—particularly students, hobbyists, and rehabilitation centers—it democratizes gaming, enabling remote or solo play against AI. Broader societal benefits include educational outreach; the open-source design could inspire STEM curricula, encouraging underrepresented groups to engage in robotics and AI. However, if commercialized, it risks widening the digital divide if priced accessibly only to affluent users.[37]
+Societal Impacts: On society, the board promotes cognitive health through accessible chess, which research links to improved problem-solving and memory.[24] For the community—particularly students, hobbyists, and rehabilitation centers—it democratizes gaming, enabling remote or solo play against AI. Broader societal benefits include educational outreach; the open-source design could inspire STEM curricula, encouraging underrepresented groups to engage in robotics and AI. However, if commercialized, it risks widening the digital divide if priced accessibly only to affluent users.[39]
 
 
 Environmental Impacts: As a low-volume prototype, direct environmental effects are minimal, but the design emphasizes sustainability to model responsible engineering. Components like neodymium magnets and lithium polymer batteries pose e-waste risks if not recycled; [29] thus, modular hardware allows for easy upgrades and disassembly. Compared to mass-produced commercial boards (e.g., Square Off or GoChess), our DIY approach reduces manufacturing emissions by using off-the-shelf parts, potentially lowering the carbon footprint for hobbyist replication.
@@ -798,7 +799,7 @@ ASTM International (ASTM F963 for toy safety, adapted for recreational devices):
 UL (Underwriters Laboratories) Standards (UL 60950-1 for IT equipment safety): Influences electrical design, specifying insulation and grounding for the 5-24V power supply to avoid shocks or fires.[26]
 
 
-W3C Web Accessibility Initiative (WCAG 2.1 for voice interfaces): Ensures the speech recognition adheres to accessibility guidelines, such as providing text fallbacks for voice commands and supporting multiple languages/accents.[39]
+W3C Web Accessibility Initiative (WCAG 2.1 for voice interfaces): Ensures the speech recognition adheres to accessibility guidelines, such as providing text fallbacks for voice commands and supporting multiple languages/accents.[41]
 
 
 ISO/IEC 27001 for information security: Applied to any data handling in voice processing, enforcing encryption for transmitted audio snippets.[19]
@@ -983,11 +984,15 @@ Lewis’s knowledge of Embedded Systems and Power Electronics makes him ideal fo
 
 [36] U.S. Occupational Safety and Health Administration, OSHA Standards – Subpart S: Electrical, 29 CFR 1910, Washington, D.C.: OSHA, 2025.
 
-[37] Warschauer, M., & Matuchniak, T. (2010). New technology and digital worlds: Analyzing evidence of equity in access, use, and outcomes. Review of Research in Education, 34(1), 179–225. https://doi.org/10.3102/0091732X09349791
+[37] “Understanding UART,” Rohde & Schwarz, 2025. https://www.rohde-schwarz.com/us/products/test-and-measurement/essentials-test-equipment/digital-oscilloscopes/understanding-uart_254524.html
 
-[38] "Wlkata Mirobot Professional Kit - 6 Axis Robotic Arm - Ros & Matlab Simulation Teaching," Wlkata, 2025. https://www.wlkata.com/products/professional-kit-of-wlkata-mirobot-six-axis-robot-arm-robotic-arm-k12-education-equipment?srsltid=AfmBOorDYl5EVi5f-2_VhlTFHhlSARGG2zWaSqZx4XfDo7etzcfOX9D1
+[38] Joseph Wu, “A Basic Guide to I2C,” Texas Instruments Application Note SBAA565, November 2022. https://www.ti.com/lit/an/sbaa565/sbaa565.pdf
 
-[39] World Wide Web Consortium. (2018). Web Content Accessibility Guidelines (WCAG) 2.1. https://www.w3.org/TR/WCAG21/
+[39] Warschauer, M., & Matuchniak, T. (2010). New technology and digital worlds: Analyzing evidence of equity in access, use, and outcomes. Review of Research in Education, 34(1), 179–225. https://doi.org/10.3102/0091732X09349791
+
+[40] "Wlkata Mirobot Professional Kit - 6 Axis Robotic Arm - Ros & Matlab Simulation Teaching," Wlkata, 2025. https://www.wlkata.com/products/professional-kit-of-wlkata-mirobot-six-axis-robot-arm-robotic-arm-k12-education-equipment?srsltid=AfmBOorDYl5EVi5f-2_VhlTFHhlSARGG2zWaSqZx4XfDo7etzcfOX9D1
+
+[41] World Wide Web Consortium. (2018). Web Content Accessibility Guidelines (WCAG) 2.1. https://www.w3.org/TR/WCAG21/
 
 ## Statement of Contributions
 
