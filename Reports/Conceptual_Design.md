@@ -1,32 +1,5 @@
-##CHANGE ME
 
 # Conceptual Design
-
-This document outlines the objectives of a conceptual design. After reading your conceptual design, the reader should understand:
-
-- The fully formulated problem.
-- The fully decomposed conceptual solution.
-- Specifications for each of the atomic pieces of the solution.
-- Any additional constraints and their origins.
-- How the team will accomplish their goals given the available resources.
-
-With these guidelines, each team is expected to create a suitable document to achieve the intended objectives and effectively inform their stakeholders.
-
-
-## General Requirements for the Document
-- Submissions must be composed in Markdown format. Submitting PDFs or Word documents is not permitted.
-- All information that is not considered common knowledge among the audience must be properly cited.
-- The document should be written in the third person.
-- An introduction section should be included.
-- The latest fully formulated problem must be clearly articulated using explicit "shall" statements.
-- A comparative analysis of potential solutions must be performed
-- The document must present a comprehensive, well-specified high-level solution.
-- The solution must contain a hardware block diagram.
-- The solution must contain an operational flowchart.
-- For every atomic subsystem, a detailed functional description, inputs, outputs, and specifications must be provided.
-- The document should include an acknowledgment of ethical, professional, and standards considerations, explaining the specific constraints imposed.
-- The solution must include a refined estimate of the resources needed, including: costs, allocation of responsibilities for each subsystem, and a Gantt chart.
-
 
 ## Introduction
 
@@ -48,34 +21,578 @@ The conceptual design document will:
 - Address the standards the project must adhere to, as well as ethical and professional specifications.
 
 
-## Restating the Fully Formulated Problem
+## Fully Formulated Problem
 
-The fully formulated problem is the overall objective and scope complete with the set of shall statements. This was part of the project proposal. However, it may be that the scope has changed. So, state the fully formulated problem in the introduction of the conceptual design and planning document. For each of the constraints, explain the origin of the constraint (customer specification, standards, ethical concern, broader implication concern, etc).
+The primary objective of this project is to design and build a low-cost, accessible, and intelligent automated chess board that enhances the traditional over-the-board (OTB) chess experience by integrating online play, AI-based solo play, and voice command functionality. The system shall support physical gameplay while interfacing with online platforms and allow players with physical or visual disabilities to engage in independent play through voice control and automated piece movement.
 
+The system shall be constructed using affordable and readily available components to ensure replicability by hobbyists. In doing so, the board shall bridge the gap between digital and physical chess play while improving accessibility and reducing cost barriers.
+
+### Specifications
+
+The chessboard will meet the following requirements to ensure reliability and operability:
+
+1. Vocal Processing System: The system shall enable players to control gameplay using spoken commands. 
+
+    - Microphone (Peripheral Input): The device shall capture vocal output from users and transmit it to the processing unit for analysis.
+    - Processing Unit: The unit shall utilize Vosk to process and filter voice input with a minimum accuracy of 80%. It shall listen for input only while a designated button is pressed or after a command word is detected, recognize commands in algebraic chess notation and common variations (e.g., “Knight to e5,” “Bishop a4”), and process commands within 5 seconds of button release or the end of voice input.
+2. Piece Positioning XY Frame: The system shall magnetically drag pieces to the proper square using stepper motors to position pieces based on their x and y coordinates.
+    - Processing Unit: The unit shall utilize Stockfish to enable single-player gameplay against an AI opponent.
+    - Control Unit: The unit shall use an Arduino with Big Easy Drivers to interpret vocal commands, drive the XY movement, complete any piece movement within 5 seconds, and remove 95% of captured pieces without collision.
+    - Core XY: The unit shall precisely position the magnetic actuator to relocate pieces while ensuring all pieces remain upright and stable during movement.
+
+3. Visual Output: The system shall output game data to optimize user experience.
+    - Display Screen (Peripheral Output): The device shall display move confirmations, illegal move alerts, and overall game status updates within 1 second of command processing. It shall display characters ≥ 10 pt for readability and support high-contrast text or graphics for clear visibility under standard indoor lighting.
+4. Board Assembly: The system shall be assembled to minimize overall weight, support ease of transport, and improve user accessibility. The board shall weigh less than 30 pounds to allow transport by a single user and include features that facilitate transportability. File and rank labels shall be clearly displayed to assist users in locating squares during gameplay.
+5. Power Supply System: The board shall include a sleep mode to reduce power consumption when idle and shall operate using rechargeable battery capable of supporting at least 2 hours of active gameplay.
+6. System Design and Modularity: The final board shall cost no more than $350 USD in materials and have a modular design allowing for individual upgrades.
+
+These specifications were developed in collaboration with stakeholders to define the system’s ideal functions while minimizing cost. They are designed to meet the functional requirements effectively, comply with relevant industry standards and regulations, and prioritize accessibility and user inclusion—all without compromising affordability or overall system performance.
+
+### Constraints
+- Regulatory and Compliance Constraints: To ensure the system meets U.S. consumer electronics and electrical standards.
+    - Shall comply with FCC Part 15 Subpart B (Class B) limits for electromagnetic interference (EMI) in residential environments, which specify maximum conducted emissions of up to 0.15–30 MHz at 66–56 dBµV, decreasing with frequency, and radiated emissions of up to 30–1000 MHz at 40–54 dBµV/m measured at 3 meters. [33]  
+    - Shall operate below 50 V DC, following UL low-voltage safety thresholds for maximum hazardous touch voltage to eliminate the need for high-voltage insulation. [30]  
+    - Shall meet the requirements of NEC, NFPA 70 for low-voltage indoor consumer systems, which defines low-voltage circuits as those operating at 50 V or less and requires compliance with wiring methods specified in Article 725 for Class 1, 2, and 3 circuits, including protection against overcurrent, proper conductor sizing, and insulation rated for the circuit’s voltage. [20] 
+    - Shall avoid use of materials or configurations that violate CPSC safety guidance for consumer electronics, including specification of materials with hazardous chemical content (e.g., lead, phthalates) or components lacking documented compliance with CPSC’s best-practice manufacturing guidance and material-change-testing requirements. [31]
+    - Shall operate within the safe limits defined by UL 2054 for household and commercial batteries, ensuring that under normal use and foreseeable abuse conditions the battery does not exceed 302°F, remains between 32-140°F while charging, remains between -4–140 °F while discharging, does not catch fire or explode, and is protected against overcharge, short-circuit, mechanical abuse (crush, impact, vibration), and thermal extremes. [27]
+- Electrical and Safety Constraints: To prevent electrical, thermal, and physical hazards during operation.
+    - Shall limit external surface temperatures to ≤104 °F (40 °C) during continuous operation, in accordance with UL 94 flammability requirements for plastic materials and the CPSC maximum surface temperature guidelines (16 CFR 1505.7) to prevent thermal hazards. [28] [32]
+    - Shall use cord sets, flexible cables, and connectors compliant with NEC Article 400, ensuring cords are rated for the system’s voltage and current and provide appropriate insulation and temperature rating, are routed to avoid sharp edges, pinch points, or areas of high foot traffic, with bends maintained above the minimum bend radius, connectors provide proper grounding continuity and are rated for the system’s operating voltage and current, and are secured using clips, cable trays, or protective raceways to minimize tripping hazards and mechanical damage. [21]
+    - Shall include grounding, bonding, and electrical protection measures in accordance with OSHA 29 CFR 1910 Subpart S to minimize electrical shock hazards, ensuring all exposed conductive parts are properly grounded and circuit protection devices are installed where required [36].
+    - Shall include ANSI Z535.4-compliant safety labels for all user-facing hazards, including moving parts, power indicators, and other electrical or mechanical hazards, ensuring labels are legible, durable, and placed conspicuously to effectively warn users of potential risks. [3]  
+- Accessibility and Ergonomic Constraints: To ensure usability for a wide range of users.
+    - Shall conform to Section 508 of the Rehabilitation Act, ensuring that all user interfaces, controls, and displays are accessible to individuals with disabilities, including compatibility with assistive technologies such as screen readers and alternative input devices. [35]
+    - Shall follow ANSI/HFES 100‑2007 ergonomic guidelines, ensuring that controls and displays are positioned for comfortable reach, appropriate viewing angles, and clear tactile, visual, or auditory feedback to reduce operator fatigue and errors. [4] 
+    - Shall apply universal design principles, minimizing cognitive and physical barriers by providing intuitive operation, clear labeling, and adjustable settings where feasible to accommodate a wide range of users. [8]
 
 ## Comparative Analysis of Potential Solutions
 
-In this section, various potential solutions are hypothesized, design considerations are discussed, and factors influencing the selection of a solution are outlined. The chosen solution is then identified with justifications for its selection.
+Automated chessboards have emerged as innovative tools for enhancing gameplay, integrating automation and dynamic AI opponents. Below, we analyze multiple subsystem solutions to determine their suitability for addressing the challenges of affordability, automated capabilities, and accessibility.
 
+### Chess Piece Movement
+
+_**Robotic Arm Manipulator System**_ [40]
+
+![Robotic Arm](./Concept_Images/Robot_Gripper_Arm.png)
+
+The robotic arm manipulator system consists of a multi-jointed mechanical arm mounted above the chessboard, equipped with a claw or gripper to pick up and move chess pieces between positions. Controlled by servo or stepper motors, this approach mimics human motion, offering precise vertical and horizontal control for piece manipulation.
+
+  * _Pros:_
+  
+    * Provides full 3D control and can directly lift pieces instead of sliding them.
+    
+    * Capable of handling a wide range of object shapes and sizes with a properly designed gripper.
+    
+    * Visually engaging and intuitive to observers due to its human-like movement.
+    
+    * Modular and programmable for other potential tasks or demonstrations.
+
+  * _Cons:_
+    
+    * Mechanically complex with multiple degrees of freedom requiring advanced kinematic control.
+    
+    * Requires precise calibration to avoid collisions with other pieces or the board.
+    
+    * Considerably slower than planar motion systems.
+    
+    * Bulky structure obstructs the player's view.
+    
+    * Increased cost and mechanical wear due to multiple servos or stepper motors.
+    
+    * Noise and vibration from multiple moving joints can degrade precision.
+    
+    * Requires a robust frame or enclosure to maintain stability and alignment.
+
+_**Individual Micro-Robot System**_ [10]
+
+![Micro Robotics](./Concept_Images/Micro_Robot_Pieces.png)
+
+This system places a small, self-contained micro-robot beneath each chess piece. Each robot can move independently under the board, guided by sensors or wireless communication, to reposition its corresponding piece as commanded. This concept is similar to systems used in high-end commercial robotic chessboards (such as the Chessnut Move[9]).
+
+  * _Pros:_
+  
+    * Allows completely independent movement of each chess piece.
+    
+    * Eliminates the need for moving gantries, belts, or overhead mechanisms.
+    
+    * Offers smooth and realistic piece motion directly from below the board.
+
+  * _Cons:_
+    
+    * Extremely expensive and complex to implement, requiring many individual actuators.
+    
+    * Difficult to synchronize multiple robots for coordinated movement.
+    
+    * Maintenance is cumbersome: each unit must be powered, calibrated, and serviced individually.
+    
+    * Requires precise alignment with chessboard grid and consistent magnetic coupling.
+    
+    * Limited battery life and power management challenges under a closed board.
+    
+    * Communication interference or loss can result in desynchronized or failed moves.
+
+_**CoreXY Motion System**_ [2]
+
+![CoreXY Two-Axis](./Concept_Images/CoreXY.png)
+
+The CoreXY motion system uses two stepper motors connected through a pair of pulley and belt assemblies to enable precise, planar motion along the X and Y axes. A magnet is mounted to the movable head, allowing the system to position and actuate magnetic pieces from below the chessboard. This design provides a compact, fast, and mechanically efficient method for two-dimensional positioning, without requiring independent motorized axes.
+  
+  * _Pros:_
+  
+    * Provides high-speed, precise planar movement using only two motors.
+    
+    * Lightweight and mechanically efficient due to stationary motors and crossed belt layout.
+    
+    * Compatible with a wide range of stepper drivers.
+    
+    * Smooth, coordinated motion reduces mechanical vibration and improves accuracy.
+  
+  * _Cons:_
+    
+    * Requires careful calibration to prevent skewed or uneven motion.
+    
+    * Mechanical backlash or belt stretch can reduce repeatability over time.
+    
+    * Limited Z-axis functionality unless supplemented by another mechanism.
+    
+    * Performance depends on magnet strength and carriage rigidity for consistent actuation.
+
+
+**Evaluation and Selection**
+
+| | **Robotic Arm Manipulator** | **Individual Micro-Robot System** | **CoreXY Motion System** |
+|:--|:--|:--|:--|
+| **Mechanical Complexity** | High: multiple joints and servos | High: dozens of independent robots | Low: simple two-motor planar motion |
+| **Precision and Accuracy** | Medium: depends on calibration | High: direct piece control | High: smooth and consistent positioning |
+| **Speed of Operation** | Low: slow due to arm motion | Medium: piece-by-piece movement | High: fast planar translation |
+| **Cost** | High: many actuators and materials | Very High: one robot per piece | Low: minimal motors and hardware |
+| **Ease of Maintenance** | Low: mechanical wear and calibration | Very Low: each robot must be serviced | High: few components to maintain |
+| **Scalability / Expandability** | Medium: modular but bulky | Low: limited by robot count and battery | High: adaptable to larger boards |
+| **Reliability** | Medium: prone to alignment drift | Low: multiple failure points | High: robust motion structure |
+| **Aesthetic / User Experience** | High: visually engaging | Medium: hidden motion below board | Medium: minimalistic, functional |
+| **Overall Suitability** | Acceptable but inefficient | Impractical and costly | Optimal balance of performance and simplicity |
+
+When evaluating the three systems, several key factors were considered: mechanical complexity, cost, precision, scalability, and ease of maintenance. The robotic arm, while versatile, introduces high mechanical complexity, slower operation speeds, and increased cost due to multiple motors and linkages. The micro-robot system provides independent piece control but is prohibitively expensive, difficult to synchronize, and challenging to maintain.
+
+The CoreXY motion system was determined to be the most balanced and practical approach. Its two-motor planar configuration minimizes mechanical components while maximizing precision and speed. It integrates smoothly with magnetic actuation methods, provides consistent and predictable motion, and offers an excellent trade-off between performance and design simplicity.
+
+
+### Processing and Control Subsystem
+
+_**Centralized Processing Unit**_ [16]
+
+![Centralized Processing Unit](./Concept_Images/Raspberry_Pi_to_Motor.png)
+
+In this setup, a single embedded processor (such as a Raspberry Pi) handles all major system functions, including speech recognition, chess logic, and motion control. The processor directly interfaces with motor driver boards, eliminating the need for a secondary control unit. This approach simplifies wiring and reduces communication overhead between devices, but places greater computational and timing demands on the processor.
+
+  * _Pros:_
+  
+    * Simplified system architecture with fewer components and communication links.
+    
+    * Reduced latency and failure points, since all logic resides on one board.
+    
+    * Compact, space-efficient design requiring minimal wiring.
+    
+    * Suitable for small-scale prototypes or cost-sensitive builds.
+  
+  * _Cons:_
+    
+    * The single processor is not optimized for precise real-time control, potentially introducing motor timing inconsistencies.
+    
+    * Processor overload may occur when running several chess management programs and motion control tasks simultaneously.
+    
+    * A single hardware failure halts all system functionality.
+    
+    * Difficult to scale or maintain if additional sensors or actuators are later added.
+
+_**Cloud-Assisted or Network-Based Processing**_ [13]
+
+![Cloud Processing](./Concept_Images/Raspberry_Cloud.jpg)
+
+In this configuration, the chessboard’s hardware handles only low-level control, while cloud or networked servers perform computationally heavy tasks such as speech recognition and chess AI. The local system sends input data (like voice or board state) to remote services, which return processed results. This approach leverages powerful external resources, but introduces significant dependency on network availability.
+
+  * _Pros:_
+  
+    * Reduces on-board processing requirements, enabling smaller and lower-power hardware.
+    
+    * Allows use of advanced AI models beyond embedded capabilities.
+    
+    * Simplifies software maintenance through centralized, remotely updatable systems.
+  
+  * _Cons:_
+    
+    * Requires continuous internet connectivity, meaning the system is non-functional offline.
+    
+    * Introduces latency that can affect responsiveness in move execution and voice feedback.
+    
+    * Raises data security and privacy concerns.
+    
+    * Dependent on third-party APIs or services that may change or become unavailable.
+    
+    * Reduces autonomy and portability, making it unsuitable for standalone operation.
+
+_**Distributed Processing and Control System**_ [23]
+
+![Distributed Processing](./Concept_Images/Raspberry_Pi_to_Arduino.png)
+
+This architecture separates high-level processing from real-time motor control. A Raspberry Pi acts as the main processing unit, running the voice recognition and chess piece tracking programs. It communicates with a dedicated Arduino control unit, which manages the CoreXY stepper motors through two motor driver boards. The Arduino executes time-critical control loops for precise movement, while the Raspberry Pi handles strategic computation and user interaction.
+
+  * _Pros:_
+  
+    * Divides workload between two optimized processors, improving performance and reliability.
+    
+    * Provides smooth, accurate motion via the Arduino’s real-time control capabilities.
+    
+    * Enhances modularity, wherer each subsystem can be tested, replaced, or upgraded independently.
+    
+    * Allows the Raspberry Pi to focus on higher-level logic and communication, without timing interruptions.
+    
+    * Supports future expansion with minimal redesign.
+  
+  * _Cons:_
+    
+    * Requires careful synchronization between Pi and Arduino via serial or I²C communication.
+    
+    * Slightly higher cost and wiring complexity.
+    
+    * Debugging inter-device communication can be more challenging.
+    
+    * Adds a small latency overhead in transmitting commands between processors.
+
+
+**Evaluation and Selection**
+
+| | **Centralized Processing Unit** | **Cloud-Assisted Processing** | **Distributed Processing and Control System** |
+|:--|:--|:--|:--|
+| **Processing Performance** | Medium: single processor handles all tasks | Very High: uses powerful remote servers | High: tasks divided between Pi and Arduino |
+| **Real-Time Control** | Low: limited motor timing precision | Very Low: dependent on network latency | High: Arduino provides dedicated control loop |
+| **System Reliability** | Medium: single-point failure risk | Low: relies on external network and servers | High: separate units improve fault tolerance |
+| **Offline Functionality** | High: operates fully offline | Very Low: requires continuous internet | High: fully self-contained system |
+| **Scalability / Expandability** | Medium: limited by single processor | Medium: scalable through cloud resources | High: modular and easily extendable design |
+| **Latency and Responsiveness** | High: direct control, minimal communication delay | Low: network delay affects interaction | High: responsive with minimal inter-device delay |
+| **Maintenance and Debugging** | High: single board simplifies updates | Medium: dependent on external software updates | Medium: slightly complex multi-device debugging |
+| **Hardware Cost** | Low: only one main board needed | Medium: requires network hardware or subscription | Medium: two controllers and wiring required |
+| **Data Security and Privacy** | High: all processing local | Low: sensitive data passes through cloud | High: secure local processing and control |
+| **Overall Suitability** | Acceptable for simple systems | Poor for standalone real-time control | Excellent balance of performance and reliability |
+
+For this project, we prioritized reliable offline performance, precise motion control, and efficient processing distribution. The centralized processing system, while simple, risks performance bottlenecks when running both AI and motor control on one processor, and a single failure would disable the entire board. The cloud-assisted approach, although powerful, depends on constant internet connectivity and introduces latency, making it unreliable for real-time, portable use.
+
+The Distributed Processing and Control System offers the best balance between responsiveness, modularity, and performance. By assigning real-time motion control to the Arduino and high-level processing to the Raspberry Pi, the system maintains smooth CoreXY operation (while supporting advanced features like voice recognition and chess logic). This design ensures scalability, reliability, and consistent offline operation, meeting all project goals effectively.
+
+
+### Power System
+
+_**Corded Power System**_ [1]
+
+![Corded Power](./Concept_Images/Corded_Power.png)
+
+The corded power configuration supplies energy directly from a wall outlet through a DC power adapter, providing continuous and stable voltage to all internal components. This setup eliminates the need for internal energy storage and simplifies circuit design, relying entirely on an external power connection for operation.
+
+  * _Pros:_
+  
+    * Provides stable, uninterrupted power during operation.
+    
+    * Simplifies internal circuitry, with no need for charging or battery management systems.
+    
+    * Reduces weight by eliminating onboard batteries.
+    
+    * Inexpensive and straightforward to implement.
+  
+  * _Cons:_
+    
+    * Requires a constant connection to a wall outlet, limiting portability.
+    
+    * Operation is impossible without external power.
+    
+    * Increases cable clutter and reduces design aesthetics.
+    
+    * Potential tripping or cable strain hazards in user environments.
+    
+    * Less appealing for demonstration or mobile use cases due to lack of autonomy.
+
+_**Wireless Inductive Power System**_ [15]
+
+![Wireless Power](./Concept_Images/Wireless_Power.png)
+
+A wireless inductive power setup transfers energy through magnetic coupling between a transmitter coil (in a base station) and a receiver coil integrated into the chessboard. This provides a cable-free appearance and continuous power when the board is positioned on its charging pad.
+
+  * _Pros:_
+  
+    * Provides a modern, cable-free aesthetic for clean presentation.
+    
+    * Reduces wear on connectors from frequent plugging and unplugging.
+    
+    * Safe, low-voltage energy transfer suitable for consumer environments.
+  
+  * _Cons:_
+    
+    * Significantly lower power transfer efficiency.
+    
+    * Requires precise alignment between coils for consistent operation.
+    
+    * Limited power output, unsuitable for high-current loads like motors or magnets.
+    
+    * Increased system cost and design complexity.
+    
+    * Inefficient for continuous or high-load use, especially with moving actuators.
+    
+    * Thermal buildup during long operation could reduce component lifespan.
+   
+ _**Hybrid Power System**_ [14]
+
+ ![Hybrid Power](./Concept_Images/Power_Supply.jpg)
+
+The hybrid power system integrates a rechargeable battery pack with an AC adapter and power management circuitry. This configuration allows the chessboard to operate from wall power while simultaneously charging the batteries, and to continue functioning seamlessly on battery power when unplugged. It ensures both reliability and portability, making it ideal for extended demonstrations or classroom use.
+
+  * _Pros:_
+  
+    * Enables uninterrupted operation whether plugged in or running on battery power.
+    
+    * Provides portability without sacrificing power availability.
+    
+    * Extends battery life through managed charging cycles and pass-through power.
+    
+    * Offers redundancy, where if one power source fails, the other maintains functionality.
+    
+    * Clean, professional design with minimal cable dependency.
+    
+  * _Cons:_
+    
+    * Slightly higher cost due to the inclusion of power management circuitry.
+    
+    * Requires careful design to balance charging and discharge loads.
+    
+    * Batteries will eventually require replacement after several hundred charge cycles.
+    
+    * Slightly heavier than a purely corded design.
+
+
+**Evaluation and Selection**
+
+| | **Corded Power System** | **Wireless Inductive Power System** | **Hybrid Power System** |
+|:--|:--|:--|:--|
+| **Power Reliability** | Very High: continuous stable voltage from wall outlet | Low: alignment and efficiency issues cause inconsistent delivery | Very High: reliable from wall or battery |
+| **Efficiency** | High: minimal conversion loss with direct DC supply | Low: magnetic coupling losses reduce power transfer rate | Medium: conversion losses during charge and discharge |
+| **Portability** | Very Low: requires constant outlet connection | Medium: limited to operation on charging pad | High: operates on battery or wall power |
+| **System Complexity** | Low: no battery or management circuitry required | High: requires coil alignment and driver hardware | Medium: includes charge management and control circuits |
+| **Cost** | Low: inexpensive and simple implementation | High: inductive components increase cost | Medium: additional circuitry and batteries add moderate cost |
+| **Weight** | Low: no batteries required | Low: minimal internal hardware | Medium: includes rechargeable battery pack |
+| **Safety** | Medium: tripping and strain hazards from cables | High: sealed, low-voltage energy transfer | High: regulated circuits and protected battery system |
+| **Aesthetics** | Low: visible cords reduce visual appeal | Very High: clean, fully wireless appearance | High: minimal cables with clean overall design |
+| **Suitability for Motors and Magnets** | Very High: provides stable, high-current supply | Very Low: limited power capacity for motor loads | Very High: supports actuator demands via wall or battery |
+| **Overall Suitability** | Acceptable for stationary setups | Poor for high-load mobile operation | Excellent balance of flexibility, reliability, and performance |
+
+
+
+When comparing the three power configurations, the hybrid system clearly offers the best balance of reliability, mobility, and functionality. The corded design, while simple and inexpensive, limits the system’s usability by requiring a constant power connection. The wireless inductive setup, although sleek, introduces inefficiency and insufficient power transfer for motor-driven systems.
+
+The Hybrid Power System was therefore selected as the most practical and flexible option. It provides uninterrupted operation whether plugged in or on battery power, supports demonstrations and transportability, and ensures a professional, user-friendly design well-suited for the automated chessboard.
+
+
+
+### Peripheral Subsystem
+
+_**Button Input and LED Response System**_ [11^]
+
+![Buttons and LEDs output](./Concept_Images/Button_LED.jpg)
+
+In this configuration, user input is handled through a small set of physical buttons, while system feedback is provided by LEDs. Each LED color corresponds to specific system states, such as move confirmation and error detection. This design is simple and inexpensive, but less intuitive and less scalable for complex command sets.
+
+  * _Pros:_
+  
+    * Extremely simple, durable, and low-cost hardware.
+    
+    * Provides immediate and reliable feedback without display lag.
+    
+    * Highly power efficient and resilient to environmental noise.
+    
+  * _Cons:_
+
+    * Does not meet hands-free accessibility goals of the project.
+    
+    * Not suitable for complex communication or detailed error reporting.
+    
+    * Requires user memorization of LED meanings or tone patterns.
+
+
+_**Microphone and Computer-Voice Response System**_ [12^]
+
+![Microphone input and Speaker output](./Concept_Images/Microphone_Speaker.jpg)
+
+This option uses a microphone for user voice commands and a synthesized computer voice for system feedback. The system reads back recognized commands, requests confirmation, and communicates status or errors verbally. It eliminates the need for a screen, relying entirely on audio-based interaction. While fully hands-free, this setup depends heavily on clear audio input and output, which can be unreliable in noisy or shared environments.
+
+  * _Pros:_
+  
+    * Fully hands-free operation enhances user convenience and accessibility.
+    
+    * Provides a more interactive and conversational user experience.
+    
+    * Reduces physical hardware needs by removing displays or buttons.
+    
+  * _Cons:_
+    
+    * Audio feedback can be difficult to hear or distinguish in noisy environments.
+    
+    * Lack of visual feedback may lead to miscommunication or missed confirmations.
+    
+    * Requires reliable speech synthesis and recognition performance.
+    
+    * Adds processing overhead and complexity to handle real-time voice interaction.
+
+_**Microphone and LCD Display System**_ [18]
+
+![Microphone input and LCD output](./Concept_Images/Microphone_LCD.png)
+
+This setup integrates a microphone for voice command input and an LCD display for visual feedback. The user speaks a command (e.g., "move knight to F3"), which the system processes and displays on the screen for confirmation. The LCD also reports move confirmations, invalid commands, or mechanical errors detected during operation. The player can then issue a "confirm" or "cancel" voice command to finalize or reject the action. This configuration provides a balanced mix of hands-free control and clear, visual verification for reliable gameplay.
+
+  * _Pros:_
+  
+    * Offers clear, readable feedback for every system action and voice command.
+    
+    * Enables confirmation and error display directly on the board, improving user confidence.
+    
+    * Hands-free operation through voice commands enhances accessibility and modern design appeal.
+    
+    * Allows debugging and system messages to be shown without external devices.
+    
+  * _Cons:_
+    
+    * Requires both voice recognition and display integration, slightly increasing hardware and coding complexity.
+    
+    * LCD may have limited viewing angles or space for longer messages.
+    
+    * Voice command errors may require multiple attempts in noisy environments.
+
+**Evaluation and Selection**
+
+| | **Button Input and LED Response System** | **Microphone and Computer-Voice Response System** | **Microphone and LCD Display System** |
+|:--|:--|:--|:--|
+| **Accessibility / Hands-Free Operation** | Very Low: requires manual interaction | Very High: fully voice-based operation | High: hands-free input with clear visual confirmation |
+| **Communication Clarity** | Low: limited to color and tone cues | Medium: relies on clear audio input/output | Very High: clear text-based display feedback |
+| **Error Handling / Feedback Detail** | Low: difficult to convey detailed error messages | Medium: audio feedback can miss details | High: LCD provides precise feedback and debugging info |
+| **Environmental Reliability** | Very High: unaffected by noise or lighting | Low: performance drops in noisy environments | High: visual display unaffected by ambient sound |
+| **Hardware Complexity** | Low: minimal components and wiring | Medium: requires microphone and speaker setup | Medium: integrates microphone and LCD circuitry |
+| **Software Complexity** | Low: simple logic for LEDs and buttons | High: needs speech recognition and synthesis | Medium: speech recognition plus display interface |
+| **Power Consumption** | Very Low: efficient LED operation | Medium: continuous audio I/O consumes more power | Medium: LCD backlight and voice processing use more power |
+| **Cost** | Very Low: cheapest option | Medium: added cost for audio hardware | Medium: cost of LCD balanced by small component count |
+| **User Experience** | Low: unintuitive and limited feedback | Medium: interactive but prone to voice errors | Very High: combines clarity, control, and accessibility |
+| **Overall Suitability** | Acceptable for simple systems | Adequate for fully voice-based setups | Excellent balance of usability, feedback, and accessibility |
+
+When evaluating the three interface approaches, key considerations included clarity of communication, accessibility, error handling, and ease of integration. The button and LED system, while simple and robust, cannot effectively convey complex messages or support conversational operation. The fully audio-based system offers modern appeal but lacks the reliability and clarity needed for precise chess move confirmations.
+
+The Microphone and LCD Display System was selected as the most balanced and functional approach. It merges the hands-free convenience of voice input with the reliability of visual confirmation, allowing players to verify actions before execution. This hybrid interface supports clear communication, flexible debugging, and a polished user experience aligned with the chessboard’s intelligent design goals.
 
 ## High-Level Solution
 
-This section presents a comprehensive, high-level solution aimed at efficiently fulfilling all specified requirements and constraints. The solution is designed to maximize stakeholder goal attainment, adhere to established constraints, minimize risks, and optimize resource utilization. Please elaborate on how your design accomplishes these objectives.
+The automated chess board integrates mechanical motion, artificial intelligence, and voice recognition into a unified platform that will enable users to play chess naturally through verbal commands. By coordinating the different sections of the chess board, the design achieves helpful communication, precise motion control, and user interaction. The accompanying block diagram illustrates how each subsystem contributes to the overall architecture through defined input-output relationships, such as power distribution and data flow. Meanwhile, the operational flowchart illustrates the sequence of system interactions, showing how changes in the chessboard’s state drive corresponding user inputs and system responses. This representation highlights the system’s flow, making sure of the communication between components while also minimizing latency, reducing processing overhead, and maintaining performance. Together, these design diagrams present a resource efficient solution that effectively balances system complexity, computational performance, and user experience.
 
 
 ### Hardware Block Diagram
 
-Block diagrams are an excellent way to provide an overarching understanding of a system and the relationships among its individual components. Generally, block diagrams draw from visual modeling languages like the Universal Modeling Language (UML). Each block represents a subsystem, and each connection indicates a relationship between the connected blocks. Typically, the relationship in a system diagram denotes an input-output interaction.
+![Block_Diagram](Chess_Block.png)
 
-In the block diagram, each subsystem should be depicted by a single block. For each block, there should be a brief explanation of its functional expectations and associated constraints. Similarly, each connection should have a concise description of the relationship it represents, including the nature of the connection (such as power, analog signal, serial communication, or wireless communication) and any relevant constraints.
-
-The end result should present a comprehensive view of a well-defined system, delegating all atomic responsibilities necessary to accomplish the project scope to their respective subsystems.
-
+#### Processing Unit
+The Processing Unit will consist of a Raspberry Pi responsible for coordinating all high-level system operations. Its primary functions are fourfold. First, it will interpret incoming audio signals from the microphone using the Vosk speech recognition engine to convert spoken commands into recognizable text, while also supplying power to the microphone. A USB interface was selected for the microphone connection due to the wide availability of inexpensive USB microphones and the Raspberry Pi’s native support for USB audio devices. Second, it will maintain the internal state of the chessboard and verify the legality of player moves using the Stockfish chess engine. Third, it will transmit validated and legal move commands to the Control Unit (Arduino) for conversion into motion control instructions. Communication between the Raspberry Pi and Arduino will occur via a USART or I²C connection, providing a reliable and simple serial data link between processors. Lastly, the Raspberry Pi will send display data to the screen, providing the user with real-time visual feedback on system activity and game status. The display will communicate with the Raspberry Pi using either the I²C or SPI protocol, chosen for their simplicity and compatibility with small embedded screens.
+#### Control Unit
+The Control Unit will oversee all motion control operations and act as the communication bridge between the Processing Unit and the mechanical subsystems. It will receive movement instructions from the Raspberry Pi, translate them into executable control signals for the CoreXY motors, and relay status or confirmation messages back to the Processing Unit. The Arduino will communicate with the stepper motor drivers using standard step and direction (STEP/DIR) signals, which are widely supported and allow for precise motor control. These functions will be facilitated by the Arduino, which will coordinate communication with the stepper motor drivers integrated within the Control Unit. Additionally, the Arduino may supply power to the magnetic mechanism, depending on the final design implementation.
+#### Core XY Unit
+The CoreXY Unit is responsible for executing all physical movements required to reposition chess pieces on the board. Upon receiving step and direction signals from the Control Unit, it operates two stepper motors that drive a system of belts and pulleys to move a magnetic carriage along the X and Y axes. The integrated magnetic mechanism enables the controlled relocation of individual chess pieces without disturbing adjacent pieces.
+#### Peripherals Unit
+The Peripherals Unit comprises the system’s input and output devices — the microphone and the display screen. The microphone captures user voice commands, potentially utilizing software-based noise filtering to enhance accuracy and clarity. The display provides visual feedback to the player, presenting system messages such as “Not a Legal Move” or “Pawn to A5,” along with overall game status updates. Both peripherals interface directly with the Raspberry Pi, receiving data and power as needed to support their respective software components. Together, these peripherals establish the user interface that enables effective interaction with the system.
+#### Power Unit
+The Power Unit supplies regulated electrical power to all other subsystems. It will consist of a battery-based power source designed to provide multiple voltage levels to meet the varying current and voltage requirements of each component. The 12V rail will supply power to the stepper motors and drivers, while the 5V rail will support the Raspberry Pi, Arduino, and other control and peripheral electronics. Proper power regulation and distribution are essential to ensure safe, stable, and efficient system operation.
 
 ### Operational Flow Chart
 
-Similar to a block diagram, the flow chart aims to specify the system, but from the user's point of view rather than illustrating the arrangement of each subsystem. It outlines the steps a user needs to perform to use the device and the screens/interfaces they will encounter. A diagram should be drawn to represent this process. Each step should be represented in the diagram to visually depict the sequence of actions and corresponding screens/interfaces the user will encounter while using the device.
 
+![Block_Diagram](Chess_Flow_Diagram.png)
+
+
+This diagram illustrates the overall operational flow of the automatic chessboard system, including both user interactions and the underlying processes required to generate the on-screen display. At startup, all hardware and software components initialize and configure their respective systems. Once initialization is complete, the display indicates that the board is ready for user input.
+
+The user then provides a command, which the system processes to determine whether it represents a valid chess move. If the command is both recognized and legal, the system executes the move by physically repositioning the piece and updating the visual display to reflect the new board state.
+
+Next, the opposing player (either the integrated AI engine or another human participant) takes a turn following the same sequence of validation, movement, and display update. This turn-based cycle continues until one player achieves checkmate. When the game concludes, the display presents the final result and the board automatically resets the pieces to their starting positions. Finally, the system prompts the user to decide whether to begin a new game.
+
+### Key Features
+
+1. Voice Controls
+   - The microphone captures user commands upon a designated button press or voice command trigger.
+   - The processing unit uses Vosk to process and filter voice commands, recognizing different accents and speech patterns.
+2. Automated Piece Movement
+   - The Arduino interprets processed voice commands and controls Big Easy Drivers to operate the stepper motors.
+   - Stepper motors precisely drive the magnetic carriage to reposition chess pieces accurately on the board.
+3. Visual Feedback
+   - Display screen shows move confirmations, illegal move alerts, and game status.
+   - Supports accessibility for players who may have hearing impairments or require additional visual cues.
+4. User Accessibility
+   - The system design emphasizes simplicity and intuitive use, minimizing the need for direct physical interaction.
+   - Voice recognition supports a variety of player voices, including different accents and frequencies.
+5. Power and Efficiency
+   - The system includes an idle or sleep mode to conserve energy when not in active use.
+   - The board provides at least 2 hours of continuous gameplay on battery power.
+6. Modularity and Scalability
+   - The design supports easy upgrades or replacements of individual subsystems by hobbyists or users.
+   - Comprehensive documentation facilitates user modifications and future development.
+7. Portability and Durability
+   - The board is lightweight for easy transport and includes a carrying method for convenience.
+   - The system is constructed from durable materials to prevent damage during normal use.
+8. Cost Efficiency
+   - The system is designed to remain under $350 USD in material costs while maintaining or exceeding the quality of comparable solutions.
+
+### Relevant Constraints
+#### Processing Unit Constraints: 
+- Shall comply with FCC Part 15 Subpart B (Class B) limits for electromagnetic interference (EMI) in residential environments, which specify maximum conducted emissions of up to 0.15–30 MHz at 66–56 dBµV, decreasing with frequency, and radiated emissions of up to 30–1000 MHz at 40–54 dBµV/m measured at 3 meters. [33]
+- Shall operate below 50 V DC, following UL low-voltage safety thresholds for maximum hazardous touch voltage to eliminate the need for high-voltage insulation. [30]  
+- Shall meet the requirements of NEC, NFPA 70 for low-voltage indoor consumer systems, which defines low-voltage circuits as those operating at 50 V or less and requires compliance with wiring methods specified in Article 725 for Class 1, 2, and 3 circuits, including protection against overcurrent, proper conductor sizing, and insulation rated for the circuit’s voltage. [20]
+- Shall avoid use of materials or configurations that violate CPSC safety guidance for consumer electronics, including specification of materials with hazardous chemical content (e.g., lead, phthalates) or components lacking documented compliance with CPSC’s best-practice manufacturing guidance and material-change-testing requirements. [31]
+- Shall limit external surface temperatures to ≤104 °F (40 °C) during continuous operation, in accordance with UL 94 flammability requirements for plastic materials and the CPSC maximum surface temperature guidelines (16 CFR 1505.7) to prevent thermal hazards. [28] [32] 
+- Shall use cord sets, flexible cables, and connectors compliant with NEC Article 400, ensuring cords are rated for the system’s voltage and current and provide appropriate insulation and temperature rating, are routed to avoid sharp edges, pinch points, or areas of high foot traffic, with bends maintained above the minimum bend radius, connectors provide proper grounding continuity and are rated for the system’s operating voltage and current, and are secured using clips, cable trays, or protective raceways to minimize tripping hazards and mechanical damage. [21]
+- Shall include grounding, bonding, and electrical protection measures in accordance with OSHA 29 CFR 1910 Subpart S to minimize electrical shock hazards, ensuring all exposed conductive parts are properly grounded and circuit protection devices are installed where required. [36]
+- Shall include ANSI Z535.4-compliant safety labels for all user-facing hazards, including moving parts, power indicators, and other electrical or mechanical hazards, ensuring labels are legible, durable, and placed conspicuously to effectively warn users of potential risks. [3] 
+
+#### Control Unit Constraints: 
+- Shall comply with FCC Part 15 Subpart B (Class B) limits for electromagnetic interference (EMI) in residential environments, which specify maximum conducted emissions of up to 0.15–30 MHz at 66–56 dBµV, decreasing with frequency, and radiated emissions of up to 30–1000 MHz at 40–54 dBµV/m measured at 3 meters. [33]
+- Shall operate below 50 V DC, following UL low-voltage safety thresholds for maximum hazardous touch voltage to eliminate the need for high-voltage insulation. [30]  
+- Shall meet the requirements of NEC, NFPA 70 for low-voltage indoor consumer systems, which defines low-voltage circuits as those operating at 50 V or less and requires compliance with wiring methods specified in Article 725 for Class 1, 2, and 3 circuits, including protection against overcurrent, proper conductor sizing, and insulation rated for the circuit’s voltage. [20]
+- Shall avoid use of materials or configurations that violate CPSC safety guidance for consumer electronics, including specification of materials with hazardous chemical content (e.g., lead, phthalates) or components lacking documented compliance with CPSC’s best-practice manufacturing guidance and material-change-testing requirements. [31]
+-  Shall limit external surface temperatures to ≤104 °F (40 °C) during continuous operation, in accordance with UL 94 flammability requirements for plastic materials and the CPSC maximum surface temperature guidelines (16 CFR 1505.7) to prevent thermal hazards. [28] [32]
+- Shall use cord sets, flexible cables, and connectors compliant with NEC Article 400, ensuring cords are rated for the system’s voltage and current and provide appropriate insulation and temperature rating, are routed to avoid sharp edges, pinch points, or areas of high foot traffic, with bends maintained above the minimum bend radius, connectors provide proper grounding continuity and are rated for the system’s operating voltage and current, and are secured using clips, cable trays, or protective raceways to minimize tripping hazards and mechanical damage. [21]  
+- Shall include grounding, bonding, and electrical protection measures in accordance with OSHA 29 CFR 1910 Subpart S to minimize electrical shock hazards, ensuring all exposed conductive parts are properly grounded and circuit protection devices are installed where required. [36]  
+- Shall include ANSI Z535.4-compliant safety labels for all user-facing hazards, including moving parts, power indicators, and other electrical or mechanical hazards, ensuring labels are legible, durable, and placed conspicuously to effectively warn users of potential risks. [3]
+
+#### Core XY Unit Constraints: 
+- Shall comply with FCC Part 15 Subpart B (Class B) limits for electromagnetic interference (EMI) in residential environments, which specify maximum conducted emissions of up to 0.15–30 MHz at 66–56 dBµV, decreasing with frequency, and radiated emissions of up to 30–1000 MHz at 40–54 dBµV/m measured at 3 meters. [33] 
+- Shall operate below 50 V DC, following UL low-voltage safety thresholds for maximum hazardous touch voltage to eliminate the need for high-voltage insulation. [30] 
+- Shall meet the requirements of NEC, NFPA 70 for low-voltage indoor consumer systems, which defines low-voltage circuits as those operating at 50 V or less and requires compliance with wiring methods specified in Article 725 for Class 1, 2, and 3 circuits, including protection against overcurrent, proper conductor sizing, and insulation rated for the circuit’s voltage. [20]
+- Shall avoid use of materials or configurations that violate CPSC safety guidance for consumer electronics, including specification of materials with hazardous chemical content (e.g., lead, phthalates) or components lacking documented compliance with CPSC’s best-practice manufacturing guidance and material-change-testing requirements. [31]
+- Shall limit external surface temperatures to ≤104 °F (40 °C) during continuous operation, in accordance with UL 94 flammability requirements for plastic materials and the CPSC maximum surface temperature guidelines (16 CFR 1505.7) to prevent thermal hazards. [28] [32]  
+- Shall use cord sets, flexible cables, and connectors compliant with NEC Article 400, ensuring cords are rated for the system’s voltage and current and provide appropriate insulation and temperature rating, are routed to avoid sharp edges, pinch points, or areas of high foot traffic, with bends maintained above the minimum bend radius, connectors provide proper grounding continuity and are rated for the system’s operating voltage and current, and are secured using clips, cable trays, or protective raceways to minimize tripping hazards and mechanical damage. [21] 
+- Shall include grounding, bonding, and electrical protection measures in accordance with OSHA 29 CFR 1910 Subpart S to minimize electrical shock hazards, ensuring all exposed conductive parts are properly grounded and circuit protection devices are installed where required. [36] 
+- Shall include ANSI Z535.4-compliant safety labels for all user-facing hazards, including moving parts, power indicators, and other electrical or mechanical hazards, ensuring labels are legible, durable, and placed conspicuously to effectively warn users of potential risks. [3] 
+
+#### Peripherals Unit Constraints: 
+- Shall comply with FCC Part 15 Subpart B (Class B) limits for electromagnetic interference (EMI) in residential environments, which specify maximum conducted emissions of up to 0.15–30 MHz at 66–56 dBµV, decreasing with frequency, and radiated emissions of up to 30–1000 MHz at 40–54 dBµV/m measured at 3 meters. [33]
+- Shall operate below 50 V DC, following UL low-voltage safety thresholds for maximum hazardous touch voltage to eliminate the need for high-voltage insulation. [30]
+- Shall meet the requirements of NEC, NFPA 70 for low-voltage indoor consumer systems, which defines low-voltage circuits as those operating at 50 V or less and requires compliance with wiring methods specified in Article 725 for Class 1, 2, and 3 circuits, including protection against overcurrent, proper conductor sizing, and insulation rated for the circuit’s voltage. [20]
+- Shall avoid use of materials or configurations that violate CPSC safety guidance for consumer electronics, including specification of materials with hazardous chemical content (e.g., lead, phthalates) or components lacking documented compliance with CPSC’s best-practice manufacturing guidance and material-change-testing requirements. [31]
+- Shall limit external surface temperatures to ≤104 °F (40 °C) during continuous operation, in accordance with UL 94 flammability requirements for plastic materials and the CPSC maximum surface temperature guidelines (16 CFR 1505.7) to prevent thermal hazards. [28] [32]
+- Shall use cord sets, flexible cables, and connectors compliant with NEC Article 400, ensuring cords are rated for the system’s voltage and current and provide appropriate insulation and temperature rating, are routed to avoid sharp edges, pinch points, or areas of high foot traffic, with bends maintained above the minimum bend radius, connectors provide proper grounding continuity and are rated for the system’s operating voltage and current, and are secured using clips, cable trays, or protective raceways to minimize tripping hazards and mechanical damage. [21]  
+- Shall include grounding, bonding, and electrical protection measures in accordance with OSHA 29 CFR 1910 Subpart S to minimize electrical shock hazards, ensuring all exposed conductive parts are properly grounded and circuit protection devices are installed where required [36]
+- Shall conform to Section 508 of the Rehabilitation Act, ensuring that all user interfaces, controls, and displays are accessible to individuals with disabilities, including compatibility with assistive technologies such as screen readers and alternative input devices. [35]
+- Shall follow ANSI/HFES 100‑2007 ergonomic guidelines, ensuring that controls and displays are positioned for comfortable reach, appropriate viewing angles, and clear tactile, visual, or auditory feedback to reduce operator fatigue and errors. [4] 
+- Shall apply universal design principles, minimizing cognitive and physical barriers by providing intuitive operation, clear labeling, and adjustable settings where feasible to accommodate a wide range of users. [8] 
+
+#### Power Unit Constraints: 
+- Shall comply with FCC Part 15 Subpart B (Class B) limits for electromagnetic interference (EMI) in residential environments, which specify maximum conducted emissions of up to 0.15–30 MHz at 66–56 dBµV, decreasing with frequency, and radiated emissions of up to 30–1000 MHz at 40–54 dBµV/m measured at 3 meters. [33]
+- Shall operate below 50 V DC, following UL low-voltage safety thresholds for maximum hazardous touch voltage to eliminate the need for high-voltage insulation. [30]
+- Shall meet the requirements of NEC, NFPA 70 for low-voltage indoor consumer systems, which defines low-voltage circuits as those operating at 50 V or less and requires compliance with wiring methods specified in Article 725 for Class 1, 2, and 3 circuits, including protection against overcurrent, proper conductor sizing, and insulation rated for the circuit’s voltage. [20]
+- Shall avoid use of materials or configurations that violate CPSC safety guidance for consumer electronics, including specification of materials with hazardous chemical content (e.g., lead, phthalates) or components lacking documented compliance with CPSC’s best-practice manufacturing guidance and material-change-testing requirements. [31]
+- Shall operate within the safe limits defined by UL 2054 for household and commercial batteries, ensuring that under normal use and foreseeable abuse conditions the battery does not exceed 302°F, remains between 32-140°F while charging, remains between -4–140 °F while discharging, does not catch fire or explode, and is protected against overcharge, short-circuit, mechanical abuse (crush, impact, vibration), and thermal extremes. [27]
+- Shall limit external surface temperatures to ≤104 °F (40 °C) during continuous operation, in accordance with UL 94 flammability requirements for plastic materials and the CPSC maximum surface temperature guidelines (16 CFR 1505.7) to prevent thermal hazards. [28] [32]
+- Shall use cord sets, flexible cables, and connectors compliant with NEC Article 400, ensuring cords are rated for the system’s voltage and current and provide appropriate insulation and temperature rating, are routed to avoid sharp edges, pinch points, or areas of high foot traffic, with bends maintained above the minimum bend radius, connectors provide proper grounding continuity and are rated for the system’s operating voltage and current, and are secured using clips, cable trays, or protective raceways to minimize tripping hazards and mechanical damage. [21]  
+- Shall include grounding, bonding, and electrical protection measures in accordance with OSHA 29 CFR 1910 Subpart S to minimize electrical shock hazards, ensuring all exposed conductive parts are properly grounded and circuit protection devices are installed where required. [36]
+- Shall include ANSI Z535.4-compliant safety labels for all user-facing hazards, including moving parts, power indicators, and other electrical or mechanical hazards, ensuring labels are legible, durable, and placed conspicuously to effectively warn users of potential risks. [3] 
 
 ## Atomic Subsystem Specifications
 
@@ -91,14 +608,14 @@ Functions:
 Inputs:
 
   - Voice commands from microphone over USB for easy, reliable compatibility.
-  - System status from Control Unit via UART for a simple and reliable method for two way communication. [1]
+  - System status from Control Unit via UART for a simple and reliable method for two way communication. [37]
   - Power from Power Unit.
 
     
 Outputs:
 
   - Chess move instructions to Control Unit, also using UART.
-  - Feedback to user (via Screen Display) using I2C for a clean and reliable way of communicating. [2]
+  - Feedback to user (via Screen Display) using I2C for a clean and reliable way of communicating. [38]
     
 Interfaces:
 
@@ -205,6 +722,7 @@ High-Level Requirements:
   - Shall receive voice input for game commands.
   - Shall display helpful information for the user while playing.
 
+
 #### Power Unit
 The Power Unit supplies regulated electrical power to all other subsystems. It will consist of a battery-based power source designed to provide multiple voltage levels to meet the varying current and voltage requirements of each component. The 12V rail will supply power to the stepper motors and drivers, while the 5V rail will support the Raspberry Pi, Arduino, and other control and peripheral electronics. Proper power regulation and distribution are essential to ensure safe, stable, and efficient system operation.
 
@@ -230,32 +748,262 @@ High-Level Requirements:
   - Shall provide stable power for all electronic components.
   - Shall have a large enough battery for extended gameplay.
 
-## Ethical, Professional, and Standards Considerations
 
-In the project proposal, each team must evaluate the broader impacts of the project on culture, society, the environment, public health, public safety, and the economy. Additionally, teams must consider relevant standards organizations that will inform the design process. A comprehensive discussion should be included on how these considerations have influenced the design. This includes detailing constraints, specifications, and practices implemented as a result, and how these address the identified considerations.
+# Ethical, Professional, and Standards Considerations
+
+The development of the Chess 2 Impress Audio Actuated Chessboard—a robotic system that enables voice-commanded chess moves, automated piece movement via electromagnets and stepper motors, and integration with chess engines—presents a unique opportunity to blend recreational gaming with accessible technology. This section evaluates the project's ethical implications, professional responsibilities, and adherence to relevant standards, while assessing its broader impacts on culture, society, the environment, public health, public safety, and the economy. These considerations have directly shaped the conceptual design, imposing specific constraints, specifications, and practices to ensure responsible innovation.
+
+## Ethical Situations Expected to Encounter
+
+Several ethical challenges may arise during the project lifecycle. First, privacy concerns stem from the voice recognition component, which processes user audio inputs to interpret chess moves (e.g., "knight to e4"). Without proper safeguards, this could inadvertently capture unrelated conversations or sensitive data, raising issues of data consent and storage. To address this, the design incorporates on-device processing where feasible, and ensures audio is not persistently stored.[22]
+
+Second, accessibility equity is a key ethical tension: while the system aims to include visually impaired players, it could inadvertently exclude those with speech impairments or non-standard accents if the speech-to-text model lacks diversity in training data. Ethical sourcing of datasets (e.g., diverse voice samples) will be prioritized to avoid bias.[7]
+
+Third, intellectual property (IP) risks involve open-source chess engines (e.g., Stockfish) and hardware designs (e.g., Arduino libraries for stepper motors). Unattributed use could lead to plagiarism claims, so all code and schematics will be documented with licenses and contributions credited.[25]
+
+Finally, as a capstone project, team dynamics may introduce ethical dilemmas, such as unequal workload distribution or pressure to prioritize functionality over safety testing. Professional ethics, guided by the ACM Code of Ethics, will mandate transparent collaboration and peer reviews.[5]
+
+## Broader Impacts on the Community
+
+The Chess 2 Impress Audio Actuated Chessboard has predominantly positive, albeit modest, impacts across multiple domains, fostering inclusivity while mitigating potential negatives.
+
+
+Cultural Impacts: Chess is a global cultural artifact symbolizing strategy and intellectual heritage. This project enhances its cultural relevance by modernizing traditional over-the-board (OTB) play, appealing to younger, tech-savvy demographics and bridging analog and digital divides. It could revive interest in chess clubs or tournaments by making play more engaging and shareable (e.g., via integrated online play), potentially increasing cultural participation in underserved communities.
+
+
+Societal Impacts: On society, the board promotes cognitive health through accessible chess, which research links to improved problem-solving and memory.[24] For the community—particularly students, hobbyists, and rehabilitation centers—it democratizes gaming, enabling remote or solo play against AI. Broader societal benefits include educational outreach; the open-source design could inspire STEM curricula, encouraging underrepresented groups to engage in robotics and AI. However, if commercialized, it risks widening the digital divide if priced accessibly only to affluent users.[39]
+
+
+Environmental Impacts: As a low-volume prototype, direct environmental effects are minimal, but the design emphasizes sustainability to model responsible engineering. Components like neodymium magnets and lithium polymer batteries pose e-waste risks if not recycled; [29] thus, modular hardware allows for easy upgrades and disassembly. Compared to mass-produced commercial boards (e.g., Square Off or GoChess), our DIY approach reduces manufacturing emissions by using off-the-shelf parts, potentially lowering the carbon footprint for hobbyist replication.
+
+
+Public Health Impacts: Positively, the system supports mental health by providing therapeutic, low-physical-effort recreation, ideal for elderly users or those with mobility limitations. Voice actuation reduces screen time versus app-based chess, promoting social interaction in group settings. No significant negative health risks are anticipated, assuming proper electromagnetic shielding to prevent interference with pacemakers.[34]
+
+
+Public Safety Impacts: Safety is paramount in a device with moving parts (e.g., under-board actuators) and electrical components. Potential hazards include pinching from stepper mechanisms or electrical shorts, but these are mitigated through fail-safes. Overall, the project enhances safety by enabling contactless play, reducing germ transmission in shared environments like schools.
+
+
+Economic Impacts: For the local community (e.g., university ecosystem), the project boosts skill-building in high-demand fields like AI and mechatronics, potentially leading to startup opportunities or job placements. Economically, an open-source release could spur a niche market for custom boards, benefiting small-scale makers. However, it competes with commercial products, so IP strategies will balance innovation with fair competition.
+
+## Application of Identified Standards
+
+The project has identified key standards organizations that inform the design, ensuring compliance, interoperability, and safety. These include:
+
+
+IEEE Standards Association (IEEE 802.15.4 for low-power wireless communication): Applied to Bluetooth or Zigbee modules for voice data transmission between the microphone and microcontroller. This standard ensures low-latency, energy-efficient connectivity, critical for real-time move actuation without lag that could frustrate users.[17]
+
+
+ASTM International (ASTM F963 for toy safety, adapted for recreational devices): Guides material selection and edge rounding on the wooden board to prevent injuries, treating the chessboard as a "toy-like" interactive device.[6]
+
+
+UL (Underwriters Laboratories) Standards (UL 60950-1 for IT equipment safety): Influences electrical design, specifying insulation and grounding for the 5-24V power supply to avoid shocks or fires.[26]
+
+
+W3C Web Accessibility Initiative (WCAG 2.1 for voice interfaces): Ensures the speech recognition adheres to accessibility guidelines, such as providing text fallbacks for voice commands and supporting multiple languages/accents.[41]
+
+
+ISO/IEC 27001 for information security: Applied to any data handling in voice processing, enforcing encryption for transmitted audio snippets.[19]
+
+These standards are not merely checkboxes; they are integrated into the requirements phase via traceability matrices, linking each to testable design elements (e.g., IEEE compliance verified through signal integrity tests).
+
+## Comprehensive Discussion: Influence on the Design
+
+These ethical, professional, and standards considerations have profoundly influenced the conceptual design, transforming abstract concerns into actionable constraints, specifications, and practices. This iterative process—conducted through design reviews and ethical audits—ensures the final product is robust, equitable, and aligned with societal good.
+
+## Key influences include:
+
+
+Constraints Imposed: Privacy ethics constrained cloud reliance, mandating edge computing on a Raspberry Pi or Arduino, which limits processing power to lightweight models but ensures data sovereignty. Environmental concerns capped component count at <50 units per prototype, favoring reusable parts like salvaged steppers to minimize resource use. Safety standards (UL/ASTM) restricted voltage to 12V max and required physical barriers (e.g., acrylic underlay) around actuators, preventing hazards.
+
+
+Specifications Derived: Broader societal impacts drove accessibility specs, such as 95% voice command accuracy across accents (tested via diverse datasets) and adjustable audio feedback volumes (WCAG-compliant). Economic and cultural goals specified an open-source license (MIT) for schematics, with modular firmware for easy engine swaps (e.g., Stockfish integration). Professional ethics added logging features for auditing team decisions, ensuring transparency.
+
+
+Practices Implemented: Standards application manifests in validation protocols: IEEE tests for wireless reliability (e.g., <50ms latency) and ISO security scans for vulnerabilities. These practices address impacts holistically; for instance, public health specs include haptic feedback alternatives to voice, reducing exclusion risks, while economic practices like cost modeling (<$200 BOM) promote community replication.
+
+
+In summary, these considerations elevate the project from a novel gadget to a thoughtful intervention in accessible gaming. By embedding them early, the design complies with expectations and allows for future scalability. Ongoing monitoring via post-prototype surveys will refine these elements, embodying continuous professional improvement.
 
 
 ## Resources
 
-You have already estimated the resources needed to complete the solution. Now, let's refine those estimates.
-
 ### Budget
+The following section outlines the estimated costs associated with each subsystem, including justifications for major components and materials.
+#### Processing Unit
+| Item                                 | Description / Notes                                                                                       | Quantity | Approx. Cost (USD) |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------- | -------- | ------------------ |
+| **Raspberry Pi**                     | Handles high-level logic, Stockfish chess engine, and Vosk speech recognition; coordinates all subsystems | 1        | $50–$60            |
+| **MicroSD Card**                     | Stores OS, chess engine, and voice recognition software                                                   | 1        | $6–$10             |
 
-Develop a budget proposal with justifications for expenses associated with each subsystem. Note that the total of this budget proposal can also serve as a specification for each subsystem. After creating the budgets for individual subsystems, merge them to create a comprehensive budget for the entire solution.
+The Processing Unit is the computational core of the system. A Raspberry Pi should be chosen for its balance of performance and cost, capable of running Stockfish and the Vosk speech engine simultaneously. A MicroSD card provides non-volatile storage for the operating system and application software.
+#### Control Unit
+| Item                                              | Description / Notes                                                              | Quantity | Approx. Cost (USD) |
+| ------------------------------------------------- | -------------------------------------------------------------------------------- | -------- | ------------------ |
+| **Arduino**                                       | Converts Pi commands into motor control signals; interfaces with stepper drivers | 1        | $20–$30            |
+| **Stepper Driver Boards**                         | Amplify control signals and drive the stepper motors                             | 2        | $5–$10 each        |
+
+The Control Unit acts as the intermediary between the Processing Unit and the mechanical motion subsystem. The Arduino chosen should provide precise control timing for motor drivers and support flexible integration with the magnet mechanism. Dual stepper drivers enable independent X and Y axis movement.
+#### CoreXY Unit
+| Item                                    | Description / Notes                              | Quantity | Approx. Cost (USD) |
+| --------------------------------------- | ------------------------------------------------ | -------- | ------------------ |
+| **Stepper Motors**                      | Drive CoreXY belts to move the magnetic carriage | 2        | $10–$12 each       |
+| **Belt and Pulley Set**                 | Transmits motion from motors to carriage         | 1 set    | $8–$10             |
+| **CoreXY / XY Framework**               | Includes rails, idlers, carriage, and frame      | 1        | $40–$65            |
+| **Magnet Assembly**                     | Moves chess pieces via magnetic coupling         | 1–2      | $15–$20            |
+
+The CoreXY Unit performs all physical motion, requiring precise linear motion components. Stepper motors provide high positional accuracy, while the belt-and-pulley system converts rotational motion into planar movement. The magnet mechanism allows non-contact manipulation of chess pieces.
+#### Peripherals Unit
+| Item                             | Description / Notes                                 | Quantity | Approx. Cost (USD) |
+| -------------------------------- | --------------------------------------------------- | -------- | ------------------ |
+| **Microphone**                   | Captures user voice commands for recognition        | 1        | $8–$10             |
+| **Display Screen**               | Provides system feedback, messages, and game status | 1        | $12–$18            |
+
+The Peripherals Unit establishes user interaction. A microphone allows for voice-based input processed by the Raspberry Pi, while a display delivers visual feedback and system prompts.
+#### Power Unit
+| Item                                                      | Description / Notes                                             | Quantity | Approx. Cost (USD) |
+| --------------------------------------------------------- | --------------------------------------------------------------- | -------- | ------------------ |
+| **Power Supply**                                          | Provides regulated power to motors, Pi, and control electronics | 1        | $30–$40            |
+
+A stable, regulated power supply is essential for reliable operation. The system should support both a 12V line supports the stepper motors and drivers, and a 5V output powers logic components and peripherals. Proper power distribution ensures electrical safety and prevents system instability.
+#### Miscellaneous/Structural Components
+| Item                                        | Description / Notes                                | Quantity | Approx. Cost (USD) |
+| ------------------------------------------- | -------------------------------------------------- | -------- | ------------------ |
+| **Chessboard Frame (Wood or 3D Printed)**   | Supports CoreXY mechanism and aesthetic housing    | 1        | $20–$30            |
+| **Chess Piece Set (Metal Base)**            | Enables magnetic manipulation                      | 1        | $15–$25            |
+| **Prototyping and Miscellaneous Materials** | Spare wiring, connectors, mounts, testing supplies | —        | $150               |
+
+These components complete the mechanical and visual integration of the system. The chessboard frame houses the motion platform, while magnetized pieces enable interaction. The prototyping budget accounts for iteration and testing materials necessary for functional validation.
+#### Comprehensive Budget Summary
+| Subsystem                       | Estimated Cost Range (USD) |
+| ------------------------------- | -------------------------- |
+| Processing Unit                 | $56–$70                    |
+| Control Unit                    | $30–$50                    |
+| CoreXY Unit                     | $73–$107                   |
+| Peripherals Unit                | $20–$28                    |
+| Power Unit                      | $30–$40                    |
+| Structural Components           | $35–$55                    |
+| **Estimated System Cost**       | **≈ $244 – $350**          |
+| **Prototyping Cost**            | **$150**                   |
+| **Estimated Total Cost**        | **≈ $394 – $500**          |
 
 ### Division of Labor
 
-First, conduct a thorough analysis of the skills currently available within the team, and then compare these skills to the specific requirements of each subsystem. Based on this analysis, appoint a team member to take the specifications for each subsystem and generate a corresponding solution (i.e. detailed design). If there are more team members than subsystems, consider further subdividing the solutions into smaller tasks or components, thereby allowing each team member the opportunity to design a subsystem.
+Each team member was assigned to a subsystem that best matches their technical strengths, ensuring efficient development and balanced workload across hardware and software domains.
+
+#### Nathan MacPherson – Peripherals Unit
+Nathan’s skills in Digital Systems, Programming, Networks, and Electrical CAD align with integrating the microphone and display. His experience supports reliable data communication and hardware interfacing with the Processing Unit.
+
+#### Noah Beaty – Control Unit
+Noah’s background in Microcontrollers, Programming, and Networking fits the Arduino-driven Control Unit, where precise motor control and communication with the Processing Unit are key.
+
+#### Jack Tolleson – Processing Unit
+With strengths in Programming, Digital Systems, and Microcontroller knowledge, Jack is well-suited for the Raspberry Pi–based Processing Unit, handling speech recognition, chess logic, and coordination between subsystems.
+
+#### Allison Givens – CoreXY Unit
+Allison’s expertise in CAD, 3D Printing, and Microcontroller programming supports the CoreXY mechanical subsystem, combining hardware design with control integration for accurate motion.
+
+#### Lewis Bates – Power Unit
+Lewis’s knowledge of Embedded Systems and Power Electronics makes him ideal for managing the Power Unit, ensuring stable, efficient energy delivery to all components.
+
 
 ### Timeline
 
-Revise the detailed timeline (Gantt chart) you created in the project proposal. Ensure that the timeline is optimized for detailed design. Address critical unknowns early and determine if a prototype needs to be constructed before the final build to validate a subsystem. Additionally, if subsystem $A$ imposes constraints on subsystem $B$, generally, subsystem $A$ should be designed first.
-
+<img width="3589" height="1393" alt="image" src="https://github.com/user-attachments/assets/a23461c9-3263-4377-a40b-db57cef274e5" />
 
 ## References
-[1]: https://www.rohde-schwarz.com/us/products/test-and-measurement/essentials-test-equipment/digital-oscilloscopes/understanding-uart_254524.html
-[2]: https://www.ti.com/lit/an/sbaa565/sbaa565.pdf
+
+[1] "AC-DC Universal Power Adapter Multi Voltage Output: 1.5VDC-12VDC @ 1000 mA; 7-plugs," AC-DC PowerShack, 2020. https://www.acdcpowershack.com/products/ac-dc-universal-power-adapter-multi-voltage-output-1-5vdc-12vdc-1000-ma-7-plugs-part-hc-1000?srsltid=AfmBOoorP4FP2Ja8toe44_u3KtCVAu-6VT5A_EYw7hLsAXEnxIjn6Unr
+
+[2] Admin, "Why the Core3D printer uses CoreXY," Core3D Custom Printers, Jun. 10, 2017. https://core3d.tech/2017/06/10/why-core3d-printer-uses-corexy/
+
+[3] American National Standards Institute, ANSI Z535.4: Product Safety Signs and Labels, 2011 ed., Washington, DC: ANSI, 2011.
+
+[4] American National Standards Institute / Human Factors and Ergonomics Society, ANSI/HFES 100‑2007: Human Factors Engineering of Computer Workstations, 2007.
+
+[5] Association for Computing Machinery. (2018). ACM Code of Ethics and Professional Conduct. https://www.acm.org/code-of-ethics
+
+[6] ASTM International. (2023). ASTM F963-23: Standard Consumer Safety Specification for Toy Safety. https://www.astm.org/f0963-23.html
+
+[7] Buolamwini, J., & Gebru, T. (2018). Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification. Proceedings of Machine Learning Research, 81, 77–91. http://proceedings.mlr.press/v81/buolamwini18a.html
+
+[8] Center for Universal Design, Principles of Universal Design, North Carolina State University, 1997.
+
+[9] Chessnutech. (n.d.). Chessnut move - advanced robotic chessboard with Plastic Pieces. Chessnut. https://www.chessnutech.com/products/chessnut-move-advanced-robotic-chessboard-with-plastic-pieces
+
+[10] "Chessnut Move | Review | Are you ready for robot chess?," Adventures of a Chess Noob, Jul. 08, 2025. https://adventuresofachessnoob.com/2025/07/08/%F0%9F%94%A5-chessnut-move-review-are-you-ready-for-robot-chess-%F0%9F%A4%96%E2%99%9F%EF%B8%8F%F0%9F%A4%94/
+
+[11] circuitgeeks, "Arduino Buttons and LEDs | Push Button Tutorial," Circuit Geeks, Jan. 16, 2022. https://www.circuitgeeks.com/arduino-push-button-tutorial/
+
+[12] E. Electronics et al., "Simple Microphone to Speaker Amplifier Circuit," Circuit Digest, Nov. 13, 2018. https://circuitdigest.com/electronic-circuits/simple-microphone-to-speaker-circuit
+
+[13] ella, "Transform Your Raspberry Pi Into a Powerful Cloud Storage Server - Pidora," Pidora, Feb. 08, 2025. https://pidora.ca/transform-your-raspberry-pi-into-a-powerful-cloud-storage-server/
+
+[14] "EXTRALINK Power Supply with Battery Charger 12V/13.8V 55W (EL-PSUPPLY-AD-55A) - The source for WiFi products at best prices in Europe - wifi-stock.com," Wifi-stock.com, 2025. https://www.wifi-stock.com/details/extralink-power-supply-with-battery-charger-12v13-8v-55w-el-psupply-ad-55a.html
+
+[15] J. Hanna, “Wireless AC/DC Module," PASCO scientific, 2019. https://www.pasco.com/products/lab-apparatus/electricity-and-magnetism/circuits-and-components/wireless-ac-dc-module?srsltid=AfmBOoosJiE8trk5GcxQhZ3MOylGAMg9a4AADy_21YH-kvJihaN8bgUQ
+
+[16] H. M. | R. Pi | 0, "How to Use DC Motors on the Raspberry Pi," Circuit Basics, Jun. 10, 2021. https://www.circuitbasics.com/introduction-to-dc-motors/
+
+[17] IEEE Standards Association. (2020). IEEE Std 802.15.4-2020: Low-Rate Wireless Personal Area Networks (LR-WPANs). https://standards.ieee.org/standard/802_15_4-2020.html
+
+[18] Instructables, "Audio Visualizer With an LCD Display," Instructables, Jun. 07, 2022. https://www.instructables.com/Audio-Visualizer-With-an-LCD-Display/
+
+[19] International Organization for Standardization. (2022). ISO/IEC 27001:2022 – Information security, cybersecurity and privacy protection. https://www.iso.org/standard/27001
+
+[20] National Fire Protection Association, NFPA 70, National Electrical Code®, 2017 ed. Quincy, MA: NFPA, 2016.
+
+[21] National Fire Protection Association, NFPA 70, National Electrical Code®, 2023 ed., Quincy, MA: NFPA, 2022.
+
+[22] National Institute of Standards and Technology. (2021). NIST Privacy Framework: A Tool for Improving Privacy through Enterprise Risk Management, Version 1.0. https://doi.org/10.6028/NIST.CSWP.01162021
+
+[23] "Raspberry Pi Arduino Serial Communication - Everything You Need To Know," The Robotics Back-End, Nov. 11, 2019. https://roboticsbackend.com/raspberry-pi-arduino-serial-communication/
+
+[24] Sala, G., & Gobet, F. (2017). Does chess instruction improve mathematical problem-solving ability? Two experimental designs and a meta-analysis. Frontiers in Psychology, 8, 1981. https://doi.org/10.3389/fpsyg.2017.01981
+
+[25] Stockfish. (2024). Stockfish Open Source Chess Engine – License. GitHub Repository. https://github.com/official-stockfish/Stockfish/blob/master/COPYING
+
+[26] Underwriters Laboratories. (2019). UL 60950-1: Information Technology Equipment – Safety – Part 1: General Requirements (now superseded by UL 62368-1, but referenced for legacy applicability). https://www.shopulstandards.com
+
+[27] Underwriters Laboratories, UL 2054 Standard for Household and Commercial Batteries, 3rd ed., Nov. 17 2021.
+
+[28] Underwriters Laboratories, UL 94: Standard for Safety of Flammability of Plastic Materials for Parts in Devices and Appliances, 5th ed., Northbrook, IL: UL, 2024.
+
+[29] United Nations Environment Programme. (2020). Global E-waste Monitor 2020. https://ewastemonitor.info/
+
+[30] U.S. company UL Solutions, “Protection from Electrical Hazards,” Nov. 2024. [Online]. Available: https://www.ul.com/resources/protection-electrical-hazards. [Accessed: Oct. 28 2025].
+
+[31] U.S. Consumer Product Safety Commission, “Manufacturing Best Practices,” Business Education, Manufacturing, [Online]. Available: https://www.cpsc.gov/business--manufacturing/business-education/business-guidance/BestPractices. [Accessed: Oct. 28 2025].
+
+[32] U.S. Consumer Product Safety Commission, “Maximum acceptable surface temperatures,” Code of Federal Regulations, Title 16, Part 1505.7. [Online]. Available: https://www.law.cornell.edu/cfr/text/16/1505.7. [Accessed: Oct. 28, 2025].
+
+[33] U.S. Federal Communications Commission, “47 CFR Part 15, Subpart B: Unintentional Radiators,” Electronic Code of Federal Regulations, Title 47, Chapter I, Subchapter A, Part 15, Subpart B. [Online]. Available: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15/subpart-B. Accessed: Oct. 27, 2025.
+
+[34] U.S. Food and Drug Administration. (2021). Electromagnetic Compatibility (EMC) of Medical Devices – Guidance for Industry and Food and Drug Administration Staff. https://www.fda.gov/regulatory-information/search-fda-guidance-documents/electromagnetic-compatibility-emc-medical-devices
+
+[35] U.S. Government, Rehabilitation Act of 1973, Section 508, Washington, DC, 1998.
+
+[36] U.S. Occupational Safety and Health Administration, OSHA Standards – Subpart S: Electrical, 29 CFR 1910, Washington, D.C.: OSHA, 2025.
+
+[37] “Understanding UART,” Rohde & Schwarz, 2025. https://www.rohde-schwarz.com/us/products/test-and-measurement/essentials-test-equipment/digital-oscilloscopes/understanding-uart_254524.html
+
+[38] Joseph Wu, “A Basic Guide to I2C,” Texas Instruments Application Note SBAA565, November 2022. https://www.ti.com/lit/an/sbaa565/sbaa565.pdf
+
+[39] Warschauer, M., & Matuchniak, T. (2010). New technology and digital worlds: Analyzing evidence of equity in access, use, and outcomes. Review of Research in Education, 34(1), 179–225. https://doi.org/10.3102/0091732X09349791
+
+[40] "Wlkata Mirobot Professional Kit - 6 Axis Robotic Arm - Ros & Matlab Simulation Teaching," Wlkata, 2025. https://www.wlkata.com/products/professional-kit-of-wlkata-mirobot-six-axis-robot-arm-robotic-arm-k12-education-equipment?srsltid=AfmBOorDYl5EVi5f-2_VhlTFHhlSARGG2zWaSqZx4XfDo7etzcfOX9D1
+
+[41] World Wide Web Consortium. (2018). Web Content Accessibility Guidelines (WCAG) 2.1. https://www.w3.org/TR/WCAG21/
 
 ## Statement of Contributions
 
-Each team member is required to make a meaningful contribution to the project proposal. In this section, each team member is required to document their individual contributions to the report. One team member may not record another member's contributions on their behalf. By submitting, the team certifies that each member's statement of contributions is accurate.
+Nathan MacPherson: Introduction, Atomic Subsystem Specifications
+
+Jack Tolleson: High-Level Solution, Resources
+
+Noah Beaty: Comparative Analysis of Potential Solutions
+
+Allison Givens: Fully Formulated Problem, High-Level Solution, Resources
+
+Lewis Forrest Bates: Comparative Analysis of Potential Solutions, and Ethical, Professional, and Standards Considerations
+
+All: General Proofreading/Editing
