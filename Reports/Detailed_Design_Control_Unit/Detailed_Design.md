@@ -2,10 +2,6 @@
 
 ## Notes (will not be included in final document)
 
-*Specifications and Constraints*:
-
-* Note how each component fulfills *shall* requirements from the Conceptual Design.
-
 *Buildable Diagram*:
 
 * Create an easy-to-read, tutorial-style system diagram.
@@ -44,8 +40,6 @@ In addition to motion control, the CU manages the piece "pickup" mechanism throu
 
 
 ## Specifications and Constraints
-
-**TODO**
 
 The Control Unit shall manage precise movement of the CoreXY mechanism by converting high-level commands from the Processing Unit into coordinated stepper motor signals via an Arduino Nano [2] and two TMC2209 stepper driver boards [3]. It shall also control the electromagnet assembly and monitor limit switches, driver fault pins, and supply voltage to ensure safe, predictable operation. The Control Unit shall maintain sufficient positional accuracy and responsiveness to reliably move standard chess pieces without misalignment or collision, while complying with electrical safety and communication standards.
 
@@ -112,8 +106,6 @@ For sections including a software component, produce a chart that demonstrates t
 Deliver a full and relevant analysis of the design demonstrating that it should meet the constraints and accomplish the intended function. This analysis should be comprehensive and well articulated for persuasiveness.
 
 ## References
-
-**TODO**
 
 [1] U.S. Federal Communications Commission, “47 CFR Part 15, Subpart B: Unintentional Radiators,” Electronic Code of Federal Regulations, Title 47, Chapter I, Subchapter A, Part 15, Subpart B. [Online]. Available: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15/subpart-B
 
