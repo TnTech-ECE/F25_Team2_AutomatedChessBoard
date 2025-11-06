@@ -44,7 +44,10 @@ For sections including a software component, produce a chart that demonstrates t
 
 ## BOM
 
-Provide a comprehensive list of all necessary components along with their prices and the total cost of the subsystem. This information should be presented in a tabular format, complete with the manufacturer, part number, distributor, distributor part number, quantity, price, and purchasing website URL. If the component is included in your schematic diagram, ensure inclusion of the component name on the BOM (i.e R1, C45, U4).
+| Manufacturer | Part Number | Distributor | Distributor Part Number | Quantity | Price | Purchasing Website URL |
+|-----|-----|-----|-----|-----|-----|-----|
+| Arduino Nano | A000005 | Arduino | ..... | 1 | $25.70 | [Link](https://store-usa.arduino.cc/products/arduino-nano?srsltid=AfmBOoqNFNSG0SfKF8ZFeKFBkwAtX5L50eVlOeBv6cMGf4bc8P1TCnzK) |
+| **Total** |   |   |   |   | **....** |   |
 
 ## Analysis
 
