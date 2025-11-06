@@ -46,7 +46,8 @@ For sections including a software component, produce a chart that demonstrates t
 
 | Manufacturer | Part Number | Distributor | Distributor Part Number | Quantity | Price | Purchasing Website URL |
 |-----|-----|-----|-----|-----|-----|-----|
-| Arduino Nano | A000005 | Arduino | ..... | 1 | $25.70 | [Link](https://store-usa.arduino.cc/products/arduino-nano?srsltid=AfmBOoqNFNSG0SfKF8ZFeKFBkwAtX5L50eVlOeBv6cMGf4bc8P1TCnzK) |
+| Arduino | ATmega328 | Arduino | A000005 | 1 | $25.70 | [Link](https://store-usa.arduino.cc/products/arduino-nano?srsltid=AfmBOoqNFNSG0SfKF8ZFeKFBkwAtX5L50eVlOeBv6cMGf4bc8P1TCnzK) |
+| BigTreeTech | TMC2209 | Biqu | 1040000053 | 2 | $9.99 | [Link](https://biqu.equipment/products/bigtreetech-tmc2209-stepper-motor-driver-for-3d-printer-board-vs-tmc2208) |
 | **Total** |   |   |   |   | **....** |   |
 
 ## Analysis
