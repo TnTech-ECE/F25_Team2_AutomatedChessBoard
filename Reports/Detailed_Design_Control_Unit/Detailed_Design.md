@@ -47,12 +47,23 @@ In addition to motion control, the CU manages the piece "pickup" mechanism throu
 
 **TODO**
 
-This section should provide a list of constraints applicable to the subsystem, along with the rationale behind these limitations. For instance, constraints can stem from physics-based limitations or requirements, subsystem prerequisites, standards, ethical considerations, or socio-economic factors.
+The Control Unit shall manage precise movement of the CoreXY mechanism by converting high-level commands from the Processing Unit into coordinated stepper motor signals via an Arduino Nano [2] and two TMC2209 stepper driver boards [3]. It shall also control the electromagnet assembly and monitor limit switches, driver fault pins, and supply voltage to ensure safe, predictable operation. The Control Unit shall maintain sufficient positional accuracy and responsiveness to reliably move standard chess pieces without misalignment or collision, while complying with electrical safety and communication standards.
 
-The team should set specifications for each subsystem. These specifications may require modifications, which must be authorized by the team. It could be necessary to impose additional constraints as further information becomes available.
+### Performance Specifications
 
-Every subsystem must incorporate at least one constraint stemming from standards, ethics, or socio-economic factors.
+The Control Unit shall achieve stepper motor resolution sufficient to position the magnetic carriage within ±0.5 mm of target coordinates, ensuring proper chess piece alignment on the board. This accuracy shall be maintained using microstepping features of the TMC2209 driver (up to 1/256 step precision) [3]. The subsystem shall process and execute commands from the Processing Unit with total latency under 50 ms to ensure responsive gameplay and smooth motion transitions [2]. TMC2209 drivers shall not exceed the rated RMS current of 1.4 A per phase, and overtemperature or stallGuard fault conditions shall trigger a controlled stop [3]. The Arduino Nano shall operate from a 5V DC logic supply, while the motor supply shall not exceed 12V, following manufacturer voltage tolerances [2][3][5].
 
+### Electrical and Signal Standards Compliance
+
+The Control Unit shall comply with FCC Part 15 Subpart B regulations for unintentional radiators to prevent electromagnetic interference with nearby devices [1]. All electrical connections and enclosures shall meet the safety practices defined in UL 60950-1 (legacy IT equipment safety) and NFPA 70 (National Electrical Code) for proper grounding, wiring isolation, and overcurrent protection [5][6]. Signal-level communication between the Control Unit and Processing Unit shall occur via UART serial protocol at 9600 bps, ensuring reliable and deterministic command transfer [7]. Stepper motor control signals shall operate within voltage and current ranges defined in the TMC2209 datasheet to ensure thermal stability and driver integrity [3].
+
+### Environmental and Safety Constraints
+
+The subsystem shall operate in ambient temperatures from 0°C to 40°C and humidity up to 70% non-condensing, suitable for indoor educational environments [2]. All wiring shall be neatly routed to avoid mechanical stress, pinch points, or accidental disconnection during operation. Insulation and cable management shall meet the minimum requirements specified in NFPA 70 [6].
+
+### Ethical and Socio-Economic Considerations
+
+The subsystem shall adhere to the ACM Code of Ethics [4], emphasizing accurate documentation, safe system design, and responsible development practices. Open-source hardware and software platforms (Arduino IDE and compatible libraries) shall be used to promote educational accessibility and reproducibility. To minimize cost and e-waste, components shall be sourced from domestic distributors offering tax-exempt educational sales, such as Digi-Key and McMaster-Carr, aligning with the project’s sustainability and accessibility goals [8].
 
 ## Overview of Proposed Solution
 
@@ -104,4 +115,18 @@ Deliver a full and relevant analysis of the design demonstrating that it should 
 
 **TODO**
 
-All sources that have contributed to the detailed design and are not considered common knowledge should be duly cited, incorporating multiple references.
+[1] U.S. Federal Communications Commission, “47 CFR Part 15, Subpart B: Unintentional Radiators,” Electronic Code of Federal Regulations, Title 47, Chapter I, Subchapter A, Part 15, Subpart B. [Online]. Available: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15/subpart-B
+
+[2] Arduino, "Arduino Nano." Available: https://docs.arduino.cc/resources/datasheets/A000005-datasheet.pdf
+
+[3] "POWER DRIVER FOR STEPPER MOTORS INTEGRATED CIRCUITS TMC2209 Datasheet APPLICATIONS." Available: https://www.analog.com/media/en/technical-documentation/data-sheets/TMC2209_datasheet_rev1.09.pdf
+
+[4] Association for Computing Machinery. (2018). ACM Code of Ethics and Professional Conduct. https://www.acm.org/code-of-ethics
+
+[5] Underwriters Laboratories. (2019). UL 60950-1: Information Technology Equipment – Safety – Part 1: General Requirements (now superseded by UL 62368-1, but referenced for legacy applicability). https://www.shopulstandards.com
+
+[6] National Fire Protection Association, NFPA 70, National Electrical Code®, 2023 ed., Quincy, MA: NFPA, 2022
+
+[7] "Understanding UART," Rohde & Schwarz, 2025. https://www.rohde-schwarz.com/us/products/test-and-measurement/essentials-test-equipment/digital-oscilloscopes/understanding-uart_254524.html
+
+[8] United Nations Environment Programme. (2020). Global E-waste Monitor 2020. https://ewastemonitor.info/
