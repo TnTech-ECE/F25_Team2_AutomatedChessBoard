@@ -1,34 +1,14 @@
 # Detailed Design
 
-This document delineates the objectives of a comprehensive system design. Upon reviewing this design, the reader should have a clear understanding of:
+**NOTE: REVISE INTRO AS DOCUMENT IS FILLED OUT**
 
-- How the specific subsystem integrates within the broader solution
-- The constraints and specifications relevant to the subsystem
-- The rationale behind each crucial design decision
-- The procedure for constructing the solution
-
-
-## General Requirements for the Document
-
-The document should include:
-
-- Explanation of the subsystem’s integration within the overall solution
-- Detailed specifications and constraints specific to the subsystem
-- Synopsis of the suggested solution
-- Interfaces to other subsystems
-- 3D models of customized mechanical elements*
-- A buildable diagram*
-- A Printed Circuit Board (PCB) design layout*
-- An operational flowchart*
-- A comprehensive Bill of Materials (BOM)
-- Analysis of crucial design decisions
-
-*Note: These technical documentation elements are mandatory only when relevant to the particular subsystem.
-
+This document presents a comprehensive overview of the Control Unit (CU) subsystem, one of the four primary components of the automated chessboard system; the other subsystems including the Processing Unit, CoreXY Unit, Power Unit, and Peripherals Unit. While the primary focus is on the Control Unit, this document also provides a high-level integration perspective with the remaining subsystems, in order to illustrate the CU’s role in coordinating communication, motion, and actuation across the entire system. Additionally, the document outlines the key technical constraints, relevant electrical and safety standards, and operational requirements that guide the subsystem’s design and implementation. Finally, it describes the proposed circuitry, communication methods, and control logic necessary to construct and validate the Control Unit as a critical part of the complete automated chessboard solution.
 
 ## Function of the Subsystem
 
-This segment should elucidate the role of the subsystem within the entire system, detailing its intended function, aligned with the conceptual design.
+The Control Unit (CU) serves as the central command interface between the Processing Unit and the physical motion components of the automated chessboard. Acting as the intermediary between high-level logic and low-level hardware control, the CU receives validated chess move commands from the Raspberry Pi over a serial UART connection and translates them into precise motor and actuator operations. The subsystem is responsible for generating synchronized STEP and DIR signals to drive two stepper motors that operate the CoreXY mechanism, enabling coordinated movement across the chessboard’s X and Y axes.
+
+In addition to motion control, the CU manages the piece "pickup" mechanism through an electromagnet that securely "grabs" and releases chess pieces during gameplay. To ensure safe and reliable operation, the CU continuously monitors limit switches, driver fault signals, and supply voltage, in addition to implementing safety protocols (such as immediate halting in the event of faults or out-of-range conditions). Motion profiling, including acceleration and deceleration phases, is integrated into the control logic to guarantee smooth and accurate piece movement. Through this coordinated functionality, the CU enables precise actuation of all chess moves, while both completing each move within five seconds and ensuring reliable piece capture and placement across the board.
 
 
 ## Specifications and Constraints
@@ -50,21 +30,11 @@ Describe the solution and how it will fulfill the specifications and constraints
 Provide detailed information about the inputs, outputs, and data transferred to other subsystems. Ensure specificity and thoroughness, clarifying the method of communication and the nature of the data transmitted.
 
 
-## 3D Model of Custom Mechanical Components
-
-Should there be mechanical elements, display diverse views of the necessary 3D models within the document. Ensure the image's readability and appropriate scaling. Offer explanations as required.
-
-
 ## Buildable Schematic 
 
 Integrate a buildable electrical schematic directly into the document. If the diagram is unreadable or improperly scaled, the supervisor will deny approval. Divide the diagram into sections if the text and components seem too small.
 
 The schematic should be relevant to the design and provide ample details necessary for constructing the model. It must be comprehensive so that someone, with no prior knowledge of the design, can easily understand it. Each related component's value and measurement should be clearly mentioned.
-
-
-## Printed Circuit Board Layout
-
-Include a manufacturable printed circuit board layout.
 
 
 ## Flowchart
