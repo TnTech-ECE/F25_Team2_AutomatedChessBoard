@@ -1,5 +1,5 @@
 
-# Detailed Design
+# Detailed Design for Processing Unit
 
 This document delineates the objectives of a comprehensive system design. Upon reviewing this design, the reader should have a clear understanding of:
 
@@ -17,9 +17,7 @@ The document should include:
 - Detailed specifications and constraints specific to the subsystem
 - Synopsis of the suggested solution
 - Interfaces to other subsystems
-- 3D models of customized mechanical elements*
 - A buildable diagram*
-- A Printed Circuit Board (PCB) design layout*
 - An operational flowchart*
 - A comprehensive Bill of Materials (BOM)
 - Analysis of crucial design decisions
@@ -32,14 +30,51 @@ The document should include:
 This segment should elucidate the role of the subsystem within the entire system, detailing its intended function, aligned with the conceptual design.
 
 
+
 ## Specifications and Constraints
 
-This section should provide a list of constraints applicable to the subsystem, along with the rationale behind these limitations. For instance, constraints can stem from physics-based limitations or requirements, subsystem prerequisites, standards, ethical considerations, or socio-economic factors.
+The **Processing Unit (PU)** shall act as the system’s central controller, implemented on a **Raspberry Pi**, and shall perform speech recognition, board-state management, move validation, and peripheral communication. The PU shall accept voice input from a USB microphone, interpret commands with the Vosk engine, validate moves using the Stockfish engine, forward validated commands to the Control Unit (Arduino) by a serial protocol (USART or I²C), and update the display with real-time feedback. All design decisions and operational limits shall comply with applicable U.S. electrical, safety, accessibility, and consumer product standards.
 
-The team should set specifications for each subsystem. These specifications may require modifications, which must be authorized by the team. It could be necessary to impose additional constraints as further information becomes available.
+---
 
-Every subsystem must incorporate at least one constraint stemming from standards, ethics, or socio-economic factors.
+### Performance Specifications
 
+* **Voice capture & processing:** The PU shall accept vocal input from the USB microphone and process it using **Vosk**. The PU shall only listen after a configured wake word is detected (to protect privacy and reduce false captures).
+* **Recognition accuracy & notation support:** The on-device speech recognition pipeline shall achieve a **minimum accuracy of 80%** for command recognition in typical indoor acoustic conditions, and it shall recognize algebraic chess notation and common natural-language variants (e.g., “Knight to e5”, “Bishop a4”). 
+* **Processing latency:** Recognized commands shall be processed and a validated move determined **within 5 seconds** of button release or the end of voice input.
+* **Display responsiveness & legibility:** Move confirmations, illegal-move alerts, and game-status updates produced by the PU shall appear on the display **within 1 second** of command processing. Displayed characters shall be **≥ 10 pt** and support high-contrast text/graphics for visibility under standard indoor lighting.
+* **Inter-subsystem communication:** The PU shall transmit validated move commands to the Control Unit via **USART or I²C**, using signal rates and framing that ensure reliable transfer and deterministic command execution (protocol selection shall ensure electrical and timing compatibility with the receiving Arduino).
+
+---
+
+### Electrical and Signal Standards Compliance
+
+* **EMI / Emissions:** The Processing Unit shall comply with **FCC Part 15 Subpart B (Class B)** limits for conducted and radiated emissions (conducted: ~0.15–30 MHz at 66–56 dBµV decreasing with frequency; radiated: ~30–1000 MHz at 40–54 dBµV/m at 3 m) to avoid interference with consumer electronics. [1]
+* **Low-voltage operation:** The PU shall operate below **50 V DC** in accordance with UL low-voltage safety thresholds. Voltage choices and wiring practices shall avoid requirements for high-voltage insulation. [2]
+* **Wiring & circuit practice:** The PU’s wiring and low-voltage circuits shall follow **NEC / NFPA 70** guidance (Article 725 where applicable), providing protection against overcurrent, correct conductor sizing, and insulation rated for the circuit’s voltage. [3]
+* **Materials & consumer safety:** Components and assemblies used by the PU shall avoid materials and configurations that violate **CPSC** guidance and shall use parts with documented compliance where required. [4]
+* **Cabling & connectors:** All cord sets, flexible cables, and connectors serving the PU shall meet **NEC Article 400** requirements for insulation, temperature rating, minimum bend radius, grounding continuity, and secure routing to avoid mechanical damage or tripping hazards. [8]
+* **Grounding & protection:** Grounding, bonding, and circuit-level protections for the PU shall follow **OSHA 29 CFR 1910 Subpart S** to minimize electric-shock hazards; exposed conductive parts shall be appropriately bonded and protected. [9]
+* **Safety labeling:** User-facing enclosures, ports, and power interfaces associated with the PU shall carry **ANSI Z535.4**-compliant safety labels where hazards exist (power indicators, service access, etc.). [10]
+
+---
+
+### Environmental and Safety Constraints
+
+* **Surface temperature:** External surfaces of PU enclosures shall remain ≤ **104 °F (40 °C)** during continuous operation to prevent burns or material degradation, consistent with **UL 94** flammability guidance and **CPSC 16 CFR 1505.7** thermal limits. [6][7]
+* **Operating environment:** The PU shall be rated for typical indoor educational/desktop environments (ambient **0–40 °C / 32–104 °F** and non-condensing humidity ranges typical for consumer electronics) so that the Raspberry Pi and attached peripherals operate reliably.
+* **Mechanical routing & strain relief:** Cabling for the microphone, display, and interconnects shall be routed and secured to avoid pinch points, sharp edges, and accidental disconnection. Cable management shall preserve minimum bend radii and use strain reliefs where appropriate per NEC guidance. [8][6]
+* **Component selection & enclosures:** Enclosure materials and construction shall meet consumer product safety expectations (no sharp edges, secure fastenings), and service access shall minimize risk of accidental contact with live circuitry.
+
+---
+
+### Ethical, Accessibility, and Socio-Economic Considerations
+
+* **Privacy by design:** The PU shall prioritize **on-device** processing of voice input so that raw audio is not transmitted to external services; persistent storage of raw audio shall be avoided unless explicitly consented to and secured. This reduces privacy risk from inadvertent capture of unrelated conversations. 
+* **Accessibility & inclusion:** User interfaces and feedback produced by the PU (voice prompts, text displays) shall conform to accessibility principles (Section 508 / WCAG guidance cited in project standards) and be tested across diverse accents and speech patterns to reduce recognition bias and support equitable use. [11][38]
+* **Intellectual property & licensing:** The PU’s software stack (Vosk, Stockfish, OS, libraries) shall retain proper attribution and license compliance; open-source components shall be used and documented with their licenses to avoid IP infringement.
+* **Educational accessibility & sustainability:** Component selection and cost decisions for the PU shall favor affordability and reproducibility for academic or community deployment, and the design shall facilitate repairability and reuse to reduce e-waste.
+* **Speech privacy & command confirmation UI:** When listening, an LED or on-screen indicator must show active listening and a message must be provided after successful recognition.
 
 ## Overview of Proposed Solution
 
