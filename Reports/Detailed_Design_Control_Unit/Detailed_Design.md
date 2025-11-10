@@ -8,7 +8,7 @@
 
 * Label all major connections, signal lines, and power paths.
 
-* Include notes on voltage levels, communication lines/TYPES, and component roles.
+* Include notes on voltage levels, communication lines/TYPES, component roles, and dimensions.
 
 * REFERENCES!
 
