@@ -24,12 +24,19 @@ The document should include:
 
 *Note: These technical documentation elements are mandatory only when relevant to the particular subsystem.
 
+---
 
 ## Function of the Subsystem
 
-This segment should elucidate the role of the subsystem within the entire system, detailing its intended function, aligned with the conceptual design.
+The **Processing Unit (PU)** functions as the central intelligence of the automated chessboard system, responsible for interpreting user input, executing game logic, and coordinating communication between all major subsystems. Implemented on a **Raspberry Pi**, the PU bridges human interaction and system control, translating spoken commands into actionable instructions and managing the overall flow of gameplay.
 
+Upon startup, the PU initializes all critical software components, including the **Vosk speech recognition engine** and the **Stockfish chess engine**, as well as the communication interfaces used to interact with peripheral devices. The PU receives voice input from a USB connected microphone, leveraging Vosk to convert speech into text based commands. These commands are then analyzed and validated by Stockfish to ensure compliance with chess rules before any move execution occurs.
 
+Once a move has been deemed valid, the PU transmits the corresponding instruction to the **Control Unit (CU)** over a **USART** or **I²C** connection, initiating the physical relocation of pieces on the board. In parallel, the PU updates the **display interface** (connected via **I²C** or **SPI**) to provide real-time feedback to the user, including board state, game status, and system notifications.
+
+Throughout gameplay, the PU maintains the internal representation of the chessboard, tracks both player and AI turns, and manages synchronization between speech input, motion execution, and display updates. Acting as the coordination hub of the system, the Processing Unit ensures that all subsystems operate harmoniously, maintaining a seamless and interactive chess experience from command recognition to move completion.
+
+---
 
 ## Specifications and Constraints
 
