@@ -61,7 +61,7 @@ The subsystem shall adhere to the ACM Code of Ethics [4], emphasizing accurate d
 
 ## Overview of Proposed Solution
 
-The Control Unit subsystem shall use an Arduino Nano to coordinate motion across the CoreXY mechanism, generating microstepped motor signals through two TMC2209 stepper drivers. These drivers provide smooth, accurate positioning within ±0.5mm and support collision-free piece movement through 1/256 microstepping and controlled current regulation. The subsystem shall process UART commands from the Processing Unit at 9600bps with a total response latency under 50ms, ensuring responsive gameplay and reliable electromagnet operation for chess piece movement.
+The Control Unit subsystem shall use an Arduino Nano to coordinate motion across the CoreXY mechanism (an Arduino Uno can be substituted, if the Nano cannot be ordered), generating microstepped motor signals through two TMC2209 stepper drivers (two TMC2208 stepper drivers should be able to be substituted, if the TMC2209 cannot be ordered). These drivers provide smooth, accurate positioning within ±0.5mm and support collision-free piece movement through 1/256 microstepping and controlled current regulation. The subsystem shall process UART commands from the Processing Unit at 9600bps with a total response latency under 50ms, ensuring responsive gameplay and reliable electromagnet operation for chess piece movement.
 
 All electrical and mechanical elements shall comply with NFPA 70 (National Electrical Code), FCC Part 15 Subpart B, and UL 60950-1 for grounding, insulation, and interference protection. Wiring and enclosures shall meet NEC Article 400 and OSHA 29 CFR 1910 Subpart S for safe cable routing and protective bonding, while external surfaces shall remain below 40 °C per UL 94 and 16 CFR 1505.7 thermal safety standards. Components shall be RoHS-compliant and sourced from verified domestic distributors to support cost efficiency and sustainability. Collectively, these measures ensure the Control Unit operates precisely, safely, and reliably within the automated chess system.
 
@@ -96,8 +96,8 @@ For sections including a software component, produce a chart that demonstrates t
 | Manufacturer | Part Number | Distributor | Distributor Part Number | Quantity | Price | Purchasing Website URL |
 |-----|-----|-----|-----|-----|-----|-----|
 | Arduino | ATmega328 | Arduino | A000005 | 1 | $25.70 | [Link](https://store-usa.arduino.cc/products/arduino-nano?srsltid=AfmBOoqNFNSG0SfKF8ZFeKFBkwAtX5L50eVlOeBv6cMGf4bc8P1TCnzK) |
-| BigTreeTech | TMC2209 | Biqu | 1040000053 | 2 | $9.99 | [Link](https://biqu.equipment/products/bigtreetech-tmc2209-stepper-motor-driver-for-3d-printer-board-vs-tmc2208) |
-| **Total** |   |   |   |   | **....** |   |
+| Trinamic | TMC2209 | Adafruit | 6121 | 2 | $8.95 | [Link](https://www.adafruit.com/product/6121?srsltid=AfmBOoqNbFwMYs_rbP4OZemtZmfuFAdtoNUtJ39PrpSNCZA5T_JOs630) |
+| **Total** |   |   |   |   | $34.65 |   |
 
 ## Analysis
 
