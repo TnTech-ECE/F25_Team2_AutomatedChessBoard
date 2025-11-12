@@ -20,12 +20,6 @@
 
 * Highlight interactions with subsystems such as motors, limit switches, and electromagnet control.
 
-*Bill of Materials (BOM)*:
-
-* Identify backup or alternative parts where possible.
-
-* Good U.S. Distributors (Tax-Exempt) to consider: Digi-Key, McMaster-Carr
-
 
 
 **NOTE: REVISE THE FOLLOWING INTRO AS DOCUMENT IS FILLED OUT**
@@ -36,7 +30,7 @@ This document presents a comprehensive overview of the Control Unit (CU) subsyst
 
 The Control Unit (CU) serves as the central command interface between the Processing Unit and the physical motion components of the automated chessboard. Acting as the intermediary between high-level logic and low-level hardware control, the CU receives validated chess move commands from the Raspberry Pi over a serial UART connection and translates them into precise motor and actuator operations. The subsystem is responsible for generating synchronized STEP and DIR signals to drive two stepper motors that operate the CoreXY mechanism, enabling coordinated movement across the chessboard’s X and Y axes.
 
-In addition to motion control, the CU manages the piece "pickup" mechanism through an electromagnet that securely "grabs" and releases chess pieces during gameplay. To ensure safe and reliable operation, the CU continuously monitors limit switches, driver fault signals, and supply voltage, in addition to implementing safety protocols (such as immediate halting in the event of faults or out-of-range conditions). Motion profiling, including acceleration and deceleration phases, is integrated into the control logic to guarantee smooth and accurate piece movement. Through this coordinated functionality, the CU enables precise actuation of all chess moves, while both completing each move within five seconds and ensuring reliable piece capture and placement across the board.
+In addition to motion control, the CU manages the piece "pickup" mechanism through an electromagnet (controlled by a MOSFET switching circuit) that securely "grabs" and releases chess pieces during gameplay. To ensure safe and reliable operation, the CU continuously monitors limit switches, driver fault signals, and supply voltage, in addition to implementing safety protocols (such as immediate halting in the event of faults or out-of-range conditions). Motion profiling, including acceleration and deceleration phases, is integrated into the control logic to guarantee smooth and accurate piece movement. Through this coordinated functionality, the CU enables precise actuation of all chess moves, while both completing each move within five seconds and ensuring reliable piece capture and placement across the board.
 
 
 ## Specifications and Constraints
@@ -45,11 +39,11 @@ The Control Unit shall manage precise movement of the CoreXY mechanism by conver
 
 ### Performance Specifications
 
-The Control Unit shall achieve stepper motor resolution sufficient to position the magnetic carriage within ±0.5mm of target coordinates, ensuring proper chess piece alignment on the board. This accuracy shall be maintained using microstepping features of the TMC2209 driver (up to 1/256 step precision) [3]. The subsystem shall process and execute commands from the Processing Unit with total latency under 50ms to ensure responsive gameplay and smooth motion transitions [2]. To meet gameplay requirements, the Control Unit shall complete any single piece movement within 5 seconds and achieve at least 95% successful collision-free captures across repeated operation cycles, ensuring stable and reliable play performance. TMC2209 drivers shall not exceed the rated RMS current of 1.4 A per phase, and overtemperature or stallGuard fault conditions shall trigger a controlled stop [3]. The Arduino Nano shall operate from a 5V DC logic supply, while the motor supply shall not exceed 12V, following manufacturer voltage tolerances [2][3][5].
+The Control Unit shall achieve stepper motor resolution sufficient to position the magnetic carriage within ±0.5mm of target coordinates, ensuring proper chess piece alignment on the board. This accuracy shall be maintained using microstepping features of the TMC2209 driver (up to 1/64 step precision) [3]. The subsystem shall process and execute commands from the Processing Unit with total latency under 50ms to ensure responsive gameplay and smooth motion transitions [2]. To meet gameplay requirements, the Control Unit shall complete any single piece movement within 5 seconds and achieve at least 95% successful collision-free captures across repeated operation cycles, ensuring stable and reliable play performance. TMC2209 drivers shall adhere to the recommended RMS current of 2A, and overtemperature or stallGuard fault conditions shall trigger a controlled stop [3]. The Arduino Nano shall operate from a 5V DC logic supply, while the motor supply shall not exceed 12V, following manufacturer voltage tolerances [2][3][5]. The MOSFET-based switching circuit shall operate at logic-level voltage from the Arduino Nano, providing reliable on/off control with a maximum switching latency under 10ms and a current handling capacity consistent with the electromagnet’s rated draw.
 
 ### Electrical and Signal Standards Compliance
 
-The Control Unit shall comply with FCC Part 15 Subpart B regulations for unintentional radiators to prevent electromagnetic interference with nearby devices [1]. All electrical connections and enclosures shall meet the safety practices defined in UL 60950-1 (legacy IT equipment safety) and NFPA 70 (National Electrical Code) for proper grounding, wiring isolation, and overcurrent protection [5][6]. All grounding, bonding, and protective-earth connections shall comply with OSHA 29 CFR 1910 Subpart S to minimize electrical shock hazards, ensuring that all exposed conductive parts are properly bonded and protected by appropriate circuit-level fusing [9]. All flexible cables, cord sets, and connectors shall comply with NEC Article 400, using conductors and insulation rated for system voltage and current, with secure routing that avoids sharp edges, pinch points, or mechanical stress [6]. Signal-level communication between the Control Unit and Processing Unit shall occur via UART serial protocol at 9600bps, ensuring reliable and deterministic command transfer [7]. Stepper motor control signals shall operate within voltage and current ranges defined in the TMC2209 datasheet to ensure thermal stability and driver integrity [3].
+The Control Unit shall comply with FCC Part 15 Subpart B regulations for unintentional radiators to prevent electromagnetic interference with nearby devices [1]. All electrical connections and enclosures shall meet the safety practices defined in UL 60950-1 (legacy IT equipment safety) and NFPA 70 (National Electrical Code) for proper grounding, wiring isolation, and overcurrent protection [5][6]. All grounding, bonding, and protective-earth connections shall comply with OSHA 29 CFR 1910 Subpart S to minimize electrical shock hazards, ensuring that all exposed conductive parts are properly bonded and protected by appropriate circuit-level fusing [9]. All flexible cables, cord sets, and connectors shall comply with NEC Article 400, using conductors and insulation rated for system voltage and current, with secure routing that avoids sharp edges, pinch points, or mechanical stress [6]. Signal-level communication between the Control Unit and Processing Unit shall occur via UART serial protocol at 9600bps, ensuring reliable and deterministic command transfer [7]. Stepper motor control signals shall operate within voltage and current ranges defined in the TMC2209 datasheet to ensure thermal stability and driver integrity [3]. The MOSFET control circuit for the electromagnet shall comply with UL 60950-1 and NFPA 70 standards for low-voltage DC switching, ensuring proper isolation between control and load circuits and limiting gate-source voltage to within manufacturer specifications [5][6].
 
 ### Environmental and Safety Constraints
 
@@ -61,16 +55,34 @@ The subsystem shall adhere to the ACM Code of Ethics [4], emphasizing accurate d
 
 ## Overview of Proposed Solution
 
-The Control Unit subsystem shall use an Arduino Nano to coordinate motion across the CoreXY mechanism (an Arduino Uno can be substituted, if the Nano cannot be ordered), generating microstepped motor signals through two TMC2209 stepper drivers (two TMC2208 stepper drivers should be able to be substituted, if the TMC2209 cannot be ordered). These drivers provide smooth, accurate positioning within ±0.5mm and support collision-free piece movement through 1/256 microstepping and controlled current regulation. The subsystem shall process UART commands from the Processing Unit at 9600bps with a total response latency under 50ms, ensuring responsive gameplay and reliable electromagnet operation for chess piece movement.
+The Control Unit subsystem shall use an Arduino Nano to coordinate motion across the CoreXY mechanism (an Arduino Uno can be substituted, if the Nano cannot be ordered), generating microstepped motor signals through two TMC2209 stepper drivers (two TMC2208 stepper drivers should be able to be substituted, if the TMC2209 cannot be ordered). These drivers provide smooth, accurate positioning within ±0.5mm and support collision-free piece movement through 1/64 microstepping and controlled current regulation. The subsystem shall process UART commands from the Processing Unit at 9600bps with a total response latency under 50ms, ensuring responsive gameplay and reliable electromagnet operation for chess piece movement.
 
 All electrical and mechanical elements shall comply with NFPA 70 (National Electrical Code), FCC Part 15 Subpart B, and UL 60950-1 for grounding, insulation, and interference protection. Wiring and enclosures shall meet NEC Article 400 and OSHA 29 CFR 1910 Subpart S for safe cable routing and protective bonding, while external surfaces shall remain below 40 °C per UL 94 and 16 CFR 1505.7 thermal safety standards. Components shall be RoHS-compliant and sourced from verified domestic distributors to support cost efficiency and sustainability. Collectively, these measures ensure the Control Unit operates precisely, safely, and reliably within the automated chess system.
 
 
 ## Interface with Other Subsystems
 
-**TODO**
+**TODO: Include information about power to the stepper drivers directly from the PSU**
 
-Provide detailed information about the inputs, outputs, and data transferred to other subsystems. Ensure specificity and thoroughness, clarifying the method of communication and the nature of the data transmitted.
+The Control Unit interfaces directly with the Processing Unit and CoreXY Unit, as well as interfacing indirectly with the Power Unit. The Control Unit coordinates data exchange, actuation, and system power delivery with these other subsystems. This integration ensures synchronized communication between software logic, motion hardware, and the electromagnet assembly (responsible for piece manipulation).
+
+### Processing Unit Interface
+
+Communication between the Processing Unit (a Raspberry Pi 4B) and the Control Unit (Arduino Nano) shall occur via a dedicated UART serial connection operating at 9600 bps [7]. The Pi acts as the command source, transmitting compact binary messages representing validated chess moves. Each message consists of two sets of data: the first set specifies the source square, and the second set specifies the destination square. The Control Unit’s firmware continuously listens on its UART receive line, parsing each two-byte message into a structured motion command. Upon receipt, the Arduino interprets the square coordinates and generates corresponding movement profiles for the CoreXY system.
+
+The Processing Unit also provides regulated 5V DC logic power to the Control Unit via a mini-B USB connection. This interface supplies sufficient current for the Arduino Nano and attached low-power peripherals, including the TMC2209 stepper driver logic inputs and MOSFET gate control circuit. To ensure safe operation, the USB ground and signal return paths are tied to the system common ground, as defined in NFPA 70 and OSHA 29 CFR 1910 Subpart S [6][9].
+
+### CoreXY Interface
+
+The Control Unit commands the CoreXY mechanism through two TMC2209 stepper driver modules, generating synchronized STEP and DIR signals for independent control of the X and Y motion axes [3]. The firmware implements edge-prioritized movement logic to ensure consistent and collision-free piece translation: each chess piece first moves from the center of its square to the nearest edge in the direction of travel, proceeds along the grid edge (or along both edges in a zigzag path for diagonal moves), and finally returns to the center of the target square.
+
+This motion pattern minimizes interference with adjacent pieces while maintaining accurate board alignment. The Control Unit also interfaces with an N-channel enhancement-mode MOSFET circuit that switches the electromagnet on and off. The Arduino’s digital output pin provides a 5V logic signal to the MOSFET gate, energizing the magnet only when a pickup or release operation is required. The electromagnet connects via a Grove-compatible 5V output port, simplifying integration and cable management within the CoreXY carriage assembly.
+
+The stepper drivers and and electromagnet share a common logic ground with the Arduino Nano. Proper current limiting and isolation between logic and load paths are maintained per UL 60950-1 and NEC Article 400 [5][6].
+
+### Power Unit Interface
+
+The Control Unit receives its primary operating power indirectly through the Processing Unit’s 5V USB output. This connection powers the Arduino Nano, the logic side of both TMC2209 drivers, and the MOSFET control line for the electromagnet. All power and signal cables shall conform to NEC Article 400 specifications for flexible cords and cables, ensuring rated insulation, strain relief, and secure routing to avoid pinch points or abrasion [6]. Grounding and bonding follow OSHA 29 CFR 1910 Subpart S, ensuring that the Control Unit’s enclosure and ground planes are properly connected to protective earth [9]. This structured power distribution ensures stable operation and compliance with applicable electrical safety codes, while maintaining a compact and modular interface layout between subsystems.
 
 
 ## Buildable Schematic 
@@ -92,6 +104,8 @@ For sections including a software component, produce a chart that demonstrates t
 ## BOM
 
 **In Progress**
+
+**ADD MOSFET TO BUDGET**
 
 | Manufacturer | Part Number | Distributor | Distributor Part Number | Quantity | Price | Purchasing Website URL |
 |-----|-----|-----|-----|-----|-----|-----|
