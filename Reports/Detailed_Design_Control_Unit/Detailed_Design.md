@@ -96,10 +96,7 @@ The schematic should be relevant to the design and provide ample details necessa
 
 ## Flowchart
 
-**TODO**
-
-For sections including a software component, produce a chart that demonstrates the decision-making process of the microcontroller. It should provide an overview of the device's function without exhaustive detail.
-
+![Control Unit](Control-Unit-Flowchart.png)
 
 ## BOM
 
