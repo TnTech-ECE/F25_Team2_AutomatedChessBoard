@@ -12,16 +12,6 @@
 
 * REFERENCES!
 
-*Operational Flowchart*:
-
-* Show the decision-making process of the microcontroller (Arduino Nano).
-
-* Summarize control logic and state transitions, not individual pins or low-level code steps.
-
-* Highlight interactions with subsystems such as motors, limit switches, and electromagnet control.
-
-
-
 **NOTE: REVISE THE FOLLOWING INTRO AS DOCUMENT IS FILLED OUT**
 
 This document presents a comprehensive overview of the Control Unit (CU) subsystem, one of the four primary components of the automated chessboard system; the other subsystems including the Processing Unit, CoreXY Unit, Power Unit, and Peripherals Unit. While the primary focus is on the Control Unit, this document also provides a high-level integration perspective with the remaining subsystems, in order to illustrate the CU’s role in coordinating communication, motion, and actuation across the entire system. Additionally, the document outlines the key technical constraints, relevant electrical and safety standards, and operational requirements that guide the subsystem’s design and implementation. Finally, it describes the proposed circuitry, communication methods, and control logic necessary to construct and validate the Control Unit as a critical part of the complete automated chessboard solution.
