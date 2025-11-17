@@ -169,11 +169,11 @@ Deliver a full and relevant analysis of the design demonstrating that it should 
 
 [11] World Wide Web Consortium. (2018). Web Content Accessibility Guidelines (WCAG) 2.1. https://www.w3.org/TR/WCAG21/
 
-[12] Reference intentionally left blank for now (Raspberry pi decision)XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+[12] Storm. (n.d.). Raspberry Pi 5/4GB. PiShop.us. https://www.pishop.us/product/raspberry-pi-5-4gb/
 
 [13] Amazon.com: Movo MA5U Pocket Audio Microphone, Omnidirectional Pickup, 3.5mm Female TRS Headphone Port, Compatible with PC and Mac USB Drives : Electronics. (n.d.). https://www.amazon.com/dp/B08ZQSCJS3
 
-[14] Reference intentionally left blank. (LCD decision with voltage) XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXZXZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+[14] Amazon.com: Hosyond 3.5 inch 480x320 Touch screen TFT LCD SPI Display Panel for Raspberry Pi B, B+, 2B, 3B, 3B+,4B, 5 : Electronics. (n.d.). https://www.amazon.com/Hosyond-480x320-Screen-Display-Raspberry/dp/B0BJDTL9J3
 
 [15] WonderfulPCB. Raspberry Pi Audio Recording: Microphone Setup and alsamixer Guide. Available: Pcb, W. (2025, October 9). How to Connect Microphones and Record Audio with Raspberry Pi. Wonderful PCB. https://www.wonderfulpcb.com/blog/raspberry-pi-audio-recording-microphone-setup-and-alsamixer/
 
