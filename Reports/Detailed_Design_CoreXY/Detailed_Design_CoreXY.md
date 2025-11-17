@@ -58,10 +58,8 @@ The CoreXY does not directly exchange signals with the Peripherals subsystem. Ho
 | CNCMANs | NA | Amazon | NA | 1 | $15.02 | [Link](https://www.amazon.com/CNCMANS-Miniature-Bearing-Printing-MGN12H-250mm/dp/B0BNQ63X3H/ref=sr_1_1) |
 | Unlorspy | NA | Amazon | NA | 1 | $4.49 | [Link](https://www.amazon.com/Unlorspy-Bracket-Brackets-Shelves-Furniture/dp/B0B24ZMT9J/ref=sr_1_3) |
 | SIMAX3D | NA | Amazon | NA | 1 pk (13 pcs) | $9.99 | [Link](https://www.amazon.com/SIMAX3D-Printer-Creality-Artillery-Sidewinder/dp/B08B4JDB67/ref=sr_1_1_sspa) |
-
-
-
-| **Total** |   |   |   |   | $ |   |
+| IXGNIJ | NA | Amazon | NA | 1 pk (4 pcs) | $14.99 | [Link](https://www.amazon.com/Aluminum-Extrusion-European-Standard-Anodized/dp/B08Y8L11ZP/ref=sr_1_3) |
+| **Total** |   |   |   |   | $98.69 |   |
 
 ## Analysis
 
