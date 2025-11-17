@@ -135,7 +135,7 @@ Include a manufacturable printed circuit board layout.
 
 ## Flowchart
 
-For sections including a software component, produce a chart that demonstrates the decision-making process of the microcontroller. It should provide an overview of the device's function without exhaustive detail.
+![Flow_Diagram](PU_Flow_Diagram.png)
 
 
 ## BOM
