@@ -48,6 +48,20 @@ The CoreXY does not directly exchange signals with the Peripherals subsystem. Ho
 ## Buildable Schematic
 
 ## Bill of Materials
+| Manufacturer | Part Number | Distributor | Distributor Part Number | Quantity | Price | Purchasing Website URL |
+|-----|-----|-----|-----|-----|-----|-----|
+| Seeed Studio | 101020073 | Mouser Electronics | 713-101020073 | 1 | $9.35 | [Link](https://www.mouser.com/ProductDetail/Seeed-Studio/101020073?qs=1%252B9yuXKSi8A5kCccI2u34g%3D%3D&srsltid=) |
+| CW-Motor | 42BYGH404 | Circuit Specialists | 42BYGH404 | 2 | $8.70 | [Link](https://www.circuitspecialists.com/nema_17_stepper_motor_42bygh404) |
+| HICTOP | NA | Amazon | NA | 1 | $9 | [Link](https://www.amazon.com/HICTOP-Printer-Creality-Printers-16-5ft/dp/B00YMM6IQW/ref=sr_1_1_sspa) |
+| McMaster-Carr | 3684N12 | McMaster-Carr | 3684N12 | 2 | $4.99 | [Link](https://www.mcmaster.com/3684N12/) |
+| 3Dman | NA | Amazon | NA | 1 pack | $11.99 | [Link](https://www.amazon.com/3Dman-Toothless-Aluminum-Timing-Printer/dp/B07RV2T54M/ref=sr_1_3) |
+| CNCMANs | NA | Amazon | NA | 1 | $15.02 | [Link](https://www.amazon.com/CNCMANS-Miniature-Bearing-Printing-MGN12H-250mm/dp/B0BNQ63X3H/ref=sr_1_1) |
+| Unlorspy | NA | Amazon | NA | 1 | $4.49 | [Link](https://www.amazon.com/Unlorspy-Bracket-Brackets-Shelves-Furniture/dp/B0B24ZMT9J/ref=sr_1_3) |
+| SIMAX3D | NA | Amazon | NA | 1 pk (13 pcs) | $9.99 | [Link](https://www.amazon.com/SIMAX3D-Printer-Creality-Artillery-Sidewinder/dp/B08B4JDB67/ref=sr_1_1_sspa) |
+
+
+
+| **Total** |   |   |   |   | $ |   |
 
 ## Analysis
 
