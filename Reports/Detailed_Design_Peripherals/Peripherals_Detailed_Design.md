@@ -47,7 +47,10 @@ Describe the solution and how it will fulfill the specifications and constraints
 
 ## Interface with Other Subsystems
 
-Provide detailed information about the inputs, outputs, and data transferred to other subsystems. Ensure specificity and thoroughness, clarifying the method of communication and the nature of the data transmitted.
+The Peripherals of the Chess board interface directly with the Processing Unit (Raspberry Pi 5) and indirectly with the CoreXY Unit. The peripherals form the link between the user and the Processing Unit, transmitting data from the microphone and to the screen, while also housing the CoreXY, playing a key role in how it interacts with the pieces.
+
+### Processing Unit Interface
+There will be two main data transmissions between the Processing Unit and the Peripherals: the microphone (Movo MA5U) and the LCD screen (AREALER GS06649-01). The microphone will transmit data to the processor via a serial USB connection. The processor will read the microphone input when it needs 
 
 
 ## 3D Model of Custom Mechanical Components
