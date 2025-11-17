@@ -92,7 +92,28 @@ Describe the solution and how it will fulfill the specifications and constraints
 
 ## Interface with Other Subsystems
 
-Provide detailed information about the inputs, outputs, and data transferred to other subsystems. Ensure specificity and thoroughness, clarifying the method of communication and the nature of the data transmitted.
+This section describes the inputs, outputs, and data exchanged between the Processing Unit (PU) and the other subsystems of the Automated Chess Board. The PU performs the system’s high level computation, such as move validation and speech interpretation, but it does not directly produce visible physical actions. Instead the PU relies on other units to execute those tasks. All power and signal interfaces will conform to the electrical and signaling constraints defined earlier in the Specifications and Constraints section.
+
+### Incoming and Outgoing Power
+
+The PU’s primary power source is the Battery Management System (BMS), which provides a regulated 5 V supply capable of delivering the required current for normal operation; this supply remains available when the board is operating from battery power alone and is intended to sustain at least one full game session [12]. The PU also functions as a distribution point for peripheral power: the microphone receives power from the PU’s USB port, which also serves as its data interface [13]; the LCD display is supplied from the Pi’s 3.3 V power rail [14]; and the Control Unit (Arduino Nano) is powered via a USB connection from the PU. These power relationships centralize voltage regulation and grounding through the PU to simplify cabling and ensure consistent operating voltages across subsystems.
+
+### Peripherals Communications
+
+The PU exchanges data with visible peripherals. Communication methods and the expected nature of the data are described below.
+
+#### LCD Communication
+NEED TO FIX BECAUSE CURRENT LCD BAD
+The PU transmits display updates to the LCD using a serial peripheral interface supported by the Raspberry Pi [14]. The intended data will be user facing notifications such as move confirmations, prompts, error messages, and simple status indicators. A SPI clock rate of 16 MHz should be used to enable rapid, flicker-free updates. WE WILL NEED TO FIND/ KEEP IN MIND A LIBRARY THAT HAS FONTS AND OTHER THINGS KIND OF LIKE THE ONE ELFOULY GAVE US IF WE GET SOMETHING NEW SO KEEP THAT IN MIND 16 MHZ IS A FILLER WE NEED TO RESEARCH THE LCD AFTER DECIDING.
+#### Microphone Communication
+
+The microphone connects to the PU via USB and supplies a continuous stream of digital audio samples [13]. The Raspberry Pi enumerates USB audio devices as system recording devices, allowing application-level audio APIs to capture PCM audio streams due to the pi having the prerequisite drivers [15]. These audio streams are then processed by vosk, which converts spoken input into textual commands for the game.
+
+### Control Unit Communication
+
+Communication between the Processing Unit and the Control Unit (Arduino Nano) is implemented over a dedicated UART serial link operating at 9600 bps [16]. The PU is the authoritative command source: after validating game moves, it transmits compact command packets to the Control Unit so that the CU can execute the corresponding physical actions. The Control Unit’s firmware continuously listens for incoming serial frames and converts received commands into motion and actuation sequences for piece manipulation. In some situations, such as captures, promotions, or other multi-step operations, the PU may issue multiple moves before switching to the other player's turn. The CU’s responsibility is limited to reliably executing the received commands rather than performing game rule validation. 
+
+---
 
 
 ## 3D Model of Custom Mechanical Components
@@ -147,3 +168,13 @@ Deliver a full and relevant analysis of the design demonstrating that it should 
 [10] U.S. Consumer Product Safety Commission, “Maximum acceptable surface temperatures,” Code of Federal Regulations, Title 16, Part 1505.7. [Online]. Available: https://www.law.cornell.edu/cfr/text/16/1505.7. [Accessed: Oct. 28, 2025].
 
 [11] World Wide Web Consortium. (2018). Web Content Accessibility Guidelines (WCAG) 2.1. https://www.w3.org/TR/WCAG21/
+
+[12] Reference intentionally left blank for now (Raspberry pi decision)XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+[13] Amazon. USB Microphone Product Page. Available: https://www.amazon.com/dp/B08ZQSCJS3
+
+[14] Reference intentionally left blank. (LCD decision with voltage) XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXZXZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
+[15] WonderfulPCB. Raspberry Pi Audio Recording: Microphone Setup and alsamixer Guide. Available: https://www.wonderfulpcb.com/blog/raspberry-pi-audio-recording-microphone-setup-and-alsamixer/
+
+[16] Rohde & Schwarz. Understanding UART Communication. Available: https://www.rohde-schwarz.com/us/products/test-and-measurement/essentials-test-equipment/digital-oscilloscopes/understanding-uart_254524.html 
