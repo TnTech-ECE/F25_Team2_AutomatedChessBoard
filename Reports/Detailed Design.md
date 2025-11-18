@@ -40,7 +40,7 @@ Per ACM Code of Ethics, the design prioritizes safety and sustainability, using 
 
 ## Overview of Proposed Solution
 
-The proposed Power Unit utilizes a DFRobot Raspberry Pi 5 UPS HAT (SKU: FIT0992) integrated with the Raspberry Pi 5, providing hybrid power management with seamless AC-to-battery failover [3]. A standard 5V/5A Raspberry Pi wall charger connects to a Pi Switch (for remote power control), which feeds into the UPS. The UPS houses four JESSPOW NiMH AA rechargeable batteries (1.2V/2800mAh each, configured in series-parallel for ~5V nominal output), delivering regulated 5V to the Pi and peripherals via USB-C/PD outputs [16]. A step-up converter (integrated in the UPS or added externally) provides the 12V rail for TMC2209 stepper drivers. The MOSFET load (from Control Unit) draws from the 5V rail. Sleep mode is implemented via Pi GPIO signaling to the UPS, reducing draw by disabling unused outputs. This solution meets runtime specs (estimated 2.5+ hours at 10W), complies with safety standards through built-in protections, and ensures modularity for upgrades, all within budget constraints.
+The proposed Power Unit utilizes a DFRobot Raspberry Pi 5 UPS HAT (SKU: FIT0992) integrated with the Raspberry Pi 5, providing hybrid power management with seamless AC-to-battery failover [3]. A standard 5V/5A Raspberry Pi wall charger connects to a Pi Switch (for remote power control), which feeds into the UPS. The UPS houses four JESSPOW NiMH AA rechargeable batteries (3.7V 3300mAh each, configured for ~5V nominal output), delivering regulated 5V to the Pi and peripherals via USB-C/PD outputs [16]. A step-up converter (integrated in the UPS or added externally) provides the 12V rail for TMC2209 stepper drivers. The MOSFET load (from Control Unit) draws from the 5V rail. Sleep mode is implemented via Pi GPIO signaling to the UPS, reducing draw by disabling unused outputs. This solution meets runtime specs (estimated 2.5+ hours at 10W), complies with safety standards through built-in protections, and ensures modularity for upgrades, all within budget constraints.
 
 ## Interface with Other Subsystems
 
@@ -117,17 +117,14 @@ No: Continue Normal Operation → Check Battery Level (I2C Read) → <20%? → A
 
 | Manufacturer | Part Number | Distributor | Distributor Part Number | Quantity | Price | Purchasing Website URL | Component Name |
 |--------------|-------------|-------------|-------------------------|----------|--------|-------------------------|----------------|
-| DFRobot | FIT0992 | DFRobot | FIT0992 | 1 | $29.90 | [Link](https://www.dfrobot.com/product-2955.html) | UPS HAT |
+| DFRobot | FIT0992 | DFRobot | FIT0992 | 1 | $53.00 | [Link](https://www.dfrobot.com/product-2840.html) | UPS HAT |
 | Raspberry Pi | SC0510 | Raspberry Pi | SC0510 | 1 | $15.00 | [Link](https://www.raspberrypi.com/products/27w-power-supply/) | Wall Charger (5V/5A) |
-| JESSPOW | N/A (AA NiMH) | Amazon | B0DBDFNJ9C | 4 | $12.99 (pack of 8, use 4) | [Link](https://www.amazon.com/JESSPOW-Rechargeable-Batteries-Battery-Flashlights/dp/B0DBDFNJ9C) | Batteries (AA) |
-| Waveshare | Pi Switch | Waveshare | N/A | 1 | $9.99 | [Link](https://www.waveshare.com/wiki/Pi5_Power_Switch) | Pi Switch |
-| Adafruit | 308 | Adafruit | 308 | 1 | $2.50 | [Link](https://www.adafruit.com/product/308) | MT3608 Step-Up (for 12V) |
-| Littelfuse | 0451005.MRL | Digi-Key | F1300CT-ND | 1 | $1.20 | [Link](https://www.digikey.com/en/products/detail/littelfuse-inc/0451005.MRL/583930) | Fuse 5A (5V Rail) |
-| Littelfuse | 0451003.MRL | Digi-Key | F1298CT-ND | 1 | $1.20 | [Link](https://www.digikey.com/en/products/detail/littelfuse-inc/0451003.MRL/583928) | Fuse 3A (12V Rail) |
-| Vishay | 1N5819 | Digi-Key | 1N5819GICT-ND | 1 | $0.35 | [Link](https://www.digikey.com/en/products/detail/vishay-general-semiconductor-diodes-division/1N5819-E3-54/356799) | D1 (Diode) |
-| Yageo | MFR-25FBF52-10K | Digi-Key | 13-MFR-25FBF52-10K-ND | 1 | $0.10 | [Link](https://www.digikey.com/en/products/detail/yageo/MFR-25FBF52-10K/2059) | R1 (10kΩ) |
-| Nichicon | UHE1C101MED | Digi-Key | 493-1508-ND | 1 | $0.25 | [Link](https://www.digikey.com/en/products/detail/nichicon/UHE1C101MED/589835) | C1 (100µF) |
-| **Total** |   |   |   |   | $73.48 |   |   |
+| JESSPOW | N/A (3.7V Rechargeable) | Amazon | B0DBDFNJ9C | 4 | $22.49 (pack of 4) | [Link](https://www.amazon.com/JESSPOW-Rechargeable-Batteries-Battery-Flashlights/dp/B0DBDFNJ9C) | Batteries (18650 compatible) |
+| CanaKit | N/A | CanaKit | N/A | 1 | $9.99 | [Link](https://www.canakit.com/canakit-usb-c-pd-piswitch-for-raspberry-pi-5.html) | Pi Switch |
+| Generic | MT3608 | Amazon | B0CFL7RY2D | 1 | $2.50 | [Link](https://www.amazon.com/MT3608-Converter-Adjustable-Voltage-Regulator/dp/B0CFL7RY2D) | MT3608 Step-Up (for 12V) |
+| Littelfuse | 0451005.MRL | Digi-Key | 576-0451005.MRL | 1 | $1.20 | [Link](https://www.digikey.com/en/products/detail/littelfuse-inc/0451005-MRL/700828) | Fuse 5A (5V Rail) |
+| Littelfuse | 0451003.MRL | Digi-Key | 576-0451003.MRL | 1 | $1.20 | [Link](https://www.digikey.com/en/products/detail/littelfuse-inc/0451003-MRL/700824) | Fuse 3A (12V Rail) |
+| **Total** |   |   |   |   | $96.58 |   |   |
 
 ## Analysis
 
