@@ -62,9 +62,6 @@ The 12V rail powers stepper motors through TMC2209 drivers, with current limited
 
 The microphone (USB) and display (I2C/5V) draw from the Pi's 5V USB/GPIO, indirectly from the UPS. Total draw: <500mA.
 
-## 3D Model of Custom Mechanical Components
-
-No custom mechanical components are required for the Power Unit beyond standard mounting brackets for the UPS HAT (provided by DFRobot). The batteries are housed in the UPS's built-in holders.
 
 ## Buildable Schematic
 
@@ -102,9 +99,7 @@ Full schematic (textual representation for readability; in practice, use KiCad/A
 [Ground Plane: Single Point Tie]
 ```
 
-## Printed Circuit Board Layout
 
-No custom PCB is required; the solution uses the off-the-shelf DFRobot UPS HAT PCB (65x56mm) with through-hole additions for step-up and fuses. Layout follows UPS wiki Gerber files [3], with added traces for 12V distribution (min 2mm width for 2A). Ensure 1mm clearance for low-voltage isolation per UL 60950-1 [5].
 
 ## Flowchart
 
