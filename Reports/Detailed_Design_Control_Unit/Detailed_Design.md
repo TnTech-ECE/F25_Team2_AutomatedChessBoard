@@ -65,7 +65,7 @@ In addition to supplying 5V logic power through the Processing Unit, the Power U
 
 ## Buildable Schematic 
 
-![Electrical Schematic](Buildable-Diagram.png)
+![Electrical Schematic](Buildable-Diagram-1.png)
 
 
 ## Flowchart
