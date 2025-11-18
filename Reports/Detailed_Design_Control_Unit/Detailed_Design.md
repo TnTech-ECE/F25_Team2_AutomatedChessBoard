@@ -1,19 +1,5 @@
 # Detailed Design
 
-## Notes (will not be included in final document)
-
-*Buildable Diagram*:
-
-* Create an easy-to-read, tutorial-style system diagram.
-
-* Label all major connections, signal lines, and power paths.
-
-* Include notes on voltage levels, communication lines/TYPES, component roles, and dimensions.
-
-* REFERENCES!
-
-**NOTE: REVISE THE FOLLOWING INTRO AS DOCUMENT IS FILLED OUT**
-
 This document presents a comprehensive overview of the Control Unit (CU) subsystem, one of the four primary components of the automated chessboard system; the other subsystems including the Processing Unit, CoreXY Unit, Power Unit, and Peripherals Unit. While the primary focus is on the Control Unit, this document also provides a high-level integration perspective with the remaining subsystems, in order to illustrate the CU’s role in coordinating communication, motion, and actuation across the entire system. Additionally, the document outlines the key technical constraints, relevant electrical and safety standards, and operational requirements that guide the subsystem’s design and implementation. Finally, it describes the proposed circuitry, communication methods, and control logic necessary to construct and validate the Control Unit as a critical part of the complete automated chessboard solution.
 
 ## Function of the Subsystem
@@ -58,7 +44,7 @@ The Control Unit interfaces directly with the Processing Unit and CoreXY Unit, a
 
 ### Processing Unit Interface
 
-Communication between the Processing Unit (a Raspberry Pi 5) and the Control Unit (Arduino Nano) shall occur via a dedicated UART serial connection operating at 9600 bps [7]. The Pi acts as the command source, transmitting compact binary messages representing validated chess moves. Each message consists of two sets of data: the first set specifies the source square, and the second set specifies the destination square. The Control Unit’s firmware continuously listens on its UART receive line, parsing each two-byte message into a structured motion command. Upon receipt, the Arduino interprets the square coordinates and generates corresponding movement profiles for the CoreXY system. After completing a motion or electromagnet operation, the Control Unit shall transmit a confirmation message back to the Processing Unit over the same UART interface. This return signal confirms successful receipt, parsing, and execution of the command, enabling closed-loop coordination and preventing command desynchronization between subsystems.
+Communication between the Processing Unit (a Raspberry Pi 5) and the Control Unit (Arduino Nano) shall occur via a dedicated UART serial connection operating at 9600 bps [7]. Because the Raspberry Pi 5 uses 3.3V logic and the Arduino Nano uses 5V logic, a bi-directional logic level converter is employed to safely translate signals between the two devices. The Pi acts as the command source, transmitting compact binary messages representing validated chess moves. Each message consists of two sets of data: the first set specifies the source square, and the second set specifies the destination square. The Control Unit’s firmware continuously listens on its UART receive line, parsing each two-byte message into a structured motion command. Upon receipt, the Arduino interprets the square coordinates and generates corresponding movement profiles for the CoreXY system. After completing a motion or electromagnet operation, the Control Unit shall transmit a confirmation message back to the Processing Unit over the same UART interface. This return signal confirms successful receipt, parsing, and execution of the command, enabling closed-loop coordination and preventing command desynchronization between subsystems.
 
 The Processing Unit also provides regulated 5V DC logic power to the Control Unit via a mini-B USB connection. This interface supplies sufficient current for the Arduino Nano and attached low-power peripherals, including the TMC2209 stepper driver logic inputs and MOSFET gate control circuit. To ensure safe operation, the USB ground and signal return paths are tied to the system common ground, as defined in NFPA 70 and OSHA 29 CFR 1910 Subpart S [6][9].
 
@@ -79,16 +65,13 @@ In addition to supplying 5V logic power through the Processing Unit, the Power U
 
 ## Buildable Schematic 
 
-**TODO**
-
-Integrate a buildable electrical schematic directly into the document. If the diagram is unreadable or improperly scaled, the supervisor will deny approval. Divide the diagram into sections if the text and components seem too small.
-
-The schematic should be relevant to the design and provide ample details necessary for constructing the model. It must be comprehensive so that someone, with no prior knowledge of the design, can easily understand it. Each related component's value and measurement should be clearly mentioned.
+![Electrical Schematic](Buildable-Diagram.png)
 
 
 ## Flowchart
 
 ![Control Unit](Control-Unit-Flowchart-1.png)
+
 
 ## BOM
 
