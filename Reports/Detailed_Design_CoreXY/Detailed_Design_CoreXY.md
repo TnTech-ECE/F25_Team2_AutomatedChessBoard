@@ -41,7 +41,7 @@ The CoreXY receives motion commands from the CU and translates them into physica
 The CoreXY subsystem interfaces with the Power subsystem by controlling current to the electromagnet through a GaN FET. The source pin of the GaN FET is connected to the common system ground, which is shared with the power supply. The drain pin is connected to the negative terminal of the electromagnet as well as to the anode of a flyback diode. The positive terminal of the electromagnet and the cathode of the diode are connected to the positive voltage of the power supply. When the FET is on, it completes the circuit, allowing current to flow through the electromagnet and energize it. When the FET is off, the diode provides a safe path for the inductive spike from the coil, protecting both the FET and the rest of the system.
 
 ### Peripherals Interface
-The CoreXY does not directly exchange signals with the Peripherals subsystem. However, the subsystems interact mechanically through piece movement. The pieces must be designed considering the size, flux, and holding force of the electromagnet to ensure reliable pickup and release operations.
+The CoreXY does not directly exchange signals with the Peripherals subsystem. However, the subsystems interact mechanically through piece movement. The pieces must be designed considering the size, flux, and holding force of the electromagnet to ensure reliable pickup and release operations. The board proportions will also affect the proportions of the CoreXY.
 
 ## 3D Model of Custom Mechanical Components
 
