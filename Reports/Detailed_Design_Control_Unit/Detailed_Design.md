@@ -88,7 +88,7 @@ The schematic should be relevant to the design and provide ample details necessa
 
 ## Flowchart
 
-![Control Unit](Control-Unit-Flowchart.png)
+![Control Unit](Control-Unit-Flowchart-1.png)
 
 ## BOM
 
