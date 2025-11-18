@@ -32,10 +32,10 @@ The subsystem shall be designed and operated with user safety and reliability as
 
 ## Interface with Other Subsystem
 
-The CoreXY subsystem interacts directly with the CU, which provides motion commands for precise X–Y positioning, and with the Power subsystem, which supplies current to the electromagnet through a GaNFET. It also interacts indirectly with the Peripherals subsystem, where its mechanical movement enables piece pickup and placement.
+The CoreXY subsystem interacts directly with the CU, which provides motion commands for precise X–Y positioning, and with the Power subsystem, which supplies current to the electromagnet through a MOSFET. It also interacts indirectly with the Peripherals subsystem, where its mechanical movement enables piece pickup and placement.
 
 ### Control Unit Interface
-The CoreXY receives motion commands from the CU and translates them into physical movement. The CU controls the NEMA17 stepper motors through TMC2209 stepper driver modules, which generate STEP and DIR signals to precisely position the CoreXY actuator. In addition to motion control, the CU manages the electromagnet by sending a control signal to the gate pin of an N-channel Gallium Nitride Field Effect Transistor (GaNFET), which switches current through the electromagnet.
+The CoreXY receives motion commands from the CU and translates them into physical movement. The CU controls the NEMA17 stepper motors through TMC2209 stepper driver modules, which generate STEP and DIR signals to precisely position the CoreXY actuator. In addition to motion control, the CU manages the electromagnet by sending a control signal to the gate pin of an N-channel MOSFET, which switches current through the electromagnet.
 
 ### Power Interface
 The CoreXY subsystem interfaces with the Power subsystem by controlling current to the electromagnet through a GaN FET. The source pin of the GaN FET is connected to the common system ground, which is shared with the power supply. The drain pin is connected to the negative terminal of the electromagnet as well as to the anode of a flyback diode. The positive terminal of the electromagnet and the cathode of the diode are connected to the positive voltage of the power supply. When the FET is on, it completes the circuit, allowing current to flow through the electromagnet and energize it. When the FET is off, the diode provides a safe path for the inductive spike from the coil, protecting both the FET and the rest of the system.
