@@ -96,41 +96,32 @@ This section describes the inputs, outputs, and data exchanged between the Proce
 
 ### Incoming and Outgoing Power
 
-The PU’s primary power source is the Battery Management System (BMS), which provides a regulated 5 V supply capable of delivering the required current for normal operation; this supply remains available when the board is operating from battery power alone and is intended to sustain at least one full game session [12]. The PU also functions as a distribution point for peripheral power: the microphone receives power from the PU’s USB port, which also serves as its data interface [13]; the LCD display is supplied from the Pi’s 3.3 V power rail [14]; and the Control Unit (Arduino Nano) is powered via a USB connection to mini USB from the PU. These power relationships centralize voltage regulation and grounding through the PU to simplify cabling and ensure consistent operating voltages across subsystems.
+The PU’s primary power source is the Battery Management System (BMS), which provides a regulated 5 V supply capable of delivering the required current for normal operation; this supply remains available when the board is operating from battery power alone and is intended to sustain at least one full game session [12]. The PU also functions as a distribution point for peripheral power: the microphone receives power from the PU’s USB port, which also serves as its data interface [13]; the LCD display is supplied from the Pi’s 5 V power rail [14]; and the Control Unit (Arduino Nano) is powered via a USB connection to mini USB from the PU. These power relationships centralize voltage regulation and grounding through the PU to simplify cabling and ensure consistent operating voltages across subsystems.
 
 ### Peripherals Communications
 
 The PU exchanges data with visible peripherals. Communication methods and the expected nature of the data are described below.
 
 #### LCD Communication
-NEED TO FIX BECAUSE CURRENT LCD BAD
-The PU transmits display updates to the LCD using a serial peripheral interface supported by the Raspberry Pi [14]. The intended data will be user facing notifications such as move confirmations, prompts, error messages, and simple status indicators. A SPI clock rate of 16 MHz should be used to enable rapid, flicker-free updates. WE WILL NEED TO FIND/ KEEP IN MIND A LIBRARY THAT HAS FONTS AND OTHER THINGS KIND OF LIKE THE ONE ELFOULY GAVE US IF WE GET SOMETHING NEW SO KEEP THAT IN MIND 16 MHZ IS A FILLER WE NEED TO RESEARCH THE LCD AFTER DECIDING.
+Communication between the Processing Unit and the Display Module is implemented through the Raspberry Pi’s 40-pin GPIO interface using the SPI communication protocol. The TFT module mounts directly on top of the Raspberry Pi’s GPIO header, eliminating the need for external cabling and allowing both data and power to be delivered through the same connector. The module operates as an SPI peripheral device, receiving pixel data, frame control commands, and refresh instruction queries over dedicated SPI lines such as SCLK, MOSI, MISO, and chip-select. The display driver IC and touch controller communicate using this bus structure, enabling the Raspberry Pi to issue display updates with low latency and predictable timing.
+
+To enable operation, device drivers for the display must be installed on the Raspberry Pi. The manufacturer provides a downloadable driver package and installation instructions that configure the required SPI overlays and device mappings in the Raspberry Pi’s operating system. Once installed, the display is recognized as a framebuffer output device, allowing applications and the desktop environment to render directly to the screen. The physical and communication interface requires that the screen be positioned on the Raspberry Pi’s GPIO header during use, as the electrical connections for SPI, control signals, and power delivery are all made through this stacking arrangement [14].
+
 #### Microphone Communication
 
-The microphone connects to the PU via USB and supplies a continuous stream of digital audio samples [13]. The Raspberry Pi enumerates USB audio devices as system recording devices, allowing application-level audio APIs to capture PCM audio streams due to the pi having the prerequisite drivers [15]. These audio streams are then processed by vosk, which converts spoken input into textual commands for the game.
+The microphone connects to the PU via USB and supplies a continuous stream of digital audio samples [13]. The Raspberry Pi enumerates USB audio devices as system recording devices, allowing application-level audio APIs to capture PCM (Pulse-code modulation) audio streams due to the pi having the prerequisite drivers [15]. These audio streams are then processed by vosk, which converts spoken input into textual commands for the game.
 
 ### Control Unit Communication
 
-Communication between the Processing Unit and the Control Unit (Arduino Nano) is implemented over a dedicated UART serial link operating at 9600 bps [16]. The PU is the authoritative command source: after validating game moves, it transmits compact command packets to the Control Unit so that the CU can execute the corresponding physical actions. The Control Unit’s firmware continuously listens for incoming serial frames and converts received commands into motion and actuation sequences for piece manipulation. In some situations, such as captures, promotions, or other multi-step operations, the PU may issue multiple moves before switching to the other player's turn. The CU’s responsibility is limited to reliably executing the received commands rather than performing game rule validation. The CU will also send a confirmation back to the PU signaling that the unit has received and executed the current instruction and is ready for the next one.
+Communication between the Processing Unit and the Control Unit (Arduino Nano) is implemented over a dedicated UART serial link operating at 9600 bps [16]. The PU is the authoritative command source: after validating game moves, it transmits compact command packets to the Control Unit so that the CU can execute the corresponding physical actions. The Control Unit’s firmware continuously listens for incoming serial frames and converts received commands into motion and actuation sequences for piece manipulation. In some situations, such as captures, promotions, or other multi-step operations, the PU may issue multiple moves before switching to the other player's turn. The CU’s responsibility is limited to reliably executing the received commands rather than performing game rule validation. The CU will also send a confirmation back to the PU signaling that the unit has received and executed the current instruction and is ready for the next one. When transferring data between the Arduino Nano and Raspberry Pi, a logic level converter must be used between the Tx and Rx lines to ensure both devices operate at their required voltages. The Raspberry Pi 5 uses 3.3V logic on its UART pins, while the Arduino Nano expects 5V on its Rx line, making level shifting necessary to prevent damage and ensure reliable communication [17].
 
 ---
-
-
-## 3D Model of Custom Mechanical Components
-
-Should there be mechanical elements, display diverse views of the necessary 3D models within the document. Ensure the image's readability and appropriate scaling. Offer explanations as required.
-
 
 ## Buildable Schematic 
 
 Integrate a buildable electrical schematic directly into the document. If the diagram is unreadable or improperly scaled, the supervisor will deny approval. Divide the diagram into sections if the text and components seem too small.
 
 The schematic should be relevant to the design and provide ample details necessary for constructing the model. It must be comprehensive so that someone, with no prior knowledge of the design, can easily understand it. Each related component's value and measurement should be clearly mentioned.
-
-
-## Printed Circuit Board Layout
-
-Include a manufacturable printed circuit board layout.
 
 
 ## Flowchart
@@ -141,6 +132,11 @@ Include a manufacturable printed circuit board layout.
 ## BOM
 
 Provide a comprehensive list of all necessary components along with their prices and the total cost of the subsystem. This information should be presented in a tabular format, complete with the manufacturer, part number, distributor, distributor part number, quantity, price, and purchasing website URL. If the component is included in your schematic diagram, ensure inclusion of the component name on the BOM (i.e R1, C45, U4).
+Pi 5
+Os
+mini usb cable
+leveler
+
 
 ## Analysis
 
@@ -178,3 +174,5 @@ Deliver a full and relevant analysis of the design demonstrating that it should 
 [15] WonderfulPCB. Raspberry Pi Audio Recording: Microphone Setup and alsamixer Guide. Available: Pcb, W. (2025, October 9). How to Connect Microphones and Record Audio with Raspberry Pi. Wonderful PCB. https://www.wonderfulpcb.com/blog/raspberry-pi-audio-recording-microphone-setup-and-alsamixer/
 
 [16] Understanding UART. Rohde & Schwarz. https://www.rohde-schwarz.com/us/products/test-and-measurement/essentials-test-equipment/digital-oscilloscopes/understanding-uart_254524.html
+
+[17] SparkFun Electronics. (n.d.). SparkFun Logic Level Converter - Bi-Directional. https://www.sparkfun.com/sparkfun-logic-level-converter-bi-directional.html#content-features
