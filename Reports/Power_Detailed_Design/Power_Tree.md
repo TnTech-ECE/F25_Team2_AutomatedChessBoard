@@ -1,7 +1,7 @@
 
 ### Power Tree Diagram (Textual Representation)
 
-Based on the example image (a hierarchical tree with regulators, efficiencies, currents, and loads), I've generated a similar textual/ASCII representation. It starts from the Raspberry Pi Wall Charger and branches down to the motors, incorporating values from the updated budget. This mirrors the example's structure with summaries, losses/efficiencies, and end loads.
+
 
 ```
 Power Tree for Automated Chessboard System
