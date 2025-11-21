@@ -28,9 +28,9 @@ The document should include:
 
 ## Function of the Subsystem
 
-The **Processing Unit (PU)** functions as the central intelligence of the automated chessboard system, responsible for interpreting user input, executing game logic, and coordinating communication between all major subsystems. Implemented on a **Raspberry Pi**, the PU bridges human interaction and system control, translating spoken commands into actionable instructions and managing the overall flow of gameplay.
+The **Processing Unit (PU)** functions as the central intelligence of the automated chessboard system, responsible for interpreting user input, executing game logic, and coordinating communication between all major subsystems. Implemented on a **Raspberry Pi 5**, the PU bridges human interaction and system control, translating spoken commands into actionable instructions and managing the overall flow of gameplay.
 
-Upon startup, the PU initializes all critical software components, including the **Vosk speech recognition engine** and the **Stockfish chess engine**, as well as the communication interfaces used to interact with peripheral devices. The PU receives voice input from a USB connected microphone, leveraging Vosk to convert speech into text based commands. These commands are then analyzed and validated by Stockfish to ensure compliance with chess rules before any move execution occurs.
+Upon startup, the PU initializes all critical software components, including the **Vosk speech recognition engine**, the **Stockfish chess engine**, and **Pychess**, as well as the communication interfaces used to interact with peripheral devices. The PU receives voice input from a USB connected microphone, leveraging Vosk to convert speech into text based commands. These commands are then analyzed and validated by PyChess to ensure compliance with chess rules before any move execution occurs. Lastly, the commands are sent to Stockfish in order to get an AI response if the game is currently single player.
 
 Once a move has been deemed valid, the PU transmits the corresponding instruction to the **Control Unit (CU)** over a **USART** or **I²C** connection, initiating the physical relocation of pieces on the board. In parallel, the PU updates the **display interface** (connected via **I²C** or **SPI**) to provide real-time feedback to the user, including board state, game status, and system notifications.
 
@@ -87,9 +87,82 @@ The **Processing Unit (PU)** shall act as the system’s central controller, imp
 
 ## Overview of Proposed Solution
 
-Describe the solution and how it will fulfill the specifications and constraints of this subsystem.
+
+The Processing Unit (PU) will be implemented on a **Raspberry Pi 5** and organized as a small set of cooperating, open-source Python processes that together satisfy the functional, performance, safety, accessibility, and cost constraints outlined in the specification. The design intentionally uses freely available software components to keep the PU affordable and reproducible for academic and community deployment while preserving repairability, license compliance, and reuse.
+
+### Software Architecture (Three Primary Processes)
+
+#### 1. Vosk (Speech Recognition)
+A dedicated Vosk process will consume the continuous USB microphone stream and perform on-device speech recognition. Vosk will be limited to a chess-specific grammar to improve accuracy and privacy, and raw audio will not be transmitted to external services. The system will only accept input after a configured wake word, supporting both privacy protection and reduction of false captures.
+
+The recognition pipeline is configured to:
+- Meet the **80% minimum accuracy requirement** under typical indoor conditions.
+- Recognize standard algebraic notation and natural language variants such as "Pawn to a5".
+- Avoid persistent storage of raw audio unless explicitly authorized and secured.
+
+#### 2. PyChess (Board & Move Validation)
+A PyChess-based process will:
+- Maintain the board state.
+- Validate moves.
+- Identify captures and determine how many physical moves the Control Unit (Arduino) must perform.
+
+This supports real-time responsiveness by ensuring that:
+- Move confirmations, error messages, and game-state updates appear on the display within **1 second**.
+- The system can detect multi-piece events (e.g., pawn capturing a knight) and generate appropriate follow-up commands.
+
+#### 3. Stockfish (AI / Single-Player Mode)
+Stockfish will run as a separate process to provide AI-generated moves for single-player games. These moves will be stored and formatted through the same pipeline used for human moves.
+
+#### Inter-Process Organization
+All major components will be implemented in **Python**, with small adapter modules transforming data to the formats required by each subsystem. Licenses for Vosk, Stockfish, the operating system, and all associated libraries will be documented to maintain compliance with open source usage requirements.
+
+### User Interface and Feedback
+
+The Raspberry Pi will:
+- Drive the LCD to display confirmations, errors, and listening indicators.
+- Present accessible feedback that adheres to Section 508 / WCAG-style guidance.
+
+Displayed text will:
+- Be at least **10 pt**, high-contrast, and readable under standard indoor lighting.
+- Support diverse speech patterns and accents to minimize recognition bias.
+
+### Inter-Subsystem Communication
+
+After move validation:
+- The Pi will format the command into a **2-byte message** for the Arduino Nano.
+- Additional move messages (e.g., required for captures) will be queued and transmitted immediately afterward.
+- Communication will use **USART**, with framing and signaling chosen to ensure reliable, deterministic timing compatible with Arduino.
+
+### Board State Persistence and Automatic Reset
+
+The PU will:
+- Store the full board state, tracking each piece’s current position.
+- Assign captured pieces to predefined “storage” locations along the board edge.
+- Use two prewritten instruction sequences to:
+  1. Move each piece to its designated off board captured location.
+  2. Move all pieces back onto the board in standard chess opening positions.
+
+This allows rapid reset and reduces manual repositioning effort.
+
+### Performance and Timing Guarantees
+
+The combined hardware and software system is designed so that:
+- A recognized voice command produces a validated move **within 5 seconds** of end of speech.
+- The display is updated **within 1 second** of move processing.
+
+The Raspberry Pi 5 and optimized software stack ensure sufficient processing overhead to meet these requirements.
+
+### Compliance, Privacy, and Socio-Economic Considerations
+
+This solution supports the specified project goals by:
+- Using on-device processing to protect privacy and minimize external data sharing.
+- Preventing unnecessary storage of raw audio.
+- Using affordable, open-source, reusable components to support cost-effective deployment and reduced e-waste.
+- Addressing accessibility and user equity through software design and testing.
+- Ensuring all safety, electrical, emissions, mechanical, and enclosure standards outlined elsewhere in the document are followed during construction of the final system.
 
 
+---
 ## Interface with Other Subsystems
 
 This section describes the inputs, outputs, and data exchanged between the Processing Unit (PU) and the other subsystems of the Automated Chess Board. The PU performs the system’s high level computation, such as move validation and speech interpretation, but it does not directly produce visible physical actions. Instead the PU relies on other units to execute those tasks. All power and signal interfaces will conform to the electrical and signaling constraints defined earlier in the Specifications and Constraints section.
@@ -113,7 +186,7 @@ The microphone connects to the PU via USB and supplies a continuous stream of di
 
 ### Control Unit Communication
 
-Communication between the Processing Unit and the Control Unit (Arduino Nano) is implemented over a dedicated UART serial link operating at 9600 bps [18]. The PU is the authoritative command source: after validating game moves, it transmits compact command packets to the Control Unit so that the CU can execute the corresponding physical actions. The Control Unit’s firmware continuously listens for incoming serial frames and converts received commands into motion and actuation sequences for piece manipulation. In some situations, such as captures, promotions, or other multi-step operations, the PU may issue multiple moves before switching to the other player's turn. The CU’s responsibility is limited to reliably executing the received commands rather than performing game rule validation. The CU will also send a confirmation back to the PU signaling that the unit has received and executed the current instruction and is ready for the next one. When transferring data between the Arduino Nano and Raspberry Pi, a logic level converter must be used between the Tx and Rx lines to ensure both devices operate at their required voltages. The Raspberry Pi 5 uses 3.3V logic on its UART pins, while the Arduino Nano expects 5V on its Rx line, making level shifting necessary to prevent damage and ensure reliable communication [19].
+Communication between the Processing Unit and the Control Unit (Arduino Nano) is implemented over a dedicated UART serial link operating at 9600 bps [18]. The PU is the authoritative command source: after validating game moves, it transmits compact command packets to the Control Unit so that the CU can execute the corresponding physical actions. The Control Unit’s firmware continuously listens for incoming serial frames and converts received commands into motion and actuation sequences for piece manipulation. In some situations, such as captures, promotions, or other multi-step operations, the PU may issue multiple moves before switching to the other player's turn. The CU’s responsibility is limited to reliably executing the received commands rather than performing game rule validation. The CU will also send a confirmation back to the PU signaling that the unit has received and executed the current instruction and is ready for the next one. When transferring data between the Arduino Nano and Raspberry Pi, a logic level converter must be used between the Tx and Rx lines to ensure both devices operate at their required voltages. The Raspberry Pi 5 uses 3.3V logic on its UART pins, while the Arduino Nano expects 5V on its Rx line, making level shifting necessary to prevent damage and ensure reliable communication [19]. The wiring for the communication between the logic level converter, Raspberry Pi, and Arduino will be included in the power subsystem.
 
 ---
 
@@ -123,12 +196,12 @@ Integrate a buildable electrical schematic directly into the document. If the di
 
 The schematic should be relevant to the design and provide ample details necessary for constructing the model. It must be comprehensive so that someone, with no prior knowledge of the design, can easily understand it. Each related component's value and measurement should be clearly mentioned.
 
-
+---
 ## Flowchart
 
 ![Flow_Diagram](PU_Flow_Diagram.png)
 
-
+---
 ## BOM
 
 Provide a comprehensive list of all necessary components along with their prices and the total cost of the subsystem. This information should be presented in a tabular format, complete with the manufacturer, part number, distributor, distributor part number, quantity, price, and purchasing website URL. If the component is included in your schematic diagram, ensure inclusion of the component name on the BOM (i.e R1, C45, U4).
@@ -138,7 +211,7 @@ mini usb cable
 leveler
 ribbon connector
 usb to usb
-
+---
 ## Analysis
 
 Deliver a full and relevant analysis of the design demonstrating that it should meet the constraints and accomplish the intended function. This analysis should be comprehensive and well articulated for persuasiveness.
