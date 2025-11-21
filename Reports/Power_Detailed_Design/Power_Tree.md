@@ -1,5 +1,5 @@
 
-### Power Tree Diagram (Textual Representation)
+### Power Tree Diagram
 
 
 
