@@ -65,7 +65,7 @@ In addition to supplying 5V logic power through the Processing Unit, the Power U
 
 ## Buildable Schematic 
 
-![Electrical Schematic](Buildable-Diagram-1.png)
+![Electrical Schematic](Buildable-Diagram.png)
 
 
 ## Flowchart
@@ -91,6 +91,9 @@ In addition to supplying 5V logic power through the Processing Unit, the Power U
 The Control Unit (CU) design emphasizes precise motion control, robust electrical safety, and reliable subsystem integration. Using an Arduino Nano as the central controller ensures sufficient computational ability to interpret binary chess move commands from the Raspberry Pi 5, as well as generate real-time microstepped signals for the TMC2209 stepper drivers [2][3]. The Nano’s 16 MHz clock and lightweight firmware architecture allow it to process incoming UART commands with a total response latency under 50ms, well within the performance requirements for responsive chessboard actuation. The use of 1/64 microstepping on the TMC2209 drivers provides positional resolution sufficient to achieve ±0.5mm alignment of the magnetic carriage, meeting the accuracy constraints for collision-free piece movement [3]. The integrated acceleration and deceleration profiles ensure smooth motion along the CoreXY axes, preventing overshoot or abrupt stops that could misalign pieces.
 
 The MOSFET-based electromagnet control circuit offers reliable actuation with minimal latency (<10 ms) while protecting the controller from inductive spikes via the included flyback diode. Separating the 5V logic supply from the MOSFET’s load supply ensures voltage stability and prevents switching noise from propagating into the Arduino or stepper drivers. Proper gate resistors and pulldown configuration further mitigate ringing and inadvertent activation, providing predictable and safe electromagnetic operation. With the MOSFET rated to handle the 400mA electromagnet current, plus a flyback diode capable of clamping voltage spikes, the design ensures long-term reliability and safety during repeated actuation cycles.
+
+![LTSpice](Electromagnet-Simulation.png)
+*Simulation uses representative inductance and series resistance to model the electromagnet, selected to yield expected load current (~0.4 A) under 5V switching. Actual component values will be measured and verified during hardware testing.*
 
 Thermal considerations are addressed through the use of SMT heatsinks on each TMC2209 driver. Passive thermal management is sufficient for expected duty cycles under 2A RMS motor currents, reducing the likelihood of driver thermal throttling while remaining compatible with UL 60950-1 and NFPA 70 insulation and clearance requirements [3][5][6]. The separation of 12V motor rails from the 5V logic domain minimizes electrical noise and adheres to grounding best practices, reducing the potential for signal interference or ground loops. Wiring and cable routing follow NEC Article 400 standards, ensuring mechanical protection and safe operation in an indoor environment.
 
