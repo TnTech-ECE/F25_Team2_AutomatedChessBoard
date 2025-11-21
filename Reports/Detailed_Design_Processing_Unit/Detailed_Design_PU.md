@@ -204,13 +204,42 @@ The schematic should be relevant to the design and provide ample details necessa
 ---
 ## BOM
 
-Provide a comprehensive list of all necessary components along with their prices and the total cost of the subsystem. This information should be presented in a tabular format, complete with the manufacturer, part number, distributor, distributor part number, quantity, price, and purchasing website URL. If the component is included in your schematic diagram, ensure inclusion of the component name on the BOM (i.e R1, C45, U4).
-Pi 5
-Os
-mini usb cable
-leveler
-ribbon connector
-usb to usb
+
+| Manufacturer | Part Number | Description | Distributor | Distributor Part Number | Qty | Price (USD) | Purchasing Website URL |
+|---|---|---|---|---|---|---|---|
+| Raspberry Pi Foundation | Raspberry Pi 5 – 4GB | Main processing unit (SBC) | PiShop | – | 1 | $60.00 | [Link](https://www.pishop.us/product/raspberry-pi-5-4gb/) |
+| SanDisk | SDSQUA4-064G-GN6MN | 32GB microSD card for OS and software | NeweggBusiness | 9SIV05Z4847772 | 1 | $8.49 | [Link](https://www.neweggbusiness.com/Product/Product.aspx?Item=9SIV05Z4847772) |
+| SparkFun | PRT-12009 | Bi-directional logic-level converter (for UART voltage shifting) | SparkFun | PRT-12009 | 1 | $4.50 | [Link](https://www.sparkfun.com/sparkfun-logic-level-converter-bi-directional.html) |
+| JXMOX | J-0015 | USB A to Mini-B cable (power/programming for Arduino Nano) | Amazon | - | 1 | $3.99 | [Link](https://www.amazon.com/JXMOX-Charging-Compatible-Controller-Receiver/dp/B09DCLRYH6?dib=eyJ2IjoiMSJ9.shJPkvHWsKPPj2XvYAPBmFnnyPjItfA-_DBuJ6Sv55w3bOPZ2JsfSsp1svM_hMMC4ps6bkf4GmmnyhiX4YUJ6DXnve7f2egeTd-b5ANAcMoeeG8NEqL7ZEsoVoUmsI-Xio6-hq1TecJdcfo0Jn4osGWjksLjPPB0i_EY-XzlVMgkNa2x20nuVZC48CWCNOO7NY8V3kQYCoMOCKmwjEBs0eh-f8CCnSIPeQhoTcJPQiw.BbzjciBEm3_HrsjeOPfDdKEYTxgYmWUN7pmCO2H8w68&dib_tag=se&keywords=Mini%2BUsb%2BTo%2BUsb%2BCable&qid=1763767607&sr=8-4&th=1) |
+| Adafruit | 2101 | 26-pin GPIO male to female extension for Raspberry Pi → LCD/SPI header routing | Adafruit | 2101 | 1 | $3.75 | [Link](https://www.adafruit.com/product/2101) |
+| Adafruit | 862 | 26- pin GPIO Ribbon Cable for Raspberry Pi | Adafruit | 862 | 1 | $2.95 | [Link](https://www.adafruit.com/product/862) |
+| ANDTOBO | 770523117560 | USB extension for microphone range | Amazon | – | 1 | $6.99 | [Link](https://tinyurl.com/zm7t2du8) |
+| **Total** | - | - | - | - | - | **$90.67** | - |
+### Component Justification
+#### Raspberry Pi 5 (4GB)
+
+The Raspberry Pi 5 serves as the main processing unit of the system. It provides the required CPU performance for running Vosk speech recognition, PyChess board logic, and Stockfish AI concurrently. It also offers modern power management compatibility with the power subsystem and supports Linux-based software development, meeting all performance, software, and timing constraints.
+
+#### SanDisk microSD Card (32GB)
+
+A microSD card is required to hold the Raspberry Pi OS, all installed software packages, speech models, and runtime logs. The 32GB capacity ensures sufficient space for all libraries, datasets, and system storage requirements.
+
+#### Logic Level Converter
+
+The Raspberry Pi 5 operates at 3.3V logic, while the Arduino Nano uses 5V logic. Direct UART communication would risk damage to the Pi without proper voltage shifting. The SparkFun bi-directional logic level converter enables safe, reliable voltage translation between the two systems, ensuring electrical compatibility and preventing UART damage.
+
+#### USB Mini-B Cable (Powering Arduino Nano)
+
+The Arduino Nano requires a Mini-B USB cable for power. This cable also simplifies integration by using a common, reversible interface without additional power supplies.
+
+#### 26-Pin Ribbon Cable and male to female extension (LCD Display Connection)
+
+The SPI-based LCD screen requires a flexible and organized connection to the Raspberry Pi GPIO header. The ribbon cable allows the screen to be cleanly mounted away from the Pi while maintaining correct pin routing and minimizing mechanical stress on the GPIO pins. The extension is needed because the ribbon cable is female to female and the LCD screen needs male to female.
+
+#### USB-A Extension Cable (Microphone Range)
+
+The microphone may need to be placed in a convenient location near the user while the Raspberry Pi remains mounted inside the board enclosure. A USB extension cable increases placement flexibility and helps ensure clear audio capture, improving recognition accuracy without relocating the entire system.
+
 ---
 ## Analysis
 
