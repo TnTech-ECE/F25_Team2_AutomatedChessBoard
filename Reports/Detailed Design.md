@@ -24,7 +24,7 @@ The Power Unit shall provide regulated 5V and 12V DC outputs to all subsystems, 
 
 ### Performance Specifications
 
-The Power Unit shall output a stable 5V DC rail at up to 3A for logic components (e.g., Raspberry Pi 5, Arduino Nano, display, microphone, and MOSFET load) and a 12V DC rail at up to 2A for motor drivers (TMC2209 modules) and stepper motors, ensuring voltage ripple below 5% under load [1][2]. Battery runtime shall exceed 2 hours at an average system draw of 10W, with automatic cutoff at 20% remaining capacity to prevent deep discharge. Charging shall occur via a standard Raspberry Pi wall adapter (5V/5A), achieving full recharge in under 4 hours while supporting pass-through operation. Sleep mode shall activate after 5 minutes of inactivity (detected via Processing Unit signal), reducing consumption by powering down non-essential rails. The UPS shall maintain system uptime during power interruptions of up to 10 seconds, with total switching latency under 20ms [3]. All outputs shall include overcurrent protection (fused at 5A for each branch) and overvoltage clamping to prevent damage to downstream components.
+The Power Unit shall output a stable 5V DC rail at up to 3A for logic components (e.g., Raspberry Pi 5, Arduino Nano, display, microphone, and MOSFET load) and a 12V DC rail at up to 2A for motor drivers (TMC2209 modules) and stepper motors, ensuring voltage ripple below 5% under load [1][2]. Battery runtime shall exceed 2 hours at an average system draw of 10W, with automatic cutoff at 20% remaining capacity to prevent deep discharge. Charging shall occur via a standard Raspberry Pi wall adapter (5V/5A), achieving full recharge in under 4 hours while supporting pass-through operation. Sleep mode shall activate after 5 minutes of inactivity (detected via Processing Unit signal), reducing consumption by powering down non-essential rails. The UPS shall maintain system uptime during power interruptions of up to 10 seconds, with total switching latency under 20ms [3]. All outputs shall include overcurrent protection (fused at 1.5 times the nominal current for each branch) and overvoltage clamping to prevent damage to downstream components.
 
 ### Electrical and Signal Standards Compliance
 
@@ -62,24 +62,40 @@ The 12V rail powers stepper motors through TMC2209 drivers, with current limited
 
 The microphone (USB) and display (I2C/5V) draw from the Pi's 5V USB/GPIO, indirectly from the UPS. Total draw: <500mA.
 
+## 3D Model of Custom Mechanical Components
+
+No custom mechanical components are required for the Power Unit beyond standard mounting brackets for the UPS HAT (provided by DFRobot). The batteries are housed in the UPS's built-in holders.
 
 ## Buildable Schematic
 
 Below is a buildable electrical schematic for the Power Unit, divided into sections for clarity. All components are labeled with values, voltages, and connection types. The schematic assumes standard wiring practices (e.g., twisted pairs for noise reduction) and includes protection elements.
 
 ### Section 1: AC Input and Charging
+
 - Wall Charger (5V/5A) → Pi Switch (toggle input) → UPS USB-C Input (charging port).
+
 - Notes: Use 18 AWG USB-C cable, fused at 5A. Voltage: 5V DC.
 
 ### Section 2: Battery and UPS Core
+
 - 4x JESSPOW 18650 Batteries (3.7V/3300mAh each): Configured for ~5V nominal output, boosted to 5V by UPS.
+
 - UPS HAT (FIT0992): Integrates boost converter, charging IC (e.g., TP5100), and I2C interface.
-- Protection: 5A inline fuse on 5V output branches.
+
+- Protection: Inline fuses on all output branches at 1.5x nominal current.
+
 - Notes: Battery holders soldered per UPS wiki [3]. Ground tied at single point.
 
 ### Section 3: Output Distribution
-- 5V Rail: To Pi (pins) via inline fuse 5A, USB mini-B (Arduino) via inline fuse 5A, screw terminal (MOSFET load) via inline fuse 5A.
-- 12V Rail: Step-up module (e.g., MT3608, input 5V from UPS, output 12V/2A) → Screw terminals for TMC2209 drivers.
+
+- 5V Rail: To Pi (pins) via inline fuse 5A (1.5x 3A nominal), USB mini-B (Arduino) via inline fuse 1A (1.5x 0.5A nominal), screw terminal (MOSFET load) via inline fuse 1A (1.5x 0.4A nominal).
+
+- From MOSFET to Electromagnet: via inline fuse 1A (1.5x 0.4A nominal).
+
+- 12V Rail: Step-up module (e.g., MT3608, input 5V from UPS, output 12V/2A) → Inline fuse 3A to TMC2209 driver 1 (1.5x 2A nominal per driver), inline fuse 3A to TMC2209 driver 2.
+
+- From each TMC2209 driver to motor: (fuses between controllers and motors as per spec, but since stepper outputs are phased, fuses on 12V input to drivers serve this purpose; additional output fuses not implemented to avoid interference with motor drive signals).
+
 - Notes: All outputs fused; Dimensions: UPS HAT 65x56mm.
 
 Full schematic (textual representation for readability; in practice, use KiCad/Altium for visual):
@@ -89,17 +105,20 @@ Full schematic (textual representation for readability; in practice, use KiCad/A
                                            | (Charging Path)
                                            v
 [Batteries: 4x 18650 3.7V 3300mAh] -- [UPS Boost/Charge IC] -- [5V Output Rail] --[Inline Fuse 5A]-- [To Pi Pins]
-                                                                 --[Inline Fuse 5A]-- [USB mini-B (Arduino)]
-                                                                 --[Inline Fuse 5A]-- [MOSFET Terminal]
+                                                                 --[Inline Fuse 1A]-- [USB mini-B (Arduino)]
+                                                                 --[Inline Fuse 1A]-- [MOSFET Terminal] --[Inline Fuse 1A]-- [Electromagnet]
                                                                  |
                                                                  | (Step-Up)
                                                                  v
-[MT3608 Step-Up Converter] -- [12V Output Rail] -- [To TMC2209 Drivers x2]
+[MT3608 Step-Up Converter] -- [12V Output Rail] --[Inline Fuse 3A]-- [TMC2209 Driver 1] -- [Stepper Motor 1]
+                                                 --[Inline Fuse 3A]-- [TMC2209 Driver 2] -- [Stepper Motor 2]
 [Sleep GPIO (Pi Pin 17)] -- [UPS I2C Sleep Control]
 [Ground Plane: Single Point Tie]
 ```
 
+## Printed Circuit Board Layout
 
+No custom PCB is required; the solution uses the off-the-shelf DFRobot UPS HAT PCB (65x56mm) with through-hole additions for step-up and fuses. Layout follows UPS wiki Gerber files [3], with added traces for 12V distribution (min 2mm width for 2A). Ensure 1mm clearance for low-voltage isolation per UL 60950-1 [5].
 
 ## Flowchart
 
@@ -110,21 +129,23 @@ Start → Monitor Activity (Pi GPIO) → Inactive >5min? → Yes: Send Sleep Cmd
 No: Continue Normal Operation → Check Battery Level (I2C Read) → <20%? → Alert Pi → Loop.
 
 ## BOM
-
 | Manufacturer | Part Number | Distributor | Distributor Part Number | Quantity | Price | Purchasing Website URL | Component Name |
 |--------------|-------------|-------------|-------------------------|----------|--------|-------------------------|----------------|
 | DFRobot | FIT0992 | DFRobot | FIT0992 | 1 | $53.00 | [Link](https://www.dfrobot.com/product-2840.html) | UPS HAT |
 | Raspberry Pi | SC0510 | Raspberry Pi | SC0510 | 1 | $15.00 | [Link](https://www.raspberrypi.com/products/27w-power-supply/) | Wall Charger (5V/5A) |
 | JESSPOW | N/A (3.7V Rechargeable) | Amazon | B0DBDFNJ9C | 4 | $22.49 (pack of 4) | [Link](https://www.amazon.com/JESSPOW-Rechargeable-Batteries-Battery-Flashlights/dp/B0DBDFNJ9C) | Batteries (18650 3.7V) |
-| CanaKit | N/A | CanaKit | N/A | 1 | $9.99 | [Link](https://www.canakit.com/canakit-usb-c-pd-piswitch-for-raspberry-pi-5.html) | Pi Switch |
-| Generic | MT3608 | Amazon | B0CFL7RY2D | 1 | $2.50 | [Link](https://www.amazon.com/MT3608-Converter-Adjustable-Voltage-Regulator/dp/B0CFL7RY2D) | MT3608 Step-Up (for 12V) |
-| MPD (Memory Protection Devices) | BF351 | Digi-Key | BF351-ND | 3 | $6.60 | [Link](https://www.digikey.com/en/products/detail/mpd-memory-protection-devices/BF351/8119221) | Inline Fuse Holder |
-| Littelfuse | 0ATO005.V | Digi-Key | F2503-ND | 3 | $3.60 | [Link](https://www.digikey.com/en/products/detail/littelfuse-inc/0ATO005-V/2519130) | Fuse 5A |
-| **Total** |   |   |   |   | $113.18 |   |   |
+| CanaKit | N/A | CanaKit | N/A | 1 | $12.95 | [Link](https://www.canakit.com/canakit-usb-c-pd-piswitch-for-raspberry-pi-5.html) | Pi Switch |
+| Generic | MT3608 | Amazon | B0CFL7RY2D | 1 | $6.99 | [Link](https://www.amazon.com/MT3608-Converter-Adjustable-Voltage-Regulator/dp/B0CFL7RY2D) | MT3608 Step-Up (for 12V) |
+| MPD (Memory Protection Devices) | BF351 | Digi-Key | BF351-ND | 6 | $25.32 | [Link](https://www.digikey.com/en/products/detail/mpd-memory-protection-devices/BF351/8119221) | Inline Fuse Holder |
+| Littelfuse | 0312005.HXP | Digi-Key | F2394-ND | 1 | $0.52 | [Link](https://www.digikey.com/en/products/detail/littelfuse-inc/0312005-HXP/667936) | Fuse 5A (5V Pi Branch) |
+| Littelfuse | 0312003.HXP | Digi-Key | F2392-ND | 2 | $1.04 | [Link](https://www.digikey.com/en/products/detail/littelfuse-inc/0312003-HXP/667934) | Fuse 3A (12V Driver Branches) |
+| Littelfuse | 0312001.HXP | Digi-Key | F2390-ND | 3 | $1.38 | [Link](https://www.digikey.com/en/products/detail/littelfuse-inc/0312001-HXP/667932) | Fuse 1A (5V Arduino, MOSFET Branch, MOSFET to Electromagnet) |
+| Adafruit | 5755 | Adafruit | 5755 | 1 | $1.50 | [Link](https://www.adafruit.com/product/5755) | JST SH Compatible 1mm Pitch 3 Pin to Premium Male Headers Cable |
+| **Total** |   |   |   |   | $140.19 |   |   |
 
 ## Analysis
 
-The proposed Power Unit design meets all specifications through careful component selection and integration. The DFRobot UPS HAT provides seamless failover, with 18650 batteries offering ~48.84Wh capacity (4x3.7V*3.3Ah), supporting >2 hours at 10W draw (runtime = Wh / W ≈ 4.88 hours theoretical, but >2 hours with efficiency and sleep mode) [16]. Voltage regulation (ripple <5%) is ensured by UPS IC, complying with UL 2054 thermal/overcharge protections [7]. The 12V step-up handles 2A for TMC2209 drivers (max 2A RMS per datasheet [2]), isolating motor noise from 5V logic. Ethical sustainability is addressed via recyclable Li-ion (vs. NiMH lower capacity), and cost ($113.18) fits budget. Safety analysis: Inline fuses prevent overcurrent on each branch; single-ground avoids loops per OSHA [8]. Thermal modeling (assuming 25°C ambient) keeps surfaces <40°C, per UL 94 [10]. This design reliably powers the MOSFET (5V load) and drivers, ensuring collision-free moves and 5-second execution by maintaining stable supply during actuation.
+The proposed Power Unit design meets all specifications through careful component selection and integration. The DFRobot UPS HAT provides seamless failover, with 18650 batteries offering ~48.84Wh capacity (4x3.7V*3.3Ah), supporting >2 hours at 10W draw (runtime = Wh / W ≈ 4.88 hours theoretical, but >2 hours with efficiency and sleep mode) [16]. Voltage regulation (ripple <5%) is ensured by UPS IC, complying with UL 2054 thermal/overcharge protections [7]. The 12V step-up handles 2A for TMC2209 drivers (max 2A RMS per datasheet [2]), isolating motor noise from 5V logic. Ethical sustainability is addressed via recyclable Li-ion (vs. NiMH lower capacity), and cost ($138.69) fits budget. Safety analysis: Inline fuses rated at 1.5x nominal current prevent overcurrent on each branch (5A for 3A Pi, 1A for 0.5A Arduino and 0.4A MOSFET/electromagnet, 3A for 2A drivers); single-ground avoids loops per OSHA [8]. Thermal modeling (assuming 25°C ambient) keeps surfaces <40°C, per UL 94 [10]. This design reliably powers the MOSFET (5V load) and drivers, ensuring collision-free moves and 5-second execution by maintaining stable supply during actuation.
 
 ## References
 
