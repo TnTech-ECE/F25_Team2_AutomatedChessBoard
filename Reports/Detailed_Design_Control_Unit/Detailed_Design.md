@@ -50,9 +50,9 @@ The Processing Unit also provides regulated 5V DC logic power to the Control Uni
 
 ### CoreXY Interface
 
-The Control Unit commands the CoreXY mechanism through two TMC2209 stepper driver modules, generating synchronized STEP and DIR signals for independent control of the X and Y motion axes [3]. The two stepper motors are integrated components of the CoreXY mechanical subsystem, and the Control Unit interfaces with them only through the stepper drivers. The firmware implements edge-prioritized movement logic to ensure consistent and collision-free piece translation: each chess piece first moves from the center of its square to the nearest edge in the direction of travel, proceeds along the grid edge (or along both edges in a zigzag path for diagonal moves), and finally returns to the center of the target square.
+The Control Unit commands the CoreXY mechanism through two TMC2209 stepper driver modules, generating synchronized STEP and DIR signals for independent control of the X and Y motion axes [3]. The two stepper motors are integrated components of the CoreXY mechanical subsystem, and the Control Unit interfaces with them only through the stepper drivers. The firmware implements edge-prioritized movement logic to ensure consistent and collision-free piece translation: each chess piece first moves from the center of its square to the nearest edge in the direction of travel, proceeds along the grid edge (or along both edges in a zigzag path for diagonal moves), and finally returns to the center of the target square. This motion pattern minimizes interference with adjacent pieces while maintaining accurate board alignment. The Control Unit may further use any standard Arduino stepper-control library, compatible with STEP/DIR operation of the TMC2209 drivers. Available options include AccelStepper [12], FastAccelStepper [13], TMCStepper [14], and the "TMC2209" [15] library. These libraries provide varying levels of motion-control capability and may be selected as required during implementation.
 
-This motion pattern minimizes interference with adjacent pieces while maintaining accurate board alignment. The Control Unit also interfaces with an N-channel enhancement-mode MOSFET circuit that switches the electromagnet on and off. The Arduino’s digital output pin provides a 5V logic signal to the MOSFET gate, energizing the magnet only when a pickup or release operation is required. The electromagnet connects via a Grove-compatible 5V output port, simplifying integration and cable management within the CoreXY carriage assembly. The electromagnet’s 5V supply shall originate from a dedicated Power Unit 5V rail rather than the Arduino’s logic supply, ensuring adequate current delivery and preventing noise coupling into the logic subsystem.
+The Control Unit also interfaces with an N-channel enhancement-mode MOSFET circuit that switches the electromagnet on and off. The Arduino’s digital output pin provides a 5V logic signal to the MOSFET gate, energizing the magnet only when a pickup or release operation is required. The electromagnet connects via a Grove-compatible 5V output port, simplifying integration and cable management within the CoreXY carriage assembly. The electromagnet’s 5V supply shall originate from a dedicated Power Unit 5V rail rather than the Arduino’s logic supply, ensuring adequate current delivery and preventing noise coupling into the logic subsystem.
 
 The stepper drivers and and electromagnet share a common logic ground with the Arduino Nano. Proper current limiting and isolation between logic and load paths are maintained per UL 60950-1 and NEC Article 400 [5][6].
 
@@ -123,3 +123,11 @@ On the whole, this analysis demonstrates that the Control Unit design fulfills i
 [10] Underwriters Laboratories, UL 94: Standard for Safety of Flammability of Plastic Materials for Parts in Devices and Appliances, 5th ed., Northbrook, IL: UL, 2024.
 
 [11] U.S. Consumer Product Safety Commission, “Maximum acceptable surface temperatures,” Code of Federal Regulations, Title 16, Part 1505.7. [Online]. Available: https://www.law.cornell.edu/cfr/text/16/1505.7
+
+[12] Airspayce. AccelStepper Arduino Library. Available: https://www.airspayce.com/mikem/arduino/AccelStepper/
+
+[13] gin66. FastAccelStepper Library (Arduino). Available: https://github.com/gin66/FastAccelStepper
+
+[14] teemuatlut. TMCStepper: Trinamic Stepper Driver Library for Arduino. Available: https://github.com/teemuatlut/TMCStepper
+
+[15] Janelia Research Campus. TMC2209 Arduino Library. Available: https://github.com/janelia-arduino/TMC2209
