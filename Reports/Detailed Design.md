@@ -129,6 +129,7 @@ Start → Monitor Activity (Pi GPIO) → Inactive >5min? → Yes: Send Sleep Cmd
 No: Continue Normal Operation → Check Battery Level (I2C Read) → <20%? → Alert Pi → Loop.
 
 ## BOM
+
 | Manufacturer | Part Number | Distributor | Distributor Part Number | Quantity | Price | Purchasing Website URL | Component Name |
 |--------------|-------------|-------------|-------------------------|----------|--------|-------------------------|----------------|
 | DFRobot | FIT0992 | DFRobot | FIT0992 | 1 | $53.00 | [Link](https://www.dfrobot.com/product-2840.html) | UPS HAT |
@@ -141,7 +142,8 @@ No: Continue Normal Operation → Check Battery Level (I2C Read) → <20%? → A
 | Littelfuse | 0312003.HXP | Digi-Key | F2392-ND | 2 | $1.04 | [Link](https://www.digikey.com/en/products/detail/littelfuse-inc/0312003-HXP/667934) | Fuse 3A (12V Driver Branches) |
 | Littelfuse | 0312001.HXP | Digi-Key | F2390-ND | 3 | $1.38 | [Link](https://www.digikey.com/en/products/detail/littelfuse-inc/0312001-HXP/667932) | Fuse 1A (5V Arduino, MOSFET Branch, MOSFET to Electromagnet) |
 | Adafruit | 5755 | Adafruit | 5755 | 1 | $1.50 | [Link](https://www.adafruit.com/product/5755) | JST SH Compatible 1mm Pitch 3 Pin to Premium Male Headers Cable |
-| **Total** |   |   |   |   | $140.19 |   |   |
+| California JOS | B0BRTHR2RL | Amazon | B0BRTHR2RL | 1 | $3.99 | [Link](https://www.amazon.com/California-JOS-Breadboard-Optional-Multicolored/dp/B0BRTHR2RL?crid=U5O7317C3PCR&sprefix=8%2Bfemale%2Bto%2Bmale%2Bjumper%2Bwires%2Caps%2C169&sr=8-3&th=1) | Jumper Wires (Female to Male, 8 inch, 40 PCS) |
+| **Total** |   |   |   |   | $144.18 |   |   |
 
 ## Analysis
 
