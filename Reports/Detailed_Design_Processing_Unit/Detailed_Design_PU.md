@@ -199,7 +199,7 @@ The schematic should be relevant to the design and provide ample details necessa
 ---
 ## Flowchart
 
-![Flow_Diagram](PU_Flow_Diagram.png)
+![Flow_Diagram](PU_Flow_Diagram2.png)
 
 ---
 ## BOM
