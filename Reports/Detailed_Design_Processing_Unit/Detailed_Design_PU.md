@@ -28,11 +28,11 @@ The document should include:
 
 ## Function of the Subsystem
 
-The **Processing Unit (PU)** functions as the central intelligence of the automated chessboard system, responsible for interpreting user input, executing game logic, and coordinating communication between all major subsystems. Implemented on a **Raspberry Pi 5**, the PU bridges human interaction and system control, translating spoken commands into actionable instructions and managing the overall flow of gameplay.
+The Processing Unit (PU) functions as the central intelligence of the automated chessboard system, responsible for interpreting user input, executing game logic, and coordinating communication between all major subsystems. Implemented on a Raspberry Pi 5, the PU bridges human interaction and system control, translating spoken commands into actionable instructions and managing the overall flow of gameplay.
 
 Upon startup, the PU initializes all critical software components, including the **Vosk speech recognition engine**, the **Stockfish chess engine**, and **Pychess**, as well as the communication interfaces used to interact with peripheral devices. The PU receives voice input from a USB connected microphone, leveraging Vosk to convert speech into text based commands. These commands are then analyzed and validated by PyChess to ensure compliance with chess rules before any move execution occurs. Lastly, the commands are sent to Stockfish in order to get an AI response if the game is currently single player.
 
-Once a move has been deemed valid, the PU transmits the corresponding instruction to the **Control Unit (CU)** over a **USART** or **I²C** connection, initiating the physical relocation of pieces on the board. In parallel, the PU updates the **display interface** (connected via **I²C** or **SPI**) to provide real-time feedback to the user, including board state, game status, and system notifications.
+Once a move has been deemed valid, the PU transmits the corresponding instruction to the Control Unit (CU) over a USART or I²C connection, initiating the physical relocation of pieces on the board. In parallel, the PU updates the display interface (connected via I²C or SPI) to provide real-time feedback to the user, including board state, game status, and system notifications.
 
 Throughout gameplay, the PU maintains the internal representation of the chessboard, tracks both player and AI turns, and manages synchronization between speech input, motion execution, and display updates. Acting as the coordination hub of the system, the Processing Unit ensures that all subsystems operate harmoniously, maintaining a seamless and interactive chess experience from command recognition to move completion.
 
@@ -40,36 +40,36 @@ Throughout gameplay, the PU maintains the internal representation of the chessbo
 
 ## Specifications and Constraints
 
-The **Processing Unit (PU)** shall act as the system’s central controller, implemented on a **Raspberry Pi**, and shall perform speech recognition, board-state management, move validation, and peripheral communication. The PU shall accept voice input from a USB microphone, interpret commands with the Vosk engine, validate moves using the Stockfish engine, forward validated commands to the Control Unit (Arduino) by a serial protocol (USART or I²C), and update the display with real-time feedback. All design decisions and operational limits shall comply with applicable U.S. electrical, safety, accessibility, and consumer product standards.
+The **Processing Unit (PU)** shall act as the system’s central controller, implemented on a Raspberry Pi, and shall perform speech recognition, board-state management, move validation, and peripheral communication. The PU shall accept voice input from a USB microphone, interpret commands with the Vosk engine, validate moves using the Stockfish engine, forward validated commands to the Control Unit (Arduino) by a serial protocol (USART or I²C), and update the display with real-time feedback. All design decisions and operational limits shall comply with applicable U.S. electrical, safety, accessibility, and consumer product standards.
 
 ---
 
 ### Performance Specifications
 
-* **Voice capture & processing:** The PU shall accept vocal input from the USB microphone and process it using **Vosk**. The PU shall only listen after a configured wake word is detected (to protect privacy and reduce false captures).
-* **Recognition accuracy & notation support:** The on-device speech recognition pipeline shall achieve a **minimum accuracy of 80%** for command recognition in typical indoor acoustic conditions, and it shall recognize algebraic chess notation and common natural-language variants (e.g., “Knight to e5”, “Bishop a4”).
+* **Voice capture & processing:** The PU shall accept vocal input from the USB microphone and process it using Vosk. The PU shall only listen after a configured wake word is detected (to protect privacy and reduce false captures).
+* **Recognition accuracy & notation support:** The on-device speech recognition pipeline shall achieve a minimum accuracy of 80% for command recognition in typical indoor acoustic conditions, and it shall recognize algebraic chess notation and common natural-language variants (e.g., “Knight to e5”, “Bishop a4”).
 * **Processing latency:** Recognized commands shall be processed and a validated move determined **within 5 seconds** of button release or the end of voice input.
-* **Display responsiveness & legibility:** Move confirmations, illegal-move alerts, and game-status updates produced by the PU shall appear on the display **within 1 second** of command processing. Displayed characters shall be **≥ 10 pt** and support high-contrast text/graphics for visibility under standard indoor lighting.
-* **Inter-subsystem communication:** The PU shall transmit validated move commands to the Control Unit via **USART or I²C**, using signal rates and framing that ensure reliable transfer and deterministic command execution (protocol selection shall ensure electrical and timing compatibility with the receiving Arduino).
+* **Display responsiveness & legibility:** Move confirmations, illegal-move alerts, and game-status updates produced by the PU shall appear on the display within 1 second of command processing. Displayed characters shall be ≥ 10 pt and support high-contrast text/graphics for visibility under standard indoor lighting.
+* **Inter-subsystem communication:** The PU shall transmit validated move commands to the Control Unit via USART or I²C, using signal rates and framing that ensure reliable transfer and deterministic command execution (protocol selection shall ensure electrical and timing compatibility with the receiving Arduino).
 
 ---
 
 ### Electrical and Signal Standards Compliance
 
-* **EMI / Emissions:** The Processing Unit shall comply with **FCC Part 15 Subpart B (Class B)** limits for conducted and radiated emissions (conducted: ~0.15–30 MHz at 66–56 dBµV decreasing with frequency; radiated: ~30–1000 MHz at 40–54 dBµV/m at 3 m) to avoid interference with consumer electronics. [1]
-* **Low-voltage operation:** The PU shall operate below **50 V DC** in accordance with UL low-voltage safety thresholds. Voltage choices and wiring practices shall avoid requirements for high-voltage insulation. [2]
-* **Wiring & circuit practice:** The PU’s wiring and low-voltage circuits shall follow **NEC / NFPA 70** guidance (Article 725 where applicable), providing protection against overcurrent, correct conductor sizing, and insulation rated for the circuit’s voltage. [3]
+* **EMI / Emissions:** The Processing Unit shall comply with FCC Part 15 Subpart B (Class B) limits for conducted and radiated emissions (conducted: ~0.15–30 MHz at 66–56 dBµV decreasing with frequency; radiated: ~30–1000 MHz at 40–54 dBµV/m at 3 m) to avoid interference with consumer electronics. [1]
+* **Low-voltage operation:** The PU shall operate below 50 V DC in accordance with UL low-voltage safety thresholds. Voltage choices and wiring practices shall avoid requirements for high-voltage insulation. [2]
+* **Wiring & circuit practice:** The PU’s wiring and low-voltage circuits shall follow NEC / NFPA 70 guidance (Article 725 where applicable), providing protection against overcurrent, correct conductor sizing, and insulation rated for the circuit’s voltage. [3]
 * **Materials & consumer safety:** Components and assemblies used by the PU shall avoid materials and configurations that violate **CPSC** guidance and shall use parts with documented compliance where required. [4]
-* **Cabling & connectors:** All cord sets, flexible cables, and connectors serving the PU shall meet **NEC Article 400** requirements for insulation, temperature rating, minimum bend radius, grounding continuity, and secure routing to avoid mechanical damage or tripping hazards. [5]
+* **Cabling & connectors:** All cord sets, flexible cables, and connectors serving the PU shall meet NEC Article 400 requirements for insulation, temperature rating, minimum bend radius, grounding continuity, and secure routing to avoid mechanical damage or tripping hazards. [5]
 * **Grounding & protection:** Grounding, bonding, and circuit-level protections for the PU shall follow **OSHA 29 CFR 1910 Subpart S** to minimize electric-shock hazards; exposed conductive parts shall be appropriately bonded and protected. [6]
-* **Safety labeling:** User-facing enclosures, ports, and power interfaces associated with the PU shall carry **ANSI Z535.4**-compliant safety labels where hazards exist (power indicators, service access, etc.). [7]
+* **Safety labeling:** User-facing enclosures, ports, and power interfaces associated with the PU shall carry ANSI Z535.4-compliant safety labels where hazards exist (power indicators, service access, etc.). [7]
 
 ---
 
 ### Environmental and Safety Constraints
 
-* **Surface temperature:** External surfaces of PU enclosures shall remain ≤ **104 °F (40 °C)** during continuous operation to prevent burns or material degradation, consistent with **UL 94** flammability guidance and **CPSC 16 CFR 1505.7** thermal limits. [8][9]
-* **Operating environment:** The PU shall be rated for typical indoor educational/desktop environments (ambient **0–40 °C / 32–104 °F** and non-condensing humidity ranges typical for consumer electronics) so that the Raspberry Pi and attached peripherals operate reliably.
+* **Surface temperature:** External surfaces of PU enclosures shall remain ≤ 104 °F (40 °C) during continuous operation to prevent burns or material degradation, consistent with **UL 94** flammability guidance and CPSC 16 CFR 1505.7 thermal limits. [8][9]
+* **Operating environment:** The PU shall be rated for typical indoor educational/desktop environments (ambient 0–40 °C / 32–104 °F and non-condensing humidity ranges typical for consumer electronics) so that the Raspberry Pi and attached peripherals operate reliably.
 * **Mechanical routing & strain relief:** Cabling for the microphone, display, and interconnects shall be routed and secured to avoid pinch points, sharp edges, and accidental disconnection. Cable management shall preserve minimum bend radii and use strain reliefs where appropriate per NEC guidance. [5][8]
 * **Component selection & enclosures:** Enclosure materials and construction shall meet consumer product safety expectations (no sharp edges, secure fastenings), and service access shall minimize risk of accidental contact with live circuitry.
 
@@ -77,7 +77,7 @@ The **Processing Unit (PU)** shall act as the system’s central controller, imp
 
 ### Ethical, Accessibility, and Socio-Economic Considerations
 
-* **Privacy by design:** The PU shall prioritize **on-device** processing of voice input so that raw audio is not transmitted to external services; persistent storage of raw audio shall be avoided unless explicitly consented to and secured. This reduces privacy risk from inadvertent capture of unrelated conversations.
+* **Privacy by design:** The PU shall prioritize on-device processing of voice input so that raw audio is not transmitted to external services; persistent storage of raw audio shall be avoided unless explicitly consented to and secured. This reduces privacy risk from inadvertent capture of unrelated conversations.
 * **Accessibility & inclusion:** User interfaces and feedback produced by the PU (voice prompts, text displays) shall conform to accessibility principles (Section 508 / WCAG guidance cited in project standards) and be tested across diverse accents and speech patterns to reduce recognition bias and support equitable use. [10][11]
 * **Intellectual property & licensing:** The PU’s software stack (Vosk, Stockfish, OS, libraries) shall retain proper attribution and license compliance; open-source components shall be used and documented with their licenses to avoid IP infringement.
 * **Educational accessibility & sustainability:** Component selection and cost decisions for the PU shall favor affordability and reproducibility for academic or community deployment, and the design shall facilitate repairability and reuse to reduce e-waste.
@@ -88,7 +88,7 @@ The **Processing Unit (PU)** shall act as the system’s central controller, imp
 ## Overview of Proposed Solution
 
 
-The Processing Unit (PU) will be implemented on a **Raspberry Pi 5** and organized as a small set of cooperating, open-source Python processes that together satisfy the functional, performance, safety, accessibility, and cost constraints outlined in the specification. The design intentionally uses freely available software components to keep the PU affordable and reproducible for academic and community deployment while preserving repairability, license compliance, and reuse.
+The Processing Unit (PU) will be implemented on a Raspberry Pi 5 and organized as a small set of cooperating, open-source Python processes that together satisfy the functional, performance, safety, accessibility, and cost constraints outlined in the specification. The design intentionally uses freely available software components to keep the PU affordable and reproducible for academic and community deployment while preserving repairability, license compliance, and reuse.
 
 ### Software Architecture (Three Primary Processes)
 
@@ -96,7 +96,7 @@ The Processing Unit (PU) will be implemented on a **Raspberry Pi 5** and organiz
 A dedicated Vosk process will consume the continuous USB microphone stream and perform on-device speech recognition. Vosk will be limited to a chess-specific grammar to improve accuracy and privacy, and raw audio will not be transmitted to external services. The system will only accept input after a configured wake word, supporting both privacy protection and reduction of false captures.
 
 The recognition pipeline is configured to:
-- Meet the **80% minimum accuracy requirement** under typical indoor conditions.
+- Meet the 80% minimum accuracy requirement under typical indoor conditions.
 - Recognize standard algebraic notation and natural language variants such as "Pawn to a5".
 - Avoid persistent storage of raw audio unless explicitly authorized and secured.
 
@@ -107,14 +107,14 @@ A PyChess-based process will:
 - Identify captures and determine how many physical moves the Control Unit (Arduino) must perform.
 
 This supports real-time responsiveness by ensuring that:
-- Move confirmations, error messages, and game-state updates appear on the display within **1 second**.
+- Move confirmations, error messages, and game-state updates appear on the display within 1 second.
 - The system can detect multi-piece events (e.g., pawn capturing a knight) and generate appropriate follow-up commands.
 
 #### 3. Stockfish (AI / Single-Player Mode)
 Stockfish will run as a separate process to provide AI-generated moves for single-player games. These moves will be stored and formatted through the same pipeline used for human moves.
 
 #### Inter-Process Organization
-All major components will be implemented in **Python**, with small adapter modules transforming data to the formats required by each subsystem. Licenses for Vosk, Stockfish, the operating system, and all associated libraries will be documented to maintain compliance with open source usage requirements.
+All major components will be implemented in Python, with small adapter modules transforming data to the formats required by each subsystem. Licenses for Vosk, Stockfish, the operating system, and all associated libraries will be documented to maintain compliance with open source usage requirements.
 
 ### User Interface and Feedback
 
@@ -123,7 +123,7 @@ The Raspberry Pi will:
 - Present accessible feedback that adheres to Section 508 / WCAG-style guidance.
 
 Displayed text will:
-- Be at least **10 pt**, high-contrast, and readable under standard indoor lighting.
+- Be at least 10 pt, high-contrast, and readable under standard indoor lighting.
 - Support diverse speech patterns and accents to minimize recognition bias.
 
 ### Inter-Subsystem Communication
@@ -144,14 +144,6 @@ The PU will:
 
 This allows rapid reset and reduces manual repositioning effort.
 
-### Performance and Timing Guarantees
-
-The combined hardware and software system is designed so that:
-- A recognized voice command produces a validated move **within 5 seconds** of end of speech.
-- The display is updated **within 1 second** of move processing.
-
-The Raspberry Pi 5 and optimized software stack ensure sufficient processing overhead to meet these requirements.
-
 ### Electrical and Thermal Considerations
 Because the Raspberry Pi 5 will perform continuous audio processing, it requires active cooling to prevent thermal throttling and maintain safe surface temperatures. The official Raspberry Pi Active Cooler mounts directly to the board and provides sufficient airflow to keep the enclosure below **40 °C (104 °F)**, consistent with consumer electronics safety guidance. The Processing Unit operates entirely at **≤5 V DC**, well within low-voltage safety limits, and its wiring and connectors follow standard consumer electronics practices to ensure electrical safety, proper insulation, and compliance with typical indoor operating conditions (0–40 °C, non-condensing humidity).
 
@@ -171,7 +163,7 @@ This section describes the inputs, outputs, and data exchanged between the Proce
 
 ### Incoming and Outgoing Power
 
-The PU’s primary power source is the Battery Management System (BMS), which provides a regulated 5 V supply capable of delivering the required current for normal operation; this supply remains available when the board is operating from battery power alone and is intended to sustain at least one full game session [12]. The PU also functions as a distribution point for peripheral power: the microphone receives power from the PU’s USB port, which also serves as its data interface [13]; the LCD display is supplied from the Pi’s 5 V power rail [14]; and the Control Unit (Arduino Nano) is powered via a USB connection to mini USB from the PU. These power relationships centralize voltage regulation and grounding through the PU to simplify cabling and ensure consistent operating voltages across subsystems.
+The PU’s primary power source is the Battery Management System (BMS), which provides a regulated 5 V supply capable of delivering the required current for normal operation; this supply remains available when the board is operating from battery power alone and is intended to sustain at least one full game session [12]. The PU also functions as a distribution point for peripheral power: the microphone receives power from the PU’s USB port, which also serves as its data interface [13]; the LCD display is supplied from the Pi’s 5 V power rail [14]; and the Control Unit (Arduino Nano) is powered via a USB connection to mini USB from the PU. These power relationships centralize voltage regulation and grounding through the PU to simplify cabling and ensure consistent operating voltages across subsystems. The logic level converter will be powered using the battery management system unit 5V rail as well as a 3.3V buck converter (included in power unit BOM) which will convert the 5V rail into 3.3V so that the HV port can be powered 5V and the LV port can be powered 3.3V.
 
 ### Peripherals Communications
 
@@ -250,6 +242,18 @@ The Raspberry Pi 5 Active Cooler is required because the Processing Unit perform
 ## Analysis
 
 Deliver a full and relevant analysis of the design demonstrating that it should meet the constraints and accomplish the intended function. This analysis should be comprehensive and well articulated for persuasiveness.
+
+### Vosk
+
+### PyChess
+
+### Stockfish
+
+### Uart Communication
+
+### LCD Communication
+
+### Miscellaneous
 
 ## References
 [1] U.S. Federal Communications Commission, “47 CFR Part 15, Subpart B: Unintentional Radiators,” Electronic Code of Federal Regulations, Title 47, Chapter I, Subchapter A, Part 15, Subpart B. [Online]. Available: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15/subpart-B. Accessed: Oct. 27, 2025.
