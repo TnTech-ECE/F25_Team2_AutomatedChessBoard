@@ -1,29 +1,6 @@
 
 # Detailed Design for Processing Unit
 
-This document delineates the objectives of a comprehensive system design. Upon reviewing this design, the reader should have a clear understanding of:
-
-- How the specific subsystem integrates within the broader solution
-- The constraints and specifications relevant to the subsystem
-- The rationale behind each crucial design decision
-- The procedure for constructing the solution
-
-
-## General Requirements for the Document
-
-The document should include:
-
-- Explanation of the subsystem’s integration within the overall solution
-- Detailed specifications and constraints specific to the subsystem
-- Synopsis of the suggested solution
-- Interfaces to other subsystems
-- A buildable diagram*
-- An operational flowchart*
-- A comprehensive Bill of Materials (BOM)
-- Analysis of crucial design decisions
-
-*Note: These technical documentation elements are mandatory only when relevant to the particular subsystem.
-
 ---
 
 ## Function of the Subsystem
@@ -241,19 +218,19 @@ The Raspberry Pi 5 Active Cooler is required because the Processing Unit perform
 ---
 ## Analysis
 
-Deliver a full and relevant analysis of the design demonstrating that it should meet the constraints and accomplish the intended function. This analysis should be comprehensive and well articulated for persuasiveness.
-
+The Processing Unit (PU) coordinates voice capture, game logic, engine play, display, and serial communication; it runs as a set of cooperating Python processes on the Raspberry Pi 5. Each subsystem (Vosk, python-chess, Stockfish, UART, and the SPI LCD) is treated as a modular service: audio capture feeds the recognizer, recognized commands are normalized into chess move notation and validated by the board manager, valid moves either update the board or are handed to Stockfish for AI play, and final decisions are transmitted over UART to the Control Unit and reflected on the LCD. The following paragraphs summarize implementation details, small code examples, and practical constraints.
 ### Vosk
-
+The PU continuously captures the USB microphone stream and feeds frames into Vosk’s recognizer using a callback-based input loop; in practice the system uses a library such as sounddevice to open a RawInputStream at 16 kHz and call rec.AcceptWaveform(indata) for each buffer. The USB microphone is simply addressed as the default audio input device or by specifying its device index when opening the stream; once configured, Vosk runs entirely on-device so audio need not leave the Pi. To restrict recognition to chess vocabulary the PU loads a phrase list so that only chess piece names, board coordinates, and a small set of control words are recognized; this reduces false positives and improves privacy. After a phrase is recognized the text is normalized to a standard chess notation(map “knight F three” → Nf3 or produce UCI like g1f3)so it can be consumed directly by the chess manager (for example, calling board.push_san("Nf3")). Because this design uses voice only activation, the PU supports session-style listening (enter “active” listening after a single wake keyword or session trigger and accept a sequence of commands until a timeout or explicit “stop” phrase) by starting and stopping the audio stream in software; practically this is implemented by gating calls to the recognizer (start sending audio on activation, stop on timeout) rather than by trying to pause the recognizer itself. [20] [21] [22]
 ### PyChess
-
+The PU uses the python-chess Board object to represent and persist the game state; the board maintains piece placement (accessible through board.piece_map() and board.piece_at(square)) and internal flags such as castling rights and en passant state. To determine where a specific piece resides the manager inspects board.piece_map() or iterates squares to find all pieces of a given type and color. Move classification (capture, castling, promotion) is obtained from the move object and the library’s helpers (board.is_capture(move) indicates captures and board.is_castling(move) or examining the move’s from/to squares and the king/rook movement reveals castling) so the PU can compute how many physical motions are required (for example, a capture requires both the captured piece and the capturing piece to move). The library provides clear legality checks: the PU can test if move in board.legal_moves or attempt board.push_san() and catch exceptions for invalid moves, and that invalid-move feedback is presented to the user by routing the exception or boolean result into an LCD message. Finally, check and checkmate detection are available via board.is_check() and board.is_checkmate(), so the PU can immediately display “Check” or “Checkmate” and trigger end game behavior. [23]
 ### Stockfish
-
+The PU runs Stockfish as an external UCI engine and controls strength by setting engine options (threads and hash size) or by constraining search time/depth; the engine is invoked through python-chess’s chess.engine API so the returned result.move is already a chess.Move and can be pushed to the board. On the Pi 5 (4 GB RAM) Stockfish performs best when the PU configures a modest hash (e.g., 64–256 MB) and restricts threads to a small number (1–2 or a few cores) to avoid memory pressure and maintain low latency; also the PU can set a skill/time limit such as engine.play(board, Limit(time=0.5)) or Limit(depth=10) to keep response times bounded. The PU also guards against edge cases, if the engine returns no move because the game is over or throws an exception, the manager checks board.is_game_over() and restarts or reinitializes the engine process if necessary. The PU favors limiting engine thinking time because short, controlled time slices provide predictable latency on constrained hardware. [24] 
 ### Uart Communication
-
+The PU enables the hardware UART on the Raspberry Pi by configuring enable_uart=1 and disabling any serial console, after which the primary TX/RX pins map to /dev/serial0. The Pi application uses pyserial to open this device (e.g., ser = serial.Serial('/dev/serial0', 115200, timeout=1)) and writes two bytes with ser.write(b'\x01\x02'); reading is symmetric with data = ser.read(2). The PU implements simple framing, checksums, or sequence numbers if needed to make the 2-byte command stream robust against noise, and it always ensures common ground between the Pi and the Arduino and proper voltage translation via the level shifter (VCCA = 3.3 V, VCCB = 5 V) so that UART signals are safe.[25] [26] [27]
 ### LCD Communication
-
+The PU uses the Hosyond 480×320 SPI display in framebuffer mode after installing the vendor drivers and enabling SPI in the Pi firmware; once the vendor overlay is loaded the display is exposed as a secondary framebuffer. The PU writes UI frames by rendering images with Pillow (python imaging library) or similar and saving them to the framebuffer. The PU’s display driver handles low-level SPI timing and orientation; on top of that the PU implements a simple UI layer to present move confirmations, error messages, and active-listening indicators in ≥10 pt high-contrast text to satisfy accessibility and legibility requirements. [28] [29] [30] [31]
 ### Miscellaneous
+For the PU the project selects a lightweight, Pi-optimized OS such as Raspberry Pi OS (64-bit) for the best hardware support and low overhead. The PU also provisions for thermal management (active cooler or heatsink + modest airflow) because continuous Vosk processing and engine search are sustained workloads that generate heat; the system chooses conservative Stockfish hash/thread settings to avoid memory pressure and uses systemd services or virtual environments to manage process lifecycles, logging, and automatic restarts. Finally, the PU enforces robust power and grounding practices. [32]
 
 ## References
 [1] U.S. Federal Communications Commission, “47 CFR Part 15, Subpart B: Unintentional Radiators,” Electronic Code of Federal Regulations, Title 47, Chapter I, Subchapter A, Part 15, Subpart B. [Online]. Available: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15/subpart-B. Accessed: Oct. 27, 2025.
@@ -293,3 +270,43 @@ Deliver a full and relevant analysis of the design demonstrating that it should 
 [18] Understanding UART. Rohde & Schwarz. https://www.rohde-schwarz.com/us/products/test-and-measurement/essentials-test-equipment/digital-oscilloscopes/understanding-uart_254524.html
 
 [19] SparkFun Electronics. (n.d.). SparkFun Logic Level Converter - Bi-Directional. https://www.sparkfun.com/sparkfun-logic-level-converter-bi-directional.html#content-features
+
+[20] Singer, J. (2022, November 1). How to convert microphone speech to text using Python and Vosk. SingerLinks. https://singerlinks.com/2022/03/how-to-convert-microphone-speech-to-text-using-python-and-vosk/#:~:text=%E2%80%9CFalse%E2%80%9D,text%20and%20not%20each%20word
+
+[21] Descamps, R. (n.d.). Use Vosk speech recognition with Python. Stack Overflow. https://stackoverflow.com/questions/79253154/use-vosk-speech-recognition-with-python
+
+[22] Model adaptation for VOSK. (n.d.). VOSK Offline Speech Recognition API. https://alphacephei.com/vosk/adaptation
+
+[23] Core — python-chess 1.11.2 documentation. (n.d.). https://python-chess.readthedocs.io/en/latest/core.html
+
+[24] Official-Stockfish. (n.d.). UCI & Commands. GitHub. https://github.com/official-stockfish/Stockfish/wiki/UCI-&-Commands
+
+[25] Raspberry Pi 5 UART Documentation. https://www.raspberrypi.com/documentation/computers/configuration.html#configure-uarts 
+ 
+[26] Short introduction — pySerial 3.5 documentation. (n.d.). https://pyserial.readthedocs.io/en/latest/shortintro.html#opening-serial-ports
+
+[27] PI UART Debugger - Waveshare Wiki. (n.d.). https://www.waveshare.com/wiki/Pi_UART_Debugger#:~:text=Method%201%3A%20Add%20,boot%2Fconfig.txt
+
+[28] 3.5 inch RPI Display Touch - XPT2046 (480x320) - Install - Raspberry Pi Forums. (n.d.). https://forums.raspberrypi.com/viewtopic.php?t=178443
+
+[29] 3.5 inch RPi Display | Notion. (n.d.). Notion. https://special-watercress-61d.notion.site/3-5inch-RPi-Display-2a9108be7df181468273ebd1d8175039
+
+[30] Dropbox. (n.d.). https://www.dropbox.com/scl/fo/s2tb9ev56u2fsv4jq3w26/AJSwB0BDCpWVFX_P_oezX-U?rlkey=0ugrwzx8e0iqwfv1iimu6gb54&e=1&st=4angqd00&dl=0
+
+[31] 3.5inch RPi Display - LCD wiki. (n.d.). https://www.lcdwiki.com/3.5inch_RPi_Display
+
+[32] Ltd, R. P. (n.d.). Raspberry Pi OS downloads – Raspberry Pi. Raspberry Pi. https://www.raspberrypi.com/software/operating-systems/
+
+[33] For grammar and readability ChatGPT was used: https://chatgpt.com/
+
+
+
+
+
+
+
+
+
+
+
+
