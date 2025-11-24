@@ -17,7 +17,7 @@ Throughout gameplay, the PU maintains the internal representation of the chessbo
 
 ## Specifications and Constraints
 
-The **Processing Unit (PU)** shall act as the system’s central controller, implemented on a Raspberry Pi, and shall perform speech recognition, board-state management, move validation, and peripheral communication. The PU shall accept voice input from a USB microphone, interpret commands with the Vosk engine, validate moves using the Stockfish engine, forward validated commands to the Control Unit (Arduino) by a serial protocol (USART or I²C), and update the display with real-time feedback. All design decisions and operational limits shall comply with applicable U.S. electrical, safety, accessibility, and consumer product standards.
+The Processing Unit (PU) shall act as the system’s central controller, implemented on a Raspberry Pi, and shall perform speech recognition, board-state management, move validation, and peripheral communication. The PU shall accept voice input from a USB microphone, interpret commands with the Vosk engine, validate moves using the Stockfish engine, forward validated commands to the Control Unit (Arduino) by a serial protocol (USART or I²C), and update the display with real-time feedback. All design decisions and operational limits shall comply with applicable U.S. electrical, safety, accessibility, and consumer product standards.
 
 ---
 
@@ -25,7 +25,7 @@ The **Processing Unit (PU)** shall act as the system’s central controller, imp
 
 * **Voice capture & processing:** The PU shall accept vocal input from the USB microphone and process it using Vosk. The PU shall only listen after a configured wake word is detected (to protect privacy and reduce false captures).
 * **Recognition accuracy & notation support:** The on-device speech recognition pipeline shall achieve a minimum accuracy of 80% for command recognition in typical indoor acoustic conditions, and it shall recognize algebraic chess notation and common natural-language variants (e.g., “Knight to e5”, “Bishop a4”).
-* **Processing latency:** Recognized commands shall be processed and a validated move determined **within 5 seconds** of button release or the end of voice input.
+* **Processing latency:** Recognized commands shall be processed and a validated move determined within 5 seconds of button release or the end of voice input.
 * **Display responsiveness & legibility:** Move confirmations, illegal-move alerts, and game-status updates produced by the PU shall appear on the display within 1 second of command processing. Displayed characters shall be ≥ 10 pt and support high-contrast text/graphics for visibility under standard indoor lighting.
 * **Inter-subsystem communication:** The PU shall transmit validated move commands to the Control Unit via USART or I²C, using signal rates and framing that ensure reliable transfer and deterministic command execution (protocol selection shall ensure electrical and timing compatibility with the receiving Arduino).
 
@@ -36,9 +36,9 @@ The **Processing Unit (PU)** shall act as the system’s central controller, imp
 * **EMI / Emissions:** The Processing Unit shall comply with FCC Part 15 Subpart B (Class B) limits for conducted and radiated emissions (conducted: ~0.15–30 MHz at 66–56 dBµV decreasing with frequency; radiated: ~30–1000 MHz at 40–54 dBµV/m at 3 m) to avoid interference with consumer electronics. [1]
 * **Low-voltage operation:** The PU shall operate below 50 V DC in accordance with UL low-voltage safety thresholds. Voltage choices and wiring practices shall avoid requirements for high-voltage insulation. [2]
 * **Wiring & circuit practice:** The PU’s wiring and low-voltage circuits shall follow NEC / NFPA 70 guidance (Article 725 where applicable), providing protection against overcurrent, correct conductor sizing, and insulation rated for the circuit’s voltage. [3]
-* **Materials & consumer safety:** Components and assemblies used by the PU shall avoid materials and configurations that violate **CPSC** guidance and shall use parts with documented compliance where required. [4]
+* **Materials & consumer safety:** Components and assemblies used by the PU shall avoid materials and configurations that violate CPSC guidance and shall use parts with documented compliance where required. [4]
 * **Cabling & connectors:** All cord sets, flexible cables, and connectors serving the PU shall meet NEC Article 400 requirements for insulation, temperature rating, minimum bend radius, grounding continuity, and secure routing to avoid mechanical damage or tripping hazards. [5]
-* **Grounding & protection:** Grounding, bonding, and circuit-level protections for the PU shall follow **OSHA 29 CFR 1910 Subpart S** to minimize electric-shock hazards; exposed conductive parts shall be appropriately bonded and protected. [6]
+* **Grounding & protection:** Grounding, bonding, and circuit-level protections for the PU shall follow OSHA 29 CFR 1910 Subpart S to minimize electric-shock hazards; exposed conductive parts shall be appropriately bonded and protected. [6]
 * **Safety labeling:** User-facing enclosures, ports, and power interfaces associated with the PU shall carry ANSI Z535.4-compliant safety labels where hazards exist (power indicators, service access, etc.). [7]
 
 ---
@@ -106,9 +106,9 @@ Displayed text will:
 ### Inter-Subsystem Communication
 
 After move validation:
-- The Pi will format the command into a **2-byte message** for the Arduino Nano.
+- The Pi will format the command into a 2-byte message for the Arduino Nano.
 - Additional move messages (e.g., required for captures) will be queued and transmitted immediately afterward.
-- Communication will use **USART**, with framing and signaling chosen to ensure reliable, deterministic timing compatible with Arduino.
+- Communication will use USART, with framing and signaling chosen to ensure reliable, deterministic timing compatible with Arduino.
 
 ### Board State Persistence and Automatic Reset
 
@@ -122,7 +122,7 @@ The PU will:
 This allows rapid reset and reduces manual repositioning effort.
 
 ### Electrical and Thermal Considerations
-Because the Raspberry Pi 5 will perform continuous audio processing, it requires active cooling to prevent thermal throttling and maintain safe surface temperatures. The official Raspberry Pi Active Cooler mounts directly to the board and provides sufficient airflow to keep the enclosure below **40 °C (104 °F)**, consistent with consumer electronics safety guidance. The Processing Unit operates entirely at **≤5 V DC**, well within low-voltage safety limits, and its wiring and connectors follow standard consumer electronics practices to ensure electrical safety, proper insulation, and compliance with typical indoor operating conditions (0–40 °C, non-condensing humidity).
+Because the Raspberry Pi 5 will perform continuous audio processing, it requires active cooling to prevent thermal throttling and maintain safe surface temperatures. The official Raspberry Pi Active Cooler mounts directly to the board and provides sufficient airflow to keep the enclosure below 40 °C (104 °F), consistent with consumer electronics safety guidance. The Processing Unit operates entirely at ≤5 V DC, well within low-voltage safety limits, and its wiring and connectors follow standard consumer electronics practices to ensure electrical safety, proper insulation, and compliance with typical indoor operating conditions (0–40 °C, non-condensing humidity).
 
 ### Conclusion
 This solution supports the specified project goals by:
