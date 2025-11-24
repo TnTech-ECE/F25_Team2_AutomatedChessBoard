@@ -69,6 +69,8 @@ In addition to supplying 5V logic power through the Processing Unit, the Power U
 
 ![Arduino Pinout](Pinout-Diagram.png)
 
+To support a modular, reliable, and easily serviceable prototype, the Control Unit electronics will be constructed on several separate perfboards; one dedicated to the Arduino Nano, one for each TMC2209 stepper driver board, and one for the MOSFET-based electromagnet circuit. Each perfboard will be securely screwed into the interior of the automated chessboard’s chassis, allowing stable mounting and straightforward maintenance during testing. Point-to-point wiring between boards will be completed using appropriately gauged insulated wire, with all connections soldered to ensure mechanical robustness and signal integrity. This distributed-perfboard approach provides significantly greater flexibility than designing a single custom PCB, which would be both complex and highly constrained by component availability (an uncertainty amplified by current supply-chain and economic conditions). By relying on standardized modules and direct wiring, the design remains adaptable, maintainable, and far less sensitive to sourcing challenges.
+
 
 ## Flowchart
 
