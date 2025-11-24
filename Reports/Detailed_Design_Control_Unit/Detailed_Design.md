@@ -67,6 +67,8 @@ In addition to supplying 5V logic power through the Processing Unit, the Power U
 
 ![Electrical Schematic](Buildable-Diagram.png)
 
+![Arduino Pinout](Pinout-Diagram.png)
+
 
 ## Flowchart
 
