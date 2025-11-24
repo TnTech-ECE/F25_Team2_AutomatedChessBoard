@@ -1,0 +1,8 @@
+## Meeting Minutes
+Date: 11-24-2025
+
+* Group discussed CoreXY bracket to hold Control Unit components and one Processing Unit component (level shifter)
+* Noah brought up using perfboard and CoreXY bracket rather than PCB for Control Unit.
+* Nathan brought up new electromagnet for holding force concerns. Group decided that Nathan should do more research/math to figure out if a magnet with a greater holding force (but same relative size/weight) is needed.
+* Level shifter power concerns and pinout was addressed by Jack and Lewis.
+* Nathan addressed new, smaller size of pieces (resulting in smaller board).
