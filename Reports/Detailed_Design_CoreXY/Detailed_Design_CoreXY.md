@@ -70,11 +70,11 @@ For completeness, the electromagnet schematic is shown in this section as well a
 | Adafruit | 324 | Adafruit | 324 | 2 | $14.00 | [Link](https://www.adafruit.com/product/324) |
 | HICTOP | NA | Amazon | NA | 1 | $9.99 | [Link](https://www.amazon.com/HICTOP-Printer-Creality-Printers-16-5ft/dp/B00YMM6IQW/ref=sr_1_1_sspa) |
 | McMaster-Carr | 3684N12 | McMaster-Carr | 3684N12 | 2 | $4.99 | [Link](https://www.mcmaster.com/3684N12/) |
-| 3Dman | NA | Amazon | NA | 1 pk (10 pcs) | $11.99 | [Link](https://www.amazon.com/3Dman-Toothless-Aluminum-Timing-Printer/dp/B07RV2T54M/ref=sr_1_3) |
+| 3Dman | NA | Amazon | NA | 10/pack | $11.99 | [Link](https://www.amazon.com/3Dman-Toothless-Aluminum-Timing-Printer/dp/B07RV2T54M/ref=sr_1_3) |
 | CNCMANs | NA | Amazon | NA | 1 | $15.02 | [Link](https://www.amazon.com/CNCMANS-Miniature-Bearing-Printing-MGN12H-250mm/dp/B0BNQ63X3H/ref=sr_1_1) |
 | Unlorspy | NA | Amazon | NA | 1 | $4.49 | [Link](https://www.amazon.com/Unlorspy-Bracket-Brackets-Shelves-Furniture/dp/B0B24ZMT9J/ref=sr_1_3) |
-| SIMAX3D | NA | Amazon | NA | 1 pk (13 pcs) | $9.99 | [Link](https://www.amazon.com/SIMAX3D-Printer-Creality-Artillery-Sidewinder/dp/B08B4JDB67/ref=sr_1_1_sspa) |
-| IXGNIJ | NA | Amazon | NA | 1 pk (4 pcs) | $14.99 | [Link](https://www.amazon.com/Aluminum-Extrusion-European-Standard-Anodized/dp/B08Y8L11ZP/ref=sr_1_3) |
+| SIMAX3D | NA | Amazon | NA | 13/pack | $9.99 | [Link](https://www.amazon.com/SIMAX3D-Printer-Creality-Artillery-Sidewinder/dp/B08B4JDB67/ref=sr_1_1_sspa) |
+| IXGNIJ | NA | Amazon | NA | 4/pack | $14.99 | [Link](https://www.amazon.com/Aluminum-Extrusion-European-Standard-Anodized/dp/B08Y8L11ZP/ref=sr_1_3) |
 | **Total** |   |   |   |   | $109.29 |   |
 
 ## Analysis
