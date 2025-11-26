@@ -35,7 +35,7 @@ The CoreXY subsystem uses two pulleys arranged in a crossed configuration, with 
 All electrical and mechanical elements shall comply with NFPA 70 (National Electrical Code) [11][12], FCC Part 15 Subpart B [9], and UL 60950‑1 for grounding, insulation, and interference protection [14]. Wiring shall conform to NEC Article 400, with secure routing to avoid pinch points or mechanical stress, while all exposed surfaces shall remain below 40 °C per UL 94 [15] and CPSC maximum surface temperature standards [8]. Components shall be RoHS-compliant and sourced from verified distributors to ensure cost efficiency and system sustainability. Collectively, these measures ensure that the CoreXY subsystem operates precisely, safely, and reliably as part of the automated chessboard system.
 
 <div align="center"> <img width="905" height="822" alt="image" src="https://github.com/user-attachments/assets/ee726420-2098-4fac-a716-fdc2a651918a" /> </div>
-<div align="center"><strong> Figure 1: CoreXY belt routing and corresponding motion equations. </strong></div>
+<div align="center"> <strong> Figure 1: CoreXY belt routing and corresponding motion equations. </strong> </div>
 <div align="center">  Diagram illustrates belt path configuration and the kinematic relationships used to translate motor rotations into X–Y motion.[6] </div>
 
 
@@ -55,20 +55,27 @@ The CoreXY does not directly exchange signals with the Peripherals subsystem. Ho
 ## 3D Model of Custom Mechanical Components
 
 ## Buildable Schematic
+### Stepper Motors
+<div align="center"> <img width="7660" height="2302" alt="stepper_drivers drawio" src="https://github.com/user-attachments/assets/1d59b5db-4ee8-4e1c-b0af-a13c247d0bca" /> </div>
+
+### Electromagnet
+<div align="center"> <img width="10487" height="6588" alt="electromagnet drawio" src="https://github.com/user-attachments/assets/cdb9893a-973a-437a-974a-06e71711c859" /> </div>
+For completeness, the electromagnet schematic is shown in this section as well as in the CU. The parts are listed in the BOM for the CU.
+
 
 ## Bill of Materials
 | Manufacturer | Part Number | Distributor | Distributor Part Number | Quantity | Price | Purchasing Website URL |
 |-----|-----|-----|-----|-----|-----|-----|
 | Seeed Studio | 101020073 | Mouser Electronics | 713-101020073 | 1 | $9.35 | [Link](https://www.mouser.com/ProductDetail/Seeed-Studio/101020073?qs=1%252B9yuXKSi8A5kCccI2u34g%3D%3D&srsltid=) |
-| CW-Motor | 42BYGH404 | Circuit Specialists | 42BYGH404 | 2 | $8.70 | [Link](https://www.circuitspecialists.com/nema_17_stepper_motor_42bygh404) |
-| HICTOP | NA | Amazon | NA | 1 | $9 | [Link](https://www.amazon.com/HICTOP-Printer-Creality-Printers-16-5ft/dp/B00YMM6IQW/ref=sr_1_1_sspa) |
+| Adafruit | 324 | Adafruit | 324 | 2 | $14.00 | [Link](https://www.adafruit.com/product/324) |
+| HICTOP | NA | Amazon | NA | 1 | $9.99 | [Link](https://www.amazon.com/HICTOP-Printer-Creality-Printers-16-5ft/dp/B00YMM6IQW/ref=sr_1_1_sspa) |
 | McMaster-Carr | 3684N12 | McMaster-Carr | 3684N12 | 2 | $4.99 | [Link](https://www.mcmaster.com/3684N12/) |
 | 3Dman | NA | Amazon | NA | 1 pk (10 pcs) | $11.99 | [Link](https://www.amazon.com/3Dman-Toothless-Aluminum-Timing-Printer/dp/B07RV2T54M/ref=sr_1_3) |
 | CNCMANs | NA | Amazon | NA | 1 | $15.02 | [Link](https://www.amazon.com/CNCMANS-Miniature-Bearing-Printing-MGN12H-250mm/dp/B0BNQ63X3H/ref=sr_1_1) |
 | Unlorspy | NA | Amazon | NA | 1 | $4.49 | [Link](https://www.amazon.com/Unlorspy-Bracket-Brackets-Shelves-Furniture/dp/B0B24ZMT9J/ref=sr_1_3) |
 | SIMAX3D | NA | Amazon | NA | 1 pk (13 pcs) | $9.99 | [Link](https://www.amazon.com/SIMAX3D-Printer-Creality-Artillery-Sidewinder/dp/B08B4JDB67/ref=sr_1_1_sspa) |
 | IXGNIJ | NA | Amazon | NA | 1 pk (4 pcs) | $14.99 | [Link](https://www.amazon.com/Aluminum-Extrusion-European-Standard-Anodized/dp/B08Y8L11ZP/ref=sr_1_3) |
-| **Total** |   |   |   |   | $98.69 |   |
+| **Total** |   |   |   |   | $109.29 |   |
 
 ## Analysis
 
