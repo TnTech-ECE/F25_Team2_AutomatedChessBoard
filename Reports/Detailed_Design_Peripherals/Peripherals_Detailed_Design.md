@@ -1,11 +1,6 @@
 # Detailed Design
 
-This document delineates the objectives of a comprehensive system design. Upon reviewing this design, the reader should have a clear understanding of:
-
-- How the specific subsystem integrates within the broader solution
-- The constraints and specifications relevant to the subsystem
-- The rationale behind each crucial design decision
-- The procedure for constructing the solution
+In the Automated Chess Board, there are five subsystems: the Control Unit, Processing Unit, CoreXY Unit, Power Unit, and Peripherals Unit. This document serves as an in depth description and explanation of the design for the Peripherals Unit. It will explain the requirements for the peripherals, how they integrate into the larger solution, the reasoning behind important design decisions, and how to construct the Peripherals Unit.
 
 
 ## General Requirements for the Document
@@ -28,7 +23,9 @@ The document should include:
 
 ## Function of the Subsystem
 
-This segment should elucidate the role of the subsystem within the entire system, detailing its intended function, aligned with the conceptual design.
+The function of the Peripherals Unit put simply is to interface between the player and the Processing Unit in real time. The Peripherals Unit will take in player-made spoken moves through a microphone and feed this information into the Processing Unit to be read and processed. The Peripherals will also use an LCD screen to allow players access to any information they may need from the Processing Unit. This can range from the command that is expected next, board state, last move, or anything else that needs to be communicated from the processor to the player. 
+
+Additionally, the Peripherals Unit is responsible for the design and construction of the chess board itself, interfacing between the players and the CoreXY subsystem. The board will also be responsible for housing all other subsystems.
 
 
 ## Specifications and Constraints
@@ -50,7 +47,7 @@ Describe the solution and how it will fulfill the specifications and constraints
 The Peripherals of the Chess board interface directly with the Processing Unit (Raspberry Pi 5) and indirectly with the CoreXY Unit. The peripherals form the link between the user and the Processing Unit, transmitting data from the microphone and to the screen, while also housing the CoreXY, playing a key role in how it interacts with the pieces.
 
 ### Processing Unit Interface
-There will be two main data transmissions between the Processing Unit and the Peripherals: the microphone (Movo MA5U) and the LCD screen (AREALER GS06649-01). The microphone will transmit data to the processor via a serial USB connection. The processor will read the microphone input when it needs 
+There will be two main data transmissions between the Processing Unit and the Peripherals: the microphone (Movo MA5U) and the LCD screen (AREALER GS06649-01). The microphone will transmit data to the processor via a serial USB connection. 
 
 
 ## 3D Model of Custom Mechanical Components
