@@ -9,8 +9,8 @@ Power Tree for Automated Chessboard System
 
 Raspberry Pi Wall Charger (SC0510)
   5V / 5A Max
-  Avg Input Power: ~22.1W (system total incl. eff losses)
-  Peak Input Power: ~45.9W
+  Avg Input Power: ~22.35W (system total incl. eff losses)
+  Peak Input Power: ~46.1W
   |
   v
 DFRobot UPS HAT (FIT0992)
@@ -20,7 +20,7 @@ DFRobot UPS HAT (FIT0992)
   |
   v
 5V Rail
-  Avg: 1.42A / 7.1W (direct loads) + 2.5A / 12.5W (to MT3608) = 3.92A / 19.6W
+  Avg: 1.47A / 7.35W (direct loads) + 2.5A / 12.5W (to MT3608) = 3.97A / 19.85W
   Peak: 3.26A / 16.1W + 5.1A / 25.5W = 8.36A / 41.6W
   Branches:
     |-- Raspberry Pi 5: Avg 1.0A / 5W, Peak 2.4A / 12W
@@ -30,6 +30,7 @@ DFRobot UPS HAT (FIT0992)
     |-- Electromagnet: Avg 0.1A / 0.5W, Peak 0.4A / 2W
     |-- TMC2209 Logic (x2): Avg 0.02A / 0.1W, Peak 0.04A / 0.2W
     |-- UPS Overhead: 0.1A / 0.5W
+    |-- Buck Converter Input (to 3.3V for Logic/Level Shifter): Avg 0.05A / 0.25W, Peak 0.1A / 0.5W
     |
     v
   MT3608 Step-Up Converter
@@ -41,5 +42,12 @@ DFRobot UPS HAT (FIT0992)
     Avg: 1.0A / 12W, Peak 2.0A / 24W
       |-- Stepper Motor 1: Avg 0.5A / 6W, Peak 1.0A / 12W
       |-- Stepper Motor 2: Avg 0.5A / 6W, Peak 1.0A / 12W
+  |
+  v
+Buck Converter (Adafruit 2745)
+  Eff: 90% Avg
+  Input from 5V: Avg 0.05A / 0.25W, Peak 0.1A / 0.5W
+  Output: 3.3V Sub-Rail (for LV Logic/Level Shifter)
+    Avg: 0.045A / 0.15W, Peak 0.09A / 0.3W
 ```
 
