@@ -64,6 +64,102 @@ The CoreXY does not directly exchange signals with the Peripherals subsystem. Ho
 
 ## 3D Model of Custom Mechanical Components
 
+### CoreXY
+
+**Isometric view:**
+<div align="center"> 
+<img width="1094" height="573" alt="image" src="https://github.com/user-attachments/assets/bbef5d08-f285-4587-b872-0ff4f83b6171" />
+</div>
+
+**Top view:**
+<div align="center"> 
+<img width="885" height="789" alt="image" src="https://github.com/user-attachments/assets/a1c51523-0ddf-478a-95e9-dabefbdd4e89" />
+</div>
+
+**Front view:**
+<div align="center"> 
+<img width="1007" height="212" alt="image" src="https://github.com/user-attachments/assets/dd02239a-faba-4e4d-9743-f56b6e113a65" />
+</div>
+
+### Electronics Mount A
+<div align="center"> 
+<img width="357" height="757" alt="image" src="https://github.com/user-attachments/assets/5ac7acc7-f4ef-4f68-bc77-46eca74facb6" />
+</div>
+
+### Electronics Mount B
+<div align="center"> 
+<img width="327" height="770" alt="image" src="https://github.com/user-attachments/assets/f8cdd19a-9d26-4d3a-a1e2-2b8ed12ee073" />
+</div>
+
+### Pulley Support A
+<div align="center"> 
+<img width="605" height="694" alt="image" src="https://github.com/user-attachments/assets/46a32081-a93f-4d4f-95d1-092610776f9a" />
+</div>
+
+### Pulley Support B
+<div align="center"> 
+<img width="622" height="712" alt="image" src="https://github.com/user-attachments/assets/f25747c6-2a49-4a8a-b20d-3fe636752663" />
+</div>
+
+### Trolley Support A
+<div align="center"> 
+<img width="550" height="657" alt="image" src="https://github.com/user-attachments/assets/8cef73df-6c7f-412a-a0b6-0d5a7419b43d" />
+</div>
+
+### Trolley Support B
+<div align="center"> 
+<img width="589" height="724" alt="image" src="https://github.com/user-attachments/assets/25f4ec2b-e82f-4c2c-afdd-d5c80e1132ec" />
+</div>
+
+### Electromagnet
+
+**Isometric view:**
+<div align="center"> 
+<img width="621" height="703" alt="image" src="https://github.com/user-attachments/assets/f3111dcc-4282-4340-b042-9e838da0d03e" />
+</div>
+
+**Top view:**
+<div align="center"> 
+<img width="745" height="641" alt="image" src="https://github.com/user-attachments/assets/65a3a708-428b-4d84-8165-0b731933ceb0" />
+</div>
+
+**Front view:**
+<div align="center"> 
+<img width="1031" height="541" alt="image" src="https://github.com/user-attachments/assets/921f23e0-a95a-4ef5-842b-5e27415d734c" />
+</div>
+
+### Motor Support A
+**Isometric view:**
+<div align="center"> 
+<img width="705" height="605" alt="image" src="https://github.com/user-attachments/assets/31b3d1f4-9882-4eee-8837-71848c33dabb" />
+</div>
+
+**Top view:**
+<div align="center"> 
+<img width="751" height="674" alt="image" src="https://github.com/user-attachments/assets/ca8470b7-fcb6-466a-a123-2d701c29f616" />
+</div>
+
+**Front view:**
+<div align="center"> 
+<img width="609" height="548" alt="image" src="https://github.com/user-attachments/assets/477457b6-18fd-4ad2-a962-3b1c09e55cbd" />
+</div>
+
+### Motor Support B
+**Isometric view:**
+<div align="center"> 
+<img width="770" height="728" alt="image" src="https://github.com/user-attachments/assets/1caf5b04-0a5e-4cb6-bc2d-11365d8630e8" />
+</div>
+
+**Top view:**
+<div align="center"> 
+<img width="594" height="547" alt="image" src="https://github.com/user-attachments/assets/1ea12a9f-222b-4f52-b141-b77c265d61fb" />
+</div>
+
+**Front view:**
+<div align="center"> 
+<img width="755" height="674" alt="image" src="https://github.com/user-attachments/assets/d1957f5d-4638-4cbc-a4e4-4233570a9aa6" />
+</div>
+
 ## Buildable Schematic
 
 ### Stepper Motors
