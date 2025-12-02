@@ -149,15 +149,24 @@ Below are 3D models of the chess pieces. All measurements displayed are in centi
 
 ## Buildable Schematic 
 
-Integrate a buildable electrical schematic directly into the document. If the diagram is unreadable or improperly scaled, the supervisor will deny approval. Divide the diagram into sections if the text and components seem too small.
 
-The schematic should be relevant to the design and provide ample details necessary for constructing the model. It must be comprehensive so that someone, with no prior knowledge of the design, can easily understand it. Each related component's value and measurement should be clearly mentioned.
+
+<div align="center"> 
+<img width="557" height="266" alt="image" src="https://github.com/user-attachments/assets/d097df1a-0aa6-4e88-8a4f-f7abbfd4ccea" />
+</div>
+<div align="center"> 
+<strong> Figure 3.1. Buildable Electrical Schematic. </strong> 
+</div><br />
+
+The microphone will be plugged into a USB coupler that will plug into the Raspberry Pi, keeping the microphone wiring clean, strong, and interchangeable. The LCD will plug directly into the Raspberry Pi with a ribbon cable, communicating via SPI. Below is a pinout for the LCD screen.
+
 <div align="center"> 
 <img width="990" height="496" alt="image" src="https://github.com/user-attachments/assets/a18e9803-1349-43e9-b7a4-7a2520969387" />
 </div>
 <div align="center"> 
 <strong> Figure 3.2. Pinout for Hosyond 3.5 inch LCD screen. [7] </strong> 
 </div><br />
+
 
 
 
