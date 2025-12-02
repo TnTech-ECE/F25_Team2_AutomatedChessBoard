@@ -263,6 +263,71 @@ The top view emphasizes the layout of mounting holes and the shape of the base, 
 The front view highlights the vertical dimensions and support structures, showing how Motor Support B maintains stability and proper alignment for the motor within the CoreXY assembly.
 </div><br />
 
+### Cable Chain Components
+The figures show a detailed 3D visualization of the cable chain components. This chain is designed to route and protect the wires connected to the electromagnet, preventing wear or damage during movement of the CoreXY carriage. The components will be connected together to form the chain. Its geometry ensures compliance with system specifications while maintaining smooth motion along the X–Y axes.
+
+#### Chain Segment
+<div align="center"> 
+<img width="496" height="528" alt="image" src="https://github.com/user-attachments/assets/570aa833-2763-47cf-8c0e-4bd8ab8c864d" />
+</div>
+<div align="center"> 
+<strong>Figure 9.1. Isometric view of cable chain segment</strong>
+</div>
+<div align="center"> 
+The isometric view illustrates a single segment of the cable chain, highlighting its geometry and interlocking features. This perspective demonstrates how the segment connects to adjacent pieces, forming a flexible protective channel for the electromagnet wires along the CoreXY carriage path.
+</div><br />
+
+<div align="center"> 
+<img width="421" height="555" alt="image" src="https://github.com/user-attachments/assets/d5aed83d-228f-44b2-8c4f-f4954fee83d4" />
+</div>
+<div align="center"> 
+<strong>Figure 9.2. Top view of cable chain segment</strong>
+</div>
+<div align="center"> 
+The top view highlights the layout and footprint of a single cable chain segment. This perspective shows how the segment aligns with the CoreXY carriage path and the spacing between links to ensure smooth motion while protecting the electromagnet wires.
+</div><br />
+
+<div align="center"> 
+<img width="308" height="386" alt="image" src="https://github.com/user-attachments/assets/fadb70bb-8117-4aa4-ab90-4cc936c0f808" />
+</div>
+<div align="center"> 
+<strong>Figure 9.3. Front view of cable chain segment</strong>
+</div>
+<div align="center"> 
+The front view shows the vertical profile of a single cable chain segment, illustrating the interlocking features and channel geometry. This perspective highlights how the segment guides the electromagnet wires while maintaining flexibility along the CoreXY carriage path.
+</div><br />
+
+#### Chain Ends
+<div align="center"> 
+<img width="514" height="553" alt="image" src="https://github.com/user-attachments/assets/9bcb6012-4695-4826-9b6a-25f3fecbb47f" />
+</div>
+<div align="center"> 
+<strong>Figure 9.4. Isometric view of cable chain ends</strong>
+</div>
+<div align="center"> 
+The isometric view shows the cable chain ends, highlighting the mounting features and how the first and last segments interface with the CoreXY carriage and frame. These ends secure the chain, ensuring smooth motion while preventing the electromagnet wires from being pulled or damaged.
+</div><br />
+
+<div align="center"> 
+<img width="187" height="543" alt="image" src="https://github.com/user-attachments/assets/1877624b-506f-49bb-bb57-579a4af65a86" />
+</div>
+<div align="center"> 
+<strong>Figure 9.5. Top view of cable chain ends</strong>
+</div>
+<div align="center"> 
+The top view displays the layout of the cable chain ends, showing the orientation and alignment of the segments relative to the CoreXY carriage. It emphasizes the path for the wires and how the ends maintain proper spacing and secure attachment to the frame.
+</div><br />
+
+<div align="center"> 
+<img width="639" height="525" alt="image" src="https://github.com/user-attachments/assets/921f607b-1b71-4e61-8b63-1f8f73aeab23" />
+</div>
+<div align="center"> 
+<strong>Figure 9.6. Front view of cable chain ends</strong>
+</div>
+<div align="center"> 
+The front view highlights the vertical alignment and profile of the cable chain ends, showing how the segments attach to the CoreXY carriage and frame. This view demonstrates how the chain maintains a smooth path for the wires while preventing sagging or interference during motion.
+</div><br />
+
 ## Buildable Schematic
 
 ### Stepper Motors
@@ -271,7 +336,7 @@ The front view highlights the vertical dimensions and support structures, showin
 <img width="7660" height="2302" alt="stepper_drivers drawio" src="https://github.com/user-attachments/assets/1d59b5db-4ee8-4e1c-b0af-a13c247d0bca" /> 
 </div>
 <div align="center">
-<strong>Figure 9. Pinout for stepper motors to drivers</strong>
+<strong>Figure 10. Pinout for stepper motors to drivers</strong>
 </div>
 <div align="center">
 The diagram illustrates the pinout connections between the stepper motors and their respective driver modules. It shows how the drivers will be connected to control the coils in the motors.
@@ -283,7 +348,7 @@ The diagram illustrates the pinout connections between the stepper motors and th
 <img width="10487" height="6588" alt="electromagnet drawio" src="https://github.com/user-attachments/assets/cdb9893a-973a-437a-974a-06e71711c859" /> 
 </div>
 <div align="center">
-<strong>Figure 10. Circuit for electromagnet</strong>
+<strong>Figure 11. Circuit for electromagnet</strong>
 </div>
 <div align="center">
 The diagram illustrates the circuitry used to control the electromagnet, including the MOSFET switching and flyback diode protection. For completeness, this schematic is shown here as well as in the CU, and all components are listed in the CU’s Bill of Materials.
