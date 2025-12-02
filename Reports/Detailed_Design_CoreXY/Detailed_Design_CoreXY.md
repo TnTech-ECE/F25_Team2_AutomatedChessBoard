@@ -64,7 +64,7 @@ The CoreXY does not directly exchange signals with the Peripherals subsystem. Ho
 
 ### CoreXY
 The following figures present detailed 3D visualizations of the CoreXY subsystem, the primary mechanical platform responsible for X–Y motion within the automated chessboard. Each view—isometric, top, and front—highlights the geometry, structural features, and spatial relationships of the CoreXY assembly, including the carriage, belt routing, pulleys, and mounting interfaces. These models provide a clear depiction of how the subsystem is constructed, aiding in design review, assembly planning, and verification of motion constraints and clearances.
-**Note:** The original CAD model was sourced from [5]. Dimensions and specific features of this model will be modified as needed to suit the actual design and mechanical constraints of the automated chessboard.
+**Note:** The original CAD model was sourced from [5]. Dimensions and specific features of this model will be modified as needed to suit the actual design and mechanical constraints of the automated chessboard. Specifically, the size of the CoreXY will be adjusted to 570 mm × 950 mm instead of 419 mm × 382 mm. This modification does not affect the functionality of the model; it only adjusts the lengths of the aluminum extrusions.
 
 <div align="center"> 
 <img width="1094" height="573" alt="image" src="https://github.com/user-attachments/assets/bbef5d08-f285-4587-b872-0ff4f83b6171" />
