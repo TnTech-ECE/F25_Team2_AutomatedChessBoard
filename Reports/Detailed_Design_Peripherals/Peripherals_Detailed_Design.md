@@ -3,24 +3,6 @@
 In the Automated Chessboard, there are five subsystems: the Control Unit, Processing Unit, CoreXY Unit, Power Unit, and Peripherals Unit. This document serves as an in depth description and explanation of the design for the Peripherals Unit. It will explain the requirements for the peripherals, how they integrate into the larger solution, the reasoning behind important design decisions, and how to construct the Peripherals Unit.
 
 
-## General Requirements for the Document
-
-The document should include:
-
-- Explanation of the subsystem’s integration within the overall solution
-- Detailed specifications and constraints specific to the subsystem
-- Synopsis of the suggested solution
-- Interfaces to other subsystems
-- 3D models of customized mechanical elements*
-- A buildable diagram*
-- A Printed Circuit Board (PCB) design layout*
-- An operational flowchart*
-- A comprehensive Bill of Materials (BOM)
-- Analysis of crucial design decisions
-
-*Note: These technical documentation elements are mandatory only when relevant to the particular subsystem.
-
-
 ## Function of the Subsystem
 
 The function of the Peripherals Unit put simply is to interface between the player and the Processing Unit in real time. The Peripherals Unit will take in player-made spoken moves through a microphone and feed this information into the Processing Unit to be read and processed. The Peripherals will also use an LCD screen to allow players access to any information they may need from the Processing Unit. This can range from the command that is expected next, board state, last move, or anything else that needs to be communicated from the processor to the player. 
@@ -184,7 +166,7 @@ The schematic should be relevant to the design and provide ample details necessa
 | Manufacturer | Part Number | Description | Distributor | Distributor Part Number | Quantity | Price | Purchasing Website URL |
 |-----|-----|-----|-----|-----|-----|-----|-----|
 | Hosyond | ATmega328 | Microcontroller | Arduino | A000005 | 1 | $25.70 | [Link](https://store-usa.arduino.cc/products/arduino-nano?srsltid=AfmBOoqNFNSG0SfKF8ZFeKFBkwAtX5L50eVlOeBv6cMGf4bc8P1TCnzK) |
-| Trinamic | TMC2209 | Stepper Driver Board | Adafruit | 6121 | 2 | $8.95 | [Link](https://www.adafruit.com/product/6121?srsltid=AfmBOoqNbFwMYs_rbP4OZemtZmfuFAdtoNUtJ39PrpSNCZA5T_JOs630) |
+| XMSJSIY | ‎ B0DT4D13CK | Mounted USB coupler | Amazon | 6121 | 1 | $8.95 | [Link](https://www.adafruit.com/product/6121?srsltid=AfmBOoqNbFwMYs_rbP4OZemtZmfuFAdtoNUtJ39PrpSNCZA5T_JOs630) |
 | Adafruit | 1493 | Stepper Driver Heatsink | Adafruit | 1493 | 2 | $1.90 | [Link](https://www.adafruit.com/product/1493?srsltid=AfmBOooGAp5R_4tQ_ICG5NDZss1rWk8G5H7ZEkV5ucMBG2qJobr0fFEz) |
 | Alpha and Omega Semiconductor Inc. | AOSS32334C | MOSFET | Digikey | 785-AOSS32334CCT-ND | 1 | $0.44 | [Link](https://www.digikey.com/en/products/detail/alpha-omega-semiconductor-inc/AOSS32334C/11567505) |
 | SMC Diode Solutions | MBR1045 | Flyback Diode | Digikey | 1655-1019-ND | 1 | $1.05 | [Link](https://www.digikey.com/en/products/detail/smc-diode-solutions/MBR1045/6022109) |
