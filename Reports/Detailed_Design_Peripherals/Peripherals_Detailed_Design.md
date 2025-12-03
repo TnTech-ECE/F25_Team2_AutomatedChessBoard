@@ -172,23 +172,29 @@ The microphone will be plugged into a USB coupler that will plug into the Raspbe
 
 ## BOM
 
-| Manufacturer | Part Number | Description | Distributor | Distributor Part Number | Quantity | Price | Purchasing Website URL |
-|-----|-----|-----|-----|-----|-----|-----|-----|
-| Hosyond | ATmega328 | Microcontroller | Arduino | A000005 | 1 | $25.70 | [Link](https://store-usa.arduino.cc/products/arduino-nano?srsltid=AfmBOoqNFNSG0SfKF8ZFeKFBkwAtX5L50eVlOeBv6cMGf4bc8P1TCnzK) |
-| XMSJSIY | ‎ B0DT4D13CK | Mounted USB coupler | Amazon | 6121 | 1 | $8.95 | [Link](https://www.adafruit.com/product/6121?srsltid=AfmBOoqNbFwMYs_rbP4OZemtZmfuFAdtoNUtJ39PrpSNCZA5T_JOs630) |
-| Adafruit | 1493 | Stepper Driver Heatsink | Adafruit | 1493 | 2 | $1.90 | [Link](https://www.adafruit.com/product/1493?srsltid=AfmBOooGAp5R_4tQ_ICG5NDZss1rWk8G5H7ZEkV5ucMBG2qJobr0fFEz) |
-| Alpha and Omega Semiconductor Inc. | AOSS32334C | MOSFET | Digikey | 785-AOSS32334CCT-ND | 1 | $0.44 | [Link](https://www.digikey.com/en/products/detail/alpha-omega-semiconductor-inc/AOSS32334C/11567505) |
-| SMC Diode Solutions | MBR1045 | Flyback Diode | Digikey | 1655-1019-ND | 1 | $1.05 | [Link](https://www.digikey.com/en/products/detail/smc-diode-solutions/MBR1045/6022109) |
-| Yageo | CFR-25JB-52-100K | Pulldown Resistor | Digikey | 13-CFR-25JB-52-100K-ND | 1 | $0.10 | [Link](https://www.digikey.com/en/products/detail/yageo/CFR-25JB-52-100K/245) |
-| Yageo | MFR-25FRF52-100R | Gate Resistor | Digikey | 13-MFR-25FRF52-100RCT-ND | 1 | $0.10 | [Link](https://www.digikey.com/en/products/detail/yageo/MFR-25FRF52-100R/18092105) |
-| Yageo | MFR-25FRF52-100R | Gate Resistor | Digikey | 13-MFR-25FRF52-100RCT-ND | 1 | $0.10 | [Link](https://www.digikey.com/en/products/detail/yageo/MFR-25FRF52-100R/18092105) |
-| Adafruit | 4785 | Perfboard | Digikey | 1528-4785-ND | 1 | $2.50 | [Link](https://www.digikey.com/en/products/detail/adafruit-industries-llc/4785/13617529) |
-| **Total** |   |   |   |   |   | $40.74 |   |
-Provide a comprehensive list of all necessary components along with their prices and the total cost of the subsystem. This information should be presented in a tabular format, complete with the manufacturer, part number, distributor, distributor part number, quantity, price, and purchasing website URL. If the component is included in your schematic diagram, ensure inclusion of the component name on the BOM (i.e R1, C45, U4).
+| Manufacturer           | Part Number           | Description                     | Distributor | Quantity | Price   | Purchasing Website URL |
+|------------------------|------------------------|---------------------------------|-------------|----------|---------|-------------------------|
+| Hosyond                | B0BJDTL9J3             | 3.5 inch LCD Screen             | Amazon      | 1        | $17.99  | [Link](https://store-usa.arduino.cc/products/arduino-nano?srsltid=AfmBOoqNFNSG0SfKF8ZFeKFBkwAtX5L50eVlOeBv6cMGf4bc8P1TCnzK) |
+| XMSJSIY                | B0DT4D13CK             | Mounted USB Coupler             | Amazon      | 1        | $13.99  | [Link](https://www.amazon.com/XMSJSIY-Threaded-Extension-Charging-Connector/dp/B0DT4D13CK) |
+| Movo                   | MA5U                   | USB Microphone                  | Amazon      | 1        | $9.95   | [Link](https://www.amazon.com/XMSJSIY-Threaded-Extension-Charging-Connector/dp/B0DT4D13CK) |
+| ProWood                | 211799                 | 4 foot x 4 foot Plywood         | Home Depot  | 1        | $38.24  | [Link](https://www.homedepot.com/p/ProWood-23-32-in-x-4-ft-x-4-ft-BCX-Sanded-Plywood-211799/205723975) |
+| Professional Plastics  | SPCCL.125X24X48FM      | 4 foot x 4 foot Acrylic Sheet   | Lowe's      | 1        | $38.95  | [Link](https://www.lowes.com/pd/Professional-Plastics-Clear-Polycarbonate-Sheet-1-8TX24WX48L/7134358) |
+| Creality               | 3301010337             | 2kg black and white PLA Filament| Amazon      | 1        | $23.99  | [Link](https://www.amazon.com/gp/aw/d/B0C4TNQZYY) |
+| Everbilt               | 800362                 | 100 (50 if available) 1" Steel Fender Washers | Home Depot | 1 | $12.62 | [Link](https://www.homedepot.com/p/Everbilt-1-8-in-x-1-in-Zinc-Plated-Fender-Washer-100-Piece-800362/204276365) |
+| Grip-Rite              | 114CDWS1               | Drywall Screws, 1 lb Box        | Home Depot  | 1        | $6.97   | [Link](https://www.homedepot.com/p/Grip-Rite-6-x-1-1-4-in-2-Phillips-Bugle-Head-Coarse-Thread-Sharp-Point-Drywall-Screws-1-lb-Box-114CDWS1/100152392) |
+| **Total**              |                        |                                 |             |          | **$162.70** |                         |
+
+
 
 ## Analysis
 
-Deliver a full and relevant analysis of the design demonstrating that it should meet the constraints and accomplish the intended function. This analysis should be comprehensive and well articulated for persuasiveness.
+The proposed Peripherals Unit successfully meets its functional requirements by providing a clear, reliable interface between the players, the Processing Unit, and the CoreXY mechanism. The choice of a compact omnidirectional USB microphone ensures that spoken moves are captured cleanly from either player without repositioning, while the digital USB connection eliminates analog noise issues and fits within the allotted space. The 3.5-inch SPI LCD display provides fast, readable visual feedback, updating within one second as required and offering sufficient resolution for move confirmations, alerts, and prompts. Together, these components create a dependable communication loop between the players and the Raspberry Pi 5.
+
+The physical design of the chessboard is also well aligned with system requirements and the needs of the CoreXY subsystem. Each 6.4-cm square is large enough for pieces to pass between adjacent occupied squares without collision, while the use of embedded steel washers in the 2.8-cm piece bases ensures consistent magnetic coupling with the electromagnet. The 12.7-cm internal cavity provides enough vertical space for each subsystem as well as airflow channels and wiring paths. Plywood and acrylic construction keeps the board lightweight enough for a single person to lift while maintaining structural rigidity and offering low thermal conductivity for user safety.
+
+The subsystem clearly satisfies regulatory, electrical, and safety constraints. Operating below 12 volts reduces electrical hazard risk and eases compliance with IEC 62368-1 [3], while ventilation holes, insulated wiring, strain relief, and overcurrent protection all support safe operation and tolerance for single-fault failures. The electronics chosen—consumer-grade USB and SPI components—are inherently compliant with FCC Part 15 for conducted and radiated emissions [2]. These design choices minimize hazards while ensuring long-term reliability and ease of maintenance.
+
+The Peripherals Unit also reflects thoughtful ethical and socioeconomic considerations. The LCD interface provides an alternative to voice-only control, supporting accessibility for users with speech impairments or in noisy environments. Voice processing occurs locally on the Raspberry Pi, protecting user privacy in line with ACM ethical guidelines[4]. Material choices such as plywood, acrylic, and PLA minimize cost, promote repairability, and reduce electronic waste by allowing easy component replacement [5]. Overall, the Peripherals Unit design is cohesive, achievable, and well matched to the constraints, enabling it to fulfill its role as a robust and user-friendly subsystem within the Automated Chessboard.
 
 ## References
 [1] Premier Chess. Back to Basics: Notation. Available at: https://premierchess.com/chess-pedagogy/back-to-basics-notation
