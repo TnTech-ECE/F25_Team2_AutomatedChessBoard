@@ -17,7 +17,7 @@ Throughout gameplay, the PU maintains the internal representation of the chessbo
 
 ## Specifications and Constraints
 
-The Processing Unit (PU) shall act as the system’s central controller, implemented on a Raspberry Pi, and shall perform speech recognition, board-state management, move validation, and peripheral communication. The PU shall accept voice input from a USB microphone, interpret commands with the Vosk engine, validate moves using the Stockfish engine, forward validated commands to the Control Unit (Arduino) by a serial protocol (USART or I²C), and update the display with real-time feedback. All design decisions and operational limits shall comply with applicable U.S. electrical, safety, accessibility, and consumer product standards.
+The Processing Unit (PU) shall act as the system’s central controller, implemented on a Raspberry Pi, and shall perform speech recognition, board-state management, move validation, and peripheral communication. The PU shall accept voice input from a USB microphone, interpret commands with the Vosk engine, validate moves using PyChess, forward validated commands to the Control Unit (Arduino) by a serial protocol (USART or I²C), and update the display with real-time feedback. All design decisions and operational limits shall comply with applicable U.S. electrical, safety, accessibility, and consumer product standards.
 
 ---
 
@@ -147,13 +147,13 @@ The PU’s primary power source is the Battery Management System (BMS), which pr
 The PU exchanges data with visible peripherals. Communication methods and the expected nature of the data are described below.
 
 #### LCD Communication
-Communication between the Processing Unit and the Display Module is implemented through the Raspberry Pi’s 40-pin GPIO interface using the SPI communication protocol. The TFT (Thin Film Transistor) module mounts directly on top of the Raspberry Pi’s GPIO header but will instead be extended using a ribbon cable, eliminating the need for external cabling and allowing both data and power to be delivered through the same connector [15]. The module operates as an SPI peripheral device, receiving pixel data, frame control commands, and refresh instruction queries over dedicated SPI lines such as SCLK, MOSI, MISO, and chip-select. The display driver IC and touch controller communicate using this bus structure, enabling the Raspberry Pi to issue display updates with low latency and predictable timing.
+Communication between the Processing Unit and the Display Module is implemented through the Raspberry Pi’s 40-pin GPIO interface using the SPI communication protocol. The TFT (Thin Film Transistor) module mounts directly on top of the Raspberry Pi’s GPIO header but will instead be extended using a ribbon cable, eliminating the need for external cabling and allowing both data and power to be delivered through the same connector [15]. The module operates as an SPI peripheral device, receiving pixel data, frame control commands, and refresh instruction queries over dedicated SPI lines such as SCLK, MOSI, MISO, and chip-select. The display driver IC communicates using this bus structure, enabling the Raspberry Pi to issue display updates with low latency and predictable timing.
 
 To enable operation, device drivers for the display must be installed on the Raspberry Pi. The manufacturer provides a downloadable driver package and installation instructions that configure the required SPI overlays and device mappings in the Raspberry Pi’s operating system. Once installed, the display is recognized as a framebuffer output device, allowing applications and the desktop environment to render directly to the screen. The physical and communication interface requires that the screen be positioned on the Raspberry Pi’s GPIO header during use, as the electrical connections for SPI, control signals, and power delivery are all made through this stacking arrangement [14].
 
 #### Microphone Communication
 
-The microphone connects to the PU via USB and supplies a continuous stream of digital audio samples [13]. The Raspberry Pi enumerates USB audio devices as system recording devices, allowing application-level audio APIs to capture PCM (Pulse-code modulation) audio due to the system’s built-in audio drivers [16]. These audio streams are then processed by vosk, which converts spoken input into textual commands for the game. Due to the microphone’s restricted range of movement, a USB extension cable (male to female) will be used to enable proper placement [17].
+The microphone connects to the PU via USB and supplies a continuous stream of digital audio samples [13]. The Raspberry Pi enumerates USB audio devices as system recording devices, allowing application-level audio APIs to capture PCM (Pulse-code modulation) audio due to the system’s built-in audio drivers [16]. These audio streams are then processed by vosk, which converts spoken input into textual commands for the game. Due to the microphone’s restricted range of movement, a USB extension cable will be used to enable proper placement [17].
 
 ### Control Unit Communication
 
@@ -183,9 +183,8 @@ Communication between the Processing Unit and the Control Unit (Arduino Nano) is
 | JXMOX | J-0015 | USB A to Mini-B cable (power/programming for Arduino Nano) | Amazon | - | 1 | $3.99 | [Link](https://www.amazon.com/JXMOX-Charging-Compatible-Controller-Receiver/dp/B09DCLRYH6?dib=eyJ2IjoiMSJ9.shJPkvHWsKPPj2XvYAPBmFnnyPjItfA-_DBuJ6Sv55w3bOPZ2JsfSsp1svM_hMMC4ps6bkf4GmmnyhiX4YUJ6DXnve7f2egeTd-b5ANAcMoeeG8NEqL7ZEsoVoUmsI-Xio6-hq1TecJdcfo0Jn4osGWjksLjPPB0i_EY-XzlVMgkNa2x20nuVZC48CWCNOO7NY8V3kQYCoMOCKmwjEBs0eh-f8CCnSIPeQhoTcJPQiw.BbzjciBEm3_HrsjeOPfDdKEYTxgYmWUN7pmCO2H8w68&dib_tag=se&keywords=Mini%2BUsb%2BTo%2BUsb%2BCable&qid=1763767607&sr=8-4&th=1) |
 | Adafruit | 2101 | 26-pin GPIO male to female extension for Raspberry Pi → LCD/SPI header routing | Adafruit | 2101 | 1 | $1.75 | [Link](https://www.adafruit.com/product/2101) |
 | Adafruit | 862 | 26-pin GPIO Ribbon Cable for Raspberry Pi | Adafruit | 862 | 1 | $2.95 | [Link](https://www.adafruit.com/product/862) |
-| ANDTOBO | 770523117560 | USB extension for microphone range | Amazon | – | 1 | $4.99 | [Link](https://tinyurl.com/zm7t2du8) |
 | Raspberry Pi Foundation | SC1148 | Raspberry Pi 5 Active Cooler | PiShop | – | 1 | $10.95 | [Link](https://www.pishop.us/product/raspberry-pi-active-cooler/)|
-| **Total** | - | - | - | - | - | **$96.93** | - |
+| **Total** | - | - | - | - | - | **$91.94** | - |
 ### Component Justification
 #### Raspberry Pi 5 (4GB)
 
@@ -206,10 +205,6 @@ The Arduino Nano requires a Mini-B USB cable for power. This cable also simplifi
 #### 26-Pin Ribbon Cable and male to female extension (LCD Display Connection)
 
 The SPI-based LCD screen requires a flexible and organized connection to the Raspberry Pi GPIO header. The ribbon cable allows the screen to be cleanly mounted away from the Pi while maintaining correct pin routing and minimizing mechanical stress on the GPIO pins. The extension is needed because the ribbon cable is female to female and the LCD screen needs male to female.
-
-#### USB-A Extension Cable (Microphone Range)
-
-The microphone may need to be placed in a convenient location near the user while the Raspberry Pi remains mounted inside the board enclosure. A USB extension cable increases placement flexibility and helps ensure clear audio capture, improving recognition accuracy without relocating the entire system.
 
 #### Raspberry Pi 5 Active Cooler
 
@@ -265,7 +260,7 @@ For the PU the project selects a lightweight, Pi-optimized OS such as Raspberry 
 
 [16] WonderfulPCB. Raspberry Pi Audio Recording: Microphone Setup and alsamixer Guide. Available: Pcb, W. (2025, October 9). How to Connect Microphones and Record Audio with Raspberry Pi. Wonderful PCB. https://www.wonderfulpcb.com/blog/raspberry-pi-audio-recording-microphone-setup-and-alsamixer/
 
-[17] Amazon.com: ANDTOBO USB Extension Cable 3.3ft, USB 3.0 Type A Male to Female Extender Cables High-Speed Data Transfer 5Gbps Compatible with Gamepad, Printer, Webcam, USB Keyboard, Flash Drive, Hard Drive : Electronics. (n.d.-b). https://tinyurl.com/zm7t2du8
+[17] Amazon.com: XMSJSIY D-Type USB Panel Mount to USB 3.0 Adapter cable 5GBps USB Type-A Male to Type-A Female panel mount Extension cable USB A port charging socket connector for data transfer - 1M/3.2FT (D-Type) : Electronics. (n.d.). https://www.amazon.com/XMSJSIY-Threaded-Extension-Charging-Connector/dp/B0DT4D13CK
 
 [18] Understanding UART. Rohde & Schwarz. https://www.rohde-schwarz.com/us/products/test-and-measurement/essentials-test-equipment/digital-oscilloscopes/understanding-uart_254524.html
 
