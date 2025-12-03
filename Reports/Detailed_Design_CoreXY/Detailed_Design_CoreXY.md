@@ -4,7 +4,7 @@ This document presents a comprehensive overview of the CoreXY subsystem, one of 
 
 ## Function of the Subsystem
 
-The CoreXY subsystem serves as the mechanical motion platform responsible for executing physical piece movement across the chessboard. Operating under command signals received from the Control Unit, the CoreXY translates high-level motion instructions into precise two-dimensional movement along the X and Y axes. The system utilizes a belt-driven CoreXY configuration, where two stepper motors generate coordinated linear motion of a magnetic actuator mounted beneath the playing surface [6].
+The CoreXY subsystem serves as the mechanical motion platform responsible for executing physical piece movement across the chessboard. Operating under command signals received from the Control Unit, the CoreXY translates high-level motion instructions into precise two-dimensional movement along the X and Y axes. The system utilizes a belt-driven CoreXY configuration, where two stepper motors generate coordinated linear motion of a magnetic actuator mounted beneath the playing surface [1].
 
 This actuator, a controllable electromagnet, engages only when positioned beneath a piece designated for movement, allowing it to securely “grip” and transport the chess piece to its target location before deactivating to release it. The design ensures smooth, synchronized motion while maintaining positional accuracy across the entire board area. Through this integration of mechanical precision and controlled magnetic actuation, the CoreXY subsystem enables consistent, reliable, and efficient movement of all chess pieces as part of the automated gameplay sequence.
 
@@ -14,25 +14,25 @@ The CoreXY subsystem shall provide precise two-axis movement of the magnetic car
 
 ### Performance Specifications
 
-The CoreXY subsystem shall achieve positional accuracy within ±0.5 mm of target coordinates, maintaining alignment with the CU accuracy specification. The subsystem shall complete all commanded movements within 5 seconds to ensure responsive gameplay and smooth motion transitions, also in alignment with the CU movement speed specification. Proper belt tensioning shall be maintained to minimize backlash and vibration, ensuring smooth and repeatable motion [3]. All motion parameters—including steps per millimeter, acceleration, and velocity profiles—shall be calculated and verified through calibration procedures to achieve precise kinematic performance [2]. The subsystem shall employ an electromagnet operating at 5 V DC with magnetic strength sufficient to reliably pick up the designated chess piece without attracting or disturbing adjacent pieces [3]. The stepper motors driving the CoreXY mechanism shall operate from a 12 V DC motor supply, consistent with driver voltage tolerances. Belt tension, magnet strength, and motion calibration shall collectively ensure smooth, accurate, and reliable piece movement across all gameplay operations.
+The CoreXY subsystem shall achieve positional accuracy within ±0.5 mm of target coordinates, maintaining alignment with the CU accuracy specification. The subsystem shall complete all commanded movements within 5 seconds to ensure responsive gameplay and smooth motion transitions, also in alignment with the CU movement speed specification. Proper belt tensioning shall be maintained to minimize backlash and vibration, ensuring smooth and repeatable motion [2]. All motion parameters—including steps per millimeter, acceleration, and velocity profiles—shall be calculated and verified through calibration procedures to achieve precise kinematic performance [3]. The subsystem shall employ an electromagnet operating at 5 V DC with magnetic strength sufficient to reliably pick up the designated chess piece without attracting or disturbing adjacent pieces [2]. The stepper motors driving the CoreXY mechanism shall operate from a 12 V DC motor supply, consistent with driver voltage tolerances. Belt tension, magnet strength, and motion calibration shall collectively ensure smooth, accurate, and reliable piece movement across all gameplay operations.
 
 ### Regulatory and Compliance Constraints
 
-The subsystem shall comply with FCC Part 15 Subpart B (Class B) limits for electromagnetic interference in residential environments keeping emissions under 0.15–30 MHz at 66–56 dBµV, decreasing with frequency, and radiated emissions of up to 30–1000 MHz at 40–54 dBµV/m measured at 3 meters [10]. All operations shall remain under 50 V DC in accordance with UL low-voltage safety thresholds in order to eliminate the need for high-voltage insulation [11]. All circuitry shall comply with wiring methods specified in Article 725 for Class 1, 2, and 3 circuits, including protection against overcurrent, proper conductor sizing, and properly rated insulation [13]. All materials and configurations shall comply with CPSC safety guidance for consumer electronics, ensuring components are not hazardous and follow CPSC's best-practice manufacturing guidance and material-change-testing requirements [8].
+The subsystem shall comply with FCC Part 15 Subpart B (Class B) limits for electromagnetic interference in residential environments keeping emissions under 0.15–30 MHz at 66–56 dBµV, decreasing with frequency, and radiated emissions of up to 30–1000 MHz at 40–54 dBµV/m measured at 3 meters [4]. All operations shall remain under 50 V DC in accordance with UL low-voltage safety thresholds in order to eliminate the need for high-voltage insulation [5]. All circuitry shall comply with wiring methods specified in Article 725 for Class 1, 2, and 3 circuits, including protection against overcurrent, proper conductor sizing, and properly rated insulation [6]. All materials and configurations shall comply with CPSC safety guidance for consumer electronics, ensuring components are not hazardous and follow CPSC's best-practice manufacturing guidance and material-change-testing requirements [7].
 
 ### Electrical and Safety Constraints
 
-All external surfaces shall operate under temperatures ≤104°F, in accordance with UL 94 flammability requirements for plastic materials and the CPSC maximum surface temperature guidelines (16 CFR 1505.7) [16] [9]. All cord sets, flexible cables, and connectors shall comply with NEC Article 400, using conductors and insulation rated for system voltage and current, with secure routing that avoids sharp edges, pinch points, or mechanical stress [14]. All circuitry shall include grounding, bonding, and electrical protection measures in accordance with OSHA 29 CFR 1910 Subpart S, ensuring all exposed conductive parts are properly grounded and circuit protection devices are installed where required [12]. All user-facing hazards shall have safety labels in compliance with ANSI Z535.4, ensuring labels are legible, durable, and placed conspicuously to effectively warn users of potential risks [1].
+All external surfaces shall operate under temperatures ≤104°F, in accordance with UL 94 flammability requirements for plastic materials and the CPSC maximum surface temperature guidelines (16 CFR 1505.7) [8] [9]. All cord sets, flexible cables, and connectors shall comply with NEC Article 400, using conductors and insulation rated for system voltage and current, with secure routing that avoids sharp edges, pinch points, or mechanical stress [10]. All circuitry shall include grounding, bonding, and electrical protection measures in accordance with OSHA 29 CFR 1910 Subpart S, ensuring all exposed conductive parts are properly grounded and circuit protection devices are installed where required [11]. All user-facing hazards shall have safety labels in compliance with ANSI Z535.4, ensuring labels are legible, durable, and placed conspicuously to effectively warn users of potential risks [12].
 
 ### Ethical and Socio-economic Considerations
 
-The subsystem shall be designed and operated with user safety and reliability as the highest priority, ensuring that all motion components, power systems, and magnetic assemblies function predictably and do not pose mechanical, electrical, or operational hazards during use or maintenance [15]. The subsystem shall consider cost efficiency and accessibility, utilizing affordable and widely available components so that the overall system remains attainable for educational and research applications without compromising performance or durability.
+The subsystem shall be designed and operated with user safety and reliability as the highest priority, ensuring that all motion components, power systems, and magnetic assemblies function predictably and do not pose mechanical, electrical, or operational hazards during use or maintenance [13]. The subsystem shall consider cost efficiency and accessibility, utilizing affordable and widely available components so that the overall system remains attainable for educational and research applications without compromising performance or durability.
 
 ## Overview of Proposed Solution
 
-The CoreXY subsystem uses two pulleys arranged in a crossed configuration, with a stepper motor attached to each pulley, to move the magnetic actuator across the chessboard playing field. The belt routing and corresponding motion equations are illustrated in Figure 1. Both belts shall be tensioned equally, with calibration optimized to minimize mechanical strain while maximizing smoothness and positional accuracy of motion. A 5 V DC controllable electromagnet is mounted on the carriage to selectively lift and transport chess pieces. The electromagnet is actuated via a MOSFET controlled by the Control Unit, with a flyback diode included to protect the circuitry from inductive spikes. Magnetic force is calibrated to reliably pick up a single piece without affecting adjacent pieces, and disengagement is instantaneous to release the piece accurately [3].
+The CoreXY subsystem uses two pulleys arranged in a crossed configuration, with a stepper motor attached to each pulley, to move the magnetic actuator across the chessboard playing field. The belt routing and corresponding motion equations are illustrated in Figure 1. Both belts shall be tensioned equally, with calibration optimized to minimize mechanical strain while maximizing smoothness and positional accuracy of motion. A 5 V DC controllable electromagnet is mounted on the carriage to selectively lift and transport chess pieces. The electromagnet is actuated via a MOSFET controlled by the Control Unit, with a flyback diode included to protect the circuitry from inductive spikes. Magnetic force is calibrated to reliably pick up a single piece without affecting adjacent pieces, and disengagement is instantaneous to release the piece accurately [2].
 
-All electrical and mechanical elements shall comply with NFPA 70 (National Electrical Code) [13][14], FCC Part 15 Subpart B [10], and UL 60950‑1 for grounding, insulation, and interference protection [15]. Wiring shall conform to NEC Article 400, with secure routing to avoid pinch points or mechanical stress, while all exposed surfaces shall remain below 40 °C per UL 94 [16] and CPSC maximum surface temperature standards [9]. Components shall be RoHS-compliant and sourced from verified distributors to ensure cost efficiency and system sustainability. Collectively, these measures ensure that the CoreXY subsystem operates precisely, safely, and reliably as part of the automated chessboard system.
+All electrical and mechanical elements shall comply with NFPA 70 (National Electrical Code) [6][10], FCC Part 15 Subpart B [4], and UL 60950‑1 for grounding, insulation, and interference protection [13]. Wiring shall conform to NEC Article 400, with secure routing to avoid pinch points or mechanical stress, while all exposed surfaces shall remain below 40 °C per UL 94 [8] and CPSC maximum surface temperature standards [9]. Components shall be RoHS-compliant and sourced from verified distributors to ensure cost efficiency and system sustainability. Collectively, these measures ensure that the CoreXY subsystem operates precisely, safely, and reliably as part of the automated chessboard system.
 
 <div align="center"> 
 <img width="905" height="822" alt="image" src="https://github.com/user-attachments/assets/ee726420-2098-4fac-a716-fdc2a651918a" /> 
@@ -41,7 +41,7 @@ All electrical and mechanical elements shall comply with NFPA 70 (National Ele
 <strong> Figure 1. CoreXY belt routing and corresponding motion equations </strong> 
 </div>
 <div align="center"> 
-Diagram illustrates belt path configuration and the kinematic relationships used to translate motor rotations into X–Y motion [6]. 
+Diagram illustrates belt path configuration and the kinematic relationships used to translate motor rotations into X–Y motion [14]. 
 </div>
 
 ## Interface with Other Subsystem
@@ -64,7 +64,7 @@ The CoreXY does not directly exchange signals with the Peripherals subsystem. Ho
 
 ### CoreXY
 The following figures present detailed 3D visualizations of the CoreXY subsystem, the primary mechanical platform responsible for X–Y motion within the automated chessboard. Each view—isometric, top, and front—highlights the geometry, structural features, and spatial relationships of the CoreXY assembly, including the carriage, belt routing, pulleys, and mounting interfaces. These models provide a clear depiction of how the subsystem is constructed, aiding in design review, assembly planning, and verification of motion constraints and clearances.
-**Note:** The original CAD model was sourced from [5]. Dimensions and specific features of this model will be modified as needed to suit the actual design and mechanical constraints of the automated chessboard. Specifically, the size of the CoreXY will be adjusted to 570 mm × 950 mm instead of 419 mm × 382 mm. This modification does not affect the functionality of the model; it only adjusts the lengths of the aluminum extrusions.
+**Note:** The original CAD model was sourced from [15]. Dimensions and specific features of this model will be modified as needed to suit the actual design and mechanical constraints of the automated chessboard. Specifically, the size of the CoreXY will be adjusted to 570 mm × 950 mm instead of 419 mm × 382 mm. This modification does not affect the functionality of the model; it only adjusts the lengths of the aluminum extrusions.
 
 <div align="center"> 
 <img width="1600" height="573" alt="Isometric_CoreXY" src="https://github.com/user-attachments/assets/d00a0ba7-4fe0-460b-abcc-66b78e303a5c" />
@@ -265,7 +265,7 @@ The front view highlights the vertical dimensions and support structures, showin
 
 ### Cable Chain Components
 The figures show a detailed 3D visualization of the cable chain components. This chain is designed to route and protect the wires connected to the electromagnet, preventing wear or damage during movement of the CoreXY carriage. The components will be connected together to form the chain. Its geometry ensures compliance with system specifications while maintaining smooth motion along the X–Y axes.
-**Note:** The original CAD models were sourced from [6].
+**Note:** The original CAD models were sourced from [16].
 
 #### Chain Segment
 <div align="center"> 
@@ -371,46 +371,45 @@ The diagram illustrates the circuitry used to control the electromagnet, includi
 
 ## Analysis
 
-The CoreXY subsystem’s design demonstrates a high degree of reliability, precision, and safety, ensuring it can effectively fulfill the intended role of automated chess piece movement. The system employs two NEMA17 stepper motors with 200 steps/rev and 1/16 microstepping, coupled to 16‑tooth GT2 pulleys with 2 mm pitch belts. This configuration achieves approximately 200 steps/mm, supporting positional accuracy within ±0.5 mm [6], consistent with the constraints for collision-free piece movement. Coordinated control through TMC2209 stepper drivers allows precise translation of Control Unit commands into smooth X–Y motion, completing typical chessboard traversals within ≤5 s, which ensures responsive gameplay.
+The CoreXY subsystem’s design demonstrates a high degree of reliability, precision, and safety, ensuring it can effectively fulfill the intended role of automated chess piece movement. The system employs two NEMA17 stepper motors with 200 steps/rev and 1/16 microstepping, coupled to 16‑tooth GT2 pulleys with 2 mm pitch belts. This configuration achieves approximately 200 steps/mm, supporting positional accuracy within ±0.5 mm [1], consistent with the constraints for collision-free piece movement. Coordinated control through TMC2209 stepper drivers allows precise translation of Control Unit commands into smooth X–Y motion, completing typical chessboard traversals within ≤5 s, which ensures responsive gameplay.
 
-Mechanical considerations, including equal belt tensioning [2], linear bearings, and 3D-printed carriage components, reduce backlash [2] and vibration while maximizing repeatability. Careful attention to calibration, acceleration, and velocity profiles ensures predictable, controllable motion, minimizing mechanical wear and extending subsystem longevity. With an estimated carriage mass of ~120 g including the electromagnet, the system operates safely within the stepper motors’ rated holding torque of 40 N·cm, allowing smooth acceleration without skipping steps.
+Mechanical considerations, including equal belt tensioning [3], linear bearings, and 3D-printed carriage components, reduce backlash [3] and vibration while maximizing repeatability. Careful attention to calibration, acceleration, and velocity profiles ensures predictable, controllable motion, minimizing mechanical wear and extending subsystem longevity. With an estimated carriage mass of ~120 g including the electromagnet, the system operates safely within the stepper motors’ rated holding torque of 40 N·cm, allowing smooth acceleration without skipping steps.
 
-The magnetic actuation system comprises a 5 V DC mini electromagnet, rated for ~400 g pull force with a nominal current of 0.4 A [3]. MOSFET-based actuation with an included flyback diode protects the circuit from inductive spikes and ensures long-term reliability. Electromagnet activation latency is <10 ms, enabling precise, instantaneous pickup and release of individual chess pieces without disturbing neighboring pieces. Separation of the 5 V logic supply from the MOSFET’s load supply prevents switching noise from propagating into the stepper drivers or Control Unit.
+The magnetic actuation system comprises a 5 V DC mini electromagnet, rated for ~400 g pull force with a nominal current of 0.4 A [2]. MOSFET-based actuation with an included flyback diode protects the circuit from inductive spikes and ensures long-term reliability. Electromagnet activation latency is <10 ms, enabling precise, instantaneous pickup and release of individual chess pieces without disturbing neighboring pieces. Separation of the 5 V logic supply from the MOSFET’s load supply prevents switching noise from propagating into the stepper drivers or Control Unit.
 
-Regulatory and ethical considerations have been fully addressed. Compliance with FCC Part 15, UL 94 flammability standards, and CPSC maximum surface temperature limits ensures safe operation [1],[9],[16]. All wiring adheres to NEC Article 400 standards, with proper grounding per OSHA 29 CFR 1910 Subpart S [12],[13]. Components are cost-effective, widely available, and RoHS-compliant, ensuring accessibility, reproducibility, and sustainability for educational or research applications.
+Regulatory and ethical considerations have been fully addressed. Compliance with FCC Part 15, UL 94 flammability standards, and CPSC maximum surface temperature limits ensures safe operation [12],[9],[8]. All wiring adheres to NEC Article 400 standards, with proper grounding per OSHA 29 CFR 1910 Subpart S [11],[6]. Components are cost-effective, widely available, and RoHS-compliant, ensuring accessibility, reproducibility, and sustainability for educational or research applications.
 
 In conclusion, the CoreXY subsystem exemplifies a design that balances mechanical precision, electrical safety, regulatory compliance, and operational reliability. With detailed numeric validation of stepper resolution, carriage mass, belt tension, and electromagnet force, the design provides strong evidence that it will reliably meet its intended function and support smooth, safe, and accurate chessboard actuation under real-world operating conditions.
 
 ## References
+[1] M. Yin, Y. Chen, K.-H. Lee, D. K. C. Fu, and K.-W. Kwok, “Dynamic modeling and characterization of the Core-XY Cartesian motion system,” in Proc. IEEE Int. Conf. Real-time Comput. Robot. (RCAR), 2018, pp. 516–521.  
 
-[1] American National Standards Institute, ANSI Z535.4: Product Safety Signs and Labels, 2011 ed., Washington, DC: ANSI, 2011.  
+[2] T. Banas, “How To Calculate The Force Of An Electromagnet,” Sciencing, Mar. 13, 2018. https://www.sciencing.com/calculate-force-electromagnet-5969962/  
 
-[2] “Belt Frequency And Tensioning - 3D Distributed,” 3D Distributed, Nov. 05, 2020. https://3ddistributed.com/belt-frequency-and-tensioning/  
+[3] “Belt Frequency And Tensioning - 3D Distributed,” 3D Distributed, Nov. 05, 2020. https://3ddistributed.com/belt-frequency-and-tensioning/  
 
-[3] T. Banas, “How To Calculate The Force Of An Electromagnet,” Sciencing, Mar. 13, 2018. https://www.sciencing.com/calculate-force-electromagnet-5969962/  
+[4] U.S. Federal Communications Commission, “47 CFR Part 15, Subpart B: Unintentional Radiators,” Electronic Code of Federal Regulations, Title 47, Chapter I, Subchapter A, Part 15, Subpart B. [Online]. Available: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15/subpart-B [Accessed: Oct. 27, 2025.]  
 
-[4] “CoreXY | Cartesian Motion Platform,” corexy.com. https://corexy.com/theory.html‌  
+[5] U.S. Occupational Safety and Health Administration, OSHA Standards – Subpart S: Electrical, 29 CFR 1910, Washington, D.C.: OSHA, 2025.  
 
-[5] Greg06, “Automated Chessboard,” Instructables, 2025. [Online]. Available: https://www.instructables.com/Automated-Chessboard/
+[6] National Fire Protection Association, NFPA 70, National Electrical Code®, 2023 ed., Quincy, MA: NFPA, 2022.  
 
-[6] M. Yin, Y. Chen, K.-H. Lee, D. K. C. Fu, and K.-W. Kwok, “Dynamic modeling and characterization of the Core-XY Cartesian motion system,” in Proc. IEEE Int. Conf. Real-time Comput. Robot. (RCAR), 2018, pp. 516–521.  
+[7] U.S. Consumer Product Safety Commission, “Manufacturing Best Practices,” Business Education, Manufacturing. [Online]. Available: https://www.cpsc.gov/business--manufacturing/business-education/business-guidance/BestPractices [Accessed: Oct. 28, 2025].  
 
-[7] ModelStation, “Cable Chain,” Thing 11978, Thingiverse. https://www.thingiverse.com/thing:11978/files (accessed Nov. 30, 2025).
+[8] Underwriters Laboratories, UL 94: Standard for Safety of Flammability of Plastic Materials for Parts in Devices and Appliances, 5th ed., Northbrook, IL: UL, 2024.
 
-[8] U.S. Consumer Product Safety Commission, “Manufacturing Best Practices,” Business Education, Manufacturing. [Online]. Available: https://www.cpsc.gov/business--manufacturing/business-education/business-guidance/BestPractices [Accessed: Oct. 28, 2025].  
+[9] U.S. Consumer Product Safety Commission, “Maximum acceptable surface temperatures,” Code of Federal Regulations, Title 16, Part 1505.7. [*Online]. Available: https://www.law.cornell.edu/cfr/text/16/1505.7 [*Accessed: Oct. 28, 2025].  
 
-[9] U.S. Consumer Product Safety Commission, “Maximum acceptable surface temperatures,” Code of Federal Regulations, Title 16, Part 1505.7. [Online]. Available: https://www.law.cornell.edu/cfr/text/16/1505.7 [Accessed: Oct. 28, 2025].  
+[10] P. Scantlebury and P. Eng, “Engineering Safety into the Design.” Available: https://www.cheminst.ca/wp-content/uploads/2019/04/Engineering20safety20into20the20design20-20Peter20Scantlebury-1.pdf  
 
-[10] U.S. Federal Communications Commission, “47 CFR Part 15, Subpart B: Unintentional Radiators,” Electronic Code of Federal Regulations, Title 47, Chapter I, Subchapter A, Part 15, Subpart B. [Online]. Available: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15/subpart-B [Accessed: Oct. 27, 2025.]  
+[11] National Fire Protection Association, NFPA 70, National Electrical Code®, 2017 ed., Quincy, MA: NFPA, 2016.  
 
-[11] U.S. Occupational Safety and Health Administration, OSHA Standards – Subpart S: Electrical, 29 CFR 1910, Washington, D.C.: OSHA, 2025.  
+[12] American National Standards Institute, ANSI Z535.4: Product Safety Signs and Labels, 2011 ed., Washington, DC: ANSI, 2011.  
 
-[12] National Fire Protection Association, NFPA 70, National Electrical Code®, 2017 ed., Quincy, MA: NFPA, 2016.  
+[13] U.S. company UL Solutions, “Protection from Electrical Hazards,” Nov. 2024. [Online]. Available: https://www.ul.com/resources/protection-electrical-hazards [Accessed: Oct. 28, 2025].  
 
-[13] National Fire Protection Association, NFPA 70, National Electrical Code®, 2023 ed., Quincy, MA: NFPA, 2022.  
+[14] “CoreXY | Cartesian Motion Platform,” corexy.com. https://corexy.com/theory.html
 
-[14] P. Scantlebury and P. Eng, “Engineering Safety into the Design.” Available: https://www.cheminst.ca/wp-content/uploads/2019/04/Engineering20safety20into20the20design20-20Peter20Scantlebury-1.pdf  
+[15] Greg06, “Automated Chessboard,” Instructables, 2025. [Online]. Available: https://www.instructables.com/Automated-Chessboard/
 
-[15] U.S. company UL Solutions, “Protection from Electrical Hazards,” Nov. 2024. [Online]. Available: https://www.ul.com/resources/protection-electrical-hazards [Accessed: Oct. 28, 2025].  
-
-[16] Underwriters Laboratories, UL 94: Standard for Safety of Flammability of Plastic Materials for Parts in Devices and Appliances, 5th ed., Northbrook, IL: UL, 2024.
+[16] ModelStation, “Cable Chain,” Thing 11978, Thingiverse. https://www.thingiverse.com/thing:11978/files (accessed Nov. 30, 2025).
