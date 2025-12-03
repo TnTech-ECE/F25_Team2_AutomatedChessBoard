@@ -1,6 +1,6 @@
 # CoreXY Detailed Design
 
-This document presents a comprehensive overview of the CoreXY subsystem, one of the five primary components of the automated chessboard system; the other subsystems including the Processing Unit (PU), Control Unit (CU), Power Unit, and Peripherals Unit. While the primary focus is on the CoreXY, this document also provides a high-level integration perspective with the remaining subsystems, in order to illustrate the CoreXY’s role in  physically implementing piece movement within the entire system. Additionally, the document outlines the key technical constraints, relevant electrical and safety standards, and operational requirements that guide the subsystem’s design and implementation. Finally, it describes the proposed mechanical architecture, magnetic actuation method, flux calculations, and motion transmission calculations necessary to construct and validate the CoreXY as a critical part of the complete automated chessboard solution.
+This document presents a comprehensive overview of the CoreXY subsystem, one of the five primary components of the automated chessboard system; other subsystems consist of the Processing Unit (PU), Control Unit (CU), Power Unit, and Peripherals Unit. While the primary focus is on the CoreXY, this document also provides a high-level integration perspective with the remaining subsystems, in order to illustrate the CoreXY’s role in  physically implementing piece movement within the entire system. Additionally, the document outlines the key technical constraints, relevant electrical and safety standards, and operational requirements that guide the subsystem’s design and implementation. Finally, it describes the proposed mechanical architecture, magnetic actuation method, flux calculations, and motion transmission calculations necessary to construct and validate the CoreXY as a critical part of the complete automated chessboard solution.
 
 ## Function of the Subsystem
 
@@ -18,7 +18,7 @@ The CoreXY subsystem shall achieve positional accuracy within ±0.5 mm of target
 
 ### Regulatory and Compliance Constraints
 
-The subsystem shall comply with FFC Part 15 Subpart B (Class B) limits for electromagnetic interference in residential environments keeping emissions under 0.15–30 MHz at 66–56 dBµV, decreasing with frequency, and radiated emissions of up to 30–1000 MHz at 40–54 dBµV/m measured at 3 meters [10]. All operations shall remain under 50 V DC in accordance with UL low-voltage safety thresholds in order to eliminate the need for high-voltage insulation [11]. All circuitry shall comply with wiring methods specified in Article 725 for Class 1, 2, and 3 circuits, including protection against overcurrent, proper conductor sizing, and properly rated insulation [13]. All materials and configurations shall comply with CPSC safety guidance for consumer electronics, ensuring components are not hazardous and follow CPSC's best-practice manufacturing guidance and material-change-testing requirements [8].
+The subsystem shall comply with FCC Part 15 Subpart B (Class B) limits for electromagnetic interference in residential environments keeping emissions under 0.15–30 MHz at 66–56 dBµV, decreasing with frequency, and radiated emissions of up to 30–1000 MHz at 40–54 dBµV/m measured at 3 meters [10]. All operations shall remain under 50 V DC in accordance with UL low-voltage safety thresholds in order to eliminate the need for high-voltage insulation [11]. All circuitry shall comply with wiring methods specified in Article 725 for Class 1, 2, and 3 circuits, including protection against overcurrent, proper conductor sizing, and properly rated insulation [13]. All materials and configurations shall comply with CPSC safety guidance for consumer electronics, ensuring components are not hazardous and follow CPSC's best-practice manufacturing guidance and material-change-testing requirements [8].
 
 ### Electrical and Safety Constraints
 
@@ -67,13 +67,13 @@ The following figures present detailed 3D visualizations of the CoreXY subsystem
 **Note:** The original CAD model was sourced from [5]. Dimensions and specific features of this model will be modified as needed to suit the actual design and mechanical constraints of the automated chessboard. Specifically, the size of the CoreXY will be adjusted to 570 mm × 950 mm instead of 419 mm × 382 mm. This modification does not affect the functionality of the model; it only adjusts the lengths of the aluminum extrusions.
 
 <div align="center"> 
-<img width="1094" height="573" alt="image" src="https://github.com/user-attachments/assets/bbef5d08-f285-4587-b872-0ff4f83b6171" />
+<img width="1600" height="573" alt="Isometric_CoreXY" src="https://github.com/user-attachments/assets/d00a0ba7-4fe0-460b-abcc-66b78e303a5c" />
 </div>
 <div align="center"> 
 <strong> Figure 2.1. Isometric view of CoreXY </strong> 
 </div>
 <div align="center"> 
-The image shows the complete CoreXY subsystem in isometric perspective, including the X–Y belt configuration, stepper motor positions, carriage assembly, and mounted electromagnet. This view illustrates the spatial arrangement of mechanical components and how the belts, pulleys, and carriage interact to achieve precise two-dimensional motion.
+The image shows the complete CoreXY subsystem in isometric perspective, including the X–Y belt configuration, stepper motor positions, carriage assembly, and mounted electromagnet. This view illustrates the spatial arrangement of mechanical components and how the belts, pulleys, and carriage interact to achieve precise two-dimensional motion. This model has also been color coded to show where all custom modeled components will be located.
 </div><br />
 
 <div align="center"> 
