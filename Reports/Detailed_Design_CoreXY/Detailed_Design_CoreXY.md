@@ -67,13 +67,13 @@ The following figures present detailed 3D visualizations of the CoreXY subsystem
 **Note:** The original CAD model was sourced from [5]. Dimensions and specific features of this model will be modified as needed to suit the actual design and mechanical constraints of the automated chessboard. Specifically, the size of the CoreXY will be adjusted to 570 mm × 950 mm instead of 419 mm × 382 mm. This modification does not affect the functionality of the model; it only adjusts the lengths of the aluminum extrusions.
 
 <div align="center"> 
-<img width="1094" height="573" alt="image" src="https://github.com/user-attachments/assets/bbef5d08-f285-4587-b872-0ff4f83b6171" />
+<img width="1600" height="573" alt="Isometric_CoreXY" src="https://github.com/user-attachments/assets/d00a0ba7-4fe0-460b-abcc-66b78e303a5c" />
 </div>
 <div align="center"> 
 <strong> Figure 2.1. Isometric view of CoreXY </strong> 
 </div>
 <div align="center"> 
-The image shows the complete CoreXY subsystem in isometric perspective, including the X–Y belt configuration, stepper motor positions, carriage assembly, and mounted electromagnet. This view illustrates the spatial arrangement of mechanical components and how the belts, pulleys, and carriage interact to achieve precise two-dimensional motion.
+The image shows the complete CoreXY subsystem in isometric perspective, including the X–Y belt configuration, stepper motor positions, carriage assembly, and mounted electromagnet. This view illustrates the spatial arrangement of mechanical components and how the belts, pulleys, and carriage interact to achieve precise two-dimensional motion. This model has also been color coded to show where all custom modeled components will be located.
 </div><br />
 
 <div align="center"> 
