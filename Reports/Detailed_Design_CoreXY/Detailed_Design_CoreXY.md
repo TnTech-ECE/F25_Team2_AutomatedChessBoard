@@ -46,7 +46,7 @@ Diagram illustrates belt path configuration and the kinematic relationships used
 
 ## Interface with Other Subsystem
 
-The CoreXY subsystem interacts directly with the CU, which provides motion commands for precise X–Y positioning, and with the Power subsystem, which supplies current to the electromagnet through a MOSFET. It also interacts indirectly with the Peripherals subsystem, where its mechanical movement enables piece pickup and placement.
+The CoreXY subsystem interacts directly with the CU, which provides motion commands for precise X–Y positioning, and with the Power subsystem, which supplies current to the electromagnet through a MOSFET and adjacently powers the stepper motors. It also interacts indirectly with the Peripherals subsystem, where its mechanical movement enables piece pickup and placement.
 
 ### Control Unit Interface
 
@@ -54,11 +54,11 @@ The CoreXY receives motion commands from the CU and translates them into physica
 
 ### Power Interface
 
-The CoreXY subsystem interfaces with the Power subsystem by controlling current to the electromagnet through a MOSFET. The source pin of the MOSFET is connected to the common system ground, which is shared with the power supply. The drain pin is connected to the negative terminal of the electromagnet as well as to the anode of a flyback diode. The positive terminal of the electromagnet and the cathode of the diode are connected to the positive voltage of the power supply. When the MOSFET is on, it completes the circuit, allowing current to flow through the electromagnet and energize it. When the MOSFET is off, the diode provides a safe path for the inductive spike from the coil, protecting both the MOSFET and the rest of the system.
+The CoreXY subsystem interfaces with the Power subsystem by controlling current to the electromagnet through a MOSFET. The source pin of the MOSFET is connected to the common system ground, which is shared with the power supply. The drain pin is connected to the negative terminal of the electromagnet as well as to the anode of a flyback diode. The positive terminal of the electromagnet and the cathode of the diode are connected to the positive voltage of the power supply. When the MOSFET is on, it completes the circuit, allowing current to flow through the electromagnet and energize it. When the MOSFET is off, the diode provides a safe path for the inductive spike from the coil, protecting both the MOSFET and the rest of the system. The stepper motors are not directly powered by the Power subsystem. They instead recieve power from the CU's driver boards which are connected to the 12 V rail.
 
 ### Peripherals Interface
 
-The CoreXY does not directly exchange signals with the Peripherals subsystem. However, the subsystems interact mechanically through piece movement. The pieces must be designed considering the size, flux, and holding force of the electromagnet to ensure reliable pickup and release operations. The board proportions will also affect the proportions of the CoreXY.
+The CoreXY does not directly exchange signals with the Peripherals subsystem. However, the subsystems interact mechanically through piece movement. The pieces must be designed considering the size, flux, and holding force of the electromagnet to ensure reliable pickup and release operations. The electromagnet may require sheilding in order to avoid non-moving pieces, but currently the assumption is that the holding force will be weak enough through the acrylic that it should not pick up other pieces. Modifications will be made as needed to address electromagnet strength. The board proportions will also affect the proportions of the CoreXY.
 
 ## 3D Model of Custom Mechanical Components
 
@@ -334,13 +334,13 @@ The front view highlights the vertical alignment and profile of the cable chain 
 ### Stepper Motors
 
 <div align="center"> 
-<img width="7660" height="2302" alt="stepper_drivers drawio" src="https://github.com/user-attachments/assets/1d59b5db-4ee8-4e1c-b0af-a13c247d0bca" /> 
+<img width="8132" height="3652" alt="Stepper_Motors_Schematic" src="https://github.com/user-attachments/assets/812869f4-bd4c-486a-b737-b8a0b3a46faa" />
 </div>
 <div align="center">
 <strong>Figure 10. Pinout for stepper motors to drivers</strong>
 </div>
 <div align="center">
-The diagram illustrates the pinout connections between the stepper motors and their respective driver modules. It shows how the drivers will be connected to control the coils in the motors.
+The diagram illustrates the pinout connections between the stepper motors and their respective driver modules. It shows how the drivers will be connected to control the coils in the motors. It also illustrates the power connections to the drivers. The only components in this diagram that are part of the CoreXY are the stepper motors; all other components are shown to help visualize the circuitry needed to make the stepper motors function.
 </div><br />
 
 ### Electromagnet
