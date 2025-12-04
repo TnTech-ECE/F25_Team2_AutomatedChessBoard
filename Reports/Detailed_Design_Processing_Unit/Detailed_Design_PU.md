@@ -163,13 +163,13 @@ Communication between the Processing Unit and the Control Unit (Arduino Nano) is
 
 ## Buildable Schematic 
 
-![Buildable_Diagram](Buildable_for_PU3.png)
+![Buildable_Diagram](Buildable_for_PU2.png)
 ### Pin Table for the Ribbon Cable
 ![Pin_Table](pin_table.png)
 ---
 ## Flowchart
 
-![Flow_Diagram](PU_Flow_Diagram2.png)
+![Flow_Diagram](PU_Flow_Diagram3.png)
 
 ---
 ## BOM
