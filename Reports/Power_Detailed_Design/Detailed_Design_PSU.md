@@ -11,24 +11,34 @@ The Power Supply Unit (PSU) acts as the central power management and distributio
 ##Specifications and Constraints
 
 The PSU shall deliver regulated 5V and 12V DC outputs across the system, handling a peak load of up to 45.9W (capped by hardware limits) while supporting UPS failover and sleep mode. It must use rechargeable batteries for at least 2 hours of runtime at average load, adhering to electrical safety, environmental, and ethical standards.
-Performance Specifications
 
-Voltage Outputs and Load Handling: The PSU shall provide a stable 5V DC rail at up to 5A (including branches for PU, CU, Peripherals, buck converter input, and HV side of CU level shifter) with ripple <5%, and a 12V DC rail at up to 2A for motors. It shall include a buck converter stepping down from 5V to 3.3V for low-voltage logic (e.g., LV side of CU level shifter), with output adjustable to 3.3V at up to 3A.
-Battery Runtime and Charging: Batteries shall support >6 hours at 22.1W average draw (based on claimed 9900mAh capacity; actual tested capacity may vary), with automatic low-battery cutoff at 20% capacity. Charging via 5V/5A wall adapter shall complete in <12 hours with pass-through support (extended due to higher claimed capacity; verify with DFRobot UPS HAT charging limits).
-Sleep Mode and UPS: Sleep mode shall activate after 5 minutes of inactivity (signaled from PU), reducing idle draw to <500mW. UPS shall ensure <20ms switching latency during outages up to 10 seconds.
-Protection: All rails shall include overcurrent fuses (1.5x nominal per branch) and overvoltage protection.
+###Performance Specifications
+
+- Voltage Outputs and Load Handling: The PSU shall provide a stable 5V DC rail at up to 5A (including branches for PU, CU, Peripherals, buck converter input, and HV side of CU level shifter) with ripple <5%, and a 12V DC rail at up to 2A for motors. It shall include a buck converter stepping down from 5V to 3.3V for low-voltage logic (e.g., LV side of CU level shifter), with output adjustable to 3.3V at up to 3A.
+
+- Battery Runtime and Charging: Batteries shall support >6 hours at 22.1W average draw (based on claimed 9900mAh capacity; actual tested capacity may vary), with automatic low-battery cutoff at 20% capacity. Charging via 5V/5A wall adapter shall complete in <12 hours with pass-through support (extended due to higher claimed capacity; verify with DFRobot UPS HAT charging limits).
+
+- Sleep Mode and UPS: Sleep mode shall activate after 5 minutes of inactivity (signaled from PU), reducing idle draw to <500mW. UPS shall ensure <20ms switching latency during outages up to 10 seconds.
+
+- Protection: All rails shall include overcurrent fuses (1.5x nominal per branch) and overvoltage protection.
 
 ---
 
 ##Electrical and Signal Standards Compliance
 
-EMI / Emissions: Comply with FCC Part 15 Subpart B (Class B) for emissions (conducted: 0.15–30 MHz at 66–56 dBµV; radiated: 30–1000 MHz at 40–54 dBµV/m at 3m) to prevent interference [1].
-Low-Voltage Operation: Operate below 50V DC per UL thresholds, avoiding high-voltage needs [2].
-Wiring and Circuits: Follow NEC/NFPA 70 Article 725 for low-voltage circuits, with 18 AWG conductors, 60°C-rated insulation, and overcurrent protection [3].
-Batteries and Charging: Meet UL 2054 for safety (temperature limits: 32–140°F charging, -4–140°F discharging; protection against overcharge/short-circuit) [4].
-Cabling and Connectors: Comply with NEC Article 400 for flexible cables, ensuring secure routing and minimum bend radii [3].
-Grounding and Protection: Adhere to OSHA 29 CFR 1910 Subpart S for shock prevention; bond exposed parts [5].
-Safety Labeling: Use ANSI Z535.4-compliant labels for hazards (e.g., battery warnings) [6].
+- EMI / Emissions: Comply with FCC Part 15 Subpart B (Class B) for emissions (conducted: 0.15–30 MHz at 66–56 dBµV; radiated: 30–1000 MHz at 40–54 dBµV/m at 3m) to prevent interference [1].
+
+- Low-Voltage Operation: Operate below 50V DC per UL thresholds, avoiding high-voltage needs [2].
+
+- Wiring and Circuits: Follow NEC/NFPA 70 Article 725 for low-voltage circuits, with 18 AWG conductors, 60°C-rated insulation, and overcurrent protection [3].
+
+- Batteries and Charging: Meet UL 2054 for safety (temperature limits: 32–140°F charging, -4–140°F discharging; protection against overcharge/short-circuit) [4].
+
+- Cabling and Connectors: Comply with NEC Article 400 for flexible cables, ensuring secure routing and minimum bend radii [3].
+
+- Grounding and Protection: Adhere to OSHA 29 CFR 1910 Subpart S for shock prevention; bond exposed parts [5].
+
+- Safety Labeling: Use ANSI Z535.4-compliant labels for hazards (e.g., battery warnings) [6].
 
 ---
 
@@ -42,21 +52,23 @@ Ethical and Socio-Economic Constraints: Use recyclable Li-ion batteries to minim
 
 ##Overview of Proposed Solution
 
-The PSU uses a DFRobot UPS HAT mounted on the Raspberry Pi 5 (PU) for 5V regulation and battery management, with four 18650 batteries (~146Wh claimed capacity; verify actual) for portability. The 5V rail powers logic components directly, with dedicated branches: one 5V to the buck converter input (Adafruit 2745, adjusted to 3.3V output for LV logic in CU level shifter) and another 5V directly to the HV side of the SparkFun Logic Level Converter in the CU. A MT3608 step-up converter boosts 5V to 12V for motors. Inline fuses protect branches, and a Pi Switch enables clean shutdowns. This hybrid design meets runtime/safety specs while keeping costs low.
+The PSU uses a DFRobot UPS HAT mounted on the Raspberry Pi 5 (PU) for 5V regulation and battery management, with four 18650 batteries (~146Wh claimed capacity) for portability. The 5V rail powers logic components directly, with dedicated branches: one 5V to the buck converter input (Adafruit 2745, adjusted to 3.3V output for LV logic in CU level shifter) and another 5V directly to the HV side of the SparkFun Logic Level Converter in the CU. A MT3608 step-up converter boosts 5V to 12V for motors. Inline fuses protect branches, and a Pi Switch enables clean shutdowns. This hybrid design meets runtime/safety specs while keeping costs low.
 
 ---
 
 ##Interface with Other Subsystems
 
-Inputs: 5V/5A from wall charger (USB-C to UPS HAT); inactivity signal from PU (via GPIO) for sleep mode.
-Outputs:
+- Inputs: 5V/5A from wall charger (USB-C to UPS HAT); inactivity signal from PU (via GPIO) for sleep mode.
+
+- Outputs:
 5V rail (up to 5A) to PU (Raspberry Pi 5), Peripherals (display/microphone), CU (Arduino Nano and TMC2209 logic), and CoreXY (electromagnet).
 Dedicated 5V branch to buck converter input (Adafruit 2745; outputs 3.3V to LV side of CU level shifter via jumper wires).
 Dedicated 5V branch directly to HV side of CU level shifter (SparkFun Bi-Directional) via jumper wires for UART communication (TX/RX at 5V).
 12V rail (up to 2A) to CoreXY (stepper motors via TMC2209 drivers in CU).
 
-Data/Communication: No direct data; power-only. Sleep mode triggered by PU signal over shared GPIO.
-Physical Connections: USB-C for charger; JST connectors for batteries; jumper wires (female-to-male, 8-inch) for 5V branches to buck and level shifter; screw terminals for 12V to CU/CoreXY.
+- Data/Communication: No direct data; power-only. Sleep mode triggered by PU signal over shared GPIO.
+
+- Physical Connections: USB-C for charger; JST connectors for batteries; jumper wires (female-to-male, 8-inch) for 5V branches to buck and level shifter; screw terminals for 12V to CU/CoreXY.
 
 ---
 
@@ -65,7 +77,7 @@ N/A (No custom mechanical components; uses off-the-shelf enclosures for batterie
 
 ---
 
-## Buildable Schematic
+##Buildable Schematic
 
 Peak Input Power: ~46.1W
 |
@@ -109,13 +121,13 @@ Avg: 0.045A / 0.15W, Peak 0.09A / 0.3W
 
 ---
 
-## Printed Circuit Board Layout
+##Printed Circuit Board Layout
 
 N/A (Uses off-the-shelf modules; no custom PCB required).
 
 ---
 
-## Flowchart
+##Flowchart
 
 N/A (No software in PSU; power management is hardware-based, with sleep triggered externally from PU).
 
@@ -141,7 +153,7 @@ N/A (No software in PSU; power management is hardware-based, with sleep triggere
 
 ---
 
-## Analysis
+##Analysis
 
 The design meets specs with ~146Wh battery capacity (claimed; verify actual) yielding >6 hours runtime (146Wh / 22.1W avg ≈6.6 hours, factoring 90% eff). Buck converter (set to 3.3V) handles low-power logic (<0.25W draw) with 90% eff, adding minimal load to 5V rail. Fuses protect branches (e.g., 1A for buck and level shifter HV). Thermal analysis keeps surfaces <40°C; single-ground avoids loops per OSHA [5]. Cost ($148.63) fits budget; recyclable batteries align with ethics [10].
 
@@ -149,7 +161,7 @@ Switching to higher-capacity 9900mAh 18650 batteries (claimed) extends runtime f
 
 ---
 
-## References
+##References
 
 [1] U.S. Federal Communications Commission, “47 CFR Part 15, Subpart B,” 2024. https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15/subpart-B
 [2] UL Solutions, “Protection from Electrical Hazards,” 2024. https://www.ul.com/resources/protection-electrical-hazards
