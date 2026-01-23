@@ -78,7 +78,7 @@ N/A (No custom mechanical components; uses off-the-shelf enclosures for batterie
 ---
 
 ## Buildable Schematic
-
+```
 Peak Input Power: ~46.1W
 |
 v
@@ -119,6 +119,7 @@ Input from 5V: Avg 0.05A / 0.25W, Peak 0.1A / 0.5W
 Output: 3.3V Sub-Rail (for LV Logic/Level Shifter)
 Avg: 0.045A / 0.15W, Peak 0.09A / 0.3W
 
+```
 ---
 
 ## Printed Circuit Board Layout
