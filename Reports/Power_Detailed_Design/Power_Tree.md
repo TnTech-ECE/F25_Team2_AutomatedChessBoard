@@ -2,8 +2,8 @@
 ### Power Tree Diagram
 
 
-
 ```
+
 Power Tree for Automated Chessboard System
  (Values include Avg/Peak Power where applicable)
 
@@ -15,7 +15,7 @@ Raspberry Pi Wall Charger (SC0510)
   v
 DFRobot UPS HAT (FIT0992)
   Eff: 90% Avg
-  Handles Charging of 4x 18650 Batteries (~48Wh)
+  Handles Charging of 4x 18650 Batteries (~146Wh claimed; verify actual)
   Output: 5V Rail
   |
   v
@@ -49,5 +49,6 @@ Buck Converter (Adafruit 2745)
   Input from 5V: Avg 0.05A / 0.25W, Peak 0.1A / 0.5W
   Output: 3.3V Sub-Rail (for LV Logic/Level Shifter)
     Avg: 0.045A / 0.15W, Peak 0.09A / 0.3W
+    
 ```
 
