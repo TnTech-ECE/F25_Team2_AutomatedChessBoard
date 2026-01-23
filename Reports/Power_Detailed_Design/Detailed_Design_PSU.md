@@ -184,6 +184,7 @@ Switching to higher-capacity 9900mAh 18650 batteries (claimed) extends runtime f
 
 Power Tree for Automated Chessboard System
  (Values include Avg/Peak Power where applicable)
+
 Raspberry Pi Wall Charger (SC0510)
   5V / 5A Max
   Avg Input Power: ~22.35W (system total incl. eff losses)
