@@ -1,18 +1,18 @@
 ---
-#Detailed Design for Power Supply Unit
+# Detailed Design for Power Supply Unit
 ---
 
-##Function of the Subsystem
+## Function of the Subsystem
 
 The Power Supply Unit (PSU) acts as the central power management and distribution subsystem for the automated chessboard system, ensuring stable, regulated power to all other subsystems (Processing Unit [PU], Control Unit [CU], CoreXY Unit, and Peripherals Unit). It supports both AC wall-powered operation and portable battery mode, with uninterruptible power supply (UPS) functionality to handle seamless transitions and prevent interruptions during gameplay. The PSU regulates a primary 5V rail for logic components (e.g., Raspberry Pi 5 in PU, Arduino Nano in CU, display and microphone in Peripherals) and a 12V rail for high-power elements (e.g., stepper motors in CoreXY). It also provides a dedicated 5V connection to the input of a buck converter (for stepping down to 3.3V logic as needed in interfaces like the CU's level shifter) and a separate 5V connection directly to the HV side of the level shifter in the CU. Aligned with the conceptual design, the PSU incorporates sleep mode for energy efficiency, overcurrent protection, and battery management to achieve at least 2 hours of active gameplay runtime, while maintaining low-voltage operation for safety.
 
 ---
 
-##Specifications and Constraints
+## Specifications and Constraints
 
 The PSU shall deliver regulated 5V and 12V DC outputs across the system, handling a peak load of up to 45.9W (capped by hardware limits) while supporting UPS failover and sleep mode. It must use rechargeable batteries for at least 2 hours of runtime at average load, adhering to electrical safety, environmental, and ethical standards.
 
-###Performance Specifications
+### Performance Specifications
 
 - Voltage Outputs and Load Handling: The PSU shall provide a stable 5V DC rail at up to 5A (including branches for PU, CU, Peripherals, buck converter input, and HV side of CU level shifter) with ripple <5%, and a 12V DC rail at up to 2A for motors. It shall include a buck converter stepping down from 5V to 3.3V for low-voltage logic (e.g., LV side of CU level shifter), with output adjustable to 3.3V at up to 3A.
 
@@ -24,7 +24,7 @@ The PSU shall deliver regulated 5V and 12V DC outputs across the system, handlin
 
 ---
 
-##Electrical and Signal Standards Compliance
+## Electrical and Signal Standards Compliance
 
 - EMI / Emissions: Comply with FCC Part 15 Subpart B (Class B) for emissions (conducted: 0.15–30 MHz at 66–56 dBµV; radiated: 30–1000 MHz at 40–54 dBµV/m at 3m) to prevent interference [1].
 
@@ -42,7 +42,7 @@ The PSU shall deliver regulated 5V and 12V DC outputs across the system, handlin
 
 ---
 
-##Environmental and Safety Constraints
+## Environmental and Safety Constraints
 
 Surface Temperature: External surfaces ≤104°F (40°C) during operation, per UL 94 and CPSC 16 CFR 1505.7 [7][8].
 Operating Environment: Rated for indoor use (32–104°F, 10–90% RH non-condensing), per CPSC best practices [9].
@@ -50,13 +50,13 @@ Ethical and Socio-Economic Constraints: Use recyclable Li-ion batteries to minim
 
 ---
 
-##Overview of Proposed Solution
+## Overview of Proposed Solution
 
 The PSU uses a DFRobot UPS HAT mounted on the Raspberry Pi 5 (PU) for 5V regulation and battery management, with four 18650 batteries (~146Wh claimed capacity) for portability. The 5V rail powers logic components directly, with dedicated branches: one 5V to the buck converter input (Adafruit 2745, adjusted to 3.3V output for LV logic in CU level shifter) and another 5V directly to the HV side of the SparkFun Logic Level Converter in the CU. A MT3608 step-up converter boosts 5V to 12V for motors. Inline fuses protect branches, and a Pi Switch enables clean shutdowns. This hybrid design meets runtime/safety specs while keeping costs low.
 
 ---
 
-##Interface with Other Subsystems
+## Interface with Other Subsystems
 
 - Inputs: 5V/5A from wall charger (USB-C to UPS HAT); inactivity signal from PU (via GPIO) for sleep mode.
 
@@ -72,12 +72,12 @@ Dedicated 5V branch directly to HV side of CU level shifter (SparkFun Bi-Directi
 
 ---
 
-##3D Model of Custom Mechanical Components
+## 3D Model of Custom Mechanical Components
 N/A (No custom mechanical components; uses off-the-shelf enclosures for batteries and converters).
 
 ---
 
-##Buildable Schematic
+## Buildable Schematic
 
 Peak Input Power: ~46.1W
 |
@@ -121,13 +121,13 @@ Avg: 0.045A / 0.15W, Peak 0.09A / 0.3W
 
 ---
 
-##Printed Circuit Board Layout
+## Printed Circuit Board Layout
 
 N/A (Uses off-the-shelf modules; no custom PCB required).
 
 ---
 
-##Flowchart
+## Flowchart
 
 N/A (No software in PSU; power management is hardware-based, with sleep triggered externally from PU).
 
@@ -153,7 +153,7 @@ N/A (No software in PSU; power management is hardware-based, with sleep triggere
 
 ---
 
-##Analysis
+## Analysis
 
 The design meets specs with ~146Wh battery capacity (claimed; verify actual) yielding >6 hours runtime (146Wh / 22.1W avg ≈6.6 hours, factoring 90% eff). Buck converter (set to 3.3V) handles low-power logic (<0.25W draw) with 90% eff, adding minimal load to 5V rail. Fuses protect branches (e.g., 1A for buck and level shifter HV). Thermal analysis keeps surfaces <40°C; single-ground avoids loops per OSHA [5]. Cost ($148.63) fits budget; recyclable batteries align with ethics [10].
 
@@ -161,7 +161,7 @@ Switching to higher-capacity 9900mAh 18650 batteries (claimed) extends runtime f
 
 ---
 
-##References
+## References
 
 [1] U.S. Federal Communications Commission, “47 CFR Part 15, Subpart B,” 2024. https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15/subpart-B
 [2] UL Solutions, “Protection from Electrical Hazards,” 2024. https://www.ul.com/resources/protection-electrical-hazards
