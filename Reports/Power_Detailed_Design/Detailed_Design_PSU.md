@@ -52,7 +52,7 @@ Ethical and Socio-Economic Constraints: Use recyclable Li-ion batteries to minim
 
 ## Overview of Proposed Solution
 
-The PSU uses a DFRobot UPS HAT mounted on the Raspberry Pi 5 (PU) for 5V regulation and battery management, with four 18650 batteries (~146Wh claimed capacity) for portability. The 5V rail powers logic components directly, with dedicated branches: one 5V to the buck converter input (Adafruit 2745, adjusted to 3.3V output for LV logic in CU level shifter) and another 5V directly to the HV side of the SparkFun Logic Level Converter in the CU. A MT3608 step-up converter boosts 5V to 12V for motors. Inline fuses protect branches, and a Pi Switch enables clean shutdowns. This hybrid design meets runtime/safety specs while keeping costs low.
+The PSU uses a DFRobot UPS HAT mounted to the Raspberry Pi 5 (PU) for 5V regulation and battery management, with four 18650 batteries (~146Wh claimed capacity) for portability. The 5V rail powers logic components directly, with dedicated branches: one 5V to the buck converter input (Adafruit 2745, adjusted to 3.3V output for LV logic in CU level shifter) and another 5V directly to the HV side of the SparkFun Logic Level Converter in the CU. A MT3608 step-up converter boosts 5V to 12V for motors. Inline fuses protect branches, and a Pi Switch enables clean shutdowns. This hybrid design meets runtime/safety specs while keeping costs low.
 
 ---
 
