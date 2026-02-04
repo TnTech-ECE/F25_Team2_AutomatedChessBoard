@@ -174,9 +174,9 @@ The microphone will be plugged into a USB coupler that will plug into the Raspbe
 
 | Manufacturer           | Part Number           | Description                     | Distributor | Quantity | Price   | Purchasing Website URL |
 |------------------------|------------------------|---------------------------------|-------------|----------|---------|-------------------------|
-| Hosyond                | B0BJDTL9J3             | 3.5 inch LCD Screen             | Amazon      | 1        | $17.99  | [Link](https://store-usa.arduino.cc/products/arduino-nano?srsltid=AfmBOoqNFNSG0SfKF8ZFeKFBkwAtX5L50eVlOeBv6cMGf4bc8P1TCnzK) |
+| Hosyond                | B0BJDTL9J3             | 3.5 inch LCD Screen             | Amazon      | 1        | $17.99  | [Link](https://www.amazon.com/Hosyond-480x320-Screen-Display-Raspberry/dp/B0BJDTL9J3) |
 | XMSJSIY                | B0DT4D13CK             | Mounted USB Coupler             | Amazon      | 1        | $13.99  | [Link](https://www.amazon.com/XMSJSIY-Threaded-Extension-Charging-Connector/dp/B0DT4D13CK) |
-| Movo                   | MA5U                   | USB Microphone                  | Amazon      | 1        | $9.95   | [Link](https://www.amazon.com/XMSJSIY-Threaded-Extension-Charging-Connector/dp/B0DT4D13CK) |
+| Movo                   | MA5U                   | USB Microphone                  | Amazon      | 1        | $9.95   | [Link](https://www.amazon.com/dp/B08ZQSCJS3) |
 | ProWood                | 211799                 | 4 foot x 4 foot Plywood         | Home Depot  | 1        | $38.24  | [Link](https://www.homedepot.com/p/ProWood-23-32-in-x-4-ft-x-4-ft-BCX-Sanded-Plywood-211799/205723975) |
 | Professional Plastics  | SPCCL.125X24X48FM      | 4 foot x 4 foot Acrylic Sheet   | Lowe's      | 1        | $38.95  | [Link](https://www.lowes.com/pd/Professional-Plastics-Clear-Polycarbonate-Sheet-1-8TX24WX48L/7134358) |
 | Creality               | 3301010337             | 2kg black and white PLA Filament| Amazon      | 1        | $23.99  | [Link](https://www.amazon.com/gp/aw/d/B0C4TNQZYY) |
