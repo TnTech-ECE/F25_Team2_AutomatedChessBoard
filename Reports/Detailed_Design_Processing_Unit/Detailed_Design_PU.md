@@ -177,14 +177,14 @@ Communication between the Processing Unit and the Control Unit (Arduino Nano) is
 
 | Manufacturer | Part Number | Description | Distributor | Distributor Part Number | Qty | Price (USD) | Purchasing Website URL |
 |---|---|---|---|---|---|---|---|
-| Raspberry Pi Foundation | SC1113 | Main processing unit | PiShop | – | 1 | $60.00 | [Link](https://www.pishop.us/product/raspberry-pi-5-4gb/) |
-| SanDisk | SDSQUA4-064G-GN6MN | 32GB microSD card for OS and software | NeweggBusiness | 9SIV05Z4847772 | 1 | $8.35 | [Link](https://www.neweggbusiness.com/Product/Product.aspx?Item=9SIV05Z4847772) |
+| Raspberry Pi Foundation | SC1113 | Main processing unit | PiShop | – | 1 | $85.00 | [Link](https://www.pishop.us/product/raspberry-pi-5-4gb/) |
+| SanDisk | SDSQUAR-032G-GN6MA | 32GB microSD card for OS and software | Amazon | - | 1 | $14.89 | [Link](https://www.amazon.com/SanDisk-Ultra-microSDXC-Memory-Adapter/dp/B073JWXGNT?crid=2N562VILDMZQ7&dib=eyJ2IjoiMSJ9.h1R6SfwpTpAT421eU83z6T8GY4lyPS8ePQCxY9gj68OkGx9DMDOT-3dc7naXHtt0rmdq-iK-4UKytfkvvqrQLuS6C0thpJwYit8k5QHvbrLCt2fkfJrVIstvxuTB-z8B7BIoQRtOqJut0CvURGdi6DlkCL_Zfv22HrrbQPCg1Q4XrXMisBh91xZruWEBcLvhuIoPO3vAc8R_ktxl2xSGHSIpLP-uJu4OQEUWqd489hw.c41Q1At2P6JcWKyoNjHc4AQfElZIeUW7iLBEPCA5vuk&dib_tag=se&keywords=32gb%2Bmicro%2Bsd%2Bcard%2Braspberry%2Bpi&qid=1770164496&sprefix=32gb%2Bmicro%2Bsd%2Bcard%2Bra%2Caps%2C326&sr=8-7&th=1) |
 | SparkFun | PRT-12009 | Bi-directional logic-level converter (for UART voltage shifting) | SparkFun | PRT-12009 | 1 | $3.95 | [Link](https://www.sparkfun.com/sparkfun-logic-level-converter-bi-directional.html) |
-| JXMOX | J-0015 | USB A to Mini-B cable (power/programming for Arduino Nano) | Amazon | - | 1 | $3.99 | [Link](https://www.amazon.com/JXMOX-Charging-Compatible-Controller-Receiver/dp/B09DCLRYH6?dib=eyJ2IjoiMSJ9.shJPkvHWsKPPj2XvYAPBmFnnyPjItfA-_DBuJ6Sv55w3bOPZ2JsfSsp1svM_hMMC4ps6bkf4GmmnyhiX4YUJ6DXnve7f2egeTd-b5ANAcMoeeG8NEqL7ZEsoVoUmsI-Xio6-hq1TecJdcfo0Jn4osGWjksLjPPB0i_EY-XzlVMgkNa2x20nuVZC48CWCNOO7NY8V3kQYCoMOCKmwjEBs0eh-f8CCnSIPeQhoTcJPQiw.BbzjciBEm3_HrsjeOPfDdKEYTxgYmWUN7pmCO2H8w68&dib_tag=se&keywords=Mini%2BUsb%2BTo%2BUsb%2BCable&qid=1763767607&sr=8-4&th=1) |
+| JXMOX | J-0015 | USB A to Mini-B cable (power/programming for Arduino Nano) | Amazon | - | 1 | $4.99 | [Link](https://www.amazon.com/JXMOX-Charging-Compatible-Controller-Receiver/dp/B09DCLRYH6?dib=eyJ2IjoiMSJ9.shJPkvHWsKPPj2XvYAPBmFnnyPjItfA-_DBuJ6Sv55w3bOPZ2JsfSsp1svM_hMMC4ps6bkf4GmmnyhiX4YUJ6DXnve7f2egeTd-b5ANAcMoeeG8NEqL7ZEsoVoUmsI-Xio6-hq1TecJdcfo0Jn4osGWjksLjPPB0i_EY-XzlVMgkNa2x20nuVZC48CWCNOO7NY8V3kQYCoMOCKmwjEBs0eh-f8CCnSIPeQhoTcJPQiw.BbzjciBEm3_HrsjeOPfDdKEYTxgYmWUN7pmCO2H8w68&dib_tag=se&keywords=Mini%2BUsb%2BTo%2BUsb%2BCable&qid=1763767607&sr=8-4&th=1) |
 | Adafruit | 2101 | 26-pin GPIO male to female extension for Raspberry Pi → LCD/SPI header routing | Adafruit | 2101 | 1 | $1.75 | [Link](https://www.adafruit.com/product/2101) |
 | Adafruit | 862 | 26-pin GPIO Ribbon Cable for Raspberry Pi | Adafruit | 862 | 1 | $2.95 | [Link](https://www.adafruit.com/product/862) |
 | Raspberry Pi Foundation | SC1148 | Raspberry Pi 5 Active Cooler | PiShop | – | 1 | $10.95 | [Link](https://www.pishop.us/product/raspberry-pi-active-cooler/)|
-| **Total** | - | - | - | - | - | **$91.94** | - |
+| **Total** | - | - | - | - | - | **$124.48** | - |
 ### Component Justification
 #### Raspberry Pi 5 (4GB)
 
