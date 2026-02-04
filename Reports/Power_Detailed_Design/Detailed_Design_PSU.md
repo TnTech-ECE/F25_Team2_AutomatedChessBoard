@@ -68,7 +68,7 @@ Dedicated 5V branch directly to HV side of CU level shifter (SparkFun Bi-Directi
 
 - Data/Communication: No direct data; power-only. Sleep mode triggered by PU signal over shared GPIO.
 
-- Physical Connections: USB-C for charger; JST connectors for batteries; jumper wires (female-to-male, 8-inch) for 5V branches to buck and level shifter; screw terminals for 12V to CU/CoreXY.
+- Physical Connections: USB-C for charger; 18650 battery sockets for batteries; jumper wires (female-to-male, 8-inch) for 5V branches to buck and level shifter; screw terminals for 12V to CU/CoreXY.
 
 ---
 
