@@ -165,15 +165,25 @@ Switching to higher-capacity 9900mAh 18650 batteries (claimed) extends runtime f
 ## References
 
 [1] U.S. Federal Communications Commission, “47 CFR Part 15, Subpart B,” 2024. https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15/subpart-B
-[2] UL Solutions, “Protection from Electrical Hazards,” 2024. https://www.ul.com/resources/protection-electrical-hazards
-[3] NFPA, NFPA 70, National Electrical Code®, 2023 ed., 2022.
-[4] UL, UL 2054 Standard for Household and Commercial Batteries, 3rd ed., 2021.
-[5] OSHA, OSHA Standards – Subpart S: Electrical, 29 CFR 1910, 2025.
-[6] ANSI, ANSI Z535.4: Product Safety Signs and Labels, 2011 ed., 2011.
-[7] UL, UL 94: Standard for Safety of Flammability of Plastic Materials, 5th ed., 2024.
-[8] CPSC, “Maximum acceptable surface temperatures,” 16 CFR 1505.7, 2024. https://www.law.cornell.edu/cfr/text/16/1505.7
-[9] CPSC, “Manufacturing Best Practices,” 2024. https://www.cpsc.gov/business--manufacturing/business-education/business-guidance/BestPractices
+
+[2] UL Solutions, “Protection from Electrical Hazards,” 2024. https://www.ul.com/resources/protection-electrical-hazards 
+
+[3] NFPA, NFPA 70, National Electrical Code®, 2023 ed., 2022. 
+
+[4] UL, UL 2054 Standard for Household and Commercial Batteries, 3rd ed., 2021. 
+
+[5] OSHA, OSHA Standards – Subpart S: Electrical, 29 CFR 1910, 2025. 
+
+[6] ANSI, ANSI Z535.4: Product Safety Signs and Labels, 2011 ed., 2011. 
+
+[7] UL, UL 94: Standard for Safety of Flammability of Plastic Materials, 5th ed., 2024. 
+
+[8] CPSC, “Maximum acceptable surface temperatures,” 16 CFR 1505.7, 2024. https://www.law.cornell.edu/cfr/text/16/1505.7 
+
+[9] CPSC, “Manufacturing Best Practices,” 2024. https://www.cpsc.gov/business--manufacturing/business-education/business-guidance/BestPractices 
+
 [10] UNEP, Global E-waste Monitor 2020, 2020. https://ewastemonitor.info/
+
 [11] ACM, ACM Code of Ethics and Professional Conduct, 2018. https://www.acm.org/code-of-ethics
 
 ---
