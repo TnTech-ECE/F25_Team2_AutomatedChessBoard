@@ -363,7 +363,7 @@ The diagram illustrates the circuitry used to control the electromagnet, includi
 | GT2 Timing Belt, 10 m (6 mm width, 2 mm pitch) | HICTOP | 3DP AMZN‑10160 | Amazon | 3DP AMZN‑10160 | 1 | $13.79 | [Link](https://www.amazon.com/HICTOP-Printer-Creality-Printers-16-5ft/dp/B00YMM6IQW/ref=sr_1_1_sspa) |
 | GT2 Belt Pulley (16‑tooth) | McMaster‑Carr | 3684N12 | McMaster‑Carr | 3684N12 | 2 | $4.99 | [Link](https://www.mcmaster.com/3684N12/) |
 | Idler Pulley, Aluminum | 3Dman | — | Amazon | — | 1 pack (10 pieces) | $11.99 | [Link](https://www.amazon.com/3Dman-Toothless-Aluminum-Timing-Printer/dp/B07RV2T54M/ref=sr_1_3) |
-| GT2 Belt Pulley (POM / Aluminum) | SIMAX3D | — | Amazon | — | 1 pack (13 pieces) | $9.99 | [Link](https://www.amazon.com/SIMAX3D-Printer-Creality-Artillery-Sidewinder/dp/B08B4JDB67/ref=sr_1_1_sspa) |
+| 3D Printer Rollers | SIMAX3D | — | Amazon | — | 1 pack (13 pieces) | $9.99 | [Link](https://www.amazon.com/SIMAX3D-Printer-Creality-Artillery-Sidewinder/dp/B08B4JDB67/ref=sr_1_1_sspa) |
 | Aluminum Extrusion Kit (2020 T‑slot, 4×1220 mm) | CTOPTOGO | — | Amazon | B0CLGX27MY | 1 kit (4 pieces) | $39.99 | [Link](https://www.amazon.com/Aluminum-Extrusion-European-Standard-Anodized/dp/B0CLGX27MY/ref=sr_1_2) |
 | 2020 Aluminum Extrusion Corner Bracket Kit (10 pcs + M5 nuts & screws) | BLCCLOY | — | Amazon | — | 1 kit (10 corners) | $7.77 | [Link](https://www.amazon.com/BLCCLOY-2020-Extrusion-Connector-M5/dp/B0FLD88X6Y/ref=sr_1_7) |
 | PLA Filament, 1 kg, 1.75 mm | ACTIVEME | — | Amazon | B0BYZ3GRK6 | 1 spool | $9.99 | [Link](https://www.amazon.com/ACTIVEME-High-Speed-Filament-Printing-Dimensional/dp/B0BYZ3GRK6/ref=sr_1_5?th=1) |
