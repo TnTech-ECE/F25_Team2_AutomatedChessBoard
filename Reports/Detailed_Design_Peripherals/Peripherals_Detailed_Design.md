@@ -177,12 +177,12 @@ The microphone will be plugged into a USB coupler that will plug into the Raspbe
 | Hosyond                | B0BJDTL9J3             | 3.5 inch LCD Screen             | Amazon      | 1        | $17.99  | [Link](https://www.amazon.com/Hosyond-480x320-Screen-Display-Raspberry/dp/B0BJDTL9J3) |
 | XMSJSIY                | B0DT4D13CK             | Mounted USB Coupler             | Amazon      | 1        | $13.99  | [Link](https://www.amazon.com/XMSJSIY-Threaded-Extension-Charging-Connector/dp/B0DT4D13CK) |
 | Movo                   | MA5U                   | USB Microphone                  | Amazon      | 1        | $9.95   | [Link](https://www.amazon.com/dp/B08ZQSCJS3) |
-| ProWood                | 211799                 | 4 foot x 4 foot Plywood         | Home Depot  | 1        | $38.24  | [Link](https://www.homedepot.com/p/ProWood-23-32-in-x-4-ft-x-4-ft-BCX-Sanded-Plywood-211799/205723975) |
+| ProWood                | 211799                 | 4 foot x 4 foot Plywood         | Home Depot  | 2        | $38.24  | [Link](https://www.homedepot.com/p/ProWood-23-32-in-x-4-ft-x-4-ft-BCX-Sanded-Plywood-211799/205723975) |
 | Professional Plastics  | SPCCL.125X24X48FM      | 4 foot x 4 foot Acrylic Sheet   | Lowe's      | 1        | $38.95  | [Link](https://www.lowes.com/pd/Professional-Plastics-Clear-Polycarbonate-Sheet-1-8TX24WX48L/7134358) |
 | Creality               | 3301010337             | 2kg black and white PLA Filament| Amazon      | 1        | $23.99  | [Link](https://www.amazon.com/gp/aw/d/B0C4TNQZYY) |
 | Everbilt               | 800362                 | 100 (50 if available) 1" Steel Fender Washers | Home Depot | 1 | $12.62 | [Link](https://www.homedepot.com/p/Everbilt-1-8-in-x-1-in-Zinc-Plated-Fender-Washer-100-Piece-800362/204276365) |
 | Grip-Rite              | 114CDWS1               | Drywall Screws, 1 lb Box        | Home Depot  | 1        | $6.97   | [Link](https://www.homedepot.com/p/Grip-Rite-6-x-1-1-4-in-2-Phillips-Bugle-Head-Coarse-Thread-Sharp-Point-Drywall-Screws-1-lb-Box-114CDWS1/100152392) |
-| **Total**              |                        |                                 |             |          | **$162.70** |                         |
+| **Total**              |                        |                                 |             |          | **$200.94** |                         |
 
 
 
