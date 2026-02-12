@@ -83,13 +83,13 @@ To support a modular, reliable, and maintainable prototype, only the MOSFET-base
 |-----|-----|-----|-----|-----|-----|-----|-----|
 | Arduino | ATmega328 | Microcontroller | Arduino | A000005 | 1 | $25.70 | [Link](https://store-usa.arduino.cc/products/arduino-nano?srsltid=AfmBOoqNFNSG0SfKF8ZFeKFBkwAtX5L50eVlOeBv6cMGf4bc8P1TCnzK) |
 | Trinamic | TMC2209 | Stepper Driver Board | Adafruit | 6121 | 2 | $8.95 | [Link](https://www.adafruit.com/product/6121?srsltid=AfmBOoqNbFwMYs_rbP4OZemtZmfuFAdtoNUtJ39PrpSNCZA5T_JOs630) |
-| Adafruit | 1493 | Stepper Driver Heatsink | Adafruit | 1493 | 2 | $1.90 | [Link](https://www.adafruit.com/product/1493?srsltid=AfmBOooGAp5R_4tQ_ICG5NDZss1rWk8G5H7ZEkV5ucMBG2qJobr0fFEz) |
+| Adafruit | 1493 | Stepper Driver Heatsink | Adafruit | 1493 | 2 | $0.95 | [Link](https://www.adafruit.com/product/1493?srsltid=AfmBOooGAp5R_4tQ_ICG5NDZss1rWk8G5H7ZEkV5ucMBG2qJobr0fFEz) |
 | Infineon Technologies | IRLZ44NPBF | MOSFET | Digikey | IRLZ44NPBF-ND | 1 | $1.78 | [Link](https://www.digikey.com/en/products/detail/infineon-technologies/IRLZ44NPBF/811808) |
 | SMC Diode Solutions | MBR1045 | Flyback Diode | Digikey | 1655-1019-ND | 1 | $1.05 | [Link](https://www.digikey.com/en/products/detail/smc-diode-solutions/MBR1045/6022109) |
 | Yageo | CFR-25JB-52-100K | Pulldown Resistor | Digikey | 13-CFR-25JB-52-100K-ND | 1 | $0.10 | [Link](https://www.digikey.com/en/products/detail/yageo/CFR-25JB-52-100K/245) |
 | Yageo | MFR-25FRF52-100R | Gate Resistor | Digikey | 13-MFR-25FRF52-100RCT-ND | 1 | $0.10 | [Link](https://www.digikey.com/en/products/detail/yageo/MFR-25FRF52-100R/18092105) |
 | Adafruit | 4785 | Perfboard | Digikey | 1528-4785-ND | 1 | $2.50 | [Link](https://www.digikey.com/en/products/detail/adafruit-industries-llc/4785/13617529) |
-| **Total** |   |   |   |   |   | $50.43 |   |
+| **Total** |   |   |   |   |   | $48.53 |   |
 
 ## Analysis
 
