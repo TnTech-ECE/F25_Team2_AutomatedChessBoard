@@ -89,7 +89,7 @@ To support a modular, reliable, and maintainable prototype, only the MOSFET-base
 | Yageo | CFR-25JB-52-100K | Pulldown Resistor | Digikey | 13-CFR-25JB-52-100K-ND | 1 | $0.10 | [Link](https://www.digikey.com/en/products/detail/yageo/CFR-25JB-52-100K/245) |
 | Yageo | MFR-25FRF52-100R | Gate Resistor | Digikey | 13-MFR-25FRF52-100RCT-ND | 1 | $0.10 | [Link](https://www.digikey.com/en/products/detail/yageo/MFR-25FRF52-100R/18092105) |
 | Adafruit | 4785 | Perfboard | Digikey | 1528-4785-ND | 1 | $2.50 | [Link](https://www.digikey.com/en/products/detail/adafruit-industries-llc/4785/13617529) |
-| **Total** |   |   |   |   |   | $42.08 |   |
+| **Total** |   |   |   |   |   | $50.43 |   |
 
 ## Analysis
 
