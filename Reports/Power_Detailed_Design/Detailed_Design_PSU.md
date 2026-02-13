@@ -140,14 +140,14 @@ N/A (No software in PSU; power management is hardware-based, with sleep triggere
 | Component | Manufacturer | Part Number | Distributor | Distributor Part Number | Quantity | Price | Purchasing Website URL |
 |-----------|--------------|-------------|-------------|--------------------------|----------|-------|------------------------|
 | UPS HAT for Raspberry Pi | DFRobot | FIT0992 | DFRobot | FIT0992 | 1 | $53.00 | [Link](https://www.dfrobot.com/product-2840.html) |
-| Raspberry Pi Power Supply (5V/5A USB-C) | Raspberry Pi | SC0510 | Raspberry Pi | SC0510 | 1 | $12.00 | [Link](https://www.raspberrypi.com/products/27w-power-supply/) |
-| MT3608 Step-Up Converter Module | Generic | MT3608 | Amazon | B07RNBJK5F | 1 | $5.99 | [Link](https://www.amazon.com/HiLetgo-MT3608-Converter-Adjustable-Arduino/dp/B07RNBJK5F) |
-| Adafruit Adjustable Buck Converter (to 3.3V) | Adafruit | 2745 | Adafruit | 2745 | 1 | $9.95 | [Link](https://www.adafruit.com/product/2745) |
-| SparkFun Logic Level Converter (Bi-Directional) | SparkFun | BOB-12009 | SparkFun | BOB-12009 | 1 | $3.50 | [Link](https://www.sparkfun.com/products/12009) |
-| 18650 Rechargeable Li-ion Batteries (3500mAh each) | Samsung | INR18650-35E | IMR Batteries | INR18650-35E | 4 | $7.99 | [Link](https://imrbatteries.com/products/samsung-35e-18650-3500mah-8a-battery) |
-| Inline Fuse Holders with Fuses (various ratings) | Generic | - | Amazon | B07D3QKF5S | 5 | $8.99 | [Link](https://www.amazon.com/InstallerParts-Inline-Holder-Waterproof-Automotive/dp/B07D3QKF5S) |
-| Pi Switch (for safe shutdown) | Pi Supply | - | PiShop.us | Pi-Supply-Switch | 1 | $14.99 | [Link](https://www.pishop.us/product/pi-supply-switch/) |
-| Jumper Wires (Female-to-Male, 8-inch) | Generic | - | Amazon | B01LZF1ZSZ | 1 pack (40) | $5.99 | [Link](https://www.amazon.com/Elegoo-EL-CP-004-Multicolored-Breadboard-arduino/dp/B01LZF1ZSZ) |
+| Raspberry Pi Power Supply (5V/5A USB-C) | Raspberry Pi | SC0510 | Raspberry Pi | SC0510 | 1 | $12.95 | [Link](https://www.raspberrypi.com/products/27w-power-supply/) |
+| MT3608 Step-Up Converter Module | Generic | MT3608 | Amazon | B07RNBJK5F | 1 | $12.99 | [Link](https://www.amazon.com/HiLetgo-MT3608-Converter-Adjustable-Arduino/dp/B07RNBJK5F) |
+| Adafruit Adjustable Buck Converter (to 3.3V) | Adafruit | 2745 | Adafruit | 2745 | 1 | $4.95 | [Link](https://www.adafruit.com/product/2745) |
+| SparkFun Logic Level Converter (Bi-Directional) | SparkFun | BOB-12009 | SparkFun | BOB-12009 | 1 | $3.95 | [Link](https://www.sparkfun.com/products/12009) |
+| 18650 Rechargeable Li-ion Batteries (3500mAh each) | Samsung | INR18650-35E | IMR Batteries | INR18650-35E | 4 | $26.99 | [Link](https://imrbatteries.com/products/samsung-35e-18650-3500mah-8a-battery) |
+| Inline Fuse Holders with Fuses (various ratings) | Generic | - | Amazon | B07D3QKF5S | 5 | $35.99 | [Link](https://www.amazon.com/InstallerParts-Inline-Holder-Waterproof-Automotive/dp/B07D3QKF5S) |
+| Pi Switch (for safe shutdown) | Pi Supply | - | PiShop.us | Pi-Supply-Switch | 1 | $4.95 | [Link](https://www.pishop.us/product/pi-supply-switch/) |
+| Jumper Wires (Female-to-Male, 8-inch) | Generic | - | Amazon | B01LZF1ZSZ | 1 pack (40) | $6.98 | [Link](https://www.amazon.com/Elegoo-EL-CP-004-Multicolored-Breadboard-arduino/dp/B01EV70C78) |
 | **Total** |   |   |   |   |   | **$122.4 ** |   |
 
 ---
