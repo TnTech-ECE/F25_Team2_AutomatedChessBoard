@@ -148,7 +148,7 @@ N/A (No software in PSU; power management is hardware-based, with sleep triggere
 | Inline Fuse Holders with Fuses (various ratings) | Generic | - | Amazon | B07D3QKF5S | 1 | $6.98 | [Link](https://www.amazon.com/InstallerParts-Inline-Holder-Waterproof-Automotive/dp/B07D3QKF5S) |
 | Pi Switch (for safe shutdown) | Pi Supply | - | PiShop.us | Pi-Supply-Switch | 1 | $4.95 | [Link](https://www.pishop.us/product/pi-supply-switch/) |
 | Jumper Wires (Female-to-Male, 8-inch) | Generic | - | Amazon | B01LZF1ZSZ | 1 pack (40) | $6.98 | [Link](https://www.amazon.com/Elegoo-EL-CP-004-Multicolored-Breadboard-arduino/dp/B01EV70C78) |
-| **Total** |   |   |   |   |   | **$133.74 ** |   |
+| **Total** |   |   |   |   |   | **$133.74** |   |
 
 ---
 
