@@ -210,7 +210,7 @@ Buck Converter (Adafruit 2745)
 
 ---
 
-## Updated Power_Budget.md
+## Power_Budget.md
 
 ### Power Budget for the Automated Chessboard System
 
