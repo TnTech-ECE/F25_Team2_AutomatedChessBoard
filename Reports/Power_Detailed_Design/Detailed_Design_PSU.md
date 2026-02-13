@@ -271,26 +271,28 @@ The table format mirrors the example: Voltage Rail, Powered Components, Estimate
 
 ## References
 
+## References
+
 [1] U.S. Federal Communications Commission, “47 CFR Part 15, Subpart B,” 2024. https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15/subpart-B  
 
-[2] UL Solutions, “Protection from Electrical Hazards,” 2024. https://www.ul.com/resources/protection-electrical-hazards   
+[2] UL, UL 62368-1: Audio/video, information and communication technology equipment - Safety requirements, 3rd ed., 2023. https://www.shopulstandards.com/ProductDetail.aspx?productId=UL62368-1_3_S_20231020  
 
-[3] NFPA, NFPA 70, National Electrical Code®, 2023 ed., 2022.   
+[3] NFPA, NFPA 70, National Electrical Code®, 2023 ed., 2022. https://www.nfpa.org/codes-and-standards/all-codes-and-standards/list-of-codes-and-standards/detail?code=70  
 
-[4] UL, UL 2054 Standard for Household and Commercial Batteries, 3rd ed., 2021.   
+[4] UL, UL 2054 Standard for Household and Commercial Batteries, 3rd ed., 2021. https://www.shopulstandards.com/ProductDetail.aspx?productId=UL2054_3_S_20211117  
 
-[5] OSHA, OSHA Standards – Subpart S: Electrical, 29 CFR 1910, 2025.   
+[5] OSHA, OSHA Standards – Subpart S: Electrical, 29 CFR 1910, 2025. https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910SubpartS  
 
-[6] ANSI, ANSI Z535.4: Product Safety Signs and Labels, 2011 ed., 2011.   
+[6] ANSI, ANSI Z535.4: Product Safety Signs and Labels, 2011 ed., 2011. https://webstore.ansi.org/standards/nema/ansinemaz5352011-1373641  
 
-[7] UL, UL 94: Standard for Safety of Flammability of Plastic Materials, 5th ed., 2024.   
+[7] UL, UL 94: Standard for Safety of Flammability of Plastic Materials, 6th ed., 2024. https://www.shopulstandards.com/ProductDetail.aspx?productId=UL94_6_S_20240201  
 
-[8] CPSC, “Maximum acceptable surface temperatures,” 16 CFR 1505.7, 2024. https://www.law.cornell.edu/cfr/text/16/1505.7   
+[8] CPSC, “Maximum acceptable surface temperatures,” 16 CFR 1505.7, 2024. https://www.law.cornell.edu/cfr/text/16/1505.7  
 
-[9] CPSC, “Manufacturing Best Practices,” 2024. https://www.cpsc.gov/business--manufacturing/business-education/business-guidance/BestPractices   
+[9] CPSC, “Manufacturing Best Practices,” 2024. https://www.cpsc.gov/business--manufacturing/business-education/business-guidance/BestPractices  
 
-[10] UNEP, Global E-waste Monitor 2020, 2020. https://ewastemonitor.info/  
+[10] UNEP, Global E-waste Monitor 2020, 2020. https://ewastemonitor.info/gem-2020/  
 
-[11] ACM, ACM Code of Ethics and Professional Conduct, 2018. https://www.acm.org/code-of-ethics  
+[11] ACM, ACM Code of Ethics and Professional Conduct, 2018. https://www.acm.org/code-of-ethics
 
 --- 
