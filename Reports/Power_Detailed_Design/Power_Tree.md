@@ -27,8 +27,7 @@ DFRobot UPS HAT (FIT0992)
     |-- Arduino Nano: Avg 0.02A / 0.1W, Peak 0.05A / 0.25W
     |-- TFT LCD Display: 0.13A / 0.65W
     |-- Microphone: Avg 0.05A / 0.25W, Peak 0.05A / 0.25W (during moves)
-    |-- Electromagnet: Avg 0.1A / 0.5W, Peak 0.4A / 2W
-    |-- TMC2209 Logic (x2): Avg 0.02A / 0.1W, Peak 0.04A / 0.2W
+    |-- Electromagnet: Avg 0.3A / 0.5W, Peak 0.4A / 2W
     |-- UPS Overhead: 0.1A / 0.5W
     |-- Buck Converter Input (to 3.3V for Logic/Level Shifter): Avg 0.05A / 0.25W, Peak 0.1A / 0.5W
     |
@@ -37,8 +36,13 @@ DFRobot UPS HAT (FIT0992)
     Eff: 95% Avg
     Input from 5V: Avg 1.26A / 6.3W, Peak 2.53A / 12.65W
     |
+    |
     v
-  12V Rail
+    12V Rail
+    |
+    |-- TMC2209 Logic (x2): Avg 2A / 0.1W, Peak 2.8A / 0.2W (These ratings are for 1, multiply these by 2)
+    |
+    v
     Avg: 0.5A / 6W, Peak 1.0A / 12W
       |-- Stepper Motor 1: Avg 0.25A / 3W, Peak 0.5A / 6W
       |-- Stepper Motor 2: Avg 0.25A / 3W, Peak 0.5A / 6W
