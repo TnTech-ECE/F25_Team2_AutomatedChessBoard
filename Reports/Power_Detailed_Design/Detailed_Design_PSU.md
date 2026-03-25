@@ -14,11 +14,11 @@ The PSU shall deliver regulated 5V and 12V DC outputs across the system, handlin
 
 ### Performance Specifications
 
-- Voltage Outputs and Load Handling: The PSU shall provide a stable 5V DC rail at up to 5A (including branches for PU, CU, Peripherals, buck converter input, and HV side of CU level shifter) with ripple <5%, and a 12V DC rail at up to 1A for motors. It shall include a buck converter stepping down from 5V to 3.3V for low-voltage logic (e.g., LV side of CU level shifter), with output adjustable to 3.3V at up to 3A.
+- Voltage Outputs and Load Handling: The PSU shall provide a stable 5V DC rail at up to 5 A (including branches for PU, CU, Peripherals, buck converter input, and HV side of CU level shifter) with ripple <5 %, and a 12 V DC rail at up to 1 A for motors. It shall include a buck converter stepping down from 5 V to 3.3 V for low-voltage logic (e.g., LV side of CU level shifter), with output adjustable to 3.3 V at up to 3 A.
 
-- Battery Runtime and Charging: Batteries shall support >2 hours at 13.7W average draw (based on realistic 3500mAh capacity per cell; actual tested capacity may vary), with automatic low-battery cutoff at 20% capacity. Charging via 5V/5A wall adapter shall complete in <12 hours with pass-through support (extended due to higher claimed capacity; verify with DFRobot UPS HAT charging limits).
+- Battery Runtime and Charging: Batteries shall support >2 hours at **15.2 W average input power** (based on realistic 3500 mAh capacity per cell; actual tested capacity may vary), with automatic low-battery cutoff at 20 % capacity. Charging via 5 V/5 A wall adapter shall complete in <12 hours with pass-through support (extended due to higher claimed capacity; verify with DFRobot UPS HAT charging limits).
 
-- Sleep Mode and UPS: Sleep mode shall activate after 5 minutes of inactivity (signaled from PU), reducing idle draw to <500mW. UPS shall ensure <20ms switching latency during outages up to 10 seconds.
+- Sleep Mode and UPS: Sleep mode shall activate after 5 minutes of inactivity (signaled from PU), reducing idle draw to <500 mW. UPS shall ensure <20 ms switching latency during outages up to 10 seconds.
 
 - Protection: All rails shall include overcurrent fuses (1.5x nominal per branch) and overvoltage protection.
 
