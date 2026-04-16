@@ -143,38 +143,30 @@
 
 ## Experiment 7: UART Communication Reliability Test
 
-**Purpose:** Verify that the binary UART protocol at 115200 bps provides reliable, error-free command transfer between the Pi and Arduino, as specified in the detailed design. Communication errors during gameplay would cause wrong moves, dropped commands, or system hangs. This test overlaps with Jack's Processing Unit tests (he tests the sending side; this test verifies the receiving/parsing side via response correctness).
+**Purpose:** Verify that the binary UART protocol at 115200 bps provides reliable, error-free command transfer between the Pi and Arduino (baud rate has been updated to synchronize across Pi and Arduino; it has gone from 9600 bps to 115200 bps). Communication errors during gameplay would cause wrong moves, dropped commands, or system hangs.
 
 **Procedure:**
-1. Connect the Pi to the Arduino via the UART debug cable with logic level converter. Ensure both are set to 115200 bps.
+1. Connect the Pi to the Arduino via the UART debug cable (with logic level converter between). Ensure both are set to 115200 bps.
 2. Home the system to (0.5, 0.5). Ensure `piReady` is set by sending the `0x11` handshake byte first.
-3. Write a Python test script on the Pi that sends a predefined sequence of 110 binary commands (100 valid + 10 invalid), waiting for the 1-byte ACK/NACK response after each command before sending the next. The script should log: command number, bytes sent (hex), expected response (ACK or NACK), actual response received, and whether they match.
-4. The 100 valid commands should cover:
+3. Write a Python test script on the Pi that sends a predefined sequence of 100 valid binary move commands, waiting for the 1-byte ACK response after each command before sending the next. The script should log: command number, bytes sent (hex), expected response (ACK), actual response received, and response time.
+4. The 100 commands should cover:
    - All 8 columns used as both source and destination at least once
    - Rows 1–12 each used at least once (including discard rows 9–12)
    - Straight moves (horizontal and vertical)
    - Diagonal moves
    - Knight moves
    - Discard/capture moves (L-shaped paths)
-   - Home signal commands (src == dst)
-5. The 10 invalid commands should be interspersed throughout the sequence (not all at the end) and should include:
-   - Column nibble = 0 (e.g., `0x02, 0x14`)
-   - Column nibble = 9 (e.g., `0x92, 0x14`)
-   - Row nibble = 0 (e.g., `0x10, 0x14`)
-   - Row nibble = 13 (e.g., `0x1D, 0x14`)
-   - Row nibble = 15 (e.g., `0x1F, 0x14`)
-   - Duplicate invalid entries to confirm consistent rejection
-6. For each command, the Pi script records whether the response byte matches the expected value: `0x01` (ACK) for valid commands, `0x00` (NACK) for invalid commands. Also record the response time (time from send to response received).
-7. If any valid command receives NACK or any invalid command receives ACK, flag it as a mismatch.
-8. If no response is received within 30 seconds for any command, flag it as a timeout (potential system hang).
+   - Home signal commands (src == dst) every ~20 commands to reset the carriage and prevent mechanical drift
+5. For each command, record whether ACK (0x01) is received. If NACK (0x00) is received or no response arrives within 30 seconds, flag it as a failure.
+6. After the full sequence, send one final known-good command and visually confirm the carriage moves to the correct position to verify the system is still fully functional.
 
-**Data Collection:** Record data in a spreadsheet with columns (command number, sent source byte (hex), sent destination byte (hex), expected response (ACK/NACK), actual response received (ACK/NACK/timeout), match (Y/N), response time (seconds)). Calculate: total error rate (mismatches / 110 × 100%), valid command error rate (mismatches among valid / 100 × 100%), invalid command error rate (mismatches among invalid / 10 × 100%), and mean/max response time for valid commands. Flag any timeouts separately.
+**Data Collection:** Spreadsheet with columns (command number, sent source byte (hex), sent destination byte (hex), response received (ACK/NACK/timeout), match (Y/N), response time (seconds)). Calculate: error rate (failures / 100 × 100%) and mean/max response time.
 
-**Trials:** N = 110 commands. 110 total commands help identify intermittent errors caused by electrical noise.
+**Trials:** N = 100 commands. 100 commands provide sufficient volume to identify intermittent errors caused by electrical noise or timing issues.
 
 **Potential Biases:**
-- The order of commands may matter if the system accumulates state errors over many moves (mitigate by including a home signal command every 20 commands in the sequence to reset the carriage to a known position).
-- Response time for valid commands varies by move distance, as something like a short move completes faster than a full-board traverse (mitigate by recording move type alongside response time and analyze timing per move category rather than as a single average).
+- The order of commands may matter if the system accumulates positional errors over many moves (mitigate by including homing signal commands every ~20 commands to reset the carriage).
+- Response time varies by move distance, as short moves complete faster than full-board traversals (mitigate by recording move type alongside response time and analyze per category rather than as a single average).
 
 ---
 
