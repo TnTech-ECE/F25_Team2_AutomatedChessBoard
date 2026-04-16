@@ -109,6 +109,43 @@
 
 ---
 
+## Experiment 7: UART Communication Reliability Test
+
+**Purpose:** Verify that the binary UART protocol at 115200 bps provides reliable, error-free command transfer between the Pi and Arduino, as specified in the detailed design. Communication errors during gameplay would cause wrong moves, dropped commands, or system hangs. This test overlaps with Jack's Processing Unit tests (he tests the sending side; this test verifies the receiving/parsing side via response correctness).
+
+**Procedure:**
+1. Connect the Pi to the Arduino via the UART debug cable with logic level converter. Ensure both are set to 115200 bps.
+2. Home the system to (0.5, 0.5). Ensure `piReady` is set by sending the `0x11` handshake byte first.
+3. Write a Python test script on the Pi that sends a predefined sequence of 110 binary commands (100 valid + 10 invalid), waiting for the 1-byte ACK/NACK response after each command before sending the next. The script should log: command number, bytes sent (hex), expected response (ACK or NACK), actual response received, and whether they match.
+4. The 100 valid commands should cover:
+   - All 8 columns used as both source and destination at least once
+   - Rows 1–12 each used at least once (including discard rows 9–12)
+   - Straight moves (horizontal and vertical)
+   - Diagonal moves
+   - Knight moves
+   - Discard/capture moves (L-shaped paths)
+   - Home signal commands (src == dst)
+5. The 10 invalid commands should be interspersed throughout the sequence (not all at the end) and should include:
+   - Column nibble = 0 (e.g., `0x02, 0x14`)
+   - Column nibble = 9 (e.g., `0x92, 0x14`)
+   - Row nibble = 0 (e.g., `0x10, 0x14`)
+   - Row nibble = 13 (e.g., `0x1D, 0x14`)
+   - Row nibble = 15 (e.g., `0x1F, 0x14`)
+   - Duplicate invalid entries to confirm consistent rejection
+6. For each command, the Pi script records whether the response byte matches the expected value: `0x01` (ACK) for valid commands, `0x00` (NACK) for invalid commands. Also record the response time (time from send to response received).
+7. If any valid command receives NACK or any invalid command receives ACK, flag it as a mismatch.
+8. If no response is received within 30 seconds for any command, flag it as a timeout (potential system hang).
+
+**Data Collection:** Record data in a spreadsheet with columns (command number, sent source byte (hex), sent destination byte (hex), expected response (ACK/NACK), actual response received (ACK/NACK/timeout), match (Y/N), response time (seconds)). Calculate: total error rate (mismatches / 110 × 100%), valid command error rate (mismatches among valid / 100 × 100%), invalid command error rate (mismatches among invalid / 10 × 100%), and mean/max response time for valid commands. Flag any timeouts separately.
+
+**Trials:** N = 110 commands. 110 total commands help identify intermittent errors caused by electrical noise.
+
+**Potential Biases:**
+- The order of commands may matter if the system accumulates state errors over many moves (mitigate by including a home signal command every 20 commands in the sequence to reset the carriage to a known position).
+- Response time for valid commands varies by move distance, as something like a short move completes faster than a full-board traverse (mitigate by recording move type alongside response time and analyze timing per move category rather than as a single average).
+
+---
+
 ## Experiment ?: Fault Detection and Safe Halt Test
 
 **Purpose:** Verify that the Control Unit correctly detects TMC2209 DIAG pin fault signals, rejects invalid UART commands, and ignores Pi boot noise before the `0x11` handshake, as implemented in the current firmware. The code's `checkFault()` function monitors DIAG_A (pin 5) and DIAG_B (pin 9) every iteration of the motion loop inside `moveToSteps()`. When either pin reads HIGH, the function disables both motor drivers (EN pins set HIGH), calls `motorA.stop()` and `motorB.stop()`, turns off the electromagnet via `magnetOff()`, sets the `faultOccurred` flag to true, and saves the current motor positions to EEPROM. The UART parser validates that column nibbles decode to 0–7 and row nibbles decode to 1–12, sending NACK (0x00) and flushing the serial buffer for any values outside those ranges. The `piReady` handshake flag prevents any move commands from being processed until a `0x11` byte is received, discarding all prior bytes. Safe fault handling prevents mechanical damage, protects the user, and ensures the system fails predictably. This test overlaps with Allison's Experiment 9 (System Reliability and Failure Behavior); the Control Unit's focus is specifically on the Arduino firmware's fault detection and UART rejection logic, while the CoreXY Unit's focus is on overall system behavior during faults.
@@ -154,28 +191,6 @@
 - Pi boot noise content varies between boots depending on system state, connected peripherals, and OS updates. Mitigation: test across 3 separate cold boots on different occasions to capture variation.
 - The single-byte UART test (Test B, step 5) depends on timing — the Arduino code waits indefinitely for `Serial.available() >= 2`, so a lone byte will simply sit in the buffer until the next byte arrives. The subsequent valid command's first byte will pair with the orphaned byte, potentially causing a misparse. Mitigation: document this behavior, as it represents a real edge case in the current firmware. If it causes issues, note it as a known limitation that could be addressed with a receive timeout.
 - Observer bias in detecting small carriage movements during Test C. Mitigation: place a small mark or piece of tape at the carriage position before boot and check for displacement after boot completes.
-
-
----
-
-## Experiment ?: UART Communication Reliability Test
-
-**Purpose:** Verify that the binary UART protocol at 115200 bps provides reliable, error-free command transfer between the Pi and Arduino (as specified in the detailed design). Communication errors during gameplay would cause wrong moves or system hangs.
-
-**Procedure:**
-1. Connect the Pi to the Arduino via the UART debug cable with logic level converter.
-2. Write a Python test script on the Pi that sends a predefined sequence of 100 valid binary move commands, each followed by waiting for the 1-byte ACK/NACK response before sending the next command.
-3. The test sequence should include: all 8 columns as source and destination, rows 1–12, diagonal moves, knight moves, straight moves, discard moves, and the home signal (src==dst).
-4. On the Arduino side, add temporary debug logging that prints each received source and destination (col, row) to a secondary output (SoftwareSerial on spare pins, or logged to an array and dumped after the test).
-5. Compare the Pi's sent commands against the Arduino's received/parsed commands. Record any mismatches.
-6. Also record ACK/NACK responses on the Pi side and verify each matches the expected outcome (ACK for valid moves, NACK for intentionally invalid test commands).
-7. Include 10 intentionally invalid commands interspersed in the sequence to verify NACK handling.
-
-**Data Collection:** Spreadsheet with columns: command number, sent bytes (hex), expected col/row parsed values, actual parsed values (from Arduino log), ACK/NACK expected, ACK/NACK received, match (Y/N). Calculate total error rate (mismatches / total commands × 100%). Report separately for valid and invalid commands.
-
-**Trials:** N = 3 sessions × 110 commands = 330 total commands. Three sessions at different times help identify intermittent errors caused by electrical noise or timing variations.
-
-**Potential Biases:** Baud rate mismatch between Pi and Arduino causes systematic errors — mitigate by verifying both are set to 115200 bps before testing. Logic level converter quality may introduce bit errors at high speeds — mitigate by inspecting UART signals on an oscilloscope if errors are detected. Ground loop between Pi and Arduino power supplies can inject noise — mitigate by ensuring a common ground reference between all connected systems.
 
 ---
 
