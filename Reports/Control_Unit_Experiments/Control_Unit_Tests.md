@@ -109,6 +109,38 @@
 
 ---
 
+## Experiment 6: Fault Detection and Safe Halt Test
+
+**Purpose:** Verify that the Control Unit detects TMC2209 DIAG pin faults mid-move, rejects invalid UART commands with NACK, and ignores boot noise until the `0x11` handshake is received. These behaviors are implemented in `checkFault()`, the UART parser's nibble validation, and the `piReady` flag respectively.
+
+**Procedure:**
+
+*Test A — Stall Detection:*
+1. Temporarily set home position in `setup()` to (2.0, 0.5) while the carriage is physically near the left rail.
+2. Command a leftward move. The carriage should stall against the rail.
+3. Verify: motors stop, electromagnet turns off, NACK is sent to the Pi.
+4. Send a new valid command and verify the system recovers and executes correctly.
+
+*Test B — Invalid UART Rejection:*
+1. With `piReady = true`, send invalid byte pairs from the Pi: column nibble = 0 (`0x02, 0x14`), column nibble = 9 (`0x92, 0x14`), row nibble = 0 (`0x10, 0x14`), and row nibble = 13 (`0x1D, 0x14`).
+2. Verify NACK is received for each and no motor movement occurs.
+3. Send a valid command afterward and verify it executes correctly.
+
+*Test C — Boot Noise Rejection:*
+1. Full power cycle the system with the Pi connected.
+2. Mark the carriage position with tape. Observe during the ~45-second Pi boot. Verify no movement occurs.
+3. After the chess software sends `0x11`, send a valid command and verify it executes.
+
+**Data Collection:** Pass/fail table with columns (sub-test (A/B/C), trial number, fault condition, expected behavior, actual behavior, pass/fail, notes).
+
+**Trials:** N = 10 total (3 iterations for Test A, 4 invalid pairs for Test B, and 3 iterations for Test C).
+
+**Potential Biases:**
+- Soft stalls may not trigger the DIAG pin (mitigate by ensuring the carriage hits a hard physical stop).
+- Boot noise varies between boots (mitigate by testing across 3 separate cold boots).
+
+---
+
 ## Experiment 7: UART Communication Reliability Test
 
 **Purpose:** Verify that the binary UART protocol at 115200 bps provides reliable, error-free command transfer between the Pi and Arduino, as specified in the detailed design. Communication errors during gameplay would cause wrong moves, dropped commands, or system hangs. This test overlaps with Jack's Processing Unit tests (he tests the sending side; this test verifies the receiving/parsing side via response correctness).
@@ -146,54 +178,8 @@
 
 ---
 
-## Experiment ?: Fault Detection and Safe Halt Test
 
-**Purpose:** Verify that the Control Unit correctly detects TMC2209 DIAG pin fault signals, rejects invalid UART commands, and ignores Pi boot noise before the `0x11` handshake, as implemented in the current firmware. The code's `checkFault()` function monitors DIAG_A (pin 5) and DIAG_B (pin 9) every iteration of the motion loop inside `moveToSteps()`. When either pin reads HIGH, the function disables both motor drivers (EN pins set HIGH), calls `motorA.stop()` and `motorB.stop()`, turns off the electromagnet via `magnetOff()`, sets the `faultOccurred` flag to true, and saves the current motor positions to EEPROM. The UART parser validates that column nibbles decode to 0–7 and row nibbles decode to 1–12, sending NACK (0x00) and flushing the serial buffer for any values outside those ranges. The `piReady` handshake flag prevents any move commands from being processed until a `0x11` byte is received, discarding all prior bytes. Safe fault handling prevents mechanical damage, protects the user, and ensures the system fails predictably. This test overlaps with Allison's Experiment 9 (System Reliability and Failure Behavior); the Control Unit's focus is specifically on the Arduino firmware's fault detection and UART rejection logic, while the CoreXY Unit's focus is on overall system behavior during faults.
-
-**Procedure:**
-
-*Test A — TMC2209 DIAG Pin Stall Detection:*
-1. Home the system and deliberately set the motor position to a value that does not match the physical location (e.g., in `setup()`, temporarily set home to (2.0, 0.5) while the carriage is physically near the left rail). This causes the Arduino to believe it has room to move left, when physically it does not.
-2. Command a move that requires leftward travel (e.g., `movePiece(0, 11, 0, 11)` to navigate to a11, which would require moving left from the code's perspective).
-3. Observe and record whether the following occur:
-   - The motors stall and stop (carriage stops moving).
-   - The electromagnet turns off (if it was on).
-   - The system sends NACK (0x00) back over UART (verify on Pi side).
-   - The system does not accept further move commands (send another command and verify no motion occurs until the fault is cleared).
-4. Send one more valid command and verify the system re-enables drivers (the code calls `enableDrivers()` when a new command arrives while `faultOccurred` is true) and executes the move correctly.
-
-*Test B — Invalid UART Data Rejection:*
-1. Ensure the system is running with `piReady = true` and no fault condition active.
-2. From the Pi, send the following invalid byte pairs one at a time, waiting for a response after each:
-   - Column nibble = 0: send `0x02, 0x14` (column 0 is invalid, columns are 1–8).
-   - Column nibble = 9: send `0x92, 0x14` (column 9 exceeds maximum of 8).
-   - Row nibble = 0: send `0x10, 0x14` (row 0 is invalid, rows are 1–12).
-   - Row nibble = 13: send `0x1D, 0x14` (row 13 exceeds maximum of 12).
-   - Send a single byte `0x12` with no second byte, wait 5 seconds, then send a valid 2-byte command.
-3. For each invalid pair, verify on the Pi side that NACK (0x00) is received.
-4. Verify no motor movement occurs for any invalid command (observe the carriage).
-5. After all invalid commands, send a valid command (e.g., `0x12, 0x14` for a2→a4) and verify it is accepted and executed correctly. This confirms the system recovers from invalid input without requiring a reset.
-
-*Test C — Handshake Boot Noise Rejection:*
-1. Power off the entire system (Pi and Arduino).
-2. Power on the system. The Pi will begin its boot sequence, during which it outputs kernel messages and other data on its UART TX line.
-3. Observe the CoreXY head during the entire Pi boot sequence (approximately 45 seconds). Record whether any movement occurs.
-4. After the Pi chess software starts and sends the `0x11` handshake byte, send a valid move command from the Pi.
-5. Verify the move command is accepted and the carriage moves to the correct position.
-6. This test must be performed as a cold boot (full power cycle), not a software restart, to capture the full range of boot noise.
-
-**Data Collection:** Record results in a pass/fail table with the following columns: sub-test (A/B/C), trial number, specific fault condition or invalid input, expected system behavior, actual observed behavior, pass/fail, notes. For Test A, also note whether the EEPROM position was saved correctly (if verifiable). For Test B, record the exact bytes sent and the response byte received. For Test C, record the boot duration and whether any carriage movement was detected.
-
-**Trials:** N = 3 per sub-test (A, B, C) = 9 total trials. Three trials per fault type confirm consistent behavior. Fault handling must achieve 100% reliability — any single failure indicates a firmware bug that must be fixed. For Test C, each trial must be a full cold boot to capture different boot noise patterns.
-
-**Potential Biases:**
-- TMC2209 StallGuard sensitivity depends on motor current, speed, and the StallGuard threshold configured in the driver. A soft stall (low friction, slow speed) may not trigger the DIAG pin. Mitigation: ensure the physical stop provides a hard stall condition (carriage firmly against the rail). If DIAG does not trigger, document the limitation and note that StallGuard threshold tuning may be required.
-- Pi boot noise content varies between boots depending on system state, connected peripherals, and OS updates. Mitigation: test across 3 separate cold boots on different occasions to capture variation.
-- The single-byte UART test (Test B, step 5) depends on timing — the Arduino code waits indefinitely for `Serial.available() >= 2`, so a lone byte will simply sit in the buffer until the next byte arrives. The subsequent valid command's first byte will pair with the orphaned byte, potentially causing a misparse. Mitigation: document this behavior, as it represents a real edge case in the current firmware. If it causes issues, note it as a known limitation that could be addressed with a receive timeout.
-- Observer bias in detecting small carriage movements during Test C. Mitigation: place a small mark or piece of tape at the carriage position before boot and check for displacement after boot completes.
-
----
-
+**NEEDS WORK**
 
 
 ## Experiment ???: Collision-Free Capture and Movement Rate Test
