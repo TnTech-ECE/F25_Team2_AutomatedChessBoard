@@ -87,38 +87,80 @@
 
 ---
 
-## Experiment 5: Fault Detection and Safe Halt Test
+## Experiment 5: Edge Boundary and Clamp Verification Test
 
-**Purpose:** Verify that the Control Unit correctly detects fault conditions and responds by halting motion, disabling drivers, releasing the electromagnet, and saving position (as specified in the detailed design). Safe fault handling prevents mechanical damage and ensures user safety.
+**Purpose:** Verify that the software clamping logic prevents the CoreXY head from moving beyond the centre of any edge square (X ∈ [0.5, 7.5], Y ∈ [0.5, 13.5] in square units), and that the edge-travel algorithm correctly avoids the outermost board edges. This is a safety-critical requirement, as exceeding travel limits could damage the CoreXY mechanism or dislodge the carriage from the rails.
+
+**Procedure:**
+1. Home the system to (0.5, 0.5).
+2. Execute the following moves that involve edge squares and boundary conditions:
+   - **Column a vertical:** a1 to a8 (left column, full playing field traverse) -> X exit edge should not move to X = 0.0
+   - **Column h vertical:** h1 to h8 (right column) -> X exit edge should not move to X = 8.0
+   - **Discard from column a:** a1 to a11 (bottom discard row) -> Y must not go below Y = 0.5
+   - **Discard from column h:** h8 to h10 (top discard row) -> Y must not go above Y = 13.5
+3. For each move, visually observe and confirm that the carriage never reaches or crosses the outermost physical rail on any side.0
+4. Record pass/fail for each move. If a boundary violation is observed, record the approximate position and which axis was violated.
+
+**Data Collection:** Table with columns (test move, source, destination, boundary tested (X min / X max / Y min / Y max), carriage stayed within bounds (Y/N), notes).
+
+**Trials:** N = 4 total observations. This covers all 4 possible collision concerns.
+
+**Potential Biases:** Accumulated positional error from previous moves could push the carriage past a boundary (mitigate by re-homing between trials).
+
+---
+
+## Experiment ?: Fault Detection and Safe Halt Test
+
+**Purpose:** Verify that the Control Unit correctly detects TMC2209 DIAG pin fault signals, rejects invalid UART commands, and ignores Pi boot noise before the `0x11` handshake, as implemented in the current firmware. The code's `checkFault()` function monitors DIAG_A (pin 5) and DIAG_B (pin 9) every iteration of the motion loop inside `moveToSteps()`. When either pin reads HIGH, the function disables both motor drivers (EN pins set HIGH), calls `motorA.stop()` and `motorB.stop()`, turns off the electromagnet via `magnetOff()`, sets the `faultOccurred` flag to true, and saves the current motor positions to EEPROM. The UART parser validates that column nibbles decode to 0–7 and row nibbles decode to 1–12, sending NACK (0x00) and flushing the serial buffer for any values outside those ranges. The `piReady` handshake flag prevents any move commands from being processed until a `0x11` byte is received, discarding all prior bytes. Safe fault handling prevents mechanical damage, protects the user, and ensures the system fails predictably. This test overlaps with Allison's Experiment 9 (System Reliability and Failure Behavior); the Control Unit's focus is specifically on the Arduino firmware's fault detection and UART rejection logic, while the CoreXY Unit's focus is on overall system behavior during faults.
 
 **Procedure:**
 
 *Test A — TMC2209 DIAG Pin Stall Detection:*
-1. Home the system and set position to a value that will cause the carriage to attempt movement beyond its physical travel (e.g., set home position 2 squares to the right of actual position, then command a move to the left edge).
-2. Observe: do the motors stop? Is the electromagnet released? Does the Arduino send a NACK (0x00)?
-3. After fault, verify the system does not accept further move commands until `enableDrivers()` is called (by sending a new valid command and confirming it re-enables and executes).
+1. Home the system and deliberately set the motor position to a value that does not match the physical location (e.g., in `setup()`, temporarily set home to (2.0, 0.5) while the carriage is physically near the left rail). This causes the Arduino to believe it has room to move left, when physically it does not.
+2. Command a move that requires leftward travel (e.g., `movePiece(0, 11, 0, 11)` to navigate to a11, which would require moving left from the code's perspective).
+3. Observe and record whether the following occur:
+   - The motors stall and stop (carriage stops moving).
+   - The electromagnet turns off (if it was on).
+   - The system sends NACK (0x00) back over UART (verify on Pi side).
+   - The system does not accept further move commands (send another command and verify no motion occurs until the fault is cleared).
+4. Send one more valid command and verify the system re-enables drivers (the code calls `enableDrivers()` when a new command arrives while `faultOccurred` is true) and executes the move correctly.
 
-*Test B — Invalid UART Data:*
-1. With the system running and `piReady = true`, send invalid byte pairs from the Pi (like column 8 (`0x92`) row 12 (`0x1D`), single byte only commands, and rapid garbage bytes).
-2. Verify the Arduino sends NACK for each invalid command and does not attempt any motion.
-3. Verify the system continues to accept valid commands after rejecting invalid ones.
+*Test B — Invalid UART Data Rejection:*
+1. Ensure the system is running with `piReady = true` and no fault condition active.
+2. From the Pi, send the following invalid byte pairs one at a time, waiting for a response after each:
+   - Column nibble = 0: send `0x02, 0x14` (column 0 is invalid, columns are 1–8).
+   - Column nibble = 9: send `0x92, 0x14` (column 9 exceeds maximum of 8).
+   - Row nibble = 0: send `0x10, 0x14` (row 0 is invalid, rows are 1–12).
+   - Row nibble = 13: send `0x1D, 0x14` (row 13 exceeds maximum of 12).
+   - Send a single byte `0x12` with no second byte, wait 5 seconds, then send a valid 2-byte command.
+3. For each invalid pair, verify on the Pi side that NACK (0x00) is received.
+4. Verify no motor movement occurs for any invalid command (observe the carriage).
+5. After all invalid commands, send a valid command (e.g., `0x12, 0x14` for a2→a4) and verify it is accepted and executed correctly. This confirms the system recovers from invalid input without requiring a reset.
 
-*Test C — Handshake Rejection of Boot Noise:*
-1. Power on the system with the Pi connected but before the chess software starts (boot noise on UART).
-2. Verify the head does not move during the Pi boot sequence (approximately 45 seconds).
-3. After the Pi chess program sends `0x11`, verify the system accepts and executes the first valid move command.
+*Test C — Handshake Boot Noise Rejection:*
+1. Power off the entire system (Pi and Arduino).
+2. Power on the system. The Pi will begin its boot sequence, during which it outputs kernel messages and other data on its UART TX line.
+3. Observe the CoreXY head during the entire Pi boot sequence (approximately 45 seconds). Record whether any movement occurs.
+4. After the Pi chess software starts and sends the `0x11` handshake byte, send a valid move command from the Pi.
+5. Verify the move command is accepted and the carriage moves to the correct position.
+6. This test must be performed as a cold boot (full power cycle), not a software restart, to capture the full range of boot noise.
 
-**Data Collection:** Pass/fail table for each sub-test with columns (test type, trial number, fault condition, expected behavior, actual behavior, pass/fail, notes).
+**Data Collection:** Record results in a pass/fail table with the following columns: sub-test (A/B/C), trial number, specific fault condition or invalid input, expected system behavior, actual observed behavior, pass/fail, notes. For Test A, also note whether the EEPROM position was saved correctly (if verifiable). For Test B, record the exact bytes sent and the response byte received. For Test C, record the boot duration and whether any carriage movement was detected.
 
-**Trials:** N = 3 per sub-test (A, B, C) = 9 total. Three trials per fault type confirm consistent behavior; fault handling must be 100% reliable.
+**Trials:** N = 3 per sub-test (A, B, C) = 9 total trials. Three trials per fault type confirm consistent behavior. Fault handling must achieve 100% reliability — any single failure indicates a firmware bug that must be fixed. For Test C, each trial must be a full cold boot to capture different boot noise patterns.
 
-**Potential Biases:** Boot noise content varies between Pi boots (mitigate by testing across 3 separate cold boots).
+**Potential Biases:**
+- TMC2209 StallGuard sensitivity depends on motor current, speed, and the StallGuard threshold configured in the driver. A soft stall (low friction, slow speed) may not trigger the DIAG pin. Mitigation: ensure the physical stop provides a hard stall condition (carriage firmly against the rail). If DIAG does not trigger, document the limitation and note that StallGuard threshold tuning may be required.
+- Pi boot noise content varies between boots depending on system state, connected peripherals, and OS updates. Mitigation: test across 3 separate cold boots on different occasions to capture variation.
+- The single-byte UART test (Test B, step 5) depends on timing — the Arduino code waits indefinitely for `Serial.available() >= 2`, so a lone byte will simply sit in the buffer until the next byte arrives. The subsequent valid command's first byte will pair with the orphaned byte, potentially causing a misparse. Mitigation: document this behavior, as it represents a real edge case in the current firmware. If it causes issues, note it as a known limitation that could be addressed with a receive timeout.
+- Observer bias in detecting small carriage movements during Test C. Mitigation: place a small mark or piece of tape at the carriage position before boot and check for displacement after boot completes.
+
 
 ---
 
-## Experiment 9: UART Communication Reliability Test
+## Experiment ?: UART Communication Reliability Test
 
-**Purpose:** Verify that the binary UART protocol at 115200 bps provides reliable, error-free command transfer between the Pi and Arduino, as specified in the detailed design. Communication errors during gameplay would cause wrong moves or system hangs.
+**Purpose:** Verify that the binary UART protocol at 115200 bps provides reliable, error-free command transfer between the Pi and Arduino (as specified in the detailed design). Communication errors during gameplay would cause wrong moves or system hangs.
 
 **Procedure:**
 1. Connect the Pi to the Arduino via the UART debug cable with logic level converter.
@@ -137,33 +179,9 @@
 
 ---
 
-## Experiment 10: Edge Boundary and Clamp Verification Test
 
-**Purpose:** Verify that the software clamping logic prevents the CoreXY head from moving beyond the centre of any edge square (X ∈ [0.5, 7.5], Y ∈ [0.5, 13.5] in square units), and that the edge-travel algorithm correctly avoids the outermost board edges. This is a safety-critical requirement — exceeding travel limits could damage the CoreXY mechanism or dislodge the carriage from the rails.
 
-**Procedure:**
-1. Home the system to (0.5, 0.5).
-2. Execute the following moves that involve edge squares and boundary conditions:
-   - **Column a vertical:** a1→a8 (left column, full field traverse — exit edge must not go to X=0.0)
-   - **Column h vertical:** h1→h8 (right column — exit edge must not go to X=8.0)
-   - **Row 11 horizontal:** a11→h11 (bottom discard row — Y must not go below 0.5)
-   - **Row 10 horizontal:** a10→h10 (top discard row — Y must not go above 13.5)
-   - **Corner-to-corner diagonal:** a1→h8 (maximum diagonal, tests X and Y boundaries simultaneously)
-   - **Discard from column a:** a1→a11 (left column to bottom discard — tests both X min and Y min proximity)
-   - **Discard from column h:** h1→h11 (right column to bottom discard — tests X max and Y min proximity)
-3. For each move, visually observe and confirm that the carriage never reaches or crosses the outermost physical rail on any side.
-4. Optionally, place physical markers at the clamp boundaries (0.5 and 7.5 in X, 0.5 and 13.5 in Y) and verify the carriage does not cross them.
-5. Record pass/fail for each move. If a boundary violation is observed, record the approximate position and which axis was violated.
-
-**Data Collection:** Table with columns: test move, source, destination, boundary tested (X min / X max / Y min / Y max), carriage stayed within bounds (Y/N), notes. Video record each move for post-analysis.
-
-**Trials:** N = 3 repetitions per move × 7 moves = 21 total observations. Three repetitions per boundary move confirm consistent clamping behavior. Boundary compliance must be 100%.
-
-**Potential Biases:** Visual observation of carriage position has limited precision (~1mm). Mitigation: use physical markers or strips of tape at the boundary positions to make violations more obvious. Belt elasticity may cause the carriage to momentarily overshoot the commanded position — mitigate by observing both the stop position and any overshoot during deceleration. Accumulated positional error from previous moves could push the carriage past a boundary — mitigate by re-homing between trials.
-
----
-
-## Experiment 4: Collision-Free Capture and Movement Rate Test
+## Experiment ???: Collision-Free Capture and Movement Rate Test
 
 **Purpose:** Verify that the system achieves 95% or higher collision-free piece movements, including captures (as specified in the detailed design). Piece collisions during automated play would disrupt the game and damage user trust in the system.
 
@@ -188,7 +206,7 @@
 
 ---
 
-## Experiment 7: Motor Driver Thermal Test
+## Experiment ???: Motor Driver Thermal Test
 
 **Purpose:** Verify that the TMC2209 driver surface temperatures remain below 40°C (104°F) with heatsinks installed during sustained operation, as required by the detailed design and UL 94/CPSC thermal safety constraints. Overheating could cause thermal shutdown mid-game, halting play unexpectedly.
 
