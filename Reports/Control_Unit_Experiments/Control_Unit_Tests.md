@@ -67,9 +67,9 @@
 
 ---
 
-## Experiment 6: Flyback Diode Inductive Spike Test
+## Experiment 4: Flyback Diode Inductive Spike Test
 
-**Purpose:** Verify that the flyback diode clamps the inductive voltage spike on the MOSFET drain to within the IRLZ44N's maximum Vds rating (55V) when the electromagnet is switched off. Unclamped spikes could destroy the MOSFET, causing a permanent system failure.
+**Purpose:** Verify that the flyback diode clamps the inductive voltage spike on the MOSFET drain to within the IRLZ44NPBF's maximum Vds rating (55V) when the electromagnet is switched off. Unclamped spikes could destroy the MOSFET, causing a permanent system failure.
 
 **Procedure:**
 1. Connect an oscilloscope probe to the MOSFET drain pin (between the electromagnet and the MOSFET).
@@ -83,13 +83,13 @@
 
 **Trials:** N = 5 per on-duration × 4 durations = 20 total measurements. Five repetitions per condition confirm consistency; varying on-duration ensures the diode performs under different stored-energy conditions.
 
-**Potential Biases:** Probe ground lead inductance can cause ringing that appears as a larger spike than actually exists. Mitigation: use the shortest possible ground lead (spring-tip ground if available). Ensure the probe is compensated. Ambient temperature affects diode forward voltage slightly — document ambient temperature.
+**Potential Biases:** Probe ground lead inductance can cause ringing that appears as a larger spike than actually exists. (mitigate by using the shortest possible ground lead). Ensure the probe is compensated. Ambient temperature affects diode forward voltage slightly (mitigate by recording ambient temperature).
 
 ---
 
-## Experiment 8: Fault Detection and Safe Halt Test
+## Experiment 5: Fault Detection and Safe Halt Test
 
-**Purpose:** Verify that the Control Unit correctly detects fault conditions and responds by halting motion, disabling drivers, releasing the electromagnet, and saving position, as specified in the detailed design. Safe fault handling prevents mechanical damage and ensures user safety.
+**Purpose:** Verify that the Control Unit correctly detects fault conditions and responds by halting motion, disabling drivers, releasing the electromagnet, and saving position (as specified in the detailed design). Safe fault handling prevents mechanical damage and ensures user safety.
 
 **Procedure:**
 
@@ -99,7 +99,7 @@
 3. After fault, verify the system does not accept further move commands until `enableDrivers()` is called (by sending a new valid command and confirming it re-enables and executes).
 
 *Test B — Invalid UART Data:*
-1. With the system running and `piReady = true`, send invalid byte pairs from the Pi: column > 8 (`0x92`), row > 12 (`0x1D`), single byte only, and rapid garbage bytes.
+1. With the system running and `piReady = true`, send invalid byte pairs from the Pi (like column 8 (`0x92`) row 12 (`0x1D`), single byte only commands, and rapid garbage bytes).
 2. Verify the Arduino sends NACK for each invalid command and does not attempt any motion.
 3. Verify the system continues to accept valid commands after rejecting invalid ones.
 
@@ -108,11 +108,11 @@
 2. Verify the head does not move during the Pi boot sequence (approximately 45 seconds).
 3. After the Pi chess program sends `0x11`, verify the system accepts and executes the first valid move command.
 
-**Data Collection:** Pass/fail table for each sub-test with columns: test type, trial number, fault condition, expected behavior, actual behavior, pass/fail, notes.
+**Data Collection:** Pass/fail table for each sub-test with columns (test type, trial number, fault condition, expected behavior, actual behavior, pass/fail, notes).
 
 **Trials:** N = 3 per sub-test (A, B, C) = 9 total. Three trials per fault type confirm consistent behavior; fault handling must be 100% reliable.
 
-**Potential Biases:** Stall detection sensitivity depends on TMC2209 StallGuard threshold, which may need tuning. Mitigation: if DIAG doesn't trigger on a soft stall, increase motor current or adjust StallGuard threshold. Boot noise content varies between Pi boots — mitigate by testing across 3 separate cold boots.
+**Potential Biases:** Boot noise content varies between Pi boots (mitigate by testing across 3 separate cold boots).
 
 ---
 
