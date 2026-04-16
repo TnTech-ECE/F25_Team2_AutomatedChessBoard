@@ -19,7 +19,8 @@
 
 **Trials:** N = 15 (10 identical and 5 varied). 15 trials provide sufficient data to identify any outliers and confirm consistency across move types.
 
-**Potential Biases:** Arduino main loop polling rate introduces variability depending on where in the loop cycle the byte arrives (mitigate by using consistent system state (idle with no prior motion) before each trial; ensure no other serial traffic is present during measurement).
+**Potential Biases:** 
+- Arduino main loop polling rate introduces variability depending on where in the loop cycle the byte arrives (mitigate by using consistent system state (idle with no prior motion) before each trial; ensure no other serial traffic is present during measurement).
 
 ---
 
@@ -46,7 +47,9 @@
 
 **Trials:** N = 10. The variety of categories ensures full coverage of the motion system.
 
-**Potential Biases:** Mechanical friction may vary with board position (mitigate by testing moves across different regions of the board). Belt tension changes over time may affect speed (mitigate by checking belt tension before the test session).
+**Potential Biases:** 
+- Mechanical friction may vary with board position (mitigate by testing moves across different regions of the board).
+- Belt tension changes over time may affect speed (mitigate by checking belt tension before the test session).
 
 ---
 
@@ -64,7 +67,8 @@
 
 **Trials:** N = 10 switching cycles. Ten latency measurements provide reliable mean/max values.
 
-**Potential Biases:** Oscilloscope bandwidth may limit measurement precision for fast edges (mitigate by using a scope with ≥20 MHz bandwidth). 
+**Potential Biases:** 
+- Oscilloscope bandwidth may limit measurement precision for fast edges (mitigate by using a scope with ≥20 MHz bandwidth). 
 
 ---
 
@@ -82,9 +86,11 @@
 
 **Data Collection:** Table with columns: trial number, on-duration (ms), peak spike voltage (V), spike duration (µs), MOSFET Vds max (55V), pass/fail. Include oscilloscope screenshot captures for each trial.
 
-**Trials:** N = 5 per on-duration × 4 durations = 20 total measurements. Five repetitions per condition confirm consistency; varying on-duration ensures the diode performs under different stored-energy conditions.
+**Trials:** N = 4 durations. Varying on-duration ensures the diode performs under different stored-energy conditions.
 
-**Potential Biases:** Probe ground lead inductance can cause ringing that appears as a larger spike than actually exists. (mitigate by using the shortest possible ground lead). Ensure the probe is compensated. Ambient temperature affects diode forward voltage slightly (mitigate by recording ambient temperature).
+**Potential Biases:** 
+- Probe ground lead inductance can cause ringing that appears as a larger spike than actually exists. (mitigate by using the shortest possible ground lead). 
+- Ensure the probe is compensated. Ambient temperature affects diode forward voltage slightly (mitigate by recording ambient temperature).
 
 ---
 
@@ -106,7 +112,8 @@
 
 **Trials:** N = 4 total observations. This covers all 4 possible collision concerns.
 
-**Potential Biases:** Accumulated positional error from previous moves could push the carriage past a boundary (mitigate by re-homing between trials).
+**Potential Biases:** 
+- Accumulated positional error from previous moves could push the carriage past a boundary (mitigate by re-homing between trials).
 
 ---
 
