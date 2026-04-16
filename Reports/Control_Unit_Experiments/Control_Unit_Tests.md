@@ -25,7 +25,7 @@
 
 ## Experiment 2: Move Completion Time Test
 
-**Purpose:** Verify that any single piece movement completes within 5 seconds of command receipt, as specified in both the conceptual design and detailed design. This directly impacts gameplay pacing and user experience (slow moves frustrate players).
+**Purpose:** Verify that any single piece movement completes within 5 seconds of arriving at the source square, as specified in both the conceptual design and detailed design. This directly impacts gameplay pacing and user experience (slow moves frustrate players).
 
 **Procedure:**
 1. Connect the Arduino Nano to the Pi via UART. Be ready with a stopwatch to log times.
@@ -35,15 +35,16 @@
    - **Medium straight:** a1 to a4 (3 squares vertical)
    - **Long straight:** a1 to a8 (7 squares vertical and full playing field traverse)
    - **Diagonal:** a1 to c3 (2 squares diagonal)
+   - **Long Diagonal:** a1 to h8 (7 squares diagonal)
    - **Knight:** a1 to b3 (standard L-move)
    - **Discard (straight):** a1 to a11 (straight movement from playing field to discard row)
-   - **Discard (L-shaped):** b2 to a11 (L-shaped path to discard row)
-   - **Capture sequence:** two consecutive moves — a1 to a11 (piece to discard), then a8 to a1 (attacker to destination)
+   - **Long Discard (L-shaped):** h8 to a11 (L-shaped path to discard row)
+   - **Capture sequence:** two consecutive moves -> a1 to a11 (piece to discard), then a8 to a1 (attacker to destination)
 4. For each move, record the time from when the piece is grabbed from it's starting position to when it is dropped off at the ending position.
 
 **Data Collection:** Spreadsheet with columns (trial number, move category, source square, destination square, elapsed time in seconds). Calculate mean per move category. Flag any trial exceeding 5 seconds.
 
-**Trials:** N = 9. The variety of categories ensures full coverage of the motion system.
+**Trials:** N = 10. The variety of categories ensures full coverage of the motion system.
 
 **Potential Biases:** Mechanical friction may vary with board position (mitigate by testing moves across different regions of the board). Belt tension changes over time may affect speed (mitigate by checking belt tension before the test session).
 
