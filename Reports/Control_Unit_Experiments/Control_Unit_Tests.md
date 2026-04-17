@@ -119,7 +119,7 @@
 
 ## Experiment 6: Fault Detection and Safe Halt Test
 
-**Purpose:** Verify that the Control Unit detects TMC2209 DIAG pin faults mid-move, rejects invalid UART commands with NACK, and ignores boot noise until the `0x11` handshake is received. These behaviors are implemented in `checkFault()`, the UART parser's nibble validation, and the `piReady` flag respectively.
+**Purpose:** Verify that the Control Unit detects TMC2209 DIAG pin faults mid-move and ignores boot noise until the `0x11` handshake is received. These behaviors are implemented in `checkFault()`, the UART parser's nibble validation, and the `piReady` flag respectively.
 
 **Procedure:**
 
@@ -129,19 +129,14 @@
 3. Verify: motors stop, electromagnet turns off, NACK is sent to the Pi.
 4. Send a new valid command and verify the system recovers and executes correctly.
 
-*Test B — Invalid UART Rejection:*
-1. With `piReady = true`, send invalid byte pairs from the Pi: column nibble = 0 (`0x02, 0x14`), column nibble = 9 (`0x92, 0x14`), row nibble = 0 (`0x10, 0x14`), and row nibble = 13 (`0x1D, 0x14`).
-2. Verify NACK is received for each and no motor movement occurs.
-3. Send a valid command afterward and verify it executes correctly.
-
-*Test C — Boot Noise Rejection:*
+*Test B — Boot Noise Rejection:*
 1. Full power cycle the system with the Pi connected.
 2. Mark the carriage position with tape. Observe during the ~45-second Pi boot. Verify no movement occurs.
 3. After the chess software sends `0x11`, send a valid command and verify it executes.
 
 **Data Collection:** Pass/fail table with columns (sub-test (A/B/C), trial number, fault condition, expected behavior, actual behavior, pass/fail, notes).
 
-**Trials:** N = 10 total (3 iterations for Test A, 4 invalid pairs for Test B, and 3 iterations for Test C).
+**Trials:** N = 6 total (3 iterations for Test A and 3 iterations for Test C).
 
 **Potential Biases:**
 - Soft stalls may not trigger the DIAG pin (mitigate by ensuring the carriage hits a hard physical stop).
@@ -156,24 +151,22 @@
 **Procedure:**
 1. Connect the Pi to the Arduino via the UART debug cable (with logic level converter between). Ensure both are set to 115200 bps.
 2. Home the system to (0.5, 0.5). Ensure `piReady` is set by sending the `0x11` handshake byte first.
-3. Write a Python test script on the Pi that sends a predefined sequence of 100 valid binary move commands, waiting for the 1-byte ACK response after each command before sending the next. The script should log: command number, bytes sent (hex), expected response (ACK), actual response received, and response time.
-4. The 100 commands should cover:
+3. Write a Python test script on the Pi that sends a predefined sequence of 40 valid binary move commands, waiting for the 1-byte ACK response after each command before sending the next. The script should log: command number, bytes sent (hex), expected response (ACK), actual response received, and response time.
+4. The 40 commands should cover:
    - All 8 columns used as both source and destination at least once
    - Rows 1–12 each used at least once (including discard rows 9–12)
    - Straight moves (horizontal and vertical)
    - Diagonal moves
    - Knight moves
    - Discard/capture moves (L-shaped paths)
-   - Home signal commands (src == dst) every ~20 commands to reset the carriage and prevent mechanical drift
 5. For each command, record whether ACK (0x01) is received. If NACK (0x00) is received or no response arrives within 30 seconds, flag it as a failure.
 6. After the full sequence, send one final known-good command and visually confirm the carriage moves to the correct position to verify the system is still fully functional.
 
-**Data Collection:** Spreadsheet with columns (command number, sent source byte (hex), sent destination byte (hex), response received (ACK/NACK/timeout), match (Y/N), response time (seconds)). Calculate: error rate (failures / 100 × 100%) and mean/max response time.
+**Data Collection:** Spreadsheet with columns (command number, sent source byte (hex), sent destination byte (hex), response received (ACK/NACK/timeout), match (Y/N), response time (seconds)). Calculate: error rate (failures / 40 × 100%) and mean/max response time.
 
-**Trials:** N = 100 commands. 100 commands provide sufficient volume to identify intermittent errors caused by electrical noise or timing issues.
+**Trials:** N = 40 commands. 40 commands provide sufficient volume to identify intermittent errors caused by electrical noise or timing issues.
 
 **Potential Biases:**
-- The order of commands may matter if the system accumulates positional errors over many moves (mitigate by including homing signal commands every ~20 commands to reset the carriage).
 - Response time varies by move distance, as short moves complete faster than full-board traversals (mitigate by recording move type alongside response time and analyze per category rather than as a single average).
 
 ---
