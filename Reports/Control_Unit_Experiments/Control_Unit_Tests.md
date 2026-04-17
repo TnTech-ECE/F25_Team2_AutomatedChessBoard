@@ -146,28 +146,26 @@
 
 ## Experiment 7: UART Communication Reliability Test
 
-**Purpose:** Verify that the binary UART protocol at 115200 bps provides reliable, error-free command transfer between the Pi and Arduino (baud rate has been updated to synchronize across Pi and Arduino; it has gone from 9600 bps to 115200 bps). Communication errors during gameplay would cause wrong moves, dropped commands, or system hangs.
+**Purpose:** Verify that the binary UART protocol at 115200 bps provides reliable, error-free command transfer between the Pi and Arduino during. The physical movement of the correct piece to the correct square serves as confirmation of successful transmission, parsing, and execution. Communication errors during gameplay could cause wrong moves, dropped commands, or system hangs.
 
 **Procedure:**
-1. Connect the Pi to the Arduino via the UART debug cable (with logic level converter between). Ensure both are set to 115200 bps.
-2. Home the system to (0.5, 0.5). Ensure `piReady` is set by sending the `0x11` handshake byte first.
-3. Write a Python test script on the Pi that sends a predefined sequence of 40 valid binary move commands, waiting for the 1-byte ACK response after each command before sending the next. The script should log: command number, bytes sent (hex), expected response (ACK), actual response received, and response time.
-4. The 40 commands should cover:
-   - All 8 columns used as both source and destination at least once
-   - Rows 1–12 each used at least once (including discard rows 9–12)
-   - Straight moves (horizontal and vertical)
-   - Diagonal moves
-   - Knight moves
-   - Discard/capture moves (L-shaped paths)
-5. For each command, record whether ACK (0x01) is received. If NACK (0x00) is received or no response arrives within 30 seconds, flag it as a failure.
-6. After the full sequence, send one final known-good command and visually confirm the carriage moves to the correct position to verify the system is still fully functional.
+1. Connect the Pi to the Arduino via the UART debug cable with logic level converter. Ensure both are set to 115200 bps.
+2. Home the system to (0.5, 0.5) and set up the board with all pieces in starting positions.
+3. Play a full game against Stockfish (or a second player). For each move:
+   - Observe the CoreXY physically moving the correct piece from the correct source square to the correct destination square.
+   - Record whether the piece moved to the correct location, an incorrect location, or did not move at all.
+   - Record whether ACK or NACK was received on the Pi side (or if a timeout occurred).
+4. For any captures during the game, verify the captured piece is physically moved to the correct discard row (rows 11–12 for white, rows 9–10 for black) before the attacking piece moves.
+5. The game should produce at minimum 40 total moves (both sides combined) to provide sufficient command volume. If the game ends early, start another.
+6. After the game, verify the system is still responsive by sending one final known-good command and confirming correct carriage movement.
 
-**Data Collection:** Spreadsheet with columns (command number, sent source byte (hex), sent destination byte (hex), response received (ACK/NACK/timeout), match (Y/N), response time (seconds)). Calculate: error rate (failures / 40 × 100%) and mean/max response time.
+**Data Collection:** Spreadsheet with columns (move number, expected source square, expected destination square, actual destination square observed, piece moved correctly (Y/N), ACK/NACK/timeout received, notes). Calculate: error rate (incorrect moves / total moves × 100%). For captures, additionally record whether the discard placement was correct.
 
-**Trials:** N = 40 commands. 40 commands provide sufficient volume to identify intermittent errors caused by electrical noise or timing issues.
+**Trials:** N = 40 moves. A full game exercises the communication chain under realistic conditions including varied move types (straight, diagonal, knight, captures, and discard moves) in natural sequence.
 
 **Potential Biases:**
-- Response time varies by move distance, as short moves complete faster than full-board traversals (mitigate by recording move type alongside response time and analyze per category rather than as a single average).
+- A single game may not cover all move types (mitigate by executing 2–3 manual commands of any skipped type, after the game ends).
+- Observer may miss subtle misplacements (mitigate by verifing piece position against the Pi's displayed board state after each move).
 
 ---
 
