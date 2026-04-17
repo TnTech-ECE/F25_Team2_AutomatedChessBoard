@@ -171,6 +171,40 @@
 
 ---
 
+## Experiment 8: Thermal Safety Test
+
+**Purpose:** Verify that all system component surfaces remain below 40°C (104°F) during sustained operation (as required by UL 94 flammability guidance and CPSC 16 CFR 1505.7 thermal limits). Components tested include both TMC2209 driver boards, the stepper drivers, the MOSFET, the Arduino Nano, the Raspberry Pi enclosure, the display, the microphone, and the power supply. Overheating of any component could cause thermal shutdown mid-game, material degradation, or burn hazard to the user.
+
+**Procedure:**
+1. Install SMT heatsinks (Adafruit 1493) on both TMC2209 driver boards if not already installed.
+2. Record the ambient room temperature using a thermometer.
+3. Run a simulated full-game sequence from the Pi: continuous move commands covering varied move types (straight, diagonal, knight, captures, discards) over 30 minutes of active operation.
+4. At each 10 minute interval, pause briefly and measure surface temperatures at each of the following locations using an IR thermometer:
+   - TMC2209 driver board A
+   - TMC2209 driver board B
+   - Stepper motor A
+   - Stepper motor B
+   - MOSFET body
+   - Arduino Nano
+   - Raspberry Pi enclosure (top surface)
+   - Display (back surface)
+   - Microphone body
+   - Power supply enclosure
+5. Record ambient temperature at each measurement point.
+6. If any component triggers a thermal fault during the test (e.g., TMC2209 DIAG pin triggers, motion stops unexpectedly), record the event and the temperature at which it occurred.
+
+**Data Collection:** Table with columns (time point (10/20/30 min), ambient temperature (°C), and one temperature column per component (°C)). Record pass/fail for each component at each time point (pass = ≤40°C). Calculate peak temperature for each component across all measurements. Convert to °F for comparison against the 104°F spec if needed (°F = °C × 9/5 + 32).
+
+**Trials:** N = 3 timestamps.
+
+**Potential Biases:**
+- IR thermometer accuracy depends on consistent location (mitigate by measuring the same location on the material surface each time).
+- Ambient temperature variation between timestamps affects results (mitigate by recording ambient temperature at every timestamp).
+- Room ventilation and airflow vary by location (mitigate by running the session in a location with room-temperature ambient temperature).
+
+
+---
+
 
 **NEEDS WORK**
 
@@ -197,23 +231,5 @@
 **Trials:** N = 30 moves. 30 observations give a 95% confidence interval of approximately ±4.5% on the success rate.
 
 **Potential Biases:** Piece placement consistency affects results (mitigate by ensuring pieces are centred on squares before each session). Electromagnet strength variation between piece types (pawns vs. rooks) may affect capture reliability (mitigate by including all piece types in the test sequence).
-
----
-
-## Experiment ???: Motor Driver Thermal Test
-
-**Purpose:** Verify that the TMC2209 driver surface temperatures remain below 40°C (104°F) with heatsinks installed during sustained operation, as required by the detailed design and UL 94/CPSC thermal safety constraints. Overheating could cause thermal shutdown mid-game, halting play unexpectedly.
-
-**Procedure:**
-1. Install SMT heatsinks (Adafruit 1493) on both TMC2209 driver boards per manufacturer recommendations.
-2. Record the ambient room temperature using a thermometer.
-3. Run a simulated full-game sequence: send a continuous stream of move commands (approximately 40 moves per side, 80 total moves) from the Pi, representing a typical chess game. Include varied move types and captures.
-4. After every 10 moves, pause for 5 seconds and measure the surface temperature of each TMC2209 heatsink and the MOSFET using an IR thermometer (or thermocouple).
-5. After completing all 80 moves, continue measuring every 2 minutes for an additional 10 minutes to observe cool-down behavior.
-6. If at any point a driver enters thermal shutdown (motion stops unexpectedly, DIAG pin triggers), record the event and the temperature at which it occurred.
-
-**Data Collection:** Table with columns: measurement point (move count or time), ambient temperature (°C), driver A heatsink temperature (°C), driver B heatsink temperature (°C), MOSFET temperature (°C), thermal fault (Y/N). Plot temperature vs. move count as a line graph. Calculate peak temperature for each component.
-
-**Trials:** N = 3 full game simulations. Three sessions (ideally on different days or with full cool-down between) confirm that thermal behavior is consistent and not dependent on initial conditions.
 
 **Potential Biases:** Ambient temperature variation between sessions affects results. Mitigation: record ambient temperature at the start of each session and normalize results. IR thermometer accuracy depends on emissivity setting and measurement distance — mitigate by using the same distance and angle for all readings, and calibrate against a known temperature source if possible. Enclosure ventilation affects thermal performance — test both with and without the final enclosure to understand worst-case conditions.
