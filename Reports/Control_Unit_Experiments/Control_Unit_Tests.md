@@ -203,6 +203,32 @@
 
 ---
 
+## Experiment 9: Positional Accuracy Verification
+
+**Purpose:** Evaluate whether the CoreXY system achieves positional accuracy within ±0.5mm across the board. This directly supports precise chess piece placement; if the electromagnet doesn't land on the centre of a square, pieces will be misaligned or missed entirely.
+
+**Procedure:**
+1. Mark the centre of at least 10 target squares across the board using a fine-tip marker. Centres are located 28.575mm (half of 57.15mm) from each edge of the square. Target squares should include:
+   - Four corners of the playing field (a1, h1, a8, h8)
+   - Board centre (d4 or e5)
+   - At least two discard row positions (e.g., a11, h10)
+   - At least two mid-edge positions (e.g., a4, d1)
+2. Home the system to (0.5, 0.5).
+3. Command the CoreXY to move to each target coordinate.
+4. At each position, use a ruler with millimetre precision (or calipers) to measure the distance from the centre of the electromagnet carriage to the marked centre of the target square. Measure the X offset and Y offset separately.
+5. Record the deviation from the target position.
+6. Re-home the system between each measurement to prevent cumulative error.
+7. Repeat across all target squares for each trial.
+
+**Data Collection:** Record data in a table with columns (trial number, target square, target position (mm), measured offset X (mm), measured offset Y (mm), total error (mm, calculated as √(X² + Y²)), pass/fail (≤0.5mm)). Calculate mean error and max error across all measurements.
+
+**Trials:** N = 10 coordinates
+
+**Potential Biases:**
+- Human measurement error (~±0.5mm) (mitigate by using the same operator and consistent measuring method for all readings)
+
+---
+
 
 **NEEDS WORK**
 
