@@ -119,7 +119,7 @@
 
 ## Experiment 6: Fault Detection and Safe Halt Test
 
-**Purpose:** Verify that the Control Unit detects TMC2209 DIAG pin faults mid-move and ignores boot noise until the `0x11` handshake is received. These behaviors are implemented in `checkFault()`, the UART parser's nibble validation, and the `piReady` flag respectively.
+**Purpose:** Verify that the Control Unit detects TMC2209 DIAG pin faults mid-move and ignores boot noise until the `0x11` handshake is received. These behaviors are implemented in `checkFault()` and the `piReady` flag respectively.
 
 **Procedure:**
 
