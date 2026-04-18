@@ -117,29 +117,21 @@
 
 ---
 
-## Experiment 6: Fault Detection and Safe Halt Test
+## Experiment 6: Boot Noise Test
 
-**Purpose:** Verify that the Control Unit detects TMC2209 DIAG pin faults mid-move and ignores boot noise until the `0x11` handshake is received. These behaviors are implemented in `checkFault()` and the `piReady` flag respectively.
+**Purpose:** Verify that the Control Unit ignores boot noise until the `0x11` handshake is received. This behavior is implemented in the `piReady` flag.
 
 **Procedure:**
 
-*Test A — Stall Detection:*
-1. Temporarily set home position in `setup()` to (2.0, 0.5) while the carriage is physically near the left rail.
-2. Command a leftward move. The carriage should stall against the rail.
-3. Verify: motors stop, electromagnet turns off, NACK is sent to the Pi.
-4. Send a new valid command and verify the system recovers and executes correctly.
-
-*Test B — Boot Noise Rejection:*
 1. Full power cycle the system with the Pi connected.
 2. Mark the carriage position with tape. Observe during the ~45-second Pi boot. Verify no movement occurs.
 3. After the chess software sends `0x11`, send a valid command and verify it executes.
 
-**Data Collection:** Pass/fail table with columns (sub-test (A/B/C), trial number, fault condition, expected behavior, actual behavior, pass/fail, notes).
+**Data Collection:** Pass/fail table with columns (trial number, boot movement(y/n), start command received(y/n), valid command executed(y/n), pass/fail).
 
-**Trials:** N = 6 total (3 iterations for Test A and 3 iterations for Test C).
+**Trials:** N = 3 total.
 
 **Potential Biases:**
-- Soft stalls may not trigger the DIAG pin (mitigate by ensuring the carriage hits a hard physical stop).
 - Boot noise varies between boots (mitigate by testing across 3 separate cold boots).
 
 ---
