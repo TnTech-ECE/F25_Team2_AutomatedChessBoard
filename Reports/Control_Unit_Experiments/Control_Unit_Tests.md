@@ -107,7 +107,7 @@
 5. Record the peak voltage spike magnitude and its duration.
 6. Repeat for multiple on-durations (200ms, 1s, 2s, 5s) to check if spike magnitude varies with energization time.
 
-**Data Collection:** Table with columns: trial number, on-duration (ms), peak spike voltage (V), spike duration (µs), MOSFET Vds max (55V), pass/fail. Include oscilloscope screenshot captures for each trial.
+**Data Collection:** Table with columns (trial number, on-duration (seconds), peak spike voltage (V), ambient temperature (°F) pass/fail).
 
 **Trials:** N = 4 durations. Varying on-duration ensures the diode performs under different stored-energy conditions.
 
