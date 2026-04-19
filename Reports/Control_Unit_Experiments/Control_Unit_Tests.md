@@ -179,13 +179,14 @@
    - Raspberry Pi enclosure (top surface)
    - Display (back surface)
    - Microphone body
+   - UPS
    - Power supply enclosure
 5. Record ambient temperature at each measurement point.
 6. If any component triggers a thermal fault during the test (e.g., TMC2209 DIAG pin triggers, motion stops unexpectedly), record the event and the temperature at which it occurred.
 
 **Data Collection:** Table with columns (time point (10/20/30 min), ambient temperature (°C), and one temperature column per component (°C)). Record pass/fail for each component at each time point (pass = ≤40°C). Calculate peak temperature for each component across all measurements. Convert to °F for comparison against the 104°F spec if needed (°F = °C × 9/5 + 32).
 
-**Trials:** N = 3 timestamps.
+**Trials:** N = 3 timestamps for all components.
 
 **Potential Biases:**
 - IR thermometer accuracy depends on consistent location (mitigate by measuring the same location on the material surface each time).
