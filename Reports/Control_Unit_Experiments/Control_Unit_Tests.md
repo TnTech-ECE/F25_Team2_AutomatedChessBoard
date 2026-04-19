@@ -1,30 +1,10 @@
-# Control Unit — Experimental Analysis
+# Experimental Analysis
 
 ---
 
-## Experiment 1: Command Latency Test
+# DONE
 
-**Purpose:** Verify that the Control Unit processes and begins executing a received UART command within 50ms of receipt, as required by the detailed design performance specification. Low latency is critical from the customer's perspective to ensure the board feels responsive during gameplay.
-
-**Procedure:**
-1. Connect the Arduino Nano (A000005) to the Raspberry Pi5 via the UART debug cable (with logic level converter between the two).
-2. Attach an oscilloscope probe to the Arduino's UART RX pin (D0) and a second probe to one of the TMC2209 STEP output pins (either D2 or D6).
-3. Ensure the system is powered, homed, and idle (no pending moves).
-4. Send a single valid 2-byte binary move command from the Pi (e.g., `0x12 0x14` for a1 to a3).
-5. On the oscilloscope, trigger on the falling edge of the RX start bit. Measure the time delta from the end of the second received byte to the first rising edge on the STEP pin.
-6. Reset the head to home position between trials to ensure consistent starting conditions.
-7. Repeat for 10 trials using the same move command, then repeat 5 additional trials with varied move types (diagonal, knight, straight).
-
-**Data Collection:** Record each latency measurement in milliseconds in a spreadsheet table with columns for trial number, move type, and measured latency (ms). Calculate mean, standard deviation, min, and max across all trials.
-
-**Trials:** N = 15 (10 identical and 5 varied). 15 trials provide sufficient data to identify any outliers and confirm consistency across move types.
-
-**Potential Biases:** 
-- Arduino main loop polling rate introduces variability depending on where in the loop cycle the byte arrives (mitigate by using consistent system state (idle with no prior motion) before each trial; ensure no other serial traffic is present during measurement).
-
----
-
-## Experiment 2: Move Completion Time Test
+## Experiment 1: Move Completion Time Test
 
 **Purpose:** Verify that any single piece movement completes within 5 seconds of arriving at the source square, as specified in both the conceptual design and detailed design. This directly impacts gameplay pacing and user experience (slow moves frustrate players).
 
@@ -53,7 +33,50 @@
 
 ---
 
-## Experiment 3: Electromagnet Switching Latency Test
+## Experiment 2: Boot Noise Test
+
+**Purpose:** Verify that the Control Unit ignores boot noise until the `0x11` handshake is received. This behavior is implemented in the `piReady` flag.
+
+**Procedure:**
+
+1. Full power cycle the system with the Pi connected.
+2. Mark the carriage position with tape. Observe during the ~45-second Pi boot. Verify no movement occurs.
+3. After the chess software sends `0x11`, send a valid command and verify it executes.
+
+**Data Collection:** Pass/fail table with columns (trial number, boot movement(y/n), start command received(y/n), valid command executed(y/n), pass/fail).
+
+**Trials:** N = 3 total.
+
+**Potential Biases:**
+- Boot noise varies between boots (mitigate by testing across 3 separate cold boots).
+
+---
+
+## Experiment 3: Edge Boundary and Clamp Verification Test
+
+**Purpose:** Verify that the software clamping logic prevents the CoreXY head from moving beyond the centre of any edge square (X ∈ [0.5, 7.5], Y ∈ [0.5, 13.5] in square units), and that the edge-travel algorithm correctly avoids the outermost board edges. This is a safety-critical requirement, as exceeding travel limits could damage the CoreXY mechanism or dislodge the carriage from the rails.
+
+**Procedure:**
+1. Home the system to (0.5, 0.5).
+2. Execute the following moves that involve edge squares and boundary conditions:
+   - **Column a vertical:** a1 to a8 (left column, full playing field traverse) -> X exit edge should not move to X = 0.0
+   - **Column h vertical:** h1 to h8 (right column) -> X exit edge should not move to X = 8.0
+   - **Discard from column a:** a1 to a11 (bottom discard row) -> Y must not go below Y = 0.5
+   - **Discard from column h:** h8 to h10 (top discard row) -> Y must not go above Y = 13.5
+3. For each move, visually observe and confirm that the carriage never reaches or crosses the outermost physical rail on any side.0
+4. Record pass/fail for each move. If a boundary violation is observed, record the approximate position and which axis was violated.
+
+**Data Collection:** Table with columns (test move, source, destination, boundary tested (X min / X max / Y min / Y max), carriage stayed within bounds (Y/N)).
+
+**Trials:** N = 4 total observations. This covers all 4 possible collision concerns.
+
+**Potential Biases:** 
+- Accumulated positional error from previous moves could push the carriage past a boundary (mitigate by re-homing between trials).
+
+---
+
+
+## Experiment 4: Electromagnet Switching Latency Test
 
 **Purpose:** Verify that the MOSFET-based electromagnet switching circuit activates within 10ms and reliably picks up and releases all chess piece types, as specified in the detailed design. Reliable pickup/release is essential (a dropped piece mid-move ruins the game).
 
@@ -72,7 +95,7 @@
 
 ---
 
-## Experiment 4: Flyback Diode Inductive Spike Test
+## Experiment 5: Flyback Diode Inductive Spike Test
 
 **Purpose:** Verify that the flyback diode clamps the inductive voltage spike on the MOSFET drain to within the IRLZ44NPBF's maximum Vds rating (55V) when the electromagnet is switched off. Unclamped spikes could destroy the MOSFET, causing a permanent system failure.
 
@@ -94,49 +117,31 @@
 
 ---
 
-## Experiment 5: Edge Boundary and Clamp Verification Test
+# NEED TO DO
 
-**Purpose:** Verify that the software clamping logic prevents the CoreXY head from moving beyond the centre of any edge square (X ∈ [0.5, 7.5], Y ∈ [0.5, 13.5] in square units), and that the edge-travel algorithm correctly avoids the outermost board edges. This is a safety-critical requirement, as exceeding travel limits could damage the CoreXY mechanism or dislodge the carriage from the rails.
+## Experiment ?: Command Latency Test
+
+**Purpose:** Verify that the Control Unit processes and begins executing a received UART command within 50ms of receipt, as required by the detailed design performance specification. Low latency is critical from the customer's perspective to ensure the board feels responsive during gameplay.
 
 **Procedure:**
-1. Home the system to (0.5, 0.5).
-2. Execute the following moves that involve edge squares and boundary conditions:
-   - **Column a vertical:** a1 to a8 (left column, full playing field traverse) -> X exit edge should not move to X = 0.0
-   - **Column h vertical:** h1 to h8 (right column) -> X exit edge should not move to X = 8.0
-   - **Discard from column a:** a1 to a11 (bottom discard row) -> Y must not go below Y = 0.5
-   - **Discard from column h:** h8 to h10 (top discard row) -> Y must not go above Y = 13.5
-3. For each move, visually observe and confirm that the carriage never reaches or crosses the outermost physical rail on any side.0
-4. Record pass/fail for each move. If a boundary violation is observed, record the approximate position and which axis was violated.
+1. Connect the Arduino Nano (A000005) to the Raspberry Pi5 via the UART debug cable (with logic level converter between the two).
+2. Attach an oscilloscope probe to the Arduino's UART RX pin (D0) and a second probe to one of the TMC2209 STEP output pins (either D2 or D6).
+3. Ensure the system is powered, homed, and idle (no pending moves).
+4. Send a single valid 2-byte binary move command from the Pi (e.g., `0x12 0x14` for a1 to a3).
+5. On the oscilloscope, trigger on the falling edge of the RX start bit. Measure the time delta from the end of the second received byte to the first rising edge on the STEP pin.
+6. Reset the head to home position between trials to ensure consistent starting conditions.
+7. Repeat for 10 trials using the same move command, then repeat 5 additional trials with varied move types (diagonal, knight, straight).
 
-**Data Collection:** Table with columns (test move, source, destination, boundary tested (X min / X max / Y min / Y max), carriage stayed within bounds (Y/N), notes).
+**Data Collection:** Record each latency measurement in milliseconds in a spreadsheet table with columns for trial number, move type, and measured latency (ms). Calculate mean, standard deviation, min, and max across all trials.
 
-**Trials:** N = 4 total observations. This covers all 4 possible collision concerns.
+**Trials:** N = 15 (10 identical and 5 varied). 15 trials provide sufficient data to identify any outliers and confirm consistency across move types.
 
 **Potential Biases:** 
-- Accumulated positional error from previous moves could push the carriage past a boundary (mitigate by re-homing between trials).
+- Arduino main loop polling rate introduces variability depending on where in the loop cycle the byte arrives (mitigate by using consistent system state (idle with no prior motion) before each trial; ensure no other serial traffic is present during measurement).
 
 ---
 
-## Experiment 6: Boot Noise Test
-
-**Purpose:** Verify that the Control Unit ignores boot noise until the `0x11` handshake is received. This behavior is implemented in the `piReady` flag.
-
-**Procedure:**
-
-1. Full power cycle the system with the Pi connected.
-2. Mark the carriage position with tape. Observe during the ~45-second Pi boot. Verify no movement occurs.
-3. After the chess software sends `0x11`, send a valid command and verify it executes.
-
-**Data Collection:** Pass/fail table with columns (trial number, boot movement(y/n), start command received(y/n), valid command executed(y/n), pass/fail).
-
-**Trials:** N = 3 total.
-
-**Potential Biases:**
-- Boot noise varies between boots (mitigate by testing across 3 separate cold boots).
-
----
-
-## Experiment 7: UART Communication Reliability Test
+## Experiment ??: UART Communication Reliability Test
 
 **Purpose:** Verify that the binary UART protocol at 115200 bps provides reliable, error-free command transfer between the Pi and Arduino during. The physical movement of the correct piece to the correct square serves as confirmation of successful transmission, parsing, and execution. Communication errors during gameplay could cause wrong moves, dropped commands, or system hangs.
 
@@ -161,7 +166,7 @@
 
 ---
 
-## Experiment 8: Thermal Safety Test
+## Experiment ???: Thermal Safety Test
 
 **Purpose:** Verify that all system component surfaces remain below 40°C (104°F) during sustained operation (as required by UL 94 flammability guidance and CPSC 16 CFR 1505.7 thermal limits). Components tested include both TMC2209 driver boards, the stepper drivers, the MOSFET, the Arduino Nano, the Raspberry Pi enclosure, the display, the microphone, and the power supply. Overheating of any component could cause thermal shutdown mid-game, material degradation, or burn hazard to the user.
 
@@ -196,7 +201,9 @@
 
 ---
 
-## Experiment 9: Positional Accuracy Verification
+# ON-HOLD
+
+## Experiment ????: Positional Accuracy Verification
 
 **Purpose:** Evaluate whether the CoreXY system achieves positional accuracy within ±0.5mm across the board. This directly supports precise chess piece placement; if the electromagnet doesn't land on the centre of a square, pieces will be misaligned or missed entirely.
 
@@ -226,7 +233,7 @@
 **NEEDS WORK**
 
 
-## Experiment ???: Collision-Free Capture and Movement Rate Test
+## Experiment ?????: Collision-Free Capture and Movement Rate Test
 
 **Purpose:** Verify that the system achieves 95% or higher collision-free piece movements, including captures (as specified in the detailed design). Piece collisions during automated play would disrupt the game and damage user trust in the system.
 
