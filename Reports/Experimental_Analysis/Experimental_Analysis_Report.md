@@ -931,7 +931,7 @@ No components were damaged.
 - **Outcome:** Pass(?)
 
 **12.10 Components Used / Damaged / Replaced:**
-
+No components were damaged.
 - _Raspberry Pi 5_
 - _Arduino Nano (A000005)_
 - _UART debug cable_
@@ -941,48 +941,32 @@ No components were damaged.
 
 ---
 
-### 12.2 Thermal Safety
+### 13. Experiment 11: Thermal Safety
 
-**Purpose and Justification:** Verify that all system component surfaces remain below 40 °C (104 °F) during sustained operation, as required by UL 94 flammability guidance and CPSC 16 CFR 1505.7 thermal limits. Overheating could cause thermal shutdown mid-game, material degradation, or burn hazard to the user. This test covers every powered component and structural surface the user could realistically touch during normal use.
+**13.1 Purpose and Justification:** Verify that all system component surfaces remain below 40 °C (104 °F) during sustained operation, as required by UL 94 flammability guidance and CPSC 16 CFR 1505.7 thermal limits. Overheating could cause thermal shutdown mid-game, material degradation, or burn hazard to the user.
 
-**Hypothesis / Expected Results:** All listed components will remain below the 40 °C / 104 °F surface limit throughout 30 minutes of continuous operation. The two TMC2209 stepper drivers are expected to be the hottest parts (the reason heatsinks were specified) and most likely to approach the limit; passive components like the acrylic board surface and the UPS/Pi mount are expected to stay near ambient.
+**13.2 Hypothesis / Expected Results:** All listed components will remain below the 40 °C / 104 °F surface limit throughout 30 minutes of continuous operation. The two TMC2209 stepper drivers are expected to be the hottest parts (the reason heatsinks were specified) and most likely to approach the limit; passive components like the acrylic board surface and the UPS/Pi mount are expected to stay near ambient.
 
-**Equipment & Inventory Items Used:**
-- _[Item # — Raspberry Pi 5]_
-- _[Item # — Arduino Nano (A000005)]_
-- _[Item # — TMC2209 stepper drivers (×2, one per side)]_
-- _[Item # — Stepper motors (×2, one per side)]_
-- _[Item # — IRLZ44N MOSFET]_
-- _[Item # — Flyback diode]_
-- _[Item # — Electromagnet coil]_
-- _[Item # — DFRobot UPS HAT]_
-- _[Item # — Battery pack (4×18650)]_
-- _[Item # — MT3608 boosters (×2)]_
-- _[Item # — UPS/Pi plastic mount]_
-- _[Item # — Display screen]_
-- _[Item # — Acrylic board surface]_
-- _[Item # — SMT heatsinks (Adafruit 1493) on TMC2209 drivers]_
-- _[Item # — IR thermometer]_
-- _[Item # — Ambient thermometer]_
+### 13.3 Procedure
 
 **Environmental Conditions:** Standard indoor lab conditions; ambient temperature recorded at the start of the session and at every measurement timestamp. Session run in a single consistent location to avoid airflow variation.
 
 **Preparation Steps:**
 1. Confirm SMT heatsinks (Adafruit 1493) are installed on both TMC2209 driver boards.
 2. Record the ambient room temperature at session start.
-3. Power up the system and let it reach a steady-state idle temperature (~5 minutes).
+3. Power up the system and let it reach a steady-state idle temperature (about 5 minutes).
 4. Identify and mark a consistent measurement spot on each component so all subsequent readings target the same surface.
 
 **Procedure Steps:**
 1. Begin a simulated full-game sequence: continuous move commands from the Pi covering varied move types (straight, diagonal, knight, captures, discards) for 30 minutes of active operation.
-2. At the 10-minute, 20-minute, and 30-minute marks, briefly pause command issuance and measure surface temperatures with the IR thermometer at each of the components listed in §12.2 Equipment, holding the thermometer at the same distance and angle for every reading.
+2. At the 10-minute, 20-minute, and 30-minute marks, briefly pause command issuance and measure surface temperatures with the IR thermometer at each of the components listed at the end of this experiment, holding the thermometer at the same distance and angle for every reading.
 3. Record ambient temperature at each measurement timestamp.
 4. Record the surface temperature for every component at every timestamp.
 5. If any component triggers a thermal fault during the test (e.g., TMC2209 DIAG pin asserts, motion stops unexpectedly, or any visible sign of distress), record the event and the temperature at which it occurred, and stop the test for that component.
 
 **Note on component naming:** "A" components are mounted on the left side of the board (closest to a wall) and "B" components are mounted on the right side (closest to the gap for the Pi/UPS).
 
-**Data Collection Plan:**
+**13.4 Data Collection Plan:**
 
 | Variable | Units | Measurement Method | Frequency | Recording Format |
 |----------|-------|--------------------|-----------|------------------|
@@ -992,9 +976,9 @@ No components were damaged.
 | Pass/fail per component per timestamp | Pass/Fail | Derived (≤ 104 °F) | Per measurement | Table |
 | Thermal fault event | Y/N + description | Visual / serial log | As they occur | Notes column |
 
-**Trials:** N = 3 timestamps (10, 20, 30 min) × 16 components = 48 total measurements per run. Three timestamps capture the warm-up curve and confirm whether components have reached steady state by 30 min.
+**13.5 Trials:** N = 3 timestamps (10, 20, 30 min) × 16 components = 48 total measurements per run. Three timestamps capture the warm-up curve and confirm whether components have reached steady state by 30 min.
 
-**Potential Biases and Mitigation:**
+**13.6 Potential Biases and Mitigation:**
 
 | Potential Bias / Source of Error | Mitigation Strategy |
 |----------------------------------|---------------------|
@@ -1003,7 +987,7 @@ No components were damaged.
 | Airflow / ventilation variation | Run the entire session in one consistent indoor location with no fans or open windows |
 | IR thermometer emissivity error on shiny surfaces (e.g., MOSFET tab) | Record the same surface and angle each time to keep relative readings consistent across timestamps |
 
-**Actual Results:**
+**13.7 Actual Results:**
 
 | Trial | Time (min) | Ambient (°F) | Component | Surface Temp (°F) | Pass/Fail (≤ 104 °F) | Notes |
 |-------|------------|--------------|-----------|--------------------|------------------------|-------|
@@ -1077,16 +1061,30 @@ No components were damaged.
 | Booster 2 |  |  |
 | (Acrylic) board surface |  |  |
 
-**Visualizations:** _[Optional — line chart of temperature vs. time per component, if the data warrants it.]_
+**13.8 Interpretation and Conclusions:** _[To fill in after data collection.]_
 
-**Interpretation and Conclusions:** _[To fill in after data collection.]_
-
-**Pass / Fail Against Criterion:**
+**13.9 Pass / Fail Against Criterion:**
 - **Criterion Target:** All component surfaces ≤ 40 °C (104 °F) during continuous operation
 - **Measured Result:** _[import]_
-- **Outcome:** ☐ Pass ☐ Fail ☐ Partial
+- **Outcome:** Pass(?)
 
-**Components Used / Damaged / Replaced:** _[None expected.]_
+**13.10 Components Used / Damaged / Replaced:**
+No components were damaged.
+- _Raspberry Pi 5_
+- _Arduino Nano (A000005)_
+- _TMC2209 stepper drivers (both)_
+- _Stepper motors (both)_
+- _IRLZ44NPBF MOSFET_
+- _Flyback diode_
+- _Electromagnet coil_
+- _UPS HAT_
+- _Battery pack (4×18650)_
+- _MT3608 boosters (both)_
+- _UPS/Pi plastic mount_
+- _Display screen_
+- _Acrylic board surface_
+- _IR thermometer gun_
+- _Ambient thermometer_
 
 ---
 
@@ -1096,75 +1094,12 @@ No components were damaged.
 
 
 
-## 12. Planned Experiments (Not Yet Conducted)
+## 14. Planned Experiments (Not Yet Conducted)
 
 The following experiments are designed and awaiting execution. Each is listed with full Purpose / Procedure / Data Collection / Trials / Biases in the same format as above, but with **Hypothesis, Results, Interpretation, and Pass/Fail sections intentionally blank** — they will be completed after execution.
 
-### 12.1 UART Communication Reliability
 
-**Purpose and Justification:** Verify that the binary UART protocol at 115200 bps provides reliable, error-free command transfer between the Pi and Arduino during gameplay. The physical movement of the correct piece to the correct square serves as confirmation of successful transmission, parsing, and execution. Communication errors during gameplay could cause wrong moves, dropped commands, or system hangs.
-
-**Procedure:**
-1. Connect the Pi to the Arduino via the UART debug cable (with logic level converter). Both set to 115200 bps.
-2. Home the system to (0.5, 0.5) and set up starting positions.
-3. Play a full game against Stockfish (or a second player). For each move:
-   - Observe the CoreXY physically moving the correct piece from source to destination.
-   - Record whether the piece moved correctly, incorrectly, or not at all.
-   - Record whether ACK / NACK / timeout was received on the Pi side.
-4. For captures, verify the captured piece is moved to the correct discard row before the attacker moves.
-5. Target ≥ 20 total moves. Start a second game if needed.
-6. After the game, send one final known-good command to confirm system responsiveness.
-
-**Data Collection:** Columns (move number, expected source, expected destination, actual destination, piece moved correctly (Y/N), ACK/NACK/timeout, notes). Calculate error rate. For captures, record correctness of discard placement.
-
-**Trials:** N = 20 moves. Exercises the communication chain under realistic conditions.
-
-**Potential Biases:**
-- A single game may not cover all move types → execute 2–3 manual commands of any skipped type after the game ends.
-- Observer may miss subtle misplacements → verify piece position against Pi's displayed board state after each move.
-
----
-
-### 12.2 Thermal Safety
-
-**Purpose and Justification:** Verify that all system component surfaces remain below 40 °C (104 °F) during sustained operation (UL 94 flammability guidance and CPSC 16 CFR 1505.7). Overheating could cause thermal shutdown mid-game, material degradation, or burn hazard.
-
-**Procedure:**
-1. Install SMT heatsinks (Adafruit 1493) on both TMC2209 driver boards.
-2. Record ambient room temperature.
-3. Run simulated full-game sequence: continuous move commands over 30 minutes.
-4. At each 10-minute interval, measure surface temperatures at each of the following components. "A" components are mounted on the left side of the board (closest to a wall) and "B" components are mounted on the right side (closest to the gap for the Pi/UPS):
-   - Motor A
-   - Motor B
-   - Stepper Driver A
-   - Stepper Driver B
-   - MOSFET
-   - Flyback diode
-   - Arduino Nano
-   - Electromagnet
-   - Raspberry Pi 5
-   - Screen (back surface)
-   - UPS
-   - Battery pack
-   - UPS/Pi plastic mount
-   - Booster 1
-   - Booster 2
-   - (Acrylic) board surface (top of board)
-5. Record ambient temperature at each measurement point.
-6. Note any thermal fault events (e.g., TMC2209 DIAG trigger).
-
-**Data Collection:** Columns (trial, time (10/20/30 min), ambient (°F), one temperature column per component (°F), max temp, pass/fail at each time point). Calculate peak temperature per component across all measurements.
-
-**Trials:** N = 3 timestamps × all components listed above.
-
-**Potential Biases:**
-- IR thermometer point consistency → measure the same surface location each time.
-- Ambient variation between timestamps → record ambient every time.
-- Airflow variation → run session in a consistent indoor location.
-
----
-
-### 12.3 Positional Accuracy Verification _(on hold)_
+### 14.1 Positional Accuracy Verification _(on hold)_
 
 **Purpose and Justification:** Evaluate whether the CoreXY system achieves positional accuracy within ±0.5 mm across the board. Directly supports precise chess piece placement.
 
@@ -1185,7 +1120,7 @@ The following experiments are designed and awaiting execution. Each is listed wi
 
 ---
 
-### 12.4 Collision-Free Capture and Movement Rate _(needs additional work)_
+### 14.2 Collision-Free Capture and Movement Rate _(needs additional work)_
 
 **Purpose and Justification:** Verify the system achieves ≥ 95% collision-free piece movements including captures. Piece collisions disrupt the game and damage user trust.
 
@@ -1291,6 +1226,7 @@ The following experiments are designed and awaiting execution. Each is listed wi
 
 ### 13.1 Overall Results vs. Success Criteria
 
+# TODO
 | # | Criterion | Target | Measured Result | Met? |
 |---|-----------|--------|-----------------|------|
 | 1 | Move completion time | ≤ 5 s | Mean 12.80 s, Max 30.00 s (10 / 10 trials exceeded spec) | **N** |
@@ -1304,6 +1240,7 @@ The following experiments are designed and awaiting execution. Each is listed wi
 | 9 | Move validation correctness | 100% | 40 / 40 correct | Y |
 | 10–17 | _Planned experiments_ | See §12 | Pending | Pending |
 
+# TODO
 ### 13.2 Did the Project Meet Its Success Criteria?
 Of the nine success criteria that have been experimentally evaluated to date, eight are met; most of them by very wide margins (electromagnet switching is about 3300× faster than spec, command latency is about 66× faster, flyback clamping is about 11× below the Vds limit, and processing latency, voice recognition, move validation, boot-noise rejection, and edge clamping all pass cleanly). The sole unmet criterion is move completion time: every trial exceeded the 5-second target, with a mean of 12.8 s and a worst case of 30 s. Eight additional criteria (thermal, UART reliability, collision-free rate, positional accuracy, voltage safety, EMI, safety compliance, and fault tolerance) remain to be tested. Based on present evidence the system's electrical, logical, and communication subsystems meet requirements, while the mechanical motion subsystem does not meet the completion-time spec and requires rework.
 
@@ -1394,36 +1331,36 @@ _[To be completed as a team reflection once all experiments are done — intende
 > Each team member must write their own contribution statement. One member may NOT write on behalf of another. By submitting this report, the team collectively certifies the accuracy of all statements below.
 
 ### Allison Givens
-- **Experiment Design:** Contributed to the design of the command latency experiment (Experiment 6). Also contributed to the voice recognition accuracy experiment (Experiment 7).
-- **Experiment Execution:** Participated in running Experiment 6 and Experiment 7.
+- **Experiment Design:** Co-designed Experiment 1 (Move Completion Time) and Experiment 13 (Thermal Safety).
+- **Experiment Execution:** Co-executed Experiment 6 (with Noah and Jack). Participated in Experiment 7.
 - **Data Analysis:** _[describe your specific contributions]_
 - **Report Writing:** _[describe your specific contributions]_
 - **Signature / Initials:** _____   **Date:** _______
 
 ### Noah Beaty
-- **Experiment Design:** Co-designed Experiments 1 (Move Completion Time), 2 (Boot Noise), and 6 (Command Latency). Solo-designed Experiments 3 (Edge Boundary), 4 (Electromagnet Switching Latency), and 5 (Flyback Diode Inductive Spike). Also contributed to the voice recognition accuracy experiment (Experiment 7).
-- **Experiment Execution:** Ran Experiments 1 and 2 (with Jack). Ran Experiments 3, 4, and 5 solo. Ran Experiment 6 (with Jack and Allison). Participated in Experiment 7.
+- **Experiment Design:** Co-designed Experiments 1 (Move Completion Time), 2 (Boot Noise), 6 (Command Latency), and Experiment 13 (Thermal Safety). Solo-designed Experiments 3 (Edge Boundary), 4 (Electromagnet Switching Latency), and 5 (Flyback Diode Inductive Spike). Also contributed to the voice recognition accuracy experiment (Experiment 7).
+- **Experiment Execution:** Co-executed Experiments 1 and 2 (with Jack). Ran Experiments 3, 4, and 5 solo. Co-executed Experiment 6 (with Jack and Allison). Participated in Experiment 7.
 - **Data Analysis:** Analyzed all data for the experiments he designed.
 - **Report Writing:** Wrote all conclusions for the experiments he designed.
 - **Signature / Initials:** NB   **Date:** 4-20-2026
 
 ### Jack Tolleson
-- **Experiment Design:** Co-designed Experiments 1 (Move Completion Time), 2 (Boot Noise), and 6 (Command Latency). Solo-designed Experiments 8 (Processing Latency) and 9 (Move Validation Correctness). Also contributed to the voice recognition accuracy experiment (Experiment 7).
-- **Experiment Execution:** Co-executed Experiments 1 and 2 (with Noah). Co-executed Experiment 6 (with Noah and Allison). Ran Experiments 8 and 9 solo. Participated in Experiment 7. Will run the UART Communication Reliability test and will co-run the Thermal Safety test with Nathan.
+- **Experiment Design:** Co-designed Experiments 1 (Move Completion Time), 2 (Boot Noise), 6 (Command Latency), and Experiment 13 (Thermal Safety). Solo-designed Experiments 8 (Processing Latency) and 9 (Move Validation Correctness). Also contributed to the voice recognition accuracy experiment (Experiment 7).
+- **Experiment Execution:** Co-executed Experiments 1 and 2 (with Noah). Co-executed Experiment 6 (with Noah and Allison). Ran Experiments 8 and 9 solo. Co-executed Experiment 12 (UART Communication Reliability) and Experiment 13 (Thermal Safety) with Nathan. Participated in Experiment 7.
 - **Data Analysis:** _[describe your specific contributions]_
 - **Report Writing:** _[describe your specific contributions]_
 - **Signature / Initials:** _____   **Date:** _______
 
 ### Lewis Bates
-- **Experiment Design:** Contributed to the voice recognition accuracy experiment (Experiment 7).
+- **Experiment Design:** Co-designed Experiment 13 (Thermal Safety).
 - **Experiment Execution:** Participated in Experiment 7.
 - **Data Analysis:** _[describe your specific contributions]_
 - **Report Writing:** _[describe your specific contributions]_
 - **Signature / Initials:** _____   **Date:** _______
 
 ### Nathan MacPherson
-- **Experiment Design:** Contributed to the voice recognition accuracy experiment (Experiment 7).
-- **Experiment Execution:** Participated in Experiment 7.
+- **Experiment Design:** ...
+- **Experiment Execution:**  Co-executed Experiment 12 (UART Communication Reliability) and Experiment 13 (Thermal Safety) with Jack. Participated in Experiment 7.
 - **Data Analysis:** _[describe your specific contributions]_
 - **Report Writing:** _[describe your specific contributions]_
 - **Signature / Initials:** _____   **Date:** _______
