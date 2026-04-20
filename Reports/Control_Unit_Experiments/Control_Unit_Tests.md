@@ -137,7 +137,62 @@
 **Potential Biases:** 
 - Arduino main loop polling rate introduces variability depending on where in the loop cycle the byte arrives (mitigate by using consistent system state (idle with no prior motion) before each trial; ensure no other serial traffic is present during measurement).
 
+
+
 ---
+
+## Experiment 7 — Voice Recognition Accuracy (≥80% spec)
+
+**Purpose:** Verify the Vosk speech recognition pipeline meets the 80% minimum accuracy requirement under typical indoor conditions.
+
+**Procedure:**
+
+1. Prepare a list of standardised test commands covering all command types: move commands (e.g. "move e two e four"), system commands ("chess resign", "chess yes"), and castle commands ("move castle")
+2. One person reads each command once at normal conversational pace
+3. Record whether Vosk correctly recognised the command (Y/N) and what it actually returned
+4. Repeat with 5 different speakers to test accent/voice variation
+5. Calculate accuracy as (correct recognitions / total attempts) × 100
+
+**Data to collect:** Command spoken, command recognised, correct (Y/N), speaker name
+
+**Trials:** 20 commands × 5 speakers = 100 total trials
+
+**Potential biases:** Speaker familiarity with commands, microphone placement variation — fix microphone position for all trials
+
+---
+
+## Experiment 8 — Processing Latency/Display Responsiveness (≤5 second spec)
+
+**Purpose:** Verify that from end of voice input to validated move determination/display takes under 5 seconds.
+
+**Procedure:**
+
+1. Set up the Pi with chess program running in 1-player or 2-player mode against Stockfish or another player
+2. Using a stopwatch or audio recording, measure time from when the player stops speaking to when the move is either executed or rejected on screen
+3. Include both legal and illegal moves to measure rejection latency too
+
+**Data to collect:** Move commanded, time from end of speech to display update (ms), legal/illegal
+
+**Trials:** 40 moves = 40 trials
+
+**Potential biases:** Stockfish thinking time adds latency — separate voice processing time from engine time in analysis
+
+---
+
+## Experiment 9 — Move Validation Correctness
+
+**Purpose:** Verify that python-chess correctly accepts legal moves and rejects illegal ones, and that the system communicates rejections clearly.
+
+**Procedure:**
+
+1. Prepare 20 legal moves and 20 illegal moves covering edge cases: castling, moves from wrong color, en passant, captures
+2. Input each via voice command
+3. Record whether the system correctly accepted or rejected each
+4. Verify that rejection messages appear on display within spec
+
+**Data to collect:** Move, expected result (legal/illegal), actual result
+
+**Trials:** 40 moves
 
 # NEED TO DO
 
