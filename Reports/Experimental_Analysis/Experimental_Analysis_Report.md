@@ -94,14 +94,6 @@ All move categories (short straight, long diagonal, knight, discard, and capture
 
 ### 3.3 Procedure
 
-**Equipment & Inventory Items Used:**
-- _[Item # — Arduino Nano (A000005)]_
-- _[Item # — Raspberry Pi 5]_
-- _[Item # — CoreXY gantry assembly]_
-- _[Item # — TMC2209 stepper drivers (×2)]_
-- _[Item # — Electromagnet + MOSFET board]_
-- _[Item # — Stopwatch / phone timer]_
-
 **Environmental Conditions:**
 - Standard indoor lab conditions, room temperature, normal lighting.
 
@@ -128,7 +120,7 @@ All move categories (short straight, long diagonal, knight, discard, and capture
 
 | Variable | Units | Measurement Method | Frequency | Recording Format |
 |----------|-------|--------------------|-----------|------------------|
-| Elapsed time | seconds | Stopwatch (start on grab, stop on release) | Per trial | Spreadsheet |
+| Elapsed time | seconds | Phone Timer (start on grab, stop on release) | Per trial | Spreadsheet |
 | Move category | — | Manual log | Per trial | Spreadsheet |
 | Source / destination | square | Manual log | Per trial | Spreadsheet |
 | Exceeds 5 s | Y/N | Derived from time | Per trial | Spreadsheet |
@@ -143,7 +135,7 @@ All move categories (short straight, long diagonal, knight, discard, and capture
 |----------------------------------|---------------------|
 | Mechanical friction varies with board position | Test moves across different regions of the board |
 | Belt tension changes over time | Check belt tension before the test session |
-| Human stopwatch reaction time | Use a single operator; average across many trials |
+| Human timer reaction time | Use a single operator; average across many trials |
 
 ### 3.7 Actual Results
 
@@ -168,19 +160,23 @@ All move categories (short straight, long diagonal, knight, discard, and capture
 - Max: 30.00 s (long L-shaped discard)
 - Number of trials exceeding 5 s: **10 / 10**
 
-**Visualizations:**
-_[Figure 3.1 — bar chart of completion time by move category — repo image name TBD]_
-
 ### 3.8 Interpretation and Conclusions
-The system failed to meet the 5-second spec on every single trial, including the shortest possible move (a1 → a2, a single-square translation). The overall mean of 12.8 s is more than double the target, and worst-case moves approach 30 s. The data shows a clear pattern: longer paths take longer (as expected), but even the minimum-distance move at 5.58 s falls outside the spec, which means the issue is not simply "long paths are slow" — the baseline per-move overhead is already at or above the limit. The most likely contributors are (1) conservative stepper speeds/acceleration in the current CoreXY firmware, (2) the overhead of magnet pickup/release and homing between moves, and (3) possible additional delays between the Pi command and Arduino execution sequence. Further experiments targeting acceleration tuning and magnet-dwell time will be needed to diagnose the dominant contributor before the system can meet the spec.
+The system failed to meet the 5-second spec on every single trial, including the shortest possible move. The overall mean of 12.8 s is more than double the target, and worst-case moves approach 30 s. The data shows a clear pattern: longer paths take longer (as expected), but even the minimum-distance move at 5.58 s falls outside the spec. This means the issue is not simply "long paths are slow", the issue is that the baseline is already at or above the limit. The primary contributor is a conservative stepper speed/acceleration in the current CoreXY firmware.
 
 ### 3.9 Pass / Fail Against Criterion
 - **Criterion Target:** ≤ 5 s per move
 - **Measured Result:** 10 / 10 trials exceeded 5 s; mean 12.80 s, max 30.00 s
-- **Outcome:** ☒ Fail
+- **Outcome:** Fail
 
 ### 3.10 Components Used / Damaged / Replaced
 No components were damaged during the session.
+
+- _Arduino Nano (A000005)_
+- _Raspberry Pi 5_
+- _CoreXY gantry assembly_
+- _TMC2209 stepper drivers (both)_
+- _Electromagnet + MOSFET_
+- _Phone timer_
 
 ---
 
