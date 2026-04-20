@@ -117,9 +117,8 @@
 
 ---
 
-# NEED TO DO
 
-## Experiment ?: Command Latency Test
+## Experiment 6: Command Latency Test
 
 **Purpose:** Verify that the Control Unit processes and begins executing a received UART command within 50ms of receipt, as required by the detailed design performance specification. Low latency is critical from the customer's perspective to ensure the board feels responsive during gameplay.
 
@@ -129,17 +128,18 @@
 3. Ensure the system is powered, homed, and idle (no pending moves).
 4. Send a single valid 2-byte binary move command from the Pi (e.g., `0x12 0x14` for a1 to a3).
 5. On the oscilloscope, trigger on the falling edge of the RX start bit. Measure the time delta from the end of the second received byte to the first rising edge on the STEP pin.
-6. Reset the head to home position between trials to ensure consistent starting conditions.
-7. Repeat for 10 trials using the same move command, then repeat 5 additional trials with varied move types (diagonal, knight, straight).
+6. Repeat for 7 trials using the same type of move command (straight), then repeat 3 additional trials with varied move types (diagonal and knight moves).
 
 **Data Collection:** Record each latency measurement in milliseconds in a spreadsheet table with columns for trial number, move type, and measured latency (ms). Calculate mean, standard deviation, min, and max across all trials.
 
-**Trials:** N = 15 (10 identical and 5 varied). 15 trials provide sufficient data to identify any outliers and confirm consistency across move types.
+**Trials:** N = 10 (7 straight and 5 special). 10 trials provide sufficient data to identify any outliers and confirm consistency across move types.
 
 **Potential Biases:** 
 - Arduino main loop polling rate introduces variability depending on where in the loop cycle the byte arrives (mitigate by using consistent system state (idle with no prior motion) before each trial; ensure no other serial traffic is present during measurement).
 
 ---
+
+# NEED TO DO
 
 ## Experiment ??: UART Communication Reliability Test
 
