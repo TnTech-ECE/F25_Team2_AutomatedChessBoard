@@ -570,12 +570,8 @@ Accuracy will exceed 80% across most speakers, with some variation based on acce
 
 ### 9.3 Procedure
 
-**Equipment & Inventory Items Used:**
-- _[Item # — USB microphone]_
-- _[Item # — Raspberry Pi 5 (running Vosk)]_
-
 **Environmental Conditions:**
-- Standard indoor conditions; quiet room; fixed microphone position (speaker at ~25 inches from microphone, medium speaking volume). A loud background fan was present during early trials but was turned off partway through the session.
+- Standard indoor conditions; quiet room; fixed microphone position (speaker at about 25 inches from microphone, medium speaking volume). A loud background fan was present during early trials but was turned off partway through the session.
 
 **Preparation Steps:**
 1. Prepare a list of 20 standardized test commands covering all types:
@@ -629,19 +625,18 @@ Accuracy will exceed 80% across most speakers, with some variation based on acce
 - Overall correctness after recognition: 78 / 80 = **97.5%**
 - Failing trials: Noah trial 8 (`move d1d3`, not recognized on first try); Allison trials 9 and 10 (`move knight h six` and `move bishop e three`, recognized but returned incorrect moves).
 
-**Visualizations:**
-_[Figure 9.1 — per-speaker accuracy bar chart — repo image name TBD]_
-
 ### 9.8 Interpretation and Conclusions
 Voice recognition clearly exceeds the 80% spec, with both first-try recognition (98.8%) and post-recognition correctness (97.5%) in the high-90s range across the four scored speakers. The small number of failures fall into two categories: one missed first-try recognition (a command that used coordinate form), and two commands using named-piece form ("move knight h six" and "move bishop e three") that were misinterpreted as different moves. This suggests the pipeline is nearly perfect for coordinate-form commands but has slightly weaker disambiguation on named-piece commands for some speakers. Nathan's session needs to be re-run or scored retrospectively before final submission so all five speakers are represented. Overall, the system comfortably passes the spec under these test conditions.
 
 ### 9.9 Pass / Fail Against Criterion
 - **Criterion Target:** ≥ 80% overall
 - **Measured Result:** 98.8% recognition / 97.5% correctness across 4 scored speakers (N = 80)
-- **Outcome:** ☒ Pass
+- **Outcome:** Pass
 
 ### 9.10 Components Used / Damaged / Replaced
 No components were damaged.
+- _USB microphone_
+- _Raspberry Pi 5 (running Vosk)_
 
 ---
 
@@ -651,15 +646,9 @@ No components were damaged.
 Verify that from end of voice input to validated move determination/display takes under 5 seconds, as specified in the conceptual design. This is a customer-facing responsiveness requirement.
 
 ### 10.2 Hypothesis / Expected Results
-End-to-end latency will be under 5 s for legal moves and comparable for illegal moves (rejection shown promptly). Stockfish move generation is NOT included in this measurement — only voice-to-display pipeline.
+End-to-end latency will be under 5 s for legal moves and comparable for illegal moves (rejection shown promptly). Stockfish move generation is NOT included in this measurement (only voice-to-display pipeline).
 
 ### 10.3 Procedure
-
-**Equipment & Inventory Items Used:**
-- _[Item # — USB microphone]_
-- _[Item # — Raspberry Pi 5 (chess program)]_
-- _[Item # — Display screen]_
-- _[Item # — Stopwatch or audio recording]_
 
 **Environmental Conditions:**
 - Standard indoor lab conditions.
@@ -668,7 +657,7 @@ End-to-end latency will be under 5 s for legal moves and comparable for illegal 
 1. Set up the Pi with chess program running in 1-player (vs. Stockfish) or 2-player mode.
 
 **Procedure Steps:**
-1. Using a stopwatch or audio recording, measure time from when the player stops speaking to when the move is either executed or rejected on screen.
+1. Using a stopwatch, measure time from when the player stops speaking to when the move is either executed or rejected on screen.
 2. Include both legal and illegal moves to measure rejection latency.
 3. Record 40 total moves.
 
@@ -741,36 +730,32 @@ End-to-end latency will be under 5 s for legal moves and comparable for illegal 
 - Min: 0.61 s / Max: 1.41 s
 - All 40 trials well below the 5 s spec.
 
-**Visualizations:**
-_[Figure 10.1 — histogram or box plot of latency by legal/illegal — repo image name TBD]_
-
 ### 10.8 Interpretation and Conclusions
 End-to-end processing latency from end of speech to display update is consistently around 1 second, with a maximum of 1.41 s across 40 trials — approximately 3.5× faster than the 5 s spec. There is no meaningful difference in latency between legal and illegal moves, which confirms that python-chess validation executes quickly enough that rejection is presented with the same responsiveness as acceptance. This means that even when a user issues an illegal move, they get feedback in roughly the same time as for a valid move, which is important for a good user experience.
 
 ### 10.9 Pass / Fail Against Criterion
 - **Criterion Target:** ≤ 5 s
 - **Measured Result:** Mean 0.97 s, Max 1.41 s
-- **Outcome:** ☒ Pass
+- **Outcome:** Pass
 
 ### 10.10 Components Used / Damaged / Replaced
 No components were damaged.
+- _USB microphone_
+- _Raspberry Pi 5 (chess program)_
+- _Display screen_
+- _Stopwatch_
 
 ---
 
 ## 11. Experiment 9: Move Validation Correctness
 
 ### 11.1 Purpose and Justification
-Verify that python-chess correctly accepts legal moves and rejects illegal ones, and that the system communicates rejections clearly via the display. Misvalidation would break the core promise of a chess board — maintaining game integrity.
+Verify that python-chess correctly accepts legal moves and rejects illegal ones, and that the system communicates rejections clearly via the display. Misvalidation would break the core promise of a chess board, which is maintaining game integrity.
 
 ### 11.2 Hypothesis / Expected Results
 100% correct classification of legal vs. illegal moves. Rejection messages will appear on the display within the 1-second spec.
 
 ### 11.3 Procedure
-
-**Equipment & Inventory Items Used:**
-- _[Item # — Raspberry Pi 5]_
-- _[Item # — Display screen]_
-- _[Item # — USB microphone]_
 
 **Environmental Conditions:**
 - Standard indoor lab conditions.
@@ -854,18 +839,19 @@ Verify that python-chess correctly accepts legal moves and rejects illegal ones,
 
 **Summary Statistics:** Correct: **40 / 40 (100%)**
 
-**Visualizations:** _None required — all 40 trials returned the expected result._
-
 ### 11.8 Interpretation and Conclusions
 Move validation returned the correct legal/illegal classification on all 40 trials, including all tested edge cases (legal and illegal castling, en passant, wrong-color pieces, and illegal captures). This perfect result confirms that python-chess is correctly configured as the validation engine and that the system's communication of validation decisions to the display works as designed for every tested rule category. Game integrity is preserved.
 
 ### 11.9 Pass / Fail Against Criterion
 - **Criterion Target:** 100% correct
 - **Measured Result:** 40 / 40 correct (100%)
-- **Outcome:** ☒ Pass
+- **Outcome:** Pass
 
 ### 11.10 Components Used / Damaged / Replaced
 No components were damaged.
+- _Raspberry Pi 5_
+- _Display screen_
+- _USB microphone_
 
 ---
 
@@ -885,12 +871,12 @@ The following experiments are designed and awaiting execution. Each is listed wi
    - Record whether the piece moved correctly, incorrectly, or not at all.
    - Record whether ACK / NACK / timeout was received on the Pi side.
 4. For captures, verify the captured piece is moved to the correct discard row before the attacker moves.
-5. Target ≥ 40 total moves. Start a second game if needed.
+5. Target ≥ 20 total moves. Start a second game if needed.
 6. After the game, send one final known-good command to confirm system responsiveness.
 
 **Data Collection:** Columns (move number, expected source, expected destination, actual destination, piece moved correctly (Y/N), ACK/NACK/timeout, notes). Calculate error rate. For captures, record correctness of discard placement.
 
-**Trials:** N = 40 moves. Exercises the communication chain under realistic conditions.
+**Trials:** N = 20 moves. Exercises the communication chain under realistic conditions.
 
 **Potential Biases:**
 - A single game may not cover all move types → execute 2–3 manual commands of any skipped type after the game ends.
@@ -1078,21 +1064,21 @@ The following experiments are designed and awaiting execution. Each is listed wi
 | 10–17 | _Planned experiments_ | See §12 | Pending | Pending |
 
 ### 13.2 Did the Project Meet Its Success Criteria?
-Of the nine success criteria that have been experimentally evaluated to date, eight are met — most of them by very wide margins (electromagnet switching is ~3,300× faster than spec, command latency is ~66× faster, flyback clamping is ~11× below the Vds limit, and processing latency, voice recognition, move validation, boot-noise rejection, and edge clamping all pass cleanly). The sole unmet criterion is move completion time: every trial exceeded the 5-second target, with a mean of 12.8 s and a worst case of 30 s. Eight additional criteria (thermal, UART reliability, collision-free rate, positional accuracy, voltage safety, EMI, safety compliance, and fault tolerance) remain to be tested. Based on present evidence the system's electrical, logical, and communication subsystems meet requirements, while the mechanical motion subsystem does not meet the completion-time spec and requires rework.
+Of the nine success criteria that have been experimentally evaluated to date, eight are met; most of them by very wide margins (electromagnet switching is about 3300× faster than spec, command latency is about 66× faster, flyback clamping is about 11× below the Vds limit, and processing latency, voice recognition, move validation, boot-noise rejection, and edge clamping all pass cleanly). The sole unmet criterion is move completion time: every trial exceeded the 5-second target, with a mean of 12.8 s and a worst case of 30 s. Eight additional criteria (thermal, UART reliability, collision-free rate, positional accuracy, voltage safety, EMI, safety compliance, and fault tolerance) remain to be tested. Based on present evidence the system's electrical, logical, and communication subsystems meet requirements, while the mechanical motion subsystem does not meet the completion-time spec and requires rework.
 
 ### 13.3 Discrepancies and Unmet Criteria
-- **Move Completion Time (Exp 1, Criterion #1 — FAIL):** Measured times ranged 5.58 s (shortest move) to 30.00 s (long L-shaped discard), versus a 5 s target. The fact that even a single-square move exceeds the spec indicates the baseline per-move overhead is already at or above the limit, which points to conservative acceleration/speed settings in the CoreXY firmware, magnet dwell time during pickup/release, and homing overhead between moves as the primary contributors rather than just path length.
+- **Move Completion Time (Exp 1, Criterion #1 — FAIL):** Measured times ranged 5.58 s (shortest move) to 30.00 s (long L-shaped discard), versus a 5 s target. The fact that even a single-square move exceeds the spec indicates the baseline per-move overhead is already at or above the limit, which points to conservative acceleration/speed settings in the CoreXY firmware.
 
-### 13.4 Proposed Improvements / Next Steps
-- **Priority 1:** Retune the CoreXY firmware — increase stepper acceleration and maximum speed, reduce unnecessary homing between moves, and minimize magnet dwell time to the shortest value that still reliably couples and decouples pieces. Re-run Experiment 1 after each change to isolate which contributor is dominant.
-- Complete the planned experiments in §12, prioritizing the thermal safety and UART reliability tests since those are the closest to being ready to execute.
-- Re-run or retroactively score Nathan's voice-recognition session so all five speakers are represented in Experiment 7.
+### 13.4 Proposed Improvements
+- **Priority 1:** Retune the CoreXY firmware: increase stepper acceleration and maximum speed
 
 ### 13.5 Lessons Learned
+# TODO
 _[To be completed as a team reflection once all experiments are done — intended to cover methodology (e.g., stopwatch vs. logged timing), teamwork, and any unexpected findings that came out of the process.]_
 
 ---
 
+# BROKEN BOM
 ## 14. Component Inventory
 
 ### 14.1 Initial Inventory
@@ -1174,14 +1160,14 @@ _[To be completed as a team reflection once all experiments are done — intende
 - **Signature / Initials:** _____   **Date:** _______
 
 ### Noah Beaty
-- **Experiment Design:** Co-designed Experiments 1 (Move Completion Time) and 2 (Boot Noise). Co-designed Experiment 6 (Command Latency). Solo-designed Experiments 3 (Edge Boundary), 4 (Electromagnet Switching Latency), and 5 (Flyback Diode Inductive Spike). Also contributed to the voice recognition accuracy experiment (Experiment 7).
-- **Experiment Execution:** Ran Experiments 1 and 2 (with Jack). Ran Experiments 3, 4, and 5 solo. Co-executed Experiment 6 (with Jack and Allison). Participated in Experiment 7.
-- **Data Analysis:** _[describe your specific contributions]_
-- **Report Writing:** _[describe your specific contributions]_
-- **Signature / Initials:** _____   **Date:** _______
+- **Experiment Design:** Co-designed Experiments 1 (Move Completion Time), 2 (Boot Noise), and 6 (Command Latency). Solo-designed Experiments 3 (Edge Boundary), 4 (Electromagnet Switching Latency), and 5 (Flyback Diode Inductive Spike). Also contributed to the voice recognition accuracy experiment (Experiment 7).
+- **Experiment Execution:** Ran Experiments 1 and 2 (with Jack). Ran Experiments 3, 4, and 5 solo. Ran Experiment 6 (with Jack and Allison). Participated in Experiment 7.
+- **Data Analysis:** Analyzed all data for the experiments he designed.
+- **Report Writing:** Wrote all conclusions for the experiments he designed.
+- **Signature / Initials:** NB   **Date:** 4-20-2026
 
 ### Jack Tolleson
-- **Experiment Design:** Co-designed Experiments 1 (Move Completion Time) and 2 (Boot Noise). Co-designed Experiment 6 (Command Latency). Solo-designed Experiments 8 (Processing Latency) and 9 (Move Validation Correctness). Also contributed to the voice recognition accuracy experiment (Experiment 7). Leading the planned UART Communication Reliability test (§12.1) and co-leading the planned Thermal Safety test (§12.2).
+- **Experiment Design:** Co-designed Experiments 1 (Move Completion Time), 2 (Boot Noise), and 6 (Command Latency). Solo-designed Experiments 8 (Processing Latency) and 9 (Move Validation Correctness). Also contributed to the voice recognition accuracy experiment (Experiment 7).
 - **Experiment Execution:** Co-executed Experiments 1 and 2 (with Noah). Co-executed Experiment 6 (with Noah and Allison). Ran Experiments 8 and 9 solo. Participated in Experiment 7. Will run the UART Communication Reliability test and will co-run the Thermal Safety test with Nathan.
 - **Data Analysis:** _[describe your specific contributions]_
 - **Report Writing:** _[describe your specific contributions]_
@@ -1195,21 +1181,8 @@ _[To be completed as a team reflection once all experiments are done — intende
 - **Signature / Initials:** _____   **Date:** _______
 
 ### Nathan MacPherson
-- **Experiment Design:** Contributed to the voice recognition accuracy experiment (Experiment 7). Co-leading the planned Thermal Safety test (§12.2) with Jack.
-- **Experiment Execution:** Participated in Experiment 7. Will co-run the Thermal Safety test with Jack.
+- **Experiment Design:** Contributed to the voice recognition accuracy experiment (Experiment 7).
+- **Experiment Execution:** Participated in Experiment 7.
 - **Data Analysis:** _[describe your specific contributions]_
 - **Report Writing:** _[describe your specific contributions]_
 - **Signature / Initials:** _____   **Date:** _______
-
----
-
-## Appendices (Optional)
-
-### Appendix A: Raw Data Files
-_[Links to CSVs, spreadsheets, or video recordings in the repo.]_
-
-### Appendix B: Calibration Records
-_[Instrument calibration data, datasheets.]_
-
-### Appendix C: Additional Figures
-_[Supplementary charts, schematics, photos — including any images from the repository.]_
