@@ -183,18 +183,12 @@ No components were damaged during the session.
 ## 4. Experiment 2: Boot Noise
 
 ### 4.1 Purpose and Justification
-Verify that the Control Unit (Arduino) ignores all UART traffic during Raspberry Pi boot until the `0x11` handshake byte is received. This behavior is implemented in the `piReady` flag. Without this protection, random characters sent by the Pi during boot could be misinterpreted as move commands and cause unintended motion — a safety hazard for both the mechanism and anyone near the board.
+Verify that the Control Unit (Arduino) ignores all UART traffic during Raspberry Pi boot until the `0x11` handshake byte is received. This behavior is implemented in the `piReady` flag. Without this protection, random characters sent by the Pi during boot could be misinterpreted as move commands and cause unintended motion (which is a safety hazard for both the mechanism and anyone near the board).
 
 ### 4.2 Hypothesis / Expected Results
-The carriage will remain stationary throughout the ~45-second Pi boot. After `0x11` is received, the next valid command will execute normally. We expect 3/3 passes.
+The carriage will remain stationary throughout the about-45-second Pi boot. After `0x11` is received, the next valid command will execute normally. We expect 3/3 passes.
 
 ### 4.3 Procedure
-
-**Equipment & Inventory Items Used:**
-- _[Item # — Arduino Nano (A000005)]_
-- _[Item # — Raspberry Pi 5]_
-- _[Item # — CoreXY gantry assembly]_
-- _[Item # — Masking tape (for position marker)]_
 
 **Environmental Conditions:**
 - Standard indoor lab conditions.
@@ -205,7 +199,7 @@ The carriage will remain stationary throughout the ~45-second Pi boot. After `0x
 
 **Procedure Steps:**
 1. Full power-cycle the system with the Pi connected.
-2. Observe the carriage continuously during the ~45-second Pi boot. Verify no movement occurs relative to the tape marker.
+2. Observe the carriage continuously during the about-45-second Pi boot. Verify no movement occurs.
 3. After the chess software sends `0x11`, send a valid command and verify it executes correctly.
 4. Power off and repeat for 3 total cold boots.
 
@@ -213,8 +207,8 @@ The carriage will remain stationary throughout the ~45-second Pi boot. After `0x
 
 | Variable | Units | Measurement Method | Frequency | Recording Format |
 |----------|-------|--------------------|-----------|------------------|
-| Boot-time movement | Y/N | Visual observation vs. tape marker | Per trial | Pass/fail table |
-| `0x11` received | Y/N | Pi serial log | Per trial | Pass/fail table |
+| Boot-time movement | Y/N | Visual observation | Per trial | Pass/fail table |
+| `0x11` received | Y/N | Correct Execution | Per trial | Pass/fail table |
 | Post-handshake command executed | Y/N | Visual | Per trial | Pass/fail table |
 
 ### 4.5 Trials
@@ -226,7 +220,6 @@ The carriage will remain stationary throughout the ~45-second Pi boot. After `0x
 | Potential Bias / Source of Error | Mitigation Strategy |
 |----------------------------------|---------------------|
 | Boot noise varies between boots | Test across 3 separate cold boots |
-| Observer may miss micro-motion | Use tape marker as a fixed reference |
 
 ### 4.7 Actual Results
 
@@ -238,18 +231,19 @@ The carriage will remain stationary throughout the ~45-second Pi boot. After `0x
 
 **Summary Statistics:** Pass rate: 3 / 3 (100%)
 
-**Visualizations:** No figure needed — table is sufficient.
-
 ### 4.8 Interpretation and Conclusions
-The `piReady` flag successfully gated all UART input during boot across all three cold-boot trials. The carriage remained stationary during each ~45-second Pi boot, the handshake byte `0x11` was correctly received in every trial, and the first valid post-handshake command executed correctly every time. This confirms that boot-time noise on the UART line cannot trigger spurious motion.
+The `piReady` flag successfully gated all UART input during boot across all three cold-boot trials. The carriage remained stationary during each about-45-second Pi boot, the handshake byte `0x11` was correctly received in every trial, and the first valid post-handshake command executed correctly every time. This confirms that boot-time noise on the UART line cannot trigger spurious motion.
 
 ### 4.9 Pass / Fail Against Criterion
 - **Criterion Target:** No motion during boot; handshake required before commands execute
 - **Measured Result:** 3 / 3 pass
-- **Outcome:** ☒ Pass
+- **Outcome:** Pass
 
 ### 4.10 Components Used / Damaged / Replaced
 No components were damaged.
+- _Arduino Nano (A000005)_
+- _Raspberry Pi 5_
+- _CoreXY gantry assembly_
 
 ---
 
