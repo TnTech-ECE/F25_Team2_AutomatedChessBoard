@@ -408,7 +408,7 @@ Turn-on and turn-off latencies will both be well under 10 ms (expected <1 ms for
 
 _Figure 6.1 — Oscilloscope capture of the gate and drain waveforms during electromagnet turn-on (rising edge)._
 
-![Electromagnet turn-off falling edge on oscilloscope](./Electromagnet_Falling_Edge_example.jpg)
+![Electromagnet turn-off falling edge on oscilloscope](./Images/Electromagnet_Falling_Edge_example.jpg)
 
 _Figure 6.2 — Oscilloscope capture of the gate and drain waveforms during electromagnet turn-off (falling edge)._
 
