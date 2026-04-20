@@ -320,7 +320,7 @@ No components were damaged.
 ## 6. Experiment 4: Electromagnet Switching Latency
 
 ### 6.1 Purpose and Justification
-Verify that the MOSFET-based electromagnet switching circuit activates within 10 ms (as specified in the detailed design). Quick pickup/release is essential, as a dropped piece mid-move ruins the game (from the customer's perspective).
+Verify that the MOSFET-based electromagnet switching circuit activates within 10 ms, as specified in the detailed design. Quick pickup/release is essential, as a dropped piece mid-move ruins the game (from the customer's perspective).
 
 ### 6.2 Hypothesis / Expected Results
 Turn-on and turn-off latencies will both be well under 10 ms.
@@ -483,26 +483,19 @@ No components were damaged.
 ## 8. Experiment 6: Command Latency
 
 ### 8.1 Purpose and Justification
-Verify that the Control Unit processes and begins executing a received UART command within 50 ms of receipt, as required by the detailed design performance specification. Low latency is critical from the customer's perspective to ensure the board feels responsive during gameplay.
+Verify that the Control Unit processes and begins executing a received UART command within 50 ms of receipt, as required by detailed design. Low latency is critical from the customer's perspective to ensure the board feels responsive during gameplay.
 
 ### 8.2 Hypothesis / Expected Results
-Command latency will be well below 50 ms (expected ~2–10 ms, dominated by the Arduino main loop polling interval) and consistent across move types.
+Command latency will be well below 50 ms (expected about 2–10 ms, dominated by the Arduino main loop polling interval) and consistent across move types.
 
 ### 8.3 Procedure
-
-**Equipment & Inventory Items Used:**
-- _[Item # — Arduino Nano (A000005)]_
-- _[Item # — Raspberry Pi 5]_
-- _[Item # — UART debug cable with logic level converter]_
-- _[Item # — TMC2209 stepper driver]_
-- _[Item # — Oscilloscope]_
 
 **Environmental Conditions:**
 - Standard indoor lab conditions.
 
 **Preparation Steps:**
 1. Connect the Arduino Nano to the Pi via UART (with logic level converter).
-2. Attach oscilloscope probes to the Arduino RX pin (D0) and to a TMC2209 STEP output (D2 or D6).
+2. Attach oscilloscope probes to the Arduino RX pin (D0) and to a TMC2209 STEP output (D6).
 3. Ensure the system is powered, homed, and idle.
 
 **Procedure Steps:**
@@ -545,31 +538,32 @@ Command latency will be well below 50 ms (expected ~2–10 ms, dominated by the 
 | 10 | G8 → F6 | L-move | 622 |
 
 **Summary Statistics:**
-- Mean: 636.4 µs (≈ 0.636 ms)
+- Mean: 636.4 µs (about 0.636 ms)
 - Standard deviation: 56.1 µs
 - Min: 596 µs / Max: 758 µs
-- Target: ≤ 50 ms — measured max is ~66× faster than the spec.
-
-**Visualizations:**
-_[Figure 8.1 — histogram of latency values — repo image name TBD]_
 
 ### 8.8 Interpretation and Conclusions
-Command latency is consistently in the sub-millisecond range (max 0.758 ms), roughly 66× faster than the 50 ms specification. Move type (straight, diagonal, or L-move) has no meaningful effect on latency — all measurements cluster tightly around ~600 µs, with the two highest values (736 and 758 µs) occurring on the first commands after system startup. This "startup" pattern is consistent with one-time initialization or cache warming on the Arduino's first move after power-on. After the first move, steady-state latency settles to ~596–622 µs and shows very low variability (standard deviation ~56 µs). The Arduino main loop therefore meets the responsiveness spec with a comfortable margin regardless of move type.
+Command latency is consistently in the sub-millisecond range (max 0.758 ms), roughly 66× faster than the 50 ms specification. Move type (straight, diagonal, or L-move) has no meaningful effect on latency; all measurements cluster tightly around about 600 µs, with the two highest values (736 and 758 µs) occurring on the first commands after system startup. This "startup" pattern is consistent with one-time initialization or cache warming on the Arduino's first move after power-on. After the first move, steady-state latency settles to about 596–622 µs and shows very low variability (standard deviation about 56 µs). The Arduino main loop therefore meets the responsiveness spec, with a comfortable margin regardless of move type.
 
 ### 8.9 Pass / Fail Against Criterion
 - **Criterion Target:** ≤ 50 ms
 - **Measured Result:** Mean 0.636 ms, Max 0.758 ms
-- **Outcome:** ☒ Pass
+- **Outcome:** Pass
 
 ### 8.10 Components Used / Damaged / Replaced
 No components were damaged.
+- _Arduino Nano (A000005)_
+- _Raspberry Pi 5_
+- _UART debug cable (with logic level converter)_
+- _TMC2209 stepper driver_
+- _Oscilloscope_
 
 ---
 
 ## 9. Experiment 7: Voice Recognition Accuracy
 
 ### 9.1 Purpose and Justification
-Verify the Vosk speech recognition pipeline meets the 80% minimum accuracy requirement under typical indoor conditions, as specified in the conceptual design. This is a core accessibility feature — users with limited mobility depend on reliable voice control.
+Verify the Vosk speech recognition pipeline meets the 80% minimum accuracy requirement under typical indoor conditions, as specified in the conceptual design. This is a core accessibility feature, as users with limited mobility depend on reliable voice control.
 
 ### 9.2 Hypothesis / Expected Results
 Accuracy will exceed 80% across most speakers, with some variation based on accent and microphone placement. We expect some drop for non-native speakers or speakers with quieter voices.
