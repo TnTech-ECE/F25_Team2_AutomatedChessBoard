@@ -170,7 +170,6 @@ The system failed to meet the 5-second spec on every single trial, including the
 
 ### 3.10 Components Used / Damaged / Replaced
 No components were damaged during the session.
-
 - _Arduino Nano (A000005)_
 - _Raspberry Pi 5_
 - _CoreXY gantry assembly_
@@ -250,17 +249,12 @@ No components were damaged.
 ## 5. Experiment 3: Edge Boundary and Clamp Verification
 
 ### 5.1 Purpose and Justification
-Verify that the software clamping logic prevents the CoreXY head from moving beyond the center of any edge square (X ∈ [0.5, 7.5], Y ∈ [0.5, 13.5] in square units), and that the edge-travel algorithm correctly avoids the outermost board edges. This is a safety-critical requirement — exceeding travel limits could damage the CoreXY mechanism or dislodge the carriage from the rails.
+Verify that the software clamping logic prevents the CoreXY head from moving beyond the center of any edge square (X ∈ [0.5, 7.5], Y ∈ [0.5, 13.5] in square units), and that the edge-travel algorithm correctly avoids the outermost board edges. This is a safety-critical requirement, as exceeding travel limits could damage the CoreXY mechanism or dislodge the carriage from the rails.
 
 ### 5.2 Hypothesis / Expected Results
 Clamping logic will hold the carriage within the specified X and Y bounds for all four tested boundary conditions. Expected: 4/4 passes.
 
 ### 5.3 Procedure
-
-**Equipment & Inventory Items Used:**
-- _[Item # — Arduino Nano (A000005)]_
-- _[Item # — CoreXY gantry assembly]_
-- _[Item # — Ruler or visual reference for rail location]_
 
 **Environmental Conditions:**
 - Standard indoor lab conditions.
@@ -296,7 +290,6 @@ Clamping logic will hold the carriage within the specified X and Y bounds for al
 | Potential Bias / Source of Error | Mitigation Strategy |
 |----------------------------------|---------------------|
 | Cumulative positional error from prior moves | Re-home between trials |
-| Visual judgment at the rail boundary | Use a ruler/visual reference |
 
 ### 5.7 Actual Results
 
@@ -309,44 +302,36 @@ Clamping logic will hold the carriage within the specified X and Y bounds for al
 
 **Summary Statistics:** Pass rate: 4 / 4 (100%)
 
-**Visualizations:** None required.
-
 ### 5.8 Interpretation and Conclusions
 The software clamping logic successfully constrained the carriage to within the specified X and Y bounds on all four boundary tests. The carriage never reached or crossed the outermost physical rail on any side during these trials. This confirms that the edge-travel algorithm and the clamping code in the CoreXY firmware work as designed, and that the mechanism is protected from rail collisions that could dislodge the carriage.
 
 ### 5.9 Pass / Fail Against Criterion
 - **Criterion Target:** Carriage remains within X ∈ [0.5, 7.5], Y ∈ [0.5, 13.5] for all moves
 - **Measured Result:** 4 / 4 pass
-- **Outcome:** ☒ Pass
+- **Outcome:** Pass
 
 ### 5.10 Components Used / Damaged / Replaced
 No components were damaged.
+- _Arduino Nano (A000005)_
+- _CoreXY gantry assembly_
 
 ---
 
 ## 6. Experiment 4: Electromagnet Switching Latency
 
 ### 6.1 Purpose and Justification
-Verify that the MOSFET-based electromagnet switching circuit activates within 10 ms and reliably picks up and releases all chess piece types, as specified in the detailed design. Reliable pickup/release is essential — a dropped piece mid-move ruins the game from the customer's perspective.
+Verify that the MOSFET-based electromagnet switching circuit activates within 10 ms (as specified in the detailed design). Quick pickup/release is essential, as a dropped piece mid-move ruins the game (from the customer's perspective).
 
 ### 6.2 Hypothesis / Expected Results
-Turn-on and turn-off latencies will both be well under 10 ms (expected <1 ms for the IRLZ44N + logic-level gate drive). All piece types (pawn through king) will be reliably picked up and released.
+Turn-on and turn-off latencies will both be well under 10 ms.
 
 ### 6.3 Procedure
-
-**Equipment & Inventory Items Used:**
-- _[Item # — Arduino Nano (A000005)]_
-- _[Item # — IRLZ44N MOSFET]_
-- _[Item # — Electromagnet coil]_
-- _[Item # — Oscilloscope (≥ 20 MHz bandwidth)]_
-- _[Item # — Chess piece set (magnetic base)]_
 
 **Environmental Conditions:**
 - Standard indoor lab conditions.
 
 **Preparation Steps:**
 1. Attach oscilloscope probes to the Arduino's MAGNET_PIN (D10) output and to the MOSFET drain.
-2. Compensate probes.
 
 **Procedure Steps:**
 1. Command the Arduino to toggle the electromagnet on and off using `magnetOn()` and `magnetOff()` in a test loop with 2-second delays between toggles.
@@ -370,7 +355,6 @@ Turn-on and turn-off latencies will both be well under 10 ms (expected <1 ms for
 | Potential Bias / Source of Error | Mitigation Strategy |
 |----------------------------------|---------------------|
 | Oscilloscope bandwidth limits edge precision | Use a scope with ≥ 20 MHz bandwidth |
-| Probe loading affects high-Z nodes | Use 10× probes, compensated |
 
 ### 6.7 Actual Results
 
@@ -390,7 +374,7 @@ Turn-on and turn-off latencies will both be well under 10 ms (expected <1 ms for
 **Summary Statistics:**
 - Turn-on: Mean 2.83 µs, Max 3.0 µs
 - Turn-off: Mean 2.84 µs, Max 3.0 µs
-- Both values are ~3,300× faster than the 10 ms spec.
+- Both values are about 3300× faster than the 10 ms spec.
 
 **Visualizations:**
 
@@ -403,34 +387,31 @@ _Figure 6.1 — Oscilloscope capture of the gate and drain waveforms during elec
 _Figure 6.2 — Oscilloscope capture of the gate and drain waveforms during electromagnet turn-off (falling edge)._
 
 ### 6.8 Interpretation and Conclusions
-Turn-on and turn-off latencies are both in the low-microsecond range, far below the 10 ms specification. The IRLZ44N logic-level MOSFET responds almost immediately to the gate signal, and the measured variation between trials (2.6–3.0 µs) is small enough to be attributable to measurement noise and cursor placement on the oscilloscope. This result demonstrates that the electromagnet switching path introduces negligible delay into the overall move-completion budget.
+Turn-on and turn-off latencies are both in the low-microsecond range, far below the 10 ms specification. The IRLZ44NPBF logic-level MOSFET responds almost immediately to the gate signal, and the measured variation between trials (2.6–3.0 µs) is small enough to be attributable to measurement noise and cursor placement on the oscilloscope. This result demonstrates that the electromagnet switching path introduces negligible delay into the overall move-completion budget.
 
 ### 6.9 Pass / Fail Against Criterion
 - **Criterion Target:** ≤ 10 ms turn-on and turn-off
 - **Measured Result:** Max 3.0 µs on both edges
-- **Outcome:** ☒ Pass
+- **Outcome:** Pass
 
 ### 6.10 Components Used / Damaged / Replaced
 No components were damaged.
+- _Arduino Nano (A000005)_
+- _IRLZ44NPBF MOSFET_
+- _Electromagnet coil_
+- _Oscilloscope (≥ 20 MHz bandwidth)_
 
 ---
 
 ## 7. Experiment 5: Flyback Diode Inductive Spike
 
 ### 7.1 Purpose and Justification
-Verify that the flyback diode clamps the inductive voltage spike on the MOSFET drain to within the IRLZ44N's maximum Vds rating (55 V) when the electromagnet is switched off. An unclamped spike could destroy the MOSFET, causing permanent system failure.
+Verify that the flyback diode clamps the inductive voltage spike on the MOSFET drain to within the IRLZ44NPBF's maximum Vds rating (55 V) when the electromagnet is switched off. An unclamped spike could destroy the MOSFET, causing permanent system failure.
 
 ### 7.2 Hypothesis / Expected Results
-The clamped spike will peak well below 55 V (expected ~13–15 V, just above the 12 V rail plus one diode drop) and remain essentially constant regardless of energization duration.
+The clamped spike will peak well below 55 V (expected about 13–15 V, just above the 12 V rail) and remain essentially constant (regardless of energization duration).
 
 ### 7.3 Procedure
-
-**Equipment & Inventory Items Used:**
-- _[Item # — IRLZ44N MOSFET]_
-- _[Item # — Flyback diode (1N400x or similar)]_
-- _[Item # — Electromagnet coil]_
-- _[Item # — Oscilloscope]_
-- _[Item # — Thermometer]_
 
 **Environmental Conditions:**
 - Standard indoor lab conditions; ambient temperature recorded per trial.
@@ -462,7 +443,6 @@ The clamped spike will peak well below 55 V (expected ~13–15 V, just above the
 | Potential Bias / Source of Error | Mitigation Strategy |
 |----------------------------------|---------------------|
 | Probe ground-lead inductance causes ringing | Use shortest possible ground lead |
-| Probe miscompensation | Compensate prior to measurement |
 | Ambient temperature affects diode Vf | Record ambient temperature per trial |
 
 ### 7.7 Actual Results
@@ -483,15 +463,20 @@ The clamped spike will peak well below 55 V (expected ~13–15 V, just above the
 _Figure 7.1 — Representative oscilloscope capture of the clamped inductive spike and the decay back to the rail voltage._
 
 ### 7.8 Interpretation and Conclusions
-The flyback diode clamps the inductive spike to ~5 V across all tested energization durations (200 ms to 5 s), which is far below the 55 V Vds limit of the IRLZ44N MOSFET. The peak spike magnitude is essentially independent of on-duration, which matches expected behavior: once the coil has reached its steady-state current, the stored inductive energy is the same regardless of how long the on-time has been, and the diode clamps that energy to approximately one diode drop above the rail. The measured peak is lower than the ~13–15 V hypothesis because the low coil current combined with the diode's forward-voltage characteristic kept the observed peak near ~5 V. The MOSFET is safely protected against destructive spikes under all tested conditions.
+The flyback diode clamps the inductive spike to about 5 V across all tested energization durations (200 ms to 5 s), which is far below the 55 V Vds limit of the IRLZ44NPBF MOSFET. The peak spike magnitude is essentially independent of on-duration, which matches expected behavior: once the coil has reached its steady-state current, the stored inductive energy is the same regardless of how long the on-time has been (and the diode clamps that energy to approximately one diode drop above the rail). The measured peak is lower than the about 13–15 V hypothesis because the low coil current combined with the diode's forward-voltage characteristic kept the observed peak near about 5 V. The MOSFET is safely protected against destructive spikes under all tested conditions.
 
 ### 7.9 Pass / Fail Against Criterion
 - **Criterion Target:** Peak Vds ≤ 55 V
 - **Measured Result:** Max 5 V observed
-- **Outcome:** ☒ Pass
+- **Outcome:** Pass
 
 ### 7.10 Components Used / Damaged / Replaced
 No components were damaged.
+- _IRLZ44NPBF MOSFET_
+- _Flyback diode_
+- _Electromagnet coil_
+- _Oscilloscope_
+- _Thermometer_
 
 ---
 
