@@ -599,8 +599,9 @@ Accuracy will exceed 80% across most speakers, with some variation based on acce
 | Speaker | name | Manual log | Per trial | Spreadsheet |
 
 ### 9.5 Trials
-- **Number of trials:** N = 100 (20 commands × 5 speakers) planned. Actual dataset reported below covers the 4 speakers whose sessions were fully scored. Nathan's session was run but the Recognized/Correct columns were not filled in and are excluded from the numeric totals below (he will be re-run or scored retrospectively before final submission).
+- **Number of trials:** N = 100 (20 commands × 5 speakers).
 - **Justification:** Provides statistically meaningful accuracy and captures speaker variation.
+- **Note on Nathan's session:** Nathan's first 7 trials were affected by additional background noise pollution from the lab being busy/noisy (per logged observation); the remaining trials were run under the normal quieter conditions. His results are reported in the per-speaker table below alongside the other speakers.
 
 ### 9.6 Potential Biases and Mitigation
 
@@ -618,19 +619,19 @@ Accuracy will exceed 80% across most speakers, with some variation based on acce
 | Allison | 20 / 20 | 18 / 20 | 100% | 90% |
 | Noah    | 19 / 20 | 20 / 20 | 95% | 100% |
 | Lewis   | 20 / 20 | 20 / 20 | 100% | 100% |
-| Nathan  | _[not scored]_ | _[not scored]_ | — | — |
+| Nathan  | 18 / 20 | 17 / 20 | 90% | 85% |
 
-**Summary Statistics (4 scored speakers, N = 80):**
-- Overall recognition rate on first try: 79 / 80 = **98.8%**
-- Overall correctness after recognition: 78 / 80 = **97.5%**
-- Failing trials: Noah trial 8 (`move d1d3`, not recognized on first try); Allison trials 9 and 10 (`move knight h six` and `move bishop e three`, recognized but returned incorrect moves).
+**Summary Statistics (5 scored speakers, N = 100):**
+- Overall recognition rate on first try: 97 / 100 = **97.0%**
+- Overall correctness after recognition: 95 / 100 = **95.0%**
+- Failing trials: Noah trial 8 (`move d1d3`, not recognized on first try), Nathan trials 6 and 20 (`move c2c4` and `chess yes` respectively, both not recognized on first try); Allison trials 9 and 10 (`move knight h six` and `move bishop e three`, recognized but returned incorrect moves) and Nathan trials 2, 4, and 7 (`move b2b4`, `move d2d4`, and `move queen a five`, recognized but returned incorrect moves).
 
 ### 9.8 Interpretation and Conclusions
-Voice recognition clearly exceeds the 80% spec, with both first-try recognition (98.8%) and post-recognition correctness (97.5%) in the high-90s range across the four scored speakers. The small number of failures fall into two categories: one missed first-try recognition (a command that used coordinate form), and two commands using named-piece form ("move knight h six" and "move bishop e three") that were misinterpreted as different moves. This suggests the pipeline is nearly perfect for coordinate-form commands but has slightly weaker disambiguation on named-piece commands for some speakers. Nathan's session needs to be re-run or scored retrospectively before final submission so all five speakers are represented. Overall, the system comfortably passes the spec under these test conditions.
+Voice recognition clearly exceeds the 80% spec, with both first-try recognition (97.0%) and post-recognition correctness (95.0%) in the high-90s range across the five scored speakers. The small number of failures fall into two categories: three missed first-try recognitions (a command that used coordinate form), two incorrect move returns, and three commands using named-piece form ("move knight h six" and "move bishop e three") that were misinterpreted as different moves. This suggests the pipeline is nearly perfect for coordinate-form commands but has slightly weaker disambiguation on named-piece commands for some speakers. Overall, the system comfortably passes the spec under these test conditions.
 
 ### 9.9 Pass / Fail Against Criterion
 - **Criterion Target:** ≥ 80% overall
-- **Measured Result:** 98.8% recognition / 97.5% correctness across 4 scored speakers (N = 80)
+- **Measured Result:** 97.0% recognition / 95.0% correctness across 5 scored speakers (N = 100)
 - **Outcome:** Pass
 
 ### 9.10 Components Used / Damaged / Replaced
@@ -854,6 +855,246 @@ No components were damaged.
 - _USB microphone_
 
 ---
+
+## 12. Experiment 10: UART Communication Reliability
+
+**12.1 Purpose and Justification:** Verify that the binary UART protocol at 115200 bps provides reliable, error-free command transfer between the Pi and Arduino during gameplay. The physical movement of the correct piece to the correct square serves as confirmation of successful transmission, parsing, and execution. Communication errors during gameplay could cause wrong moves, dropped commands, or system hangs — any of which would break the user's trust in the system.
+
+**12.2 Hypothesis / Expected Results:** All 20+ commands in a typical game will transfer correctly with no NACKs or timeouts, given that the protocol is short (2-byte binary), the cable run is short, and the bit rate is well within UART headroom. Expected error rate: 0%.
+
+### 12.3 Procedure
+
+**Environmental Conditions:** Standard indoor lab conditions; system fully assembled in normal operating configuration.
+
+**Preparation Steps:**
+1. Connect the Pi to the Arduino via the UART debug cable with logic level converter. Confirm both ends configured for 115200 bps.
+2. Home the system to (0.5, 0.5) and set up all 32 pieces in standard starting positions.
+3. Confirm Pi serial logging is active so ACK/NACK/timeout responses can be captured.
+
+**Procedure Steps:**
+1. Begin a full game (vs. Stockfish in single-player mode, or against a second human).
+2. For each move, observe the CoreXY physically moving the correct piece from source to destination.
+3. Record:
+   - Expected source square and destination square (from the Pi's command).
+   - Actual destination square reached by the carriage (visual observation).
+   - Whether the piece moved correctly (Y/N).
+   - Whether ACK / NACK / timeout was received on the Pi side.
+4. For captures, additionally verify the captured piece is moved to the correct discard row (rows 11–12 for white, rows 9–10 for black) before the attacking piece moves.
+5. Continue until at least 20 total moves have been logged. If a single game ends earlier, start another and continue.
+6. After the game, verify the system is still responsive by sending one final known-good command and confirming correct carriage movement.
+7. If any move type (straight, diagonal, knight, capture, discard) was not exercised during natural gameplay, manually issue 2–3 commands of that type after the game to ensure full coverage.
+
+**12.4 Data Collection Plan:**
+
+| Variable | Units | Measurement Method | Frequency | Recording Format |
+|----------|-------|--------------------|-----------|------------------|
+| Move number | — | Manual log | Per move | Spreadsheet |
+| Expected source square | algebraic | Pi command log | Per move | Spreadsheet |
+| Expected destination square | algebraic | Pi command log | Per move | Spreadsheet |
+| Actual destination observed | algebraic | Visual | Per move | Spreadsheet |
+| Piece moved correctly | Y/N | Derived | Per move | Spreadsheet |
+| ACK / NACK / timeout | enum | Pi serial log | Per move | Spreadsheet |
+| Notes (capture discard correct, etc.) | — | Manual | As needed | Spreadsheet |
+
+**12.5 Trials:** N ≥ 20 moves. A full game exercises the communication chain under realistic conditions including varied move types in natural sequence.
+
+**12.6 Potential Biases and Mitigation:**
+
+| Potential Bias / Source of Error | Mitigation Strategy |
+|----------------------------------|---------------------|
+| A single game may not cover all move types | Execute 2–3 manual commands of any skipped type after the game ends |
+| Observer may miss subtle misplacements | Verify piece position against the Pi's displayed board state after each move |
+| Repeated game patterns may favor common moves | Play against Stockfish (or vary openings) to widen move-type coverage |
+
+**12.7 Actual Results:**
+
+| Move # | Expected Source | Expected Dest | Actual Dest | Moved Correctly (Y/N) | ACK / NACK / Timeout | Notes |
+|--------|-----------------|---------------|-------------|------------------------|----------------------|-------|
+| 1 | _[import]_ | | | | | |
+| 2 |  |  |  |  |  |  |
+| ... |  |  |  |  |  |  |
+| 40 |  |  |  |  |  |  |
+
+**Summary Statistics:**
+- Total moves: _[import]_
+- Correct: _[import]_ / _[import]_
+- ACK rate: _[import]_%
+- NACK / timeout count: _[import]_
+- Capture discard placement correct: _[import]_ / _[import]_
+- Error rate: _[import]_%
+
+**12.8 Interpretation and Conclusions:** _[To fill in after data collection.]_
+
+**12.9 Pass / Fail Against Criterion:**
+- **Criterion Target:** Error-free command transfer during a full game (≥ 20 moves)
+- **Measured Result:** _[import]_
+- **Outcome:** Pass(?)
+
+**12.10 Components Used / Damaged / Replaced:**
+
+- _Raspberry Pi 5_
+- _Arduino Nano (A000005)_
+- _UART debug cable_
+- _Logic level converter_
+- _CoreXY gantry assembly_
+- _Magnetic chess piece set_
+
+---
+
+### 12.2 Thermal Safety
+
+**Purpose and Justification:** Verify that all system component surfaces remain below 40 °C (104 °F) during sustained operation, as required by UL 94 flammability guidance and CPSC 16 CFR 1505.7 thermal limits. Overheating could cause thermal shutdown mid-game, material degradation, or burn hazard to the user. This test covers every powered component and structural surface the user could realistically touch during normal use.
+
+**Hypothesis / Expected Results:** All listed components will remain below the 40 °C / 104 °F surface limit throughout 30 minutes of continuous operation. The two TMC2209 stepper drivers are expected to be the hottest parts (the reason heatsinks were specified) and most likely to approach the limit; passive components like the acrylic board surface and the UPS/Pi mount are expected to stay near ambient.
+
+**Equipment & Inventory Items Used:**
+- _[Item # — Raspberry Pi 5]_
+- _[Item # — Arduino Nano (A000005)]_
+- _[Item # — TMC2209 stepper drivers (×2, one per side)]_
+- _[Item # — Stepper motors (×2, one per side)]_
+- _[Item # — IRLZ44N MOSFET]_
+- _[Item # — Flyback diode]_
+- _[Item # — Electromagnet coil]_
+- _[Item # — DFRobot UPS HAT]_
+- _[Item # — Battery pack (4×18650)]_
+- _[Item # — MT3608 boosters (×2)]_
+- _[Item # — UPS/Pi plastic mount]_
+- _[Item # — Display screen]_
+- _[Item # — Acrylic board surface]_
+- _[Item # — SMT heatsinks (Adafruit 1493) on TMC2209 drivers]_
+- _[Item # — IR thermometer]_
+- _[Item # — Ambient thermometer]_
+
+**Environmental Conditions:** Standard indoor lab conditions; ambient temperature recorded at the start of the session and at every measurement timestamp. Session run in a single consistent location to avoid airflow variation.
+
+**Preparation Steps:**
+1. Confirm SMT heatsinks (Adafruit 1493) are installed on both TMC2209 driver boards.
+2. Record the ambient room temperature at session start.
+3. Power up the system and let it reach a steady-state idle temperature (~5 minutes).
+4. Identify and mark a consistent measurement spot on each component so all subsequent readings target the same surface.
+
+**Procedure Steps:**
+1. Begin a simulated full-game sequence: continuous move commands from the Pi covering varied move types (straight, diagonal, knight, captures, discards) for 30 minutes of active operation.
+2. At the 10-minute, 20-minute, and 30-minute marks, briefly pause command issuance and measure surface temperatures with the IR thermometer at each of the components listed in §12.2 Equipment, holding the thermometer at the same distance and angle for every reading.
+3. Record ambient temperature at each measurement timestamp.
+4. Record the surface temperature for every component at every timestamp.
+5. If any component triggers a thermal fault during the test (e.g., TMC2209 DIAG pin asserts, motion stops unexpectedly, or any visible sign of distress), record the event and the temperature at which it occurred, and stop the test for that component.
+
+**Note on component naming:** "A" components are mounted on the left side of the board (closest to a wall) and "B" components are mounted on the right side (closest to the gap for the Pi/UPS).
+
+**Data Collection Plan:**
+
+| Variable | Units | Measurement Method | Frequency | Recording Format |
+|----------|-------|--------------------|-----------|------------------|
+| Time elapsed | min | Stopwatch | Per timestamp | Table |
+| Ambient temperature | °F | Ambient thermometer | Per timestamp | Table |
+| Surface temperature (per component) | °F | IR thermometer | Per timestamp per component | Table |
+| Pass/fail per component per timestamp | Pass/Fail | Derived (≤ 104 °F) | Per measurement | Table |
+| Thermal fault event | Y/N + description | Visual / serial log | As they occur | Notes column |
+
+**Trials:** N = 3 timestamps (10, 20, 30 min) × 16 components = 48 total measurements per run. Three timestamps capture the warm-up curve and confirm whether components have reached steady state by 30 min.
+
+**Potential Biases and Mitigation:**
+
+| Potential Bias / Source of Error | Mitigation Strategy |
+|----------------------------------|---------------------|
+| IR thermometer point inconsistency | Mark and reuse the same surface location on each component for every reading |
+| Ambient variation between timestamps | Record ambient temperature at every timestamp |
+| Airflow / ventilation variation | Run the entire session in one consistent indoor location with no fans or open windows |
+| IR thermometer emissivity error on shiny surfaces (e.g., MOSFET tab) | Record the same surface and angle each time to keep relative readings consistent across timestamps |
+
+**Actual Results:**
+
+| Trial | Time (min) | Ambient (°F) | Component | Surface Temp (°F) | Pass/Fail (≤ 104 °F) | Notes |
+|-------|------------|--------------|-----------|--------------------|------------------------|-------|
+| 1 | 10 |  | Motor A |  |  |  |
+| 2 | 20 |  | Motor A |  |  |  |
+| 3 | 30 |  | Motor A |  |  |  |
+| 1 | 10 |  | Motor B |  |  |  |
+| 2 | 20 |  | Motor B |  |  |  |
+| 3 | 30 |  | Motor B |  |  |  |
+| 1 | 10 |  | Stepper Driver A |  |  |  |
+| 2 | 20 |  | Stepper Driver A |  |  |  |
+| 3 | 30 |  | Stepper Driver A |  |  |  |
+| 1 | 10 |  | Stepper Driver B |  |  |  |
+| 2 | 20 |  | Stepper Driver B |  |  |  |
+| 3 | 30 |  | Stepper Driver B |  |  |  |
+| 1 | 10 |  | MOSFET |  |  |  |
+| 2 | 20 |  | MOSFET |  |  |  |
+| 3 | 30 |  | MOSFET |  |  |  |
+| 1 | 10 |  | Flyback diode |  |  |  |
+| 2 | 20 |  | Flyback diode |  |  |  |
+| 3 | 30 |  | Flyback diode |  |  |  |
+| 1 | 10 |  | Arduino Nano |  |  |  |
+| 2 | 20 |  | Arduino Nano |  |  |  |
+| 3 | 30 |  | Arduino Nano |  |  |  |
+| 1 | 10 |  | Electromagnet |  |  |  |
+| 2 | 20 |  | Electromagnet |  |  |  |
+| 3 | 30 |  | Electromagnet |  |  |  |
+| 1 | 10 |  | Raspberry Pi 5 |  |  |  |
+| 2 | 20 |  | Raspberry Pi 5 |  |  |  |
+| 3 | 30 |  | Raspberry Pi 5 |  |  |  |
+| 1 | 10 |  | Screen (back surface) |  |  |  |
+| 2 | 20 |  | Screen (back surface) |  |  |  |
+| 3 | 30 |  | Screen (back surface) |  |  |  |
+| 1 | 10 |  | UPS |  |  |  |
+| 2 | 20 |  | UPS |  |  |  |
+| 3 | 30 |  | UPS |  |  |  |
+| 1 | 10 |  | Battery pack |  |  |  |
+| 2 | 20 |  | Battery pack |  |  |  |
+| 3 | 30 |  | Battery pack |  |  |  |
+| 1 | 10 |  | UPS/Pi plastic mount |  |  |  |
+| 2 | 20 |  | UPS/Pi plastic mount |  |  |  |
+| 3 | 30 |  | UPS/Pi plastic mount |  |  |  |
+| 1 | 10 |  | Booster 1 |  |  |  |
+| 2 | 20 |  | Booster 1 |  |  |  |
+| 3 | 30 |  | Booster 1 |  |  |  |
+| 1 | 10 |  | Booster 2 |  |  |  |
+| 2 | 20 |  | Booster 2 |  |  |  |
+| 3 | 30 |  | Booster 2 |  |  |  |
+| 1 | 10 |  | (Acrylic) board surface |  |  |  |
+| 2 | 20 |  | (Acrylic) board surface |  |  |  |
+| 3 | 30 |  | (Acrylic) board surface |  |  |  |
+
+**Summary Statistics:**
+
+| Component | Peak Temp (°F) | Pass/Fail (≤ 104 °F) |
+|-----------|----------------|------------------------|
+| Motor A |  |  |
+| Motor B |  |  |
+| Stepper Driver A |  |  |
+| Stepper Driver B |  |  |
+| MOSFET |  |  |
+| Flyback diode |  |  |
+| Arduino Nano |  |  |
+| Electromagnet |  |  |
+| Raspberry Pi 5 |  |  |
+| Screen (back surface) |  |  |
+| UPS |  |  |
+| Battery pack |  |  |
+| UPS/Pi plastic mount |  |  |
+| Booster 1 |  |  |
+| Booster 2 |  |  |
+| (Acrylic) board surface |  |  |
+
+**Visualizations:** _[Optional — line chart of temperature vs. time per component, if the data warrants it.]_
+
+**Interpretation and Conclusions:** _[To fill in after data collection.]_
+
+**Pass / Fail Against Criterion:**
+- **Criterion Target:** All component surfaces ≤ 40 °C (104 °F) during continuous operation
+- **Measured Result:** _[import]_
+- **Outcome:** ☐ Pass ☐ Fail ☐ Partial
+
+**Components Used / Damaged / Replaced:** _[None expected.]_
+
+---
+
+
+
+
+
+
 
 ## 12. Planned Experiments (Not Yet Conducted)
 
