@@ -1132,9 +1132,8 @@ No components were damaged.
 
 Verify compliance with safety standards for wiring, grounding, labeling, and physical hazards. Addresses NEC Article 725 & 400 [3][8], OSHA 29 CFR 1910 Subpart S [9], and ANSI Z535.4 [10].
 
-**14.2 Hypthesis / Expected Results**
-
-The system will pass every checklist item. Expected: 24/24 passes.
+**14.2 Hypothesis / Expected Results**  
+The system is expected to achieve full safety compliance, with no critical failures and a total score ≤ 5. Ideally, all checklist items will pass (24/24 passes), resulting in a total score of 0.
 
 ### 14.3 Procedure:
 
