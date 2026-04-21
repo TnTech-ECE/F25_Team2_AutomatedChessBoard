@@ -1128,9 +1128,12 @@ No components were damaged.
 
 ### 14. Experiment 16: Mechanical & Electrical Safety Compliance
 
-**14.1 Purpose and Justification:** Verify compliance with safety standards for wiring, grounding, labeling, and physical hazards. Addresses NEC Article 725 & 400 [3][8], OSHA 29 CFR 1910 Subpart S [9], and ANSI Z535.4 [10].
+**14.1 Purpose and Justification:** 
+
+Verify compliance with safety standards for wiring, grounding, labeling, and physical hazards. Addresses NEC Article 725 & 400 [3][8], OSHA 29 CFR 1910 Subpart S [9], and ANSI Z535.4 [10].
 
 **14.2 Hypthesis / Expected Results**
+
 The system will pass every checklist item. Expected: 24/24 passes.
 
 **14.3 Procedure:**
