@@ -1136,7 +1136,7 @@ Verify compliance with safety standards for wiring, grounding, labeling, and phy
 
 The system will pass every checklist item. Expected: 24/24 passes.
 
-**14.3 Procedure:**
+### 14.3 Procedure:
 
 **Environmental Conditions**
 - Standard indoor lab conditions.
