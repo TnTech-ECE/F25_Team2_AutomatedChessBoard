@@ -1155,44 +1155,227 @@ The following experiments are designed and awaiting execution. Each is listed wi
 
 ---
 
-### 12.5 Electrical Noise / EMI (Indirect)
+### 12.5 Voltage Regulation, Ripple, and Electrical Safety
 
-**Purpose and Justification:** Evaluate whether the system follows low-noise design practices in the absence of formal EMI measurement equipment. Required by FCC Part 15 Subpart B [1] as a design-practice check rather than a formal compliance test.
+**Purpose and Justification:** Verify that all system voltage rails meet three safety and stability requirements simultaneously:
+1. Each rail remains within ±5% of nominal voltage and has ripple <5% across no-load, average-load, and peak-load conditions (per Detailed_Design_PSU.md, Power_Tree.md, Power_Budget.md). Stable rails prevent Raspberry Pi brownouts, stepper stalling, and electromagnet dropouts.
+2. No rail exceeds the 50 V DC low-voltage safety threshold defined by UL [2] and NEC/NFPA 70 Article 725 [3].
+3. The system follows low-noise design practices (decoupling, grounding, low ripple) in the absence of a formal EMI chamber, as a design-practice check against FCC Part 15 Subpart B [1].
 
-**Procedure:**
-1. Inspect the circuit for proper decoupling capacitors at each IC and grounding practices.
-2. Measure voltage ripple on the 12 V and 5 V rails using an oscilloscope (if available).
-3. Operate the system near sensitive electronics (e.g., AM radio, phone, nearby computers).
-4. Observe any interference.
+These three requirements all act on the same voltage rails during the same operating states, so they are combined into one test session.
 
-**Data Collection:** Columns (session, decoupling caps present (Y/N), voltage ripple (V), observed interference (Y/N), notes).
+**Hypothesis / Expected Results:** All rails (5 V, 12 V, 3.3 V) will stay within ±5% of nominal, ripple will be <5% on all rails under all loads, maximum voltage on any rail will be well below 50 V, and no interference will be observed on nearby consumer electronics. The peak-load state is expected to produce the highest ripple.
 
-**Trials:** ≥ 3 observation sessions.
+**Environmental Conditions:** Standard indoor lab conditions; ambient temperature controlled to 68–77 °F; session conducted in a consistent location. Oscilloscope probes fresh-compensated before the session.
 
-**Potential Biases:**
-- No formal EMI chamber → document the limitation.
-- Environmental noise varies → test in a consistent location.
+**Preparation Steps:**
+1. Fully charge the 4×18650 battery pack in the DFRobot UPS HAT.
+2. Zero and compensate the oscilloscope probes; verify the multimeter calibration.
+3. Attach oscilloscope probes and multimeter to the three test points (use shortest possible ground leads for accurate ripple measurement):
+   - 5 V rail (direct UPS HAT output)
+   - 12 V rail (MT3608 output)
+   - 3.3 V rail (Adafruit buck converter output)
+4. Stage the sensitive electronics (radio / phone / laptop) within ~30 cm of the board for the interference observation step.
+
+**Procedure Steps:**
+1. Power the system via the SC0510 wall charger with the UPS HAT batteries installed.
+2. Run the system through the four operating states, holding each for ≥ 30 seconds while continuously logging:
+   - **State 1:** Idle/sleep (Pi idle, motors and electromagnet off).
+   - **State 2:** Typical chess move (stepper motors + electromagnet active).
+   - **State 3:** Peak simultaneous load (Pi processing + motors + electromagnet).
+   - **State 4:** Battery-only mode (wall power disconnected).
+3. For each state, record steady-state DC average voltage, peak-to-peak ripple, and min/max voltage on all three rails.
+4. During each state, hold the AM radio / phone / laptop in close proximity to the board and observe whether any audible interference, screen corruption, or measurable disturbance occurs. Log Y/N per state.
+5. Repeat the full sequence with the wall adapter unplugged (pure UPS battery mode) to verify battery-side regulation.
+6. Randomize the order of operating states across trials and rotate which team member performs the measurement.
+
+**Data Collection Plan:**
+
+| Variable | Units | Measurement Method | Frequency | Recording Format |
+|----------|-------|--------------------|-----------|------------------|
+| Operating state | enum | Manual | Per trial | Spreadsheet |
+| Power source | wall / battery | Manual | Per trial | Spreadsheet |
+| 5 V avg / ripple (p-p) / min / max | V / mV / V / V | Oscilloscope + multimeter | Per trial | Spreadsheet |
+| 12 V avg / ripple (p-p) / min / max | V / mV / V / V | Oscilloscope + multimeter | Per trial | Spreadsheet |
+| 3.3 V avg / ripple (p-p) / min / max | V / mV / V / V | Oscilloscope + multimeter | Per trial | Spreadsheet |
+| % deviation from nominal | % | Derived | Per trial | Spreadsheet |
+| Safety (< 50 V on all rails) | Pass/Fail | Derived | Per trial | Spreadsheet |
+| Interference observed near sensitive electronics | Y/N + notes | Visual / audible | Per state | Spreadsheet |
+
+**Trials:** N ≥ 20 (5 trials per operating state × 4 states). This sample confirms stability across load conditions and power sources, and provides enough measurements to derive the 50 V safety check and ripple summaries from the same session.
+
+**Potential Biases and Mitigation:**
+
+| Potential Bias / Source of Error | Mitigation Strategy |
+|----------------------------------|---------------------|
+| Oscilloscope probe ground-lead inductance inflates ripple | Shortest possible ground lead; probes freshly compensated |
+| Ambient temperature affects converter behavior | Control ambient to 68–77 °F |
+| State-order bias | Randomize operating-state sequence across trials |
+| Single-operator measurement bias | Rotate measuring team member |
+| No formal EMI chamber | Document the limitation; consistent location for interference observation |
+| Multimeter accuracy | Use a calibrated meter; verify against a known reference before the session |
+
+**Actual Results:**
+
+| Trial | State | Source | 5V Avg (V) | 5V Ripple p-p (mV) | 12V Avg (V) | 12V Ripple p-p (mV) | 3.3V Avg (V) | 3.3V Ripple p-p (mV) | Min V (V) | Max V (V) | < 50 V? | Interference? | Notes |
+|-------|-------|--------|------------|---------------------|-------------|----------------------|---------------|------------------------|------------|------------|---------|----------------|-------|
+| 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ... |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| 20 |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+**Summary Statistics:**
+- Max ripple observed (any rail, any state): _[import]_ mV (= _[import]_ % of nominal)
+- Worst-case % deviation from nominal: _[import]_ %
+- Max voltage observed on any rail: _[import]_ V
+- Interference observed in any state: _[import]_ Y/N
+
+**Visualizations:** _[Figure — oscilloscope captures of ripple waveforms per state]_
+
+**Interpretation and Conclusions:** _[To fill in after data collection.]_
+
+**Pass / Fail Against Criteria:**
+- **Regulation (±5% of nominal on all rails):** Target met? ☐ Pass ☐ Fail
+- **Ripple (<5% p-p on all rails):** Target met? ☐ Pass ☐ Fail
+- **Safety (all rails <50 V DC):** Target met? ☐ Pass ☐ Fail
+- **Low-noise design / no interference:** Target met? ☐ Pass ☐ Fail
+
+**Components Used / Damaged / Replaced:**
+No components were damaged.
+- _Raspberry Pi 5_
+- _DFRobot UPS HAT_
+- _Battery pack (4×18650)_
+- _MT3608 boosters (both)_
+- _Adafruit buck converter (3.3 V)_
+- _Raspberry Pi wall charger (SC0510)_
+- _Oscilloscope (≥ 20 MHz)_
+- _Calibrated digital multimeter_
+- _Nearby sensitive electronics for interference check (AM radio, phone, nearby computer)_
 
 ---
 
-### 12.6 Voltage Safety Verification
+### 12.7 Battery Runtime, UPS Switching Latency, and Power-Loss Recovery
 
-**Purpose and Justification:** Ensure all system voltage rails remain below the 50 V DC low-voltage safety threshold defined by UL [2] and NEC/NFPA 70 Article 725 [3].
+**Purpose and Justification:** Verify three related power-reliability requirements in a single session:
+1. The DFRobot UPS HAT delivers adequate runtime from a fully charged 4×18650 pack under continuous gameplay load (per Power_Budget.md).
+2. The UPS switchover from wall power to battery is fast enough and clean enough to avoid Raspberry Pi brownout or stepper/electromagnet dropout.
+3. The system halts safely and recovers predictably when wall power is lost during an active move (fault-tolerance requirement from the conceptual design).
 
-**Procedure:**
-1. Measure all voltage rails (12 V, 5 V, 3.3 V, any bus between the UPS and the rest of the system) using a calibrated multimeter during operation.
-2. Record maximum observed voltage on each rail.
+All three requirements are exercised by repeatedly disconnecting and reconnecting wall power during operation, so they are combined into one test session.
 
-**Data Collection:** Columns (voltage rail, measured voltage (V), pass/fail < 50 V).
+**Hypothesis / Expected Results:** Runtime will meet or exceed the ≥ 2 hours gameplay target specified in the conceptual design. UPS switchover latency will be short enough (≲ 50 ms) that the Pi does not brownout and no rail drops below its regulation band. In every switchover trial, the system will continue operating without a visible glitch; if wall power is cut mid-move, the system will either complete the move from battery or halt safely and resume cleanly when power returns.
 
-**Trials:** ≥ 3 measurements per rail.
+**Environmental Conditions:** Standard indoor lab conditions, controlled ambient temperature (68–77 °F). Freshly charged matched cells at session start.
 
-**Potential Biases:**
-- Meter accuracy → use a calibrated multimeter.
+**Preparation Steps:**
+1. Fully charge the 4×18650 pack; confirm all cells are at the same starting voltage within a reasonable tolerance.
+2. Verify oscilloscope is configured to trigger on the 5 V rail falling edge; attach probes with shortest possible ground leads.
+3. Home the system to (0.5, 0.5) and set up the board with all pieces in starting positions.
+4. Verify wall power disconnect can be performed quickly and cleanly (e.g., an accessible switch or plug).
+
+**Procedure Steps:**
+
+**Part A — Full runtime:**
+1. With the system at 100 % battery charge, start a continuous full-gameplay loop (move commands issued in sequence, including moves, captures, discards, and electromagnet actuation).
+2. Log the start time. Let the system run until it shuts down on its own from battery depletion.
+3. Record total runtime.
+
+**Part B — UPS switchover (10 trials):**
+1. With wall power connected and the system under peak simultaneous load (Pi processing + motors + electromagnet), trigger the oscilloscope on the 5 V rail and physically disconnect wall power.
+2. Capture the waveform and measure UPS switchover latency (time from disconnect to restored, stable 5 V).
+3. Observe the system: did the Pi reboot or brownout? Did the move-in-progress complete? Did any rail drop below regulation?
+4. Reconnect wall power after ~5 seconds. Confirm the system continues operating without glitch.
+5. Record pass/fail for each trial (pass = no brownout, no rebooted Pi, no dropped move, latency within expected range).
+6. At least one of the 10 trials must be performed **during an active move** (mid-motion) to confirm mid-move reliability.
+
+**Part C — Sleep-mode power (2 trials):**
+1. Place the system in idle/sleep with wall power connected.
+2. Measure the steady-state input power draw at the SC0510 input using the multimeter or inline power meter.
+
+**Data Collection Plan:**
+
+| Variable | Units | Measurement Method | Frequency | Recording Format |
+|----------|-------|--------------------|-----------|------------------|
+| Total battery runtime | min:sec | Stopwatch / log | Part A, single trial | Table |
+| UPS switchover latency | ms | Oscilloscope cursor | Per switchover trial | Table |
+| Pi brownout during switchover | Y/N | Observation + Pi log | Per switchover trial | Table |
+| Move-in-progress completed | Y/N (if applicable) | Observation | Per mid-move trial | Table |
+| System halted/recovered cleanly after power loss | Y/N | Observation + Pi log | Per switchover trial | Table |
+| Sleep-mode power draw | W | Multimeter / power meter | Part C, per trial | Table |
+| Total energy delivered | Wh | Derived from runtime × avg power | Part A | Table |
+
+**Trials:** N = 13 (1 full runtime + 10 UPS switchover + 2 sleep-mode). Of the 10 switchover trials, at least 1 is performed during an active move to exercise mid-motion power-loss recovery.
+
+**Potential Biases and Mitigation:**
+
+| Potential Bias / Source of Error | Mitigation Strategy |
+|----------------------------------|---------------------|
+| Battery capacity degrades with age / temperature | Use freshly charged, matched cells; control ambient to 68–77 °F |
+| Trigger timing precision | Use ≥ 1 MHz sampling on the scope; verify trigger captures the disconnect instant |
+| Pi brownout may be subtle | Check Pi serial log as well as visual observation |
+| Single mid-move trial is small sample | Flag as a known limitation; use the other 9 trials as supporting evidence that switchover itself is reliable |
+
+**Actual Results:**
+
+*Part A — Runtime:*
+
+| Trial | Runtime (min:sec) | Total Energy Delivered (Wh) | Pass/Fail | Notes |
+|-------|--------------------|------------------------------|-----------|-------|
+| 1 |  |  |  |  |
+
+*Part B — UPS switchover (with reliability check):*
+
+| Trial | Mid-Move? | Switchover Latency (ms) | Brownout? | Move Completed? | Halted/Recovered Cleanly? | Pass/Fail | Notes |
+|-------|------------|--------------------------|-----------|------------------|---------------------------|-----------|-------|
+| 1  |  |  |  |  |  |  |  |
+| 2  |  |  |  |  |  |  |  |
+| 3  |  |  |  |  |  |  |  |
+| 4  |  |  |  |  |  |  |  |
+| 5  |  |  |  |  |  |  |  |
+| 6  |  |  |  |  |  |  |  |
+| 7  |  |  |  |  |  |  |  |
+| 8  |  |  |  |  |  |  |  |
+| 9  |  |  |  |  |  |  |  |
+| 10 |  |  |  |  |  |  |  |
+
+*Part C — Sleep-mode:*
+
+| Trial | Sleep Power (W) | Notes |
+|-------|------------------|-------|
+| 1 |  |  |
+| 2 |  |  |
+
+**Summary Statistics:**
+- Total runtime: _[import]_
+- Max switchover latency: _[import]_ ms
+- Brownouts observed: _[import]_ / 10
+- Clean recovery rate: _[import]_ / 10
+- Sleep-mode power (mean): _[import]_ W
+
+**Visualizations:** _[Oscilloscope capture of a representative switchover event — repo image name TBD]_
+
+**Interpretation and Conclusions:** _[To fill in after data collection.]_
+
+**Pass / Fail Against Criteria:**
+- **Runtime (≥ 2 hr gameplay):** Target met? ☐ Pass ☐ Fail
+- **Switchover (no brownout / no dropped move):** Target met? ☐ Pass ☐ Fail
+- **Power-loss recovery (safe halt + clean resume):** Target met? ☐ Pass ☐ Fail
+
+**Components Used / Damaged / Replaced:**
+- _Raspberry Pi 5_
+- _DFRobot UPS HAT_
+- _Battery pack (4×18650, freshly charged)_
+- _Raspberry Pi wall charger (SC0510)_
+- _MT3608 boosters (both)_
+- _CoreXY gantry assembly_
+- _Electromagnet + MOSFET_
+- _Oscilloscope (≥ 1 MHz sampling for switchover trigger)_
+- _Stopwatch_
+- _Calibrated digital multimeter_
 
 ---
 
-### 12.7 Mechanical & Electrical Safety Compliance
+### 12.8 Mechanical & Electrical Safety Compliance
 
 **Purpose and Justification:** Verify compliance with safety standards for wiring, grounding, labeling, and physical hazards. Addresses NEC Article 725 & 400 [3][8], OSHA 29 CFR 1910 Subpart S [9], and ANSI Z535.4 [10].
 
@@ -1210,24 +1393,6 @@ The following experiments are designed and awaiting execution. Each is listed wi
 
 **Potential Biases:**
 - Subjective inspection → use a standardized checklist.
-
----
-
-### 12.8 System Reliability and Failure Behavior
-
-**Purpose and Justification:** Ensure safe and predictable operation under fault conditions (power loss and mechanical obstruction).
-
-**Procedure:**
-1. Simulate power loss during an active move and observe the system response.
-2. Introduce a mechanical obstruction in the path of the carriage during motion and observe the response.
-3. Observe whether the system halts safely, reports the fault, and recovers predictably.
-
-**Data Collection:** Columns (test type, system response, pass/fail, notes).
-
-**Trials:** ≥ 3 per fault condition.
-
-**Potential Biases:**
-- Inconsistent obstruction placement → standardize method (same location, same object).
 
 ---
 
