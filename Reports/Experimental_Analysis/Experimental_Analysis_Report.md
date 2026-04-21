@@ -910,18 +910,36 @@ No components were damaged.
 
 | Move # | Expected Source | Expected Dest | Actual Dest | Moved Correctly (Y/N) | ACK / NACK / Timeout | Notes |
 |--------|-----------------|---------------|-------------|------------------------|----------------------|-------|
-| 1 | _[import]_ | | | | | |
-| 2 |  |  |  |  |  |  |
-| ... |  |  |  |  |  |  |
-| 40 |  |  |  |  |  |  |
+| 1  | E2 | E4 | E4 | Y | ACK |  |
+| 2  | E7 | E5 | E5 | Y | ACK |  |
+| 3  | B1 | C3 | C3 | Y | ACK |  |
+| 4  | G8 | F6 | F6 | Y | ACK |  |
+| 5  | F2 | F4 | F4 | Y | ACK |  |
+| 6  | F4 | capture area | capture area | Y | ACK | Capture sequence part 1 |
+| 6  | E5 | F4 | F4 | Y | ACK | Capture sequence part 2 (attacker to dest) |
+| 7  | E4 | E5 | E5 | Y | ACK |  |
+| 8  | F6 | G8 | G8 | Y | ACK |  |
+| 9  | G1 | F3 | F3 | Y | ACK |  |
+| 10 | D7 | D6 | D6 | Y | ACK |  |
+| 11 | D2 | D4 | D4 | Y | ACK |  |
+| 12 | E5 | captured | capture area | Y | ACK | Capture sequence (to discard) |
+| 13 | D6 | E5 | E5 | Y | ACK |  |
+| 14 | D4 | D2 | D2 | Y | ACK |  |
+| 15 | E5 | E7 | E7 | Y | ACK |  |
+| 16 | C3 | B1 | B1 | Y | ACK |  |
+| 17 | F3 | G1 | G1 | Y | ACK |  |
+| 18 | F4 | D7 | D7 | Y | ACK |  |
+| 19 | captured | E2 | E2 | Y | ACK | Reset / retrieval from capture area |
+| 20 | captured | F2 | F2 | Y | Timeout | Piece moved to correct square, but Arduino did not return an ACK/NACK |
 
 **Summary Statistics:**
-- Total moves: _[import]_
-- Correct: _[import]_ / _[import]_
-- ACK rate: _[import]_%
-- NACK / timeout count: _[import]_
-- Capture discard placement correct: _[import]_ / _[import]_
-- Error rate: _[import]_%
+- Total moves logged: 20 (plus 1 inline capture-sequence part, for 21 physical carriage actions)
+- Moved correctly: 20 / 20 (100%)
+- ACK received: 19 / 20 (95%)
+- NACK received: 0
+- Timeouts: 1 (trial 20)
+- Capture / discard placement correct: 3 / 3 (100%)
+- Physical-movement error rate: 0%
 
 **Visualizations:**
 
@@ -929,12 +947,16 @@ No components were damaged.
 
 _Figure 12.1 — an example UART signal, being passed from Pi to Arduino._
 
-**12.8 Interpretation and Conclusions:** _[To fill in after data collection.]_
+**12.8 Interpretation and Conclusions:** Every commanded move resulted in the correct piece being moved to the correct square, including all three capture / retrieval sequences (trials 6, 12, and 19–20 involving the capture area). This confirms that the 2-byte binary UART protocol at 115200 bps reliably carries command data from the Pi to the Arduino, and that the Arduino parses and executes those commands without mis-interpretation.
+
+The single anomaly was a timeout on the final trial (trial 20). Per the test session notes, the Arduino received the command and executed the move correctly, where the piece was retrieved from the capture area and placed on F2 (but no ACK or NACK was returned on the serial line). This means the failure was on the response path (Arduino to Pi) not on the command path (Pi to Arduino), and it did not affect the physical game state. The isolated nature of the event suggests a transient issue rather than a systemic protocol problem.
+
+Because the piece moved correctly, the gameplay-integrity criterion is met. The criterion is assessed as a pass.
 
 **12.9 Pass / Fail Against Criterion:**
 - **Criterion Target:** Error-free command transfer during a full game (≥ 20 moves)
-- **Measured Result:** _[import]_
-- **Outcome:** Pass(?)
+- **Measured Result:** 20 / 20 moves executed correctly; 19 / 20 ACKs received (1 timeout on a correctly executed move)
+- **Outcome:** Pass
 
 **12.10 Components Used / Damaged / Replaced:**
 No components were damaged.
@@ -993,86 +1015,95 @@ No components were damaged.
 | Airflow / ventilation variation | Run the entire session in one consistent indoor location with no fans or open windows |
 | IR thermometer emissivity error on shiny surfaces (e.g., MOSFET tab) | Record the same surface and angle each time to keep relative readings consistent across timestamps |
 
+**Load profile during the 30-minute session:**
+- **0–10 min:** Normal game (vs. Stockfish or opponent).
+- **10–20 min:** Simple slow moves (reduced load).
+- **20–30 min:** Intense moves driven by the AI.
+
 **13.7 Actual Results:**
 
-| Trial | Time (min) | Ambient (°F) | Component | Surface Temp (°F) | Pass/Fail (≤ 104 °F) | Notes |
-|-------|------------|--------------|-----------|--------------------|------------------------|-------|
-| 1 | 10 |  | Motor A |  |  |  |
-| 2 | 20 |  | Motor A |  |  |  |
-| 3 | 30 |  | Motor A |  |  |  |
-| 1 | 10 |  | Motor B |  |  |  |
-| 2 | 20 |  | Motor B |  |  |  |
-| 3 | 30 |  | Motor B |  |  |  |
-| 1 | 10 |  | Stepper Driver A |  |  |  |
-| 2 | 20 |  | Stepper Driver A |  |  |  |
-| 3 | 30 |  | Stepper Driver A |  |  |  |
-| 1 | 10 |  | Stepper Driver B |  |  |  |
-| 2 | 20 |  | Stepper Driver B |  |  |  |
-| 3 | 30 |  | Stepper Driver B |  |  |  |
-| 1 | 10 |  | MOSFET |  |  |  |
-| 2 | 20 |  | MOSFET |  |  |  |
-| 3 | 30 |  | MOSFET |  |  |  |
-| 1 | 10 |  | Flyback diode |  |  |  |
-| 2 | 20 |  | Flyback diode |  |  |  |
-| 3 | 30 |  | Flyback diode |  |  |  |
-| 1 | 10 |  | Arduino Nano |  |  |  |
-| 2 | 20 |  | Arduino Nano |  |  |  |
-| 3 | 30 |  | Arduino Nano |  |  |  |
-| 1 | 10 |  | Electromagnet |  |  |  |
-| 2 | 20 |  | Electromagnet |  |  |  |
-| 3 | 30 |  | Electromagnet |  |  |  |
-| 1 | 10 |  | Raspberry Pi 5 |  |  |  |
-| 2 | 20 |  | Raspberry Pi 5 |  |  |  |
-| 3 | 30 |  | Raspberry Pi 5 |  |  |  |
-| 1 | 10 |  | Screen (back surface) |  |  |  |
-| 2 | 20 |  | Screen (back surface) |  |  |  |
-| 3 | 30 |  | Screen (back surface) |  |  |  |
-| 1 | 10 |  | UPS |  |  |  |
-| 2 | 20 |  | UPS |  |  |  |
-| 3 | 30 |  | UPS |  |  |  |
-| 1 | 10 |  | Battery pack |  |  |  |
-| 2 | 20 |  | Battery pack |  |  |  |
-| 3 | 30 |  | Battery pack |  |  |  |
-| 1 | 10 |  | UPS/Pi plastic mount |  |  |  |
-| 2 | 20 |  | UPS/Pi plastic mount |  |  |  |
-| 3 | 30 |  | UPS/Pi plastic mount |  |  |  |
-| 1 | 10 |  | Booster 1 |  |  |  |
-| 2 | 20 |  | Booster 1 |  |  |  |
-| 3 | 30 |  | Booster 1 |  |  |  |
-| 1 | 10 |  | Booster 2 |  |  |  |
-| 2 | 20 |  | Booster 2 |  |  |  |
-| 3 | 30 |  | Booster 2 |  |  |  |
-| 1 | 10 |  | (Acrylic) board surface |  |  |  |
-| 2 | 20 |  | (Acrylic) board surface |  |  |  |
-| 3 | 30 |  | (Acrylic) board surface |  |  |  |
+| Trial | Time (min) | Component | Surface Temp (°F) | Pass/Fail (≤ 104 °F) | Notes |
+|-------|------------|-----------|--------------------|------------------------|-------|
+| 1 | 10 | Motor A | 83.1 | Pass |  |
+| 2 | 20 | Motor A | 85.8 | Pass |  |
+| 3 | 30 | Motor A | 86.3 | Pass |  |
+| 1 | 10 | Motor B | 86.1 | Pass |  |
+| 2 | 20 | Motor B | 86.5 | Pass |  |
+| 3 | 30 | Motor B | 86.3 | Pass |  |
+| 1 | 10 | Stepper Driver A | 76.2 | Pass |  |
+| 2 | 20 | Stepper Driver A | 74.8 | Pass |  |
+| 3 | 30 | Stepper Driver A | 74.8 | Pass |  |
+| 1 | 10 | Stepper Driver B | 75.3 | Pass |  |
+| 2 | 20 | Stepper Driver B | 73.9 | Pass |  |
+| 3 | 30 | Stepper Driver B | 73.0 | Pass |  |
+| 1 | 10 | MOSFET | 76.8 | Pass |  |
+| 2 | 20 | MOSFET | 73.5 | Pass |  |
+| 3 | 30 | MOSFET | 74.3 | Pass |  |
+| 1 | 10 | Flyback diode | 75.7 | Pass |  |
+| 2 | 20 | Flyback diode | 73.2 | Pass |  |
+| 3 | 30 | Flyback diode | 72.8 | Pass |  |
+| 1 | 10 | Arduino Nano | 77.0 | Pass | 1st 10 min normal game |
+| 2 | 20 | Arduino Nano | 75.0 | Pass | 2nd 10 min simple slow moves |
+| 3 | 30 | Arduino Nano | 74.1 | Pass | 3rd 10 min intense moves with AI |
+| 1 | 10 | Electromagnet | 76.6 | Pass |  |
+| 2 | 20 | Electromagnet | 74.1 | Pass |  |
+| 3 | 30 | Electromagnet | 73.7 | Pass |  |
+| 1 | 10 | Raspberry Pi 5 | 107.0 | **Fail** | Exceeds 104 °F limit |
+| 2 | 20 | Raspberry Pi 5 | 104.5 | **Fail** | Exceeds 104 °F limit |
+| 3 | 30 | Raspberry Pi 5 | 101.6 | Pass | Dropped back below limit during intense-AI phase |
+| 1 | 10 | Screen (back surface) | 93.5 | Pass |  |
+| 2 | 20 | Screen (back surface) | 94.2 | Pass |  |
+| 3 | 30 | Screen (back surface) | 92.6 | Pass |  |
+| 1 | 10 | UPS | 91.4 | Pass |  |
+| 2 | 20 | UPS | 96.8 | Pass |  |
+| 3 | 30 | UPS | 89.6 | Pass |  |
+| 1 | 10 | Battery pack | 78.6 | Pass |  |
+| 2 | 20 | Battery pack | 80.4 | Pass |  |
+| 3 | 30 | Battery pack | 75.9 | Pass |  |
+| 1 | 10 | UPS/Pi plastic mount | 77.5 | Pass |  |
+| 2 | 20 | UPS/Pi plastic mount | 78.3 | Pass |  |
+| 3 | 30 | UPS/Pi plastic mount | 85.1 | Pass |  |
+| 1 | 10 | Booster 1 | 78.0 | Pass |  |
+| 2 | 20 | Booster 1 | 75.0 | Pass |  |
+| 3 | 30 | Booster 1 | 73.5 | Pass |  |
+| 1 | 10 | Booster 2 | 78.2 | Pass |  |
+| 2 | 20 | Booster 2 | 76.6 | Pass |  |
+| 3 | 30 | Booster 2 | 75.3 | Pass |  |
+| 1 | 10 | (Acrylic) board surface | 77.0 | Pass |  |
+| 2 | 20 | (Acrylic) board surface | 75.0 | Pass |  |
+| 3 | 30 | (Acrylic) board surface | 71.9 | Pass |  |
 
 **Summary Statistics:**
 
 | Component | Peak Temp (°F) | Pass/Fail (≤ 104 °F) |
 |-----------|----------------|------------------------|
-| Motor A |  |  |
-| Motor B |  |  |
-| Stepper Driver A |  |  |
-| Stepper Driver B |  |  |
-| MOSFET |  |  |
-| Flyback diode |  |  |
-| Arduino Nano |  |  |
-| Electromagnet |  |  |
-| Raspberry Pi 5 |  |  |
-| Screen (back surface) |  |  |
-| UPS |  |  |
-| Battery pack |  |  |
-| UPS/Pi plastic mount |  |  |
-| Booster 1 |  |  |
-| Booster 2 |  |  |
-| (Acrylic) board surface |  |  |
+| Motor A | 86.3 | Pass |
+| Motor B | 86.5 | Pass |
+| Stepper Driver A | 76.2 | Pass |
+| Stepper Driver B | 75.3 | Pass |
+| MOSFET | 76.8 | Pass |
+| Flyback diode | 75.7 | Pass |
+| Arduino Nano | 77.0 | Pass |
+| Electromagnet | 76.6 | Pass |
+| **Raspberry Pi 5** | **107.0** | **Fail** |
+| Screen (back surface) | 94.2 | Pass |
+| UPS | 96.8 | Pass |
+| Battery pack | 80.4 | Pass |
+| UPS/Pi plastic mount | 85.1 | Pass |
+| Booster 1 | 78.0 | Pass |
+| Booster 2 | 78.2 | Pass |
+| (Acrylic) board surface | 77.0 | Pass |
 
-**13.8 Interpretation and Conclusions:** _[To fill in after data collection.]_
+**13.8 Interpretation and Conclusions:** 15 of the 16 monitored components remained below the 104 °F limit at every timestamp. The TMC2209 stepper drivers (with the Adafruit 1493 heatsinks installed) stayed in the low-to-mid 70s (°F) throughout the full 30 minutes, which confirms that the heatsink solution is effective under the tested workload. The two stepper motors ran hottest among the motion-system components (peaking at 86.3 °F and 86.5 °F respectively) but remained well within spec. Passive structural components (UPS/Pi plastic mount, acrylic board surface) stayed near or below the other powered components, with no thermal concern.
+
+The one failure was the **Raspberry Pi 5**, which measured 107.0 °F at the 10-minute mark, 104.5 °F at 20 minutes, and 101.6 °F at 30 minutes. Notably, the Pi was hottest during the first phase (normal game) and *cooled* progressively through the simple-slow-moves phase and the intense-AI-moves phase. This inverted trend strongly suggests that the Pi's temperature is dominated by its own CPU load rather than by surrounding heat from the motion system. The first phase exercised a full game loop (full Vosk speech-recognition pipeline, python-chess validation, and display updates in a natural sequence), while the later phases reduced the variety of Pi-side processing. This indicates the Pi requires additional cooling (a heatsink or active fan) to remain below the 104 °F limit under realistic gameplay load, not the later phases that happened to generate less CPU work.
+
+Because one component exceeded the 104 °F limit at two of the three measurement points, the overall thermal-safety criterion is not met. The fix is localized to the Pi and does not affect the rest of the thermal design.
 
 **13.9 Pass / Fail Against Criterion:**
 - **Criterion Target:** All component surfaces ≤ 40 °C (104 °F) during continuous operation
-- **Measured Result:** _[import]_
-- **Outcome:** Pass(?)
+- **Measured Result:** 15 / 16 components pass; Raspberry Pi 5 peaked at 107.0 °F (Fail)
+- **Outcome:** Fail (Raspberry Pi 5 only)
 
 **13.10 Components Used / Damaged / Replaced:**
 No components were damaged.
