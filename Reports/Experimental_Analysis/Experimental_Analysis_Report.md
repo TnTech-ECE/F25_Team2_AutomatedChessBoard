@@ -31,10 +31,11 @@
 11. [Experiment 9: Move Validation Correctness](#11-experiment-9-move-validation-correctness)
 12. [Experiment 10: UART Communication Reliability](#12-experiment-10-uart-communication-reliability)
 13. [Experiment 11: Thermal Safety](#13-experiment-11-thermal-safety)
-14. [Planned Experiments (Not Yet Conducted)](#14-planned-experiments-not-yet-conducted)
-15. [Summary of Findings](#15-summary-of-findings)
-16. [Component Inventory](#16-component-inventory)
-17. [Statement of Contributions](#17-statement-of-contributions)
+14. [Experiment 12: Mechanical & Electrical Safety Compliance Inspection](#14-experiment-12-mechanical--electrical-safety-compliance-inspection)
+15. [Planned Experiments (Not Yet Conducted)](#15-planned-experiments-not-yet-conducted)
+16. [Summary of Findings](#16-summary-of-findings)
+17. [Component Inventory](#17-component-inventory)
+18. [Statement of Contributions](#18-statement-of-contributions)
 
 ---
 
@@ -71,14 +72,13 @@ Below are the critical requirements and success criteria identified by the team 
 | 7 | Voice recognition accuracy | ≥ 80% | Accessibility / usability | Experiment 7 |
 | 8 | End-to-end processing latency (Pi) | ≤ 5 seconds from end of speech to display | Gameplay pacing | Experiment 8 |
 | 9 | Move validation correctness | 100% correct legal/illegal classification | Game integrity | Experiment 9 |
-| 10 | UART communication reliability | Error-free command transfer during full game | System reliability | Planned (UART Reliability) |
-| 11 | Thermal safety | All surfaces ≤ 40 °C (104 °F) | UL 94 / CPSC 16 CFR 1505.7 | Planned (Thermal Safety) |
-| 12 | Collision-free movement rate | ≥ 95% of moves collision-free | Conceptual design (Arduino spec) | Planned (Collision Rate) |
-| 13 | Positional accuracy | ±0.5 mm across board | Precise piece placement | Planned (Positional Accuracy) |
-| 14 | Voltage safety | All rails < 50 V DC | UL low-voltage threshold [2] | Planned (Voltage Safety) |
-| 15 | EMI / low-noise design | Proper decoupling, low ripple, no interference | FCC Part 15 Subpart B [1] | Planned (EMI Indirect) |
-| 16 | Mechanical & electrical safety compliance | Pass standardized inspection checklist | NEC / OSHA / ANSI Z535.4 [8][9][10] | Planned (Safety Compliance) |
-| 17 | Fault-tolerant behavior | Safe, predictable response to power loss and obstruction | Reliability / user safety | Planned (Reliability & Failure) |
+| 10 | UART communication reliability | Error-free command transfer during full game | System reliability | Experiment 10 |
+| 11 | Thermal safety | All surfaces ≤ 40 °C (104 °F) | UL 94 / CPSC 16 CFR 1505.7 | Experiment 11 |
+| 12 | Mechanical & electrical safety compliance | Pass standardized inspection checklist (no Critical failures) | NEC / OSHA / ANSI Z535.4 [8][9][10] | Experiment 12 |
+| 13 | Voltage safety | All rails < 50 V DC | UL low-voltage threshold [2] | Planned (Voltage Safety) |
+| 14 | EMI / low-noise design | Proper decoupling, low ripple, no interference | FCC Part 15 Subpart B [1] | Planned (EMI Indirect) |
+| X1 | Collision-free movement rate | ≥ 95% of moves collision-free | Conceptual design (Arduino spec) | Collision Rate (un-testable) |
+| X2 | Positional accuracy | ±0.5 mm across board | Precise piece placement | Positional Accuracy (un-testable) |
 
 **Advisor Approval:**
 - Approved by: _Dr. Van Neste_
@@ -926,11 +926,11 @@ No components were damaged.
 | 11 | D2 | D4 | D4 | Y | ACK |  |
 | 12 | E5 | captured | capture area | Y | ACK | Capture sequence (to discard) |
 | 13 | D6 | E5 | E5 | Y | ACK |  |
-| 14 | D4 | D2 | D2 | Y | ACK |  |
-| 15 | E5 | E7 | E7 | Y | ACK |  |
-| 16 | C3 | B1 | B1 | Y | ACK |  |
-| 17 | F3 | G1 | G1 | Y | ACK |  |
-| 18 | F4 | D7 | D7 | Y | ACK |  |
+| 14 | D4 | D2 | D2 | Y | ACK | Reset |
+| 15 | E5 | E7 | E7 | Y | ACK | Reset |
+| 16 | C3 | B1 | B1 | Y | ACK | Reset |
+| 17 | F3 | G1 | G1 | Y | ACK | Reset |
+| 18 | F4 | D7 | D7 | Y | ACK | Reset |
 | 19 | captured | E2 | E2 | Y | ACK | Reset / retrieval from capture area |
 | 20 | captured | F2 | F2 | Y | Timeout | Piece moved to correct square, but Arduino did not return an ACK/NACK |
 
@@ -1126,13 +1126,142 @@ No components were damaged.
 
 ---
 
+## 14. Experiment 12: Mechanical & Electrical Safety Compliance
+
+**14.1 Purpose and Justification:** Verify compliance with safety standards for wiring, grounding, labeling, and physical hazards. Addresses NEC Article 725 & 400 [3][8], OSHA 29 CFR 1910 Subpart S [9], and ANSI Z535.4 [10].
+
+**14.2 Hypothesis / Expected Results:** The system is expected to achieve full safety compliance, with no critical failures and a total score ≤ 5. Ideally, all checklist items will pass (24/24 passes), resulting in a total score of 0.
+
+### 14.3 Procedure
+
+**Environmental Conditions:** Standard indoor lab conditions.
+
+**Preparation Steps:**
+1. Ensure the system is powered off and safely isolated before inspection begins.
+2. Gather required tools (e.g., multimeter, inspection checklist, documentation of NEC/OSHA/ANSI standards).
+3. Verify that the workspace is clean, dry, and free of immediate electrical or tripping hazards.
+4. Confirm access to all electrical components, wiring, and enclosures for inspection.
+5. Review system wiring diagrams and design documentation for reference during inspection.
+6. Confirm that no ongoing modifications or active testing are being performed during inspection.
+
+**Procedure Steps:**
+1. Inspect the system using a standardized checklist:
+   - **Circuit classification:** confirm the circuit is correctly classified (Class 1/2/3); confirm the power source matches classification.
+   - **Overcurrent protection:** confirm a protection device is present (if required); confirm the protection rating is appropriate.
+   - **Conductor sizing:** confirm the wire gauge is appropriate for the load.
+   - **Insulation:** confirm the insulation rating is ≥ operating voltage; confirm there is no visible insulation damage.
+   - **Installation method:** confirm an approved wiring method is used; confirm conductors are protected from damage; confirm proper separation is maintained.
+   - **Grounding:** confirm a common DC ground reference across subsystems; confirm ground connections are secure; confirm continuity using a multimeter.
+   - **Flexible cords:** confirm the proper cord type is used; confirm strain relief is present; confirm no cord damage is present.
+   - **Equipment and enclosure safety:** confirm no exposed live parts; confirm the enclosure is secured.
+   - **Safety labeling:** confirm warning labels are present; confirm labels are legible.
+   - **Accessibility and physical safety:** confirm no tripping hazards; confirm adequate clearance.
+   - **Disconnect requirements:** confirm a disconnect is available if required.
+2. Compute the system score using the scoring and evaluation rules below:
+   - **Scoring criteria:**
+     - Critical = 5 points (any critical failure constitutes a system failure)
+     - Major = 3 points per failed item
+     - Minor = 1 point per failed item
+   - **Evaluation method:**
+     - Total Score = sum of all failed item weights
+     - Critical Fail Count = number of failed critical items
+     - Final Result = **Pass** if Total Score ≤ 5 and Critical Fail Count = 0
+     - Final Result = **Fail** if Total Score > 5 or any Critical item fails
+3. Re-run the inspection after any hardware modification.
+
+**14.4 Data Collection Plan:**
+
+| Variable | Units | Measurement Method | Frequency | Recording Format |
+|----------|-------|--------------------|-----------|------------------|
+| Circuit classification compliance | Pass/Fail | Checklist inspection (NEC Article 725 & 400) | Per inspection | Pass/fail table |
+| Power source matches classification | Pass/Fail | Visual verification against system design | Per inspection | Pass/fail table |
+| Overcurrent protection device present | Pass/Fail | Visual inspection | Per inspection | Pass/fail table |
+| Overcurrent protection rating appropriate | Pass/Fail | Label/spec comparison | Per inspection | Pass/fail table |
+| Conductor sizing appropriate for load | Pass/Fail | Wire gauge vs. load calculation | Per inspection | Pass/fail table |
+| Insulation rating compliance | Pass/Fail | Spec sheet verification | Per inspection | Pass/fail table |
+| Insulation integrity (no damage) | Pass/Fail | Visual inspection | Per inspection | Pass/fail table |
+| Wiring method compliance | Pass/Fail | Installation standard checklist | Per inspection | Pass/fail table |
+| Conductor protection from damage | Pass/Fail | Visual inspection | Per inspection | Pass/fail table |
+| Separation of conductors maintained | Pass/Fail | Visual inspection | Per inspection | Pass/fail table |
+| Ground reference integrity | Pass/Fail | Continuity test (multimeter) | Per inspection | Pass/fail table |
+| Ground connections secure | Pass/Fail | Physical inspection | Per inspection | Pass/fail table |
+| Ground continuity verified | Pass/Fail | Multimeter continuity test | Per inspection | Pass/fail table |
+| Flexible cord type compliance | Pass/Fail | Visual/spec verification | Per inspection | Pass/fail table |
+| Strain relief present | Pass/Fail | Visual inspection | Per inspection | Pass/fail table |
+| Flexible cord condition | Pass/Fail | Visual inspection | Per inspection | Pass/fail table |
+| No exposed live parts | Pass/Fail | Visual inspection | Per inspection | Pass/fail table |
+| Enclosure secured | Pass/Fail | Physical check | Per inspection | Pass/fail table |
+| Safety labels present | Pass/Fail | Visual inspection | Per inspection | Pass/fail table |
+| Safety labels legible | Pass/Fail | Visual inspection | Per inspection | Pass/fail table |
+| Tripping hazard assessment | Pass/Fail | Visual inspection | Per inspection | Pass/fail table |
+| Adequate clearance | Pass/Fail | Visual measurement | Per inspection | Pass/fail table |
+| Disconnect availability (if required) | Pass/Fail | Functional/system check | Per inspection | Pass/fail table |
+| Post-modification reinspection completed | Pass/Fail | Full checklist repeat | Per modification | Pass/fail table |
+
+**14.5 Trials:**
+- **Number of trials:** N = 1.
+- **Justification:** The experiment consists of deterministic pass/fail compliance checks based on established safety standards. Since the system state is static during evaluation and results are not subject to random variation, a single complete inspection is sufficient. Repeat testing is only required after hardware modifications, as specified in the procedure.
+
+**14.6 Potential Biases and Mitigation:**
+
+| Potential Bias / Source of Error | Mitigation Strategy |
+|----------------------------------|---------------------|
+| Subjective inspection | Use a standardized checklist with clear per-item criteria and severity labels |
+
+**14.7 Actual Results:**
+
+| Category | Checklist Item | Severity | Result | Score |
+|----------|----------------|----------|--------|-------|
+| Circuit Classification | Circuit correctly classified (Class 1/2/3) | Critical | Pass | 0 |
+| Circuit Classification | Power source matches classification | Critical | Pass | 0 |
+| Overcurrent Protection | Protection device present (if required) | Critical | Pass | 0 |
+| Overcurrent Protection | Protection rating appropriate | Major | Pass | 0 |
+| Conductor Sizing | Wire gauge appropriate for load | Major | Pass | 0 |
+| Insulation | Insulation rating ≥ operating voltage | Critical | Pass | 0 |
+| Insulation | No insulation damage | Critical | Pass | 0 |
+| Installation Method | Approved wiring method used | Major | Pass | 0 |
+| Installation Method | Conductors protected from damage | Major | Pass | 0 |
+| Installation Method | Proper separation maintained | Major | Pass | 0 |
+| Grounding | Common DC ground reference across all subsystems | Critical | Pass | 0 |
+| Grounding | Ground connections secure | Critical | Pass | 0 |
+| Grounding | Continuity verified (multimeter) | Critical | Pass | 0 |
+| Flexible Cords | Proper cord type used | Major | Pass | 0 |
+| Flexible Cords | Strain relief present | Major | **Fail** | 3 |
+| Flexible Cords | No cord damage | Critical | Pass | 0 |
+| Equipment / Enclosure | No exposed live parts | Critical | Pass | 0 |
+| Equipment / Enclosure | Enclosure secured | Major | Pass | 0 |
+| Safety Labeling | Warning labels present | Minor | Pass | 0 |
+| Safety Labeling | Labels legible | Minor | Pass | 0 |
+| Accessibility | No tripping hazards | Minor | Pass | 0 |
+| Accessibility | Adequate clearance | Minor | Pass | 0 |
+| Disconnects | Disconnect available (if required) | Critical | Pass | 0 |
+| Post-Modification | System rechecked after changes | Major | Pass | 0 |
+
+**Summary Statistics:**
+- Pass rate: 23 / 24
+- Total Score: 3
+- Critical Fail Count: 0
+
+**14.8 Interpretation and Conclusions:** The system achieved an overall Pass (Total Score ≤ 5), with a Total Score of 3 and zero Critical failures (indicating compliance with all essential safety requirements). Critical criteria *such as proper circuit classification, adequate insulation rating, grounding integrity, and absence of exposed live conductors) were all satisfied, confirming that the system does not present immediate electrical or mechanical hazards under the tested conditions. The only deviation from the expected 24/24 passes was a single failure in the Flexible Cords category, due to missing strain relief. This resulted in a score penalty, but did not affect the overall Pass status because it is classified as a Major (non-critical) issue. This outcome aligns with expected behavior for checklist-based compliance testing, where non-critical deficiencies impact completeness (but not baseline safety qualification). The results demonstrate that the system meets the applicable safety standards (NEC, OSHA, ANSI) in all critical aspects. The identified issue is localized and does not compromise system functionality or immediate safety, but it may reduce long-term durability by increasing mechanical stress on conductors. In conclusion, the system is considered safe for operation and compliant with required safety standards, with a minor corrective action (installation of proper strain relief) needed to achieve full compliance and the expected 24/24 pass outcome.
+
+**14.9 Pass / Fail Against Criterion:**
+- **Criterion Target:** Total Score ≤ 5 and zero Critical failures
+- **Measured Result:** 23 / 24 pass; Total Score = 3; Critical Fail Count = 0
+- **Outcome:** Pass
+
+**14.10 Components Used / Damaged / Replaced:**
+No components were damaged.
+- _Full assembled system (all subsystems)_
+- _Calibrated digital multimeter (grounding continuity only)_
+
+---
 
 
 
 
 
 
-## 14. Planned Experiments (Not Yet Conducted)
+## XX. Planned Experiments (Not Yet Conducted)
 
 The following experiments are designed and awaiting execution. Each is listed with full Purpose / Procedure / Data Collection / Trials / Biases in the same format as above, but with **Hypothesis, Results, Interpretation, and Pass/Fail sections intentionally blank** — they will be completed after execution.
 
@@ -1470,23 +1599,26 @@ Measurement error from meter accuracy or contact resistance (mitigate by zeroing
 | 9 | Move validation correctness | 100% | 40 / 40 correct | Y |
 | 10 | UART communication reliability | Error-free command transfer during full game | 20 / 20 moves correct; 19 / 20 ACKs (1 timeout on a correctly executed move) | Y |
 | 11 | Thermal safety | All surfaces ≤ 40 °C (104 °F) | 15 / 16 components pass; Raspberry Pi 5 peaked at 107.0 °F | **N** |
-| 12 | Collision-free movement rate | ≥ 95% collision-free | Pending | Pending |
-| 13 | Positional accuracy | ±0.5 mm across board | Pending | Pending |
+| 12 | Mechanical & electrical safety compliance | Pass checklist with Total Score ≤ 5 and zero Critical failures | 23 / 24 pass; Total Score = 3; 0 Critical failures; 1 Major failure (strain relief) | Y |
 | 14 | Voltage safety | All rails < 50 V DC | Pending | Pending |
 | 15 | EMI / low-noise design | Proper decoupling, low ripple, no interference | Pending | Pending |
-| 16 | Mechanical & electrical safety compliance | Pass standardized inspection checklist | Pending | Pending |
-| 17 | Fault-tolerant behavior | Safe, predictable response to power loss and obstruction | Pending | Pending |
+| X1 | Collision-free movement rate | ≥ 95% collision-free | un-testable | **N** |
+| X2 | Positional accuracy | ±0.5 mm across board | untest-able | **N** |
 
 ### 13.2 Did the Project Meet Its Success Criteria?
-Of the eleven success criteria that have been experimentally evaluated to date, nine are met (most of them by very wide margins: electromagnet switching is about 3300× faster than spec, command latency is about 66× faster, flyback clamping is about 11× below the Vds limit, and processing latency, voice recognition, move validation, boot-noise rejection, edge clamping, and UART reliability all pass cleanly). The two unmet criteria are move completion time (every trial exceeded the 5-second target, with a mean of 12.8 s and a worst case of 30 s) and thermal safety (the Raspberry Pi 5 peaked at 107.0 °F, above the 104 °F surface-temperature limit, while the other 15 monitored components passed with margin). Six additional criteria (collision-free rate, positional accuracy, voltage safety, EMI, safety compliance, and fault tolerance) remain to be tested. Based on present evidence the system's electrical, logical, and communication subsystems meet requirements, while the mechanical motion subsystem does not meet the completion-time spec and the Pi requires additional cooling to meet the surface-temperature spec.
+Of the twelve success criteria that have been experimentally evaluated to date, ten are met (most of them by very wide margins: electromagnet switching is about 3300× faster than spec, command latency is about 66× faster, flyback clamping is about 11× below the Vds limit, and processing latency, voice recognition, move validation, boot-noise rejection, edge clamping, UART reliability, and safety compliance all pass cleanly). The two unmet criteria are move completion time (every trial exceeded the 5-second target, with a mean of 12.8 s and a worst case of 30 s) and thermal safety (the Raspberry Pi 5 peaked at 107.0 °F, above the 104 °F surface-temperature limit, while the other 15 monitored components passed with margin). Three additional criteria (voltage safety, EMI, and fault tolerance) remain to be tested. Two previously planned criteria, collision-free movement rate and positional accuracy, were marked "un-testable" on the success-criteria list, because slight bowing of the acrylic board surface makes them impossible to evaluate meaningfully against the current hardware. Based on present evidence the system's electrical, logical, and communication subsystems meet requirements, while the mechanical motion subsystem does not meet the completion-time spec and the Pi requires additional cooling to meet the surface-temperature spec.
 
 ### 13.3 Discrepancies and Unmet Criteria
 - **Move Completion Time (Exp 1, Criterion #1 — FAIL):** Measured times ranged 5.58 s (shortest move) to 30.00 s (long L-shaped discard), versus a 5 s target. The fact that even a single-square move exceeds the spec indicates the baseline per-move overhead is already at or above the limit, which points to conservative acceleration/speed settings in the CoreXY firmware.
 - **Thermal Safety — Raspberry Pi 5 (Exp 11, Criterion #11 — FAIL):** The Pi measured 107.0 °F at 10 min and 104.5 °F at 20 min (both above the 104 °F limit), then cooled to 101.6 °F at 30 min. The inverted trend (Pi hottest during the first phase of the session, cooling as Pi-side CPU load decreased in later phases) shows the Pi's temperature is driven by its own processing load rather than by surrounding heat from the motion system. The fix is localized to the Pi and does not affect the rest of the thermal design.
+- **Safety Compliance — Strain Relief (Exp 12, Criterion #12 — PASS with caveat):** The overall safety-compliance criterion is met (Total Score = 3, zero Critical failures across 24 checklist items), but the Flexible Cords "strain relief present" item was marked Fail (at Major severity). No cord damage or Critical cord-related items failed, so this is not an immediate electrical hazard, but strain relief should be added at the relevant cable entry points.
+- **Collision-Free Movement and Positional Accuracy:** The acrylic top layer of the board has developed a slight bow, which produces region-dependent piece-pickup behavior: a taller electromagnet mount grabs pieces reliably but also grabs the previously-moved piece while the carriage is travelling to the next source square, while a shorter mount stops unintended grabs but misses some intended pickups. Neither test can be run cleanly against the current hardware, and the bow itself is not something the motion firmware can compensate for. Replacing the acrylic with a flatter top surface would be a prerequisite to reinstating these tests in a future revision.
 
 ### 13.4 Proposed Improvements
 - **Priority 1:** Retune the CoreXY firmware: increase stepper acceleration and maximum speed
 - **Priority 2:** Add extra cooling mechanisms to Raspberry Pi or on the side of the board near the Pi
+- **Priority 3:** Add strain relief to wire + cable carrier from Control Unit to electromagnet
+- **Priority 4:** Replace the acrylic top layer with a flatter top surface (e.g., tempered glass or a thicker/stiffer acrylic) so that collision and positional-accuracy tests can be performed meaningfully in a future revision
 
 ### 13.5 Lessons Learned
 # TODO
@@ -1494,7 +1626,6 @@ _[To be completed as a team reflection once all experiments are done — intende
 
 ---
 
-# TODO (BROKEN BOM)
 ## 14. Component Inventory
 
 ### 14.1 Initial Inventory
@@ -1548,6 +1679,9 @@ _[To be completed as a team reflection once all experiments are done — intende
 | 1        | Raspberry Pi          | SC1148                               | PiShop.us     | SC1148                   | Raspberry Pi Active Cooler                                 | $10.95      | $10.95        | [Link](https://www.pishop.us/product/raspberry-pi-active-cooler)                                                                                                                                                                                          |
 |          |                       |                                      |               |                          |                                                            |   **Total** | $686.17       |                                                                                                                                                                                                                                                                                                                  |
 
+
+# TODO
+
 ### 14.2 Usage Log
 
 | Date | Item # | Experiment | Action | Notes |
@@ -1579,6 +1713,8 @@ _[To be completed as a team reflection once all experiments are done — intende
 
 ---
 
+# TODO
+
 ## 15. Statement of Contributions
 
 > Each team member must write their own contribution statement. One member may NOT write on behalf of another. By submitting this report, the team collectively certifies the accuracy of all statements below.
@@ -1588,32 +1724,37 @@ _[To be completed as a team reflection once all experiments are done — intende
 - **Experiment Execution:** Co-executed Experiment 6 (with Noah and Jack). Participated in Experiment 7.
 - **Data Analysis:** _[describe your specific contributions]_
 - **Report Writing:** _[describe your specific contributions]_
-- **Signature / Initials:** _____   **Date:** _______
+- **Signature / Initials:** _____
+- **Date:** _______
 
 ### Noah Beaty
 - **Experiment Design:** Co-designed Experiments 1 (Move Completion Time), 2 (Boot Noise), 6 (Command Latency), and Experiment 13 (Thermal Safety). Solo-designed Experiments 3 (Edge Boundary), 4 (Electromagnet Switching Latency), and 5 (Flyback Diode Inductive Spike). Also contributed to the voice recognition accuracy experiment (Experiment 7).
 - **Experiment Execution:** Co-executed Experiments 1 and 2 (with Jack). Ran Experiments 3, 4, and 5 solo. Co-executed Experiment 6 (with Jack and Allison). Participated in Experiment 7.
 - **Data Analysis:** Analyzed all data for the experiments he designed.
 - **Report Writing:** Wrote all conclusions for the experiments he designed.
-- **Signature / Initials:** NB   **Date:** 4-20-2026
+- **Signature / Initials:** NB
+- **Date:** 4-20-2026
 
 ### Jack Tolleson
 - **Experiment Design:** Co-designed Experiments 1 (Move Completion Time), 2 (Boot Noise), 6 (Command Latency), and Experiment 13 (Thermal Safety). Solo-designed Experiments 8 (Processing Latency) and 9 (Move Validation Correctness). Also contributed to the voice recognition accuracy experiment (Experiment 7).
 - **Experiment Execution:** Co-executed Experiments 1 and 2 (with Noah). Co-executed Experiment 6 (with Noah and Allison). Ran Experiments 8 and 9 solo. Co-executed Experiment 12 (UART Communication Reliability) and Experiment 13 (Thermal Safety) with Nathan. Participated in Experiment 7.
 - **Data Analysis:** _[describe your specific contributions]_
 - **Report Writing:** _[describe your specific contributions]_
-- **Signature / Initials:** _____   **Date:** _______
+- **Signature / Initials:** _____
+- **Date:** _______
 
 ### Lewis Bates
 - **Experiment Design:** Co-designed Experiment 13 (Thermal Safety).
 - **Experiment Execution:** Participated in Experiment 7.
 - **Data Analysis:** _[describe your specific contributions]_
 - **Report Writing:** _[describe your specific contributions]_
-- **Signature / Initials:** _____   **Date:** _______
+- **Signature / Initials:** _____
+- **Date:** _______
 
 ### Nathan MacPherson
 - **Experiment Design:** ...
 - **Experiment Execution:**  Co-executed Experiment 12 (UART Communication Reliability) and Experiment 13 (Thermal Safety) with Jack. Participated in Experiment 7.
 - **Data Analysis:** _[describe your specific contributions]_
 - **Report Writing:** _[describe your specific contributions]_
-- **Signature / Initials:** _____   **Date:** _______
+- **Signature / Initials:** _____
+- **Date:** _______
