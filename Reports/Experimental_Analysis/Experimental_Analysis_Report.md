@@ -1104,9 +1104,9 @@ No components were damaged.
 
 The following experiments are designed and awaiting execution. Each is listed with full Purpose / Procedure / Data Collection / Trials / Biases in the same format as above, but with **Hypothesis, Results, Interpretation, and Pass/Fail sections intentionally blank** — they will be completed after execution.
 
-# TODO
+# TODO  _(all need additional work)_
 
-### 14.1 Positional Accuracy Verification _(on hold)_
+### 14.1 Positional Accuracy Verification
 
 **Purpose and Justification:** Evaluate whether the CoreXY system achieves positional accuracy within ±0.5 mm across the board. Directly supports precise chess piece placement.
 
@@ -1127,7 +1127,7 @@ The following experiments are designed and awaiting execution. Each is listed wi
 
 ---
 
-### 14.2 Collision-Free Capture and Movement Rate _(needs additional work)_
+### 14.2 Collision-Free Capture and Movement Rate
 
 - REVISE BY REDEFINING COLLISION
 
@@ -1375,7 +1375,32 @@ All three requirements are exercised by repeatedly disconnecting and reconnectin
 
 ---
 
-### 12.8 Mechanical & Electrical Safety Compliance
+## 12.8: Power Consumption and Budget Verification Test
+
+**Purpose:**  
+This experiment verifies the power tree and budget calculations (Power_Budget.md) by measuring actual input power, rail power distribution, and converter efficiencies under real operating conditions. Accurate power accounting ensures the system meets runtime targets and prevents unexpected brownouts or overheating.
+
+**Procedure:**
+
+1. Connect a precision power meter (or calibrated multimeter in series with the SC0510 wall adapter) to measure total input voltage and current at the UPS HAT input.  
+2. Simultaneously monitor output power on the 5V, 12V, and 3.3V rails using current-sense resistors or dedicated power monitors at each rail output.  
+3. Execute full gameplay cycles (including idle, typical chess moves, and peak loads) while logging instantaneous and average power values.  
+4. Perform dedicated peak-load trials by forcing simultaneous RPi processing, all stepper motors, and electromagnet activation.  
+5. Calculate efficiencies: UPS Efficiency = (5V rail power / input power) × 100; MT3608 Efficiency = (12V rail power / 5V input to MT3608) × 100.  
+6. Repeat measurements with wall power disconnected to capture battery-side consumption.
+
+**Data Collection:**  
+Record all values in the spreadsheet table provided in the Experimental Analysis Excel (columns: Trial Number, Test Mode, Input Power (W), Input Current (A), 5V Rail Power (W), 12V Rail Power (W), 3.3V Rail Power (W), UPS Efficiency (%), MT3608 Efficiency (%), Notes). Compare measured values against the budgeted figures in Power_Budget.md and flag any deviation >10%.
+
+**Trials:**  
+N = 5 minimum (3 full gameplay-cycle trials + 2 peak-load trials). This provides sufficient data to validate both average and worst-case consumption.
+
+**Potential Biases:**  
+Measurement error from meter accuracy or contact resistance (mitigate by zeroing meters before each session and using Kelvin connections where possible). Converter efficiency varies with temperature and load (mitigate by performing tests at controlled 68–77°F).
+
+---
+
+### 12.9 Mechanical & Electrical Safety Compliance
 
 **Purpose and Justification:** Verify compliance with safety standards for wiring, grounding, labeling, and physical hazards. Addresses NEC Article 725 & 400 [3][8], OSHA 29 CFR 1910 Subpart S [9], and ANSI Z535.4 [10].
 
