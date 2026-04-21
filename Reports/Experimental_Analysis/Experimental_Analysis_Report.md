@@ -29,10 +29,12 @@
 9. [Experiment 7: Voice Recognition Accuracy](#9-experiment-7-voice-recognition-accuracy)
 10. [Experiment 8: Processing Latency / Display Responsiveness](#10-experiment-8-processing-latency--display-responsiveness)
 11. [Experiment 9: Move Validation Correctness](#11-experiment-9-move-validation-correctness)
-12. [Planned Experiments (Not Yet Conducted)](#12-planned-experiments-not-yet-conducted)
-13. [Summary of Findings](#13-summary-of-findings)
-14. [Component Inventory](#14-component-inventory)
-15. [Statement of Contributions](#15-statement-of-contributions)
+12. [Experiment 10: UART Communication Reliability](#12-experiment-10-uart-communication-reliability)
+13. [Experiment 11: Thermal Safety](#13-experiment-11-thermal-safety)
+14. [Planned Experiments (Not Yet Conducted)](#14-planned-experiments-not-yet-conducted)
+15. [Summary of Findings](#15-summary-of-findings)
+16. [Component Inventory](#16-component-inventory)
+17. [Statement of Contributions](#17-statement-of-contributions)
 
 ---
 
@@ -977,20 +979,19 @@ No components were damaged.
 
 ### 13.3 Procedure
 
-**Environmental Conditions:** Standard indoor lab conditions; ambient temperature recorded at the start of the session and at every measurement timestamp. Session run in a single consistent location to avoid airflow variation.
+**Environmental Conditions:** Standard indoor lab conditions; ambient temperature recorded at the start of the session only. Session run in a single consistent location to avoid airflow variation.
 
 **Preparation Steps:**
 1. Confirm SMT heatsinks (Adafruit 1493) are installed on both TMC2209 driver boards.
-2. Record the ambient room temperature at session start.
+2. Record the ambient room temperature at session start (single reading; not repeated during the session).
 3. Power up the system and let it reach a steady-state idle temperature (about 5 minutes).
 4. Identify and mark a consistent measurement spot on each component so all subsequent readings target the same surface.
 
 **Procedure Steps:**
 1. Begin a simulated full-game sequence: continuous move commands from the Pi covering varied move types (straight, diagonal, knight, captures, discards) for 30 minutes of active operation.
 2. At the 10-minute, 20-minute, and 30-minute marks, briefly pause command issuance and measure surface temperatures with the IR thermometer at each of the components listed at the end of this experiment, holding the thermometer at the same distance and angle for every reading.
-3. Record ambient temperature at each measurement timestamp.
-4. Record the surface temperature for every component at every timestamp.
-5. If any component triggers a thermal fault during the test (e.g., TMC2209 DIAG pin asserts, motion stops unexpectedly, or any visible sign of distress), record the event and the temperature at which it occurred, and stop the test for that component.
+3. Record the surface temperature for every component at every timestamp.
+4. If any component triggers a thermal fault during the test (e.g., TMC2209 DIAG pin asserts, motion stops unexpectedly, or any visible sign of distress), record the event and the temperature at which it occurred, and stop the test for that component.
 
 **Note on component naming:** "A" components are mounted on the left side of the board (closest to a wall) and "B" components are mounted on the right side (closest to the gap for the Pi/UPS).
 
@@ -999,7 +1000,7 @@ No components were damaged.
 | Variable | Units | Measurement Method | Frequency | Recording Format |
 |----------|-------|--------------------|-----------|------------------|
 | Time elapsed | min | Stopwatch | Per timestamp | Table |
-| Ambient temperature | °F | Ambient thermometer | Per timestamp | Table |
+| Ambient temperature at session start | °F | Ambient thermometer | Once per session | Session header |
 | Surface temperature (per component) | °F | IR thermometer | Per timestamp per component | Table |
 | Pass/fail per component per timestamp | Pass/Fail | Derived (≤ 104 °F) | Per measurement | Table |
 | Thermal fault event | Y/N + description | Visual / serial log | As they occur | Notes column |
@@ -1011,7 +1012,7 @@ No components were damaged.
 | Potential Bias / Source of Error | Mitigation Strategy |
 |----------------------------------|---------------------|
 | IR thermometer point inconsistency | Mark and reuse the same surface location on each component for every reading |
-| Ambient variation between timestamps | Record ambient temperature at every timestamp |
+| Ambient variation across the session | Run the entire session in one consistent indoor location; keep the session short (30 min) so drift is minimal |
 | Airflow / ventilation variation | Run the entire session in one consistent indoor location with no fans or open windows |
 | IR thermometer emissivity error on shiny surfaces (e.g., MOSFET tab) | Record the same surface and angle each time to keep relative readings consistent across timestamps |
 
@@ -1121,7 +1122,7 @@ No components were damaged.
 - _Display screen_
 - _Acrylic board surface_
 - _IR thermometer gun_
-- _Ambient thermometer_
+- _Ambient thermometer (session-start reading only)_
 
 ---
 
