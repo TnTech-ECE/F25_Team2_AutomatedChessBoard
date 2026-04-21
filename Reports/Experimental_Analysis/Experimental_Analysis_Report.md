@@ -1665,7 +1665,7 @@ _[Team may add further reflections here on methodology (e.g., stopwatch vs. logg
 > Each team member must write their own contribution statement. One member may NOT write on behalf of another. By submitting this report, the team collectively certifies the accuracy of all statements below.
 
 ### Allison Givens
-- **Experiment Design:** Co-designed Experiment 1 (Move Completion Time), Experiment 11 (Thermal Safety), and Experiment 12 (Mechanical & Electrical Safety Compliance).
+- **Experiment Design:** Co-designed Experiment 1 (Move Completion Time) and Experiment 11 (Thermal Safety). Solo-designed Experiment 12 (Mechanical & Electrical Safety Compliance).
 - **Experiment Execution:** Ran Experiment 12 solo. Co-executed Experiment 6 (with Noah and Jack). Participated in Experiment 7.
 - **Data Analysis:** Analyzed all data for Experiment 12.
 - **Report Writing:** Drew conclusions for Experiment 12.
