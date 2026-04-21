@@ -76,7 +76,6 @@ Below are the critical requirements and success criteria identified by the team 
 | 14 | Voltage safety | All rails < 50 V DC | UL low-voltage threshold [2] | Planned (Voltage Safety) |
 | 15 | EMI / low-noise design | Proper decoupling, low ripple, no interference | FCC Part 15 Subpart B [1] | Planned (EMI Indirect) |
 | 16 | Mechanical & electrical safety compliance | Pass standardized inspection checklist | NEC / OSHA / ANSI Z535.4 [8][9][10] | Planned (Safety Compliance) |
-| 17 | Fault-tolerant behavior | Safe, predictable response to power loss and obstruction | Reliability / user safety | Planned (Reliability & Failure) |
 
 **Advisor Approval:**
 - Approved by: _Dr. Van Neste_
@@ -1210,24 +1209,6 @@ The following experiments are designed and awaiting execution. Each is listed wi
 
 **Potential Biases:**
 - Subjective inspection → use a standardized checklist.
-
----
-
-### 12.8 System Reliability and Failure Behavior
-
-**Purpose and Justification:** Ensure safe and predictable operation under fault conditions (power loss and mechanical obstruction).
-
-**Procedure:**
-1. Simulate power loss during an active move and observe the system response.
-2. Introduce a mechanical obstruction in the path of the carriage during motion and observe the response.
-3. Observe whether the system halts safely, reports the fault, and recovers predictably.
-
-**Data Collection:** Columns (test type, system response, pass/fail, notes).
-
-**Trials:** ≥ 3 per fault condition.
-
-**Potential Biases:**
-- Inconsistent obstruction placement → standardize method (same location, same object).
 
 ---
 
