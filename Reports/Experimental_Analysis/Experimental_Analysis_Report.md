@@ -923,6 +923,12 @@ No components were damaged.
 - Capture discard placement correct: _[import]_ / _[import]_
 - Error rate: _[import]_%
 
+**Visualizations:**
+
+![UART on oscilloscope](./Images/UART_example.jpg)
+
+_Figure 12.1 — an example UART signal, being passed from Pi to Arduino._
+
 **12.8 Interpretation and Conclusions:** _[To fill in after data collection.]_
 
 **12.9 Pass / Fail Against Criterion:**
@@ -1098,6 +1104,7 @@ No components were damaged.
 
 The following experiments are designed and awaiting execution. Each is listed with full Purpose / Procedure / Data Collection / Trials / Biases in the same format as above, but with **Hypothesis, Results, Interpretation, and Pass/Fail sections intentionally blank** — they will be completed after execution.
 
+# TODO
 
 ### 14.1 Positional Accuracy Verification _(on hold)_
 
@@ -1121,6 +1128,8 @@ The following experiments are designed and awaiting execution. Each is listed wi
 ---
 
 ### 14.2 Collision-Free Capture and Movement Rate _(needs additional work)_
+
+- REVISE BY REDEFINING COLLISION
 
 **Purpose and Justification:** Verify the system achieves ≥ 95% collision-free piece movements including captures. Piece collisions disrupt the game and damage user trust.
 
@@ -1256,7 +1265,7 @@ _[To be completed as a team reflection once all experiments are done — intende
 
 ---
 
-# BROKEN BOM
+# TODO (BROKEN BOM)
 ## 14. Component Inventory
 
 ### 14.1 Initial Inventory
