@@ -1457,7 +1457,6 @@ Measurement error from meter accuracy or contact resistance (mitigate by zeroing
 
 ### 13.1 Overall Results vs. Success Criteria
 
-# TODO
 | # | Criterion | Target | Measured Result | Met? |
 |---|-----------|--------|-----------------|------|
 | 1 | Move completion time | ≤ 5 s | Mean 12.80 s, Max 30.00 s (10 / 10 trials exceeded spec) | **N** |
@@ -1466,20 +1465,28 @@ Measurement error from meter accuracy or contact resistance (mitigate by zeroing
 | 4 | Electromagnet switching latency | ≤ 10 ms | Max 3.0 µs (on and off) | Y |
 | 5 | Flyback diode clamping | ≤ 55 V Vds | Max 5 V | Y |
 | 6 | Command latency | ≤ 50 ms | Mean 0.636 ms, Max 0.758 ms | Y |
-| 7 | Voice recognition accuracy | ≥ 80% | 98.8% recognition / 97.5% correctness (N = 80, 4 speakers) | Y |
+| 7 | Voice recognition accuracy | ≥ 80% | 97.0% recognition / 95.0% correctness (N = 100, 5 speakers) | Y |
 | 8 | End-to-end processing latency | ≤ 5 s | Mean 0.97 s, Max 1.41 s | Y |
 | 9 | Move validation correctness | 100% | 40 / 40 correct | Y |
-| 10–17 | _Planned experiments_ | See §12 | Pending | Pending |
+| 10 | UART communication reliability | Error-free command transfer during full game | 20 / 20 moves correct; 19 / 20 ACKs (1 timeout on a correctly executed move) | Y |
+| 11 | Thermal safety | All surfaces ≤ 40 °C (104 °F) | 15 / 16 components pass; Raspberry Pi 5 peaked at 107.0 °F | **N** |
+| 12 | Collision-free movement rate | ≥ 95% collision-free | Pending | Pending |
+| 13 | Positional accuracy | ±0.5 mm across board | Pending | Pending |
+| 14 | Voltage safety | All rails < 50 V DC | Pending | Pending |
+| 15 | EMI / low-noise design | Proper decoupling, low ripple, no interference | Pending | Pending |
+| 16 | Mechanical & electrical safety compliance | Pass standardized inspection checklist | Pending | Pending |
+| 17 | Fault-tolerant behavior | Safe, predictable response to power loss and obstruction | Pending | Pending |
 
-# TODO
 ### 13.2 Did the Project Meet Its Success Criteria?
-Of the nine success criteria that have been experimentally evaluated to date, eight are met; most of them by very wide margins (electromagnet switching is about 3300× faster than spec, command latency is about 66× faster, flyback clamping is about 11× below the Vds limit, and processing latency, voice recognition, move validation, boot-noise rejection, and edge clamping all pass cleanly). The sole unmet criterion is move completion time: every trial exceeded the 5-second target, with a mean of 12.8 s and a worst case of 30 s. Eight additional criteria (thermal, UART reliability, collision-free rate, positional accuracy, voltage safety, EMI, safety compliance, and fault tolerance) remain to be tested. Based on present evidence the system's electrical, logical, and communication subsystems meet requirements, while the mechanical motion subsystem does not meet the completion-time spec and requires rework.
+Of the eleven success criteria that have been experimentally evaluated to date, nine are met (most of them by very wide margins: electromagnet switching is about 3300× faster than spec, command latency is about 66× faster, flyback clamping is about 11× below the Vds limit, and processing latency, voice recognition, move validation, boot-noise rejection, edge clamping, and UART reliability all pass cleanly). The two unmet criteria are move completion time (every trial exceeded the 5-second target, with a mean of 12.8 s and a worst case of 30 s) and thermal safety (the Raspberry Pi 5 peaked at 107.0 °F, above the 104 °F surface-temperature limit, while the other 15 monitored components passed with margin). Six additional criteria (collision-free rate, positional accuracy, voltage safety, EMI, safety compliance, and fault tolerance) remain to be tested. Based on present evidence the system's electrical, logical, and communication subsystems meet requirements, while the mechanical motion subsystem does not meet the completion-time spec and the Pi requires additional cooling to meet the surface-temperature spec.
 
 ### 13.3 Discrepancies and Unmet Criteria
 - **Move Completion Time (Exp 1, Criterion #1 — FAIL):** Measured times ranged 5.58 s (shortest move) to 30.00 s (long L-shaped discard), versus a 5 s target. The fact that even a single-square move exceeds the spec indicates the baseline per-move overhead is already at or above the limit, which points to conservative acceleration/speed settings in the CoreXY firmware.
+- **Thermal Safety — Raspberry Pi 5 (Exp 11, Criterion #11 — FAIL):** The Pi measured 107.0 °F at 10 min and 104.5 °F at 20 min (both above the 104 °F limit), then cooled to 101.6 °F at 30 min. The inverted trend (Pi hottest during the first phase of the session, cooling as Pi-side CPU load decreased in later phases) shows the Pi's temperature is driven by its own processing load rather than by surrounding heat from the motion system. The fix is localized to the Pi and does not affect the rest of the thermal design.
 
 ### 13.4 Proposed Improvements
 - **Priority 1:** Retune the CoreXY firmware: increase stepper acceleration and maximum speed
+- **Priority 2:** Add extra cooling mechanisms to Raspberry Pi or on the side of the board near the Pi
 
 ### 13.5 Lessons Learned
 # TODO
