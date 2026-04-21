@@ -77,6 +77,7 @@ Below are the critical requirements and success criteria identified by the team 
 | 12 | Mechanical & electrical safety compliance | Pass standardized inspection checklist (no Critical failures) | NEC / OSHA / ANSI Z535.4 [8][9][10] | Experiment 12 |
 | 13 | Voltage safety | All rails < 50 V DC | UL low-voltage threshold [2] | Planned (Voltage Safety) |
 | 14 | EMI / low-noise design | Proper decoupling, low ripple, no interference | FCC Part 15 Subpart B [1] | Planned (EMI Indirect) |
+| 15 | Power consumption and budget verification | Measured rail and input power within 10% of Power_Budget.md; calculated UPS and MT3608 efficiencies within expected range | Power_Budget.md / Power_Tree.md | Planned (Power Consumption) |
 | X1 | Collision-free movement rate | ≥ 95% of moves collision-free | Conceptual design (Arduino spec) | Collision Rate (un-testable) |
 | X2 | Positional accuracy | ±0.5 mm across board | Precise piece placement | Positional Accuracy (un-testable) |
 
@@ -1267,55 +1268,6 @@ The following experiments are designed and awaiting execution. Each is listed wi
 
 # TODO  _(all need additional work)_
 
-### 14.1 Positional Accuracy Verification
-
-**Purpose and Justification:** Evaluate whether the CoreXY system achieves positional accuracy within ±0.5 mm across the board. Directly supports precise chess piece placement.
-
-**Procedure:**
-1. Mark the center of at least 10 target squares (28.575 mm from each edge of a 57.15 mm square). Include: four corners (a1, h1, a8, h8), board center (d4 or e5), ≥ 2 discard row positions (a11, h10), ≥ 2 mid-edge positions (a4, d1).
-2. Home to (0.5, 0.5).
-3. Command the carriage to each target.
-4. Measure X offset and Y offset from electromagnet center to marked center using a mm ruler or calipers.
-5. Re-home between measurements.
-6. Repeat across all target squares.
-
-**Data Collection:** Columns (trial, target, target position (mm), X offset (mm), Y offset (mm), total error √(X² + Y²), pass/fail ≤ 0.5 mm). Calculate mean and max error.
-
-**Trials:** N = 10 coordinates.
-
-**Potential Biases:**
-- Human measurement error ~±0.5 mm → same operator and method for all readings.
-
----
-
-### 14.2 Collision-Free Capture and Movement Rate
-
-- REVISE BY REDEFINING COLLISION
-
-**Purpose and Justification:** Verify the system achieves ≥ 95% collision-free piece movements including captures. Piece collisions disrupt the game and damage user trust.
-
-**Procedure:**
-1. Place all 32 pieces in standard starting position.
-2. Execute a predefined sequence of 30 moves covering:
-   - 8 straight-line moves
-   - 6 diagonal moves
-   - 4 knight moves
-   - 6 capture sequences
-   - 4 discard/reset moves
-   - 2 edge-boundary moves
-3. For each move, record whether any non-target piece was displaced.
-4. Restore displaced pieces before continuing.
-
-**Data Collection:** Columns (move number, move type, source, destination, pass/fail, notes). Calculate success rate overall and per move type.
-
-**Trials:** N = 30 moves (~±4.5% at 95% confidence).
-
-**Potential Biases:**
-- Piece placement consistency → center pieces before each session.
-- Electromagnet strength varies with piece type → include all piece types.
-
----
-
 ### 12.5 Voltage Regulation, Ripple, and Electrical Safety
 
 **Purpose and Justification:** Verify that all system voltage rails meet three safety and stability requirements simultaneously:
@@ -1561,28 +1513,7 @@ Measurement error from meter accuracy or contact resistance (mitigate by zeroing
 
 ---
 
-### 12.9 Mechanical & Electrical Safety Compliance
-
-**Purpose and Justification:** Verify compliance with safety standards for wiring, grounding, labeling, and physical hazards. Addresses NEC Article 725 & 400 [3][8], OSHA 29 CFR 1910 Subpart S [9], and ANSI Z535.4 [10].
-
-**Procedure:**
-1. Inspect the system using a standardized checklist:
-   - Wiring (NEC Article 725 & 400)
-   - Grounding and circuit protection
-   - Safety labels and accessibility
-2. Verify grounding continuity with a multimeter.
-3. Re-run inspection after any hardware modification.
-
-**Data Collection:** Columns (category, checklist item, pass/fail, notes).
-
-**Trials:** Single full inspection; repeat after modifications.
-
-**Potential Biases:**
-- Subjective inspection → use a standardized checklist.
-
----
-
-## 13. Summary of Findings
+## XXX. Summary of Findings
 
 ### 13.1 Overall Results vs. Success Criteria
 
@@ -1600,8 +1531,9 @@ Measurement error from meter accuracy or contact resistance (mitigate by zeroing
 | 10 | UART communication reliability | Error-free command transfer during full game | 20 / 20 moves correct; 19 / 20 ACKs (1 timeout on a correctly executed move) | Y |
 | 11 | Thermal safety | All surfaces ≤ 40 °C (104 °F) | 15 / 16 components pass; Raspberry Pi 5 peaked at 107.0 °F | **N** |
 | 12 | Mechanical & electrical safety compliance | Pass checklist with Total Score ≤ 5 and zero Critical failures | 23 / 24 pass; Total Score = 3; 0 Critical failures; 1 Major failure (strain relief) | Y |
-| 14 | Voltage safety | All rails < 50 V DC | Pending | Pending |
-| 15 | EMI / low-noise design | Proper decoupling, low ripple, no interference | Pending | Pending |
+| 13 | Voltage safety | All rails < 50 V DC | Pending | Pending |
+| 14 | EMI / low-noise design | Proper decoupling, low ripple, no interference | Pending | Pending |
+| 15 | Power consumption and budget verification | Rails and input power within 10% of budget | Pending | Pending |
 | X1 | Collision-free movement rate | ≥ 95% collision-free | un-testable | **N** |
 | X2 | Positional accuracy | ±0.5 mm across board | untest-able | **N** |
 
@@ -1612,21 +1544,34 @@ Of the twelve success criteria that have been experimentally evaluated to date, 
 - **Move Completion Time (Exp 1, Criterion #1 — FAIL):** Measured times ranged 5.58 s (shortest move) to 30.00 s (long L-shaped discard), versus a 5 s target. The fact that even a single-square move exceeds the spec indicates the baseline per-move overhead is already at or above the limit, which points to conservative acceleration/speed settings in the CoreXY firmware.
 - **Thermal Safety — Raspberry Pi 5 (Exp 11, Criterion #11 — FAIL):** The Pi measured 107.0 °F at 10 min and 104.5 °F at 20 min (both above the 104 °F limit), then cooled to 101.6 °F at 30 min. The inverted trend (Pi hottest during the first phase of the session, cooling as Pi-side CPU load decreased in later phases) shows the Pi's temperature is driven by its own processing load rather than by surrounding heat from the motion system. The fix is localized to the Pi and does not affect the rest of the thermal design.
 - **Safety Compliance — Strain Relief (Exp 12, Criterion #12 — PASS with caveat):** The overall safety-compliance criterion is met (Total Score = 3, zero Critical failures across 24 checklist items), but the Flexible Cords "strain relief present" item was marked Fail (at Major severity). No cord damage or Critical cord-related items failed, so this is not an immediate electrical hazard, but strain relief should be added at the relevant cable entry points.
-- **Collision-Free Movement and Positional Accuracy:** The acrylic top layer of the board has developed a slight bow, which produces region-dependent piece-pickup behavior: a taller electromagnet mount grabs pieces reliably but also grabs the previously-moved piece while the carriage is travelling to the next source square, while a shorter mount stops unintended grabs but misses some intended pickups. Neither test can be run cleanly against the current hardware, and the bow itself is not something the motion firmware can compensate for. Replacing the acrylic with a flatter top surface would be a prerequisite to reinstating these tests in a future revision.
+- **Collision-Free Movement and Positional Accuracy (both tests un-testable):** Several compounding mechanical and electromechanical issues in the current build make these two tests impossible to run meaningfully. The dominant issues are:
+  - **Acrylic board bow.** The acrylic top layer of the board has developed a slight bow, which produces region-dependent piece-pickup behavior. With a taller electromagnet moun,t pieces are grabbed reliably, but the previously-moved piece is also grabbed while the carriage is travelling to the next source square; with a shorter mount, unintended grabs stop, but some intended pickups are missed. The bow varies by region, so the same mount height is not correct everywhere on the board, and this is not something the motion firmware can compensate for.
+  - **Microstepping reduction on the TMC2209 drivers.** The detailed design assumed 1/64 microstepping, but the TMC2209 boards actually available from the replacement supplier only support up to 1/16 microstepping. The build was ultimately run at 1/8 microstepping for margin and driver-temperature reasons, which coarsens the per-step resolution well below what the ±0.5 mm positional spec assumed. Even on a perfectly flat surface, this change alone would make the positional-accuracy test a near-miss rather than a clean measurement of the motion system's capability.
+  - **Mid-span wooden support.** A wooden support near the middle of the board's side section sits under part of the playing surface and appears to contribute to the bow pattern (loads the acrylic unevenly). Its presence changes what a "neutral" surface height even is.
+  - **Uneven CoreXY frame supports.** The supports for the CoreXY frame are not perfectly level to each other, which slightly tilts the gantry relative to the acrylic. Combined with the bow, this means the electromagnet-to-board gap varies across the playing field in ways that are not simply a constant offset.
+
+  These four issues act together (not independently), so removing any one of them would not restore the tests. Replacing the acrylic with a flatter top surface is a fix, but so is revisiting the CoreXY frame-support geometry, removing or redesigning the mid-span support, and either sourcing TMC2209 boards with finer microstepping or re-budgeting the positional-accuracy target around the drivers that are actually available. Reinstating these two tests in a future revision requires addressing all four issues.
 
 ### 13.4 Proposed Improvements
 - **Priority 1:** Retune the CoreXY firmware: increase stepper acceleration and maximum speed
 - **Priority 2:** Add extra cooling mechanisms to Raspberry Pi or on the side of the board near the Pi
 - **Priority 3:** Add strain relief to wire + cable carrier from Control Unit to electromagnet
 - **Priority 4:** Replace the acrylic top layer with a flatter top surface (e.g., tempered glass or a thicker/stiffer acrylic) so that collision and positional-accuracy tests can be performed meaningfully in a future revision
+- **Priority 5:** Source TMC2209 driver boards that support 1/32 or 1/64 microstepping (or re-budget the positional-accuracy target against the drivers available from current suppliers): the switch to 1/8 microstepping (forced by supplier availability) is itself one of the reasons the ±0.5 mm spec cannot be cleanly evaluated on the current build
 
 ### 13.5 Lessons Learned
 # TODO
-_[To be completed as a team reflection once all experiments are done — intended to cover methodology (e.g., stopwatch vs. logged timing), teamwork, and any unexpected findings that came out of the process.]_
 
+The following observations came out of the build and test process. They are documented here so that future teams working on a similar mechanical-stack project can benefit from what we ran into.
+
+- **Enclosure sizing has to start from the final electronics layout, not the playing field.** To make room for the Pi/UPS stack inside the enclosure, the CoreXY working envelope and the acrylic playing area had to be shrunk relative to what the earlier design assumed. That change cascaded into the rest of the mechanical design; most immediately, the bar width on the CoreXY no longer matched the trolley supports and several other frame components that had already been designed. Allison redesigned the trolley supports and the affected CoreXY components from scratch, iterating through many revisions and reprints before the resized gantry fit and tracked cleanly. The lesson is to lock in the power-unit footprint inside the enclosure before committing to a playing-area size, because shrinking the working envelope forces a full pass of mechanical rework (rather than a simple scaling operation).
+- **Supplier availability can quietly change a spec.** The move from 1/64 to 1/8 microstepping was not a design choice we started with, it was forced by a change in TMC2209 board manufacturer availability partway through the build. Because the positional-accuracy spec had been written against 1/64 microstepping, the change to 1/8 silently moved that spec from "comfortable" to "infeasible without rework." Any future team should verify that the specific part variants called out in the detailed design are actually purchasable (and not just in-family), before freezing numerical performance specs.
+- **Flatness of the playing surface is a first-class mechanical requirement.** The acrylic bow, the mid-span wooden support, and the uneven CoreXY frame supports each individually seemed like minor build issues during assembly, but together they made two of our planned tests impossible to run. Flatness of the surface the electromagnet works against should be treated as a tracked requirement with an explicit tolerance, not as an assumed property of "the board."
+
+_[Team may add further reflections here on methodology (e.g., stopwatch vs. logged timing), teamwork, and anything else that came out of the process.]_
 ---
 
-## 14. Component Inventory
+## XXXX. Component Inventory
 
 ### 14.1 Initial Inventory
 
@@ -1720,31 +1665,31 @@ _[To be completed as a team reflection once all experiments are done — intende
 > Each team member must write their own contribution statement. One member may NOT write on behalf of another. By submitting this report, the team collectively certifies the accuracy of all statements below.
 
 ### Allison Givens
-- **Experiment Design:** Co-designed Experiment 1 (Move Completion Time) and Experiment 13 (Thermal Safety).
+- **Experiment Design:** Co-designed Experiment 1 (Move Completion Time) and Experiment 11 (Thermal Safety).
 - **Experiment Execution:** Co-executed Experiment 6 (with Noah and Jack). Participated in Experiment 7.
-- **Data Analysis:** _[describe your specific contributions]_
-- **Report Writing:** _[describe your specific contributions]_
+- **Data Analysis:** Analyzed all data for Experiment 12.
+- **Report Writing:** Drew conclusions for Experiment 12.
 - **Signature / Initials:** _____
 - **Date:** _______
 
 ### Noah Beaty
-- **Experiment Design:** Co-designed Experiments 1 (Move Completion Time), 2 (Boot Noise), 6 (Command Latency), and Experiment 13 (Thermal Safety). Solo-designed Experiments 3 (Edge Boundary), 4 (Electromagnet Switching Latency), and 5 (Flyback Diode Inductive Spike). Also contributed to the voice recognition accuracy experiment (Experiment 7).
+- **Experiment Design:** Co-designed Experiments 1 (Move Completion Time), 2 (Boot Noise), 6 (Command Latency), and Experiment 11 (Thermal Safety). Solo-designed Experiments 3 (Edge Boundary), 4 (Electromagnet Switching Latency), and 5 (Flyback Diode Inductive Spike). Also contributed to the voice recognition accuracy experiment (Experiment 7).
 - **Experiment Execution:** Co-executed Experiments 1 and 2 (with Jack). Ran Experiments 3, 4, and 5 solo. Co-executed Experiment 6 (with Jack and Allison). Participated in Experiment 7.
-- **Data Analysis:** Analyzed all data for the experiments he designed.
-- **Report Writing:** Wrote all conclusions for the experiments he designed.
+- **Data Analysis:** Analyzed all data for Experiments 1-11.
+- **Report Writing:** Drew conclusions for Experiments 1–11. Experiments 8 (Processing Latency) and 9 (Move Validation Correctness) conclusions were co-written with Jack.
 - **Signature / Initials:** NB
 - **Date:** 4-20-2026
 
 ### Jack Tolleson
-- **Experiment Design:** Co-designed Experiments 1 (Move Completion Time), 2 (Boot Noise), 6 (Command Latency), and Experiment 13 (Thermal Safety). Solo-designed Experiments 8 (Processing Latency) and 9 (Move Validation Correctness). Also contributed to the voice recognition accuracy experiment (Experiment 7).
-- **Experiment Execution:** Co-executed Experiments 1 and 2 (with Noah). Co-executed Experiment 6 (with Noah and Allison). Ran Experiments 8 and 9 solo. Co-executed Experiment 12 (UART Communication Reliability) and Experiment 13 (Thermal Safety) with Nathan. Participated in Experiment 7.
+- **Experiment Design:** Co-designed Experiments 1 (Move Completion Time), 2 (Boot Noise), 6 (Command Latency), and Experiment 11 (Thermal Safety). Solo-designed Experiments 8 (Processing Latency) and 9 (Move Validation Correctness). Also contributed to the voice recognition accuracy experiment (Experiment 7).
+- **Experiment Execution:** Co-executed Experiments 1 and 2 (with Noah). Co-executed Experiment 6 (with Noah and Allison). Ran Experiments 8 and 9 solo. Co-executed Experiment 10 (UART Communication Reliability) and Experiment 11 (Thermal Safety) with Nathan. Participated in Experiment 7.
 - **Data Analysis:** _[describe your specific contributions]_
-- **Report Writing:** _[describe your specific contributions]_
+- **Report Writing:** Experiments 8 (Processing Latency) and 9 (Move Validation Correctness) conclusions were co-written with Noah.
 - **Signature / Initials:** _____
 - **Date:** _______
 
 ### Lewis Bates
-- **Experiment Design:** Co-designed Experiment 13 (Thermal Safety).
+- **Experiment Design:** Co-designed Experiment 11 (Thermal Safety).
 - **Experiment Execution:** Participated in Experiment 7.
 - **Data Analysis:** _[describe your specific contributions]_
 - **Report Writing:** _[describe your specific contributions]_
@@ -1753,7 +1698,7 @@ _[To be completed as a team reflection once all experiments are done — intende
 
 ### Nathan MacPherson
 - **Experiment Design:** ...
-- **Experiment Execution:**  Co-executed Experiment 12 (UART Communication Reliability) and Experiment 13 (Thermal Safety) with Jack. Participated in Experiment 7.
+- **Experiment Execution:**  Co-executed Experiment 10 (UART Communication Reliability) and Experiment 11 (Thermal Safety) with Jack. Participated in Experiment 7.
 - **Data Analysis:** _[describe your specific contributions]_
 - **Report Writing:** _[describe your specific contributions]_
 - **Signature / Initials:** _____
