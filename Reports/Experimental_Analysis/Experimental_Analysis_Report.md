@@ -1277,7 +1277,7 @@ The following experiments are designed and awaiting execution. Each is listed wi
 
 These three requirements all act on the same voltage rails during the same operating states, so they are combined into one test session.
 
-**Hypothesis / Expected Results:** All rails (5 V, 12 V, 3.3 V) will stay within ±5% of nominal, ripple will be <5% on all rails under all loads, maximum voltage on any rail will be well below 50 V, and no interference will be observed on nearby consumer electronics. The peak-load state is expected to produce the highest ripple.
+**Hypothesis / Expected Results:** All rails (5 V, 12 V) will stay within ±5% of nominal, ripple will be <5% on all rails under all loads, maximum voltage on any rail will be well below 50 V, and no interference will be observed on nearby consumer electronics. The peak-load state is expected to produce the highest ripple.
 
 **Environmental Conditions:** Standard indoor lab conditions; ambient temperature controlled to 68–77 °F; session conducted in a consistent location. Oscilloscope probes fresh-compensated before the session.
 
@@ -1313,7 +1313,7 @@ These three requirements all act on the same voltage rails during the same opera
 | Safety (< 50 V on all rails) | Pass/Fail | Derived | Per trial | Spreadsheet |
 | Interference observed near sensitive electronics | Y/N + notes | Visual / audible | Per state | Spreadsheet |
 
-**Trials:** N ≥ 20 (5 trials per operating state × 4 states). This sample confirms stability across load conditions and power sources, and provides enough measurements to derive the 50 V safety check and ripple summaries from the same session.
+**Trials:** N ≥ 12 (3 trials per operating state × 4 states). This sample confirms stability across load conditions and power sources, and provides enough measurements to derive the 50 V safety check and ripple summaries from the same session.
 
 **Potential Biases and Mitigation:**
 
@@ -1330,10 +1330,18 @@ These three requirements all act on the same voltage rails during the same opera
 
 | Trial | State | Source | 5V Avg (V) | 5V Ripple p-p (mV) | 12V Avg (V) | 12V Ripple p-p (mV) | Min V (V) | Max V (V) | < 50 V? | Interference? | Notes |
 |-------|-------|--------|------------|---------------------|-------------|----------------------|------------|------------|---------|----------------|-------|
-| 1 |  |  |  |  |  |  |  |  |  |  |  |
-| 2 |  |  |  |  |  |  |  |  |  |  |  |
-| ... |  |  |  |  |  |  |  |  |  |  |  |  |
-| 20 |  |  |  |  |  |  |  |  |  |  |  |  |
+| 1  |  |  |  |  |  |  |  |  |  |  |  |
+| 2  |  |  |  |  |  |  |  |  |  |  |  |
+| 3  |  |  |  |  |  |  |  |  |  |  |  |
+| 4  |  |  |  |  |  |  |  |  |  |  |  |
+| 5  |  |  |  |  |  |  |  |  |  |  |  |
+| 6  |  |  |  |  |  |  |  |  |  |  |  |
+| 7  |  |  |  |  |  |  |  |  |  |  |  |
+| 8  |  |  |  |  |  |  |  |  |  |  |  |
+| 9  |  |  |  |  |  |  |  |  |  |  |  |
+| 10 |  |  |  |  |  |  |  |  |  |  |  |
+| 11 |  |  |  |  |  |  |  |  |  |  |  |
+| 12 |  |  |  |  |  |  |  |  |  |  |  |
 
 **Summary Statistics:**
 - Max ripple observed (any rail, any state): _[import]_ mV (= _[import]_ % of nominal)
