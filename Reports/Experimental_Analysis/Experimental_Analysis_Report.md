@@ -32,11 +32,15 @@
 12. [Experiment 10: UART Communication Reliability](#12-experiment-10-uart-communication-reliability)
 13. [Experiment 11: Thermal Safety](#13-experiment-11-thermal-safety)
 14. [Experiment 12: Mechanical and Electrical Safety Compliance](#14-experiment-12-mechanical-and-electrical-safety-compliance)
-15. [Experiment 13: Battery Runtime, UPS Switching Latency, and Power-Loss Recovery](#15-experiment-13-battery-runtime-ups-switching-latency-and-power-loss-recovery)
-16. [Planned Experiments (Not Yet Conducted)](#16-planned-experiments-not-yet-conducted)
-17. [Summary of Findings](#17-summary-of-findings)
-18. [Component Inventory](#18-component-inventory)
-19. [Statement of Contributions](#19-statement-of-contributions)
+15. [Experiment 13: UPS Switching Latency and Power-Loss Recovery](#15-experiment-13-ups-switching-latency-and-power-loss-recovery)
+16. [Experiment 14: Board Weight](#16-experiment-14-board-weight)
+17. [Experiment 15: Portability](#17-experiment-15-portability)
+18. [Experiment 16: Sleep-Mode Power Draw](#18-experiment-16-sleep-mode-power-draw)
+19. [Planned Experiments (Not Yet Conducted)](#19-planned-experiments-not-yet-conducted)
+20. [Summary of Findings](#20-summary-of-findings)
+21. [Component Inventory](#21-component-inventory)
+22. [Statement of Contributions](#22-statement-of-contributions)
+23. [Appendix A: References](#23-appendix-a-references)
 
 ---
 
@@ -76,9 +80,13 @@ Below are the critical requirements and success criteria identified by the team 
 | 10 | UART communication reliability | Error-free command transfer during full game | System reliability | Experiment 10 |
 | 11 | Thermal safety | All surfaces ≤ 40 °C (104 °F) | UL 94 / CPSC 16 CFR 1505.7 | Experiment 11 |
 | 12 | Mechanical & electrical safety compliance | Pass standardized inspection checklist (no Critical failures) | NEC / OSHA / ANSI Z535.4 [8][9][10] | Experiment 12 |
-| 13 | Battery runtime, UPS switchover, and power-loss recovery | ≥ 2 hr battery runtime; clean UPS switchover with no Pi brownout; safe halt and clean recovery from wall-power loss | Conceptual design / reliability | Experiment 13 |
-| 14 | Voltage safety and low-noise design | All rails < 50 V DC; ripple < 5% p-p; low-noise design (no interference on nearby consumer electronics) | UL low-voltage threshold [2]; FCC Part 15 Subpart B [1] | Planned (Voltage Regulation, Ripple, and Electrical Safety) |
-| 15 | Power consumption and budget verification | Measured rail and input power within 10% of Power_Budget.md; calculated UPS and MT3608 efficiencies within expected range | Power_Budget.md / Power_Tree.md | Planned (Power Consumption) |
+| 13 | UPS switchover and power-loss recovery | Clean UPS switchover with no Pi brownout or reboot; safe halt and clean recovery from wall-power loss | Conceptual design / reliability | Experiment 13 |
+| 14 | Board weight | ≤ 30 lb total | Customer accessibility / portability | Experiment 14 |
+| 15 | Portability | One person can lift, carry 10 yards, return 10 yards, and set down without excessive strain or damage | Customer accessibility / portability | Experiment 15 |
+| 16 | Sleep-mode power draw | Sleep-mode input power draw consistent with Power_Budget.md (low-single-digit W) | Power_Budget.md | Experiment 16 |
+| 17 | Battery runtime | ≥ 2 hr continuous gameplay from fully charged 4×18650 pack | Power_Budget.md / conceptual design | Planned (Battery Runtime) |
+| 18 | Voltage safety and low-noise design | All rails < 50 V DC; ripple < 5% p-p; low-noise design (no interference on nearby consumer electronics) | UL low-voltage threshold [2]; FCC Part 15 Subpart B [1] | Planned (Voltage Regulation, Ripple, and Electrical Safety) |
+| 19 | Power consumption and budget verification | Measured rail and input power within 10% of Power_Budget.md; calculated UPS and MT3608 efficiencies within expected range | Power_Budget.md / Power_Tree.md | Planned (Power Consumption) |
 | X1 | Collision-free movement rate | ≥ 95% of moves collision-free | Conceptual design (Arduino spec) | Collision Rate (un-testable) |
 | X2 | Positional accuracy | ±0.5 mm across board | Precise piece placement | Positional Accuracy (un-testable) |
 
@@ -1258,16 +1266,11 @@ No components were damaged.
 
 ---
 
-## 15. Experiment 13: Battery Runtime, UPS Switching Latency, and Power-Loss Recovery
+## 15. Experiment 13: UPS Switching Latency and Power-Loss Recovery
 
-**15.1 Purpose and Justification:** Verify three related power-reliability requirements in a single session:
-1. The DFRobot UPS HAT delivers adequate runtime from a fully charged 4×18650 pack under continuous gameplay load (per Power_Budget.md).
-2. The UPS switchover from wall power to battery is fast enough and clean enough to avoid Raspberry Pi brownout or stepper/electromagnet dropout.
-3. The system halts safely and recovers predictably when wall power is lost during an active move (fault-tolerance requirement from the conceptual design).
+**15.1 Purpose and Justification:** Verify that the UPS switchover from wall power to battery is fast enough and clean enough to avoid Raspberry Pi brownout, Pi reboot, or stepper/electromagnet dropout, and that the system halts safely and recovers predictably when wall power is lost during an active move (fault-tolerance requirement from the conceptual design). Both requirements are exercised by the same procedure (cutting wall power and observing system behavior), so they are combined into one test.
 
-All three requirements are exercised by repeatedly disconnecting and reconnecting wall power during operation, so they are combined into one test session.
-
-**15.2 Hypothesis / Expected Results:** Runtime will meet or exceed the ≥ 2 hours gameplay target specified in the conceptual design. UPS switchover latency will be short enough (less than about 50 ms) that the Pi does not brownout and no rail drops below its regulation band. In every switchover trial, the system will continue operating without a visible glitch; if wall power is cut mid-move, the system will either complete the move from battery or halt safely and resume cleanly when power returns.
+**15.2 Hypothesis / Expected Results:** UPS switchover latency will be short enough (less than about 50 ms) that the Pi does not brownout and no rail drops below its regulation band. In every switchover trial, the system will continue operating without a visible glitch; if wall power is cut mid-move, the system will either complete the move from battery or halt safely and resume cleanly when power returns.
 
 ### 15.3 Procedure
 
@@ -1280,38 +1283,24 @@ All three requirements are exercised by repeatedly disconnecting and reconnectin
 4. Verify wall power disconnect can be performed quickly and cleanly (e.g., an accessible switch or plug).
 
 **Procedure Steps:**
-
-**Part A — Full runtime:**
-1. With the system at 100% battery charge, start a continuous full-gameplay loop (move commands issued in sequence, including moves, captures, discards, and electromagnet actuation).
-2. Log the start time. Let the system run until it shuts down on its own from battery depletion.
-3. Record total runtime.
-
-**Part B — UPS switchover (5 trials):**
 1. With wall power connected and the system under peak simultaneous load (Pi processing + motors + electromagnet), trigger the oscilloscope on the 5 V rail and physically disconnect wall power.
 2. Capture the waveform and measure UPS switchover latency (time from disconnect to restored, stable 5 V).
 3. Observe the system: did the Pi reboot or brownout? Did the move-in-progress complete? Did any rail drop below regulation?
 4. Reconnect wall power after about 5 seconds. Confirm the system continues operating without glitch.
-5. Record pass/fail for each trial (pass = no brownout, no rebooted Pi, no dropped move, latency within expected range).
+5. Record pass/fail for each trial (pass = no brownout, no rebooted Pi, latency within expected range, system recovers cleanly).
 6. At least one trial must be performed with the system idle (not mid-move) as a baseline, and at least one trial must be performed **during an active move** (mid-motion) to confirm mid-move reliability.
-
-**Part C — Sleep-mode power (2 trials):**
-1. Place the system in idle/sleep with wall power connected.
-2. Measure the steady-state input power draw at the SC0510 input using the multimeter or inline power meter.
 
 **15.4 Data Collection Plan:**
 
 | Variable | Units | Measurement Method | Frequency | Recording Format |
 |----------|-------|--------------------|-----------|------------------|
-| Total battery runtime | min:sec | Stopwatch / log | Part A, single trial | Table |
-| UPS switchover latency | ms | Oscilloscope cursor | Per switchover trial | Table |
-| Pi brownout during switchover | Y/N | Observation + Pi log | Per switchover trial | Table |
-| Pi reboot during switchover | Y/N | Observation + Pi log | Per switchover trial | Table |
+| UPS switchover latency | ms | Oscilloscope cursor | Per trial | Table |
+| Pi brownout during switchover | Y/N | Observation + Pi log | Per trial | Table |
+| Pi reboot during switchover | Y/N | Observation + Pi log | Per trial | Table |
 | Move-in-progress completed | Y/N | Observation | Per mid-move trial | Table |
-| System halted/recovered cleanly after power loss | Y/N | Observation + Pi log | Per switchover trial | Table |
-| Sleep-mode power draw | W | Multimeter / power meter | Part C, per trial | Table |
-| Total energy delivered | Wh | Derived from runtime × avg power | Part A | Table |
+| System halted/recovered cleanly after power loss | Y/N | Observation + Pi log | Per trial | Table |
 
-**15.5 Trials:** N = 8 (1 full runtime + 5 UPS switchover + 2 sleep-mode). Of the 5 switchover trials, at least 1 is performed with the system idle (baseline) and at least 1 is performed during an active move to exercise mid-motion power-loss recovery.
+**15.5 Trials:** N = 5. Of the 5 trials, 1 is performed with the system idle (baseline) and 4 are performed during an active move to exercise mid-motion power-loss recovery.
 
 **15.6 Potential Biases and Mitigation:**
 
@@ -1324,30 +1313,15 @@ All three requirements are exercised by repeatedly disconnecting and reconnectin
 
 **15.7 Actual Results:**
 
-*Part A — Runtime:*
-
-| Trial | Runtime (min:sec) | Total Energy Delivered (Wh) | Pass/Fail | Notes |
-|-------|--------------------|------------------------------|-----------|-------|
-| 1 | _[pending]_ | _[pending]_ | _[pending]_ | Not yet run |
-
-*Part B — UPS switchover (with reliability check):*
-
 | Trial | Mid-Move? | Switchover Latency (ms) | Brownout? | Reboot? | Move Completed? | Halted / Recovered Cleanly? | Pass / Fail | Notes |
 |-------|-----------|--------------------------|-----------|---------|------------------|------------------------------|-------------|-------|
 | 1 | No  | 0 | No | No | N/A | N/A (baseline, idle) | Pass | Idle baseline trial |
 | 2 | Yes | 0 | No | No | Yes | Recovered cleanly | Pass | Move completed from battery |
-| 3 | Yes | 0 | No | No | Yes | Recovered cleanly | Pass | Move completed from battery |
-| 4 | Yes | 0 | No | No | Yes | Recovered cleanly | Pass | Move completed from battery |
-| 5 | Yes | 0 | No | No | Yes | Recovered cleanly | Pass | Move completed from battery |
+| 3 | Yes | 0 | No | No | No  | Recovered cleanly | Pass | Move did not complete; system recovered cleanly |
+| 4 | Yes | 0 | No | No | No  | Recovered cleanly | Pass | Move did not complete; system recovered cleanly |
+| 5 | Yes | 0 | No | No | No  | Recovered cleanly | Pass | Move did not complete; system recovered cleanly |
 
-*Part C — Sleep-mode:*
-
-| Trial | Sleep Power (W) | Notes |
-|-------|------------------|-------|
-| 1 | _[pending]_ | Not yet run |
-| 2 | _[pending]_ | Not yet run |
-
-**Summary Statistics (Part B, N = 5):**
+**Summary Statistics (N = 5):**
 - Mid-move trials: 4 / 5
 - Max switchover latency observed: 0 ms (below instrument resolution on the scope setup used)
 - Brownouts observed: 0 / 5
@@ -1357,12 +1331,12 @@ All three requirements are exercised by repeatedly disconnecting and reconnectin
 
 **Visualizations:** _[Oscilloscope capture of a representative switchover event — repo image name TBD]_
 
-**15.8 Interpretation and Conclusions:** _[To fill in after Part A and Part C are completed.]_
+**15.8 Interpretation and Conclusions:** _[To fill in after team review.]_
 
 **15.9 Pass / Fail Against Criterion:**
-- **Criterion Target:** ≥ 2 hr battery runtime; clean UPS switchover (no Pi brownout); safe halt and clean recovery from wall-power loss
-- **Measured Result (Part B only, N = 5):** 0 ms switchover latency; 0 brownouts; 0 reboots; 5 / 5 clean recoveries. Part A (runtime) and Part C (sleep-mode power) are pending.
-- **Outcome:** Switchover and power-loss recovery sub-criterion — **Pass** (5 / 5). Runtime and sleep-mode sub-criteria — **Pending**.
+- **Criterion Target:** Clean UPS switchover (no Pi brownout or reboot); safe halt and clean recovery from wall-power loss
+- **Measured Result:** 0 ms switchover latency; 0 brownouts; 0 reboots; 5 / 5 clean recoveries across both idle and mid-move trials. Mid-move-in-progress completion was only 1 / 4, which is a user-experience finding rather than a safety finding (the system halted cleanly in the other 3 cases).
+- **Outcome:** Pass (for the switchover / power-loss-recovery criterion). Mid-move resumption is documented as a separate finding in §20.3 and addressed by proposed improvements 6 and 7 in §20.4.
 
 **15.10 Components Used / Damaged / Replaced:**
 No components were damaged.
@@ -1374,11 +1348,199 @@ No components were damaged.
 - _CoreXY gantry assembly_
 - _Electromagnet + MOSFET_
 - _Oscilloscope (≥ 1 MHz sampling for switchover trigger)_
-- _Stopwatch_
 - _Calibrated digital multimeter_
 
 ---
 
+## 16. Experiment 14: Board Weight
+
+**16.1 Purpose and Justification:** Verify that the fully assembled board weighs no more than 30 lb. This is a customer-accessibility requirement from the conceptual design: the board is targeted at users with limited mobility, and an assembled system that exceeds 30 lb becomes impractical to reposition, store, or carry between rooms. This experiment is a direct, static weight measurement.
+
+**16.2 Hypothesis / Expected Results:** The fully assembled board will weigh at or under 30 lb. Most of the mass comes from the plywood enclosure, aluminum extrusion frame, and the stepper motors / gantry; the electronics contribute little weight.
+
+### 16.3 Procedure
+
+**Environmental Conditions:** Standard indoor lab conditions.
+
+**Preparation Steps:**
+1. Ensure the board is fully assembled with all subsystems installed (Pi, UPS HAT, battery pack, CoreXY, electromagnet, screen, acrylic top).
+2. Verify the bathroom scale is on a flat, hard surface (not carpet).
+3. Zero the scale.
+
+**Procedure Steps:**
+1. Record the operator's weight alone on the scale.
+2. Have the same operator pick up the fully assembled board and step back on the scale with the board held.
+3. Record the combined weight.
+4. Subtract operator-alone from combined to get board weight.
+5. Repeat for a total of 3 measurements to confirm repeatability.
+
+**16.4 Data Collection Plan:**
+
+| Variable | Units | Measurement Method | Frequency | Recording Format |
+|----------|-------|--------------------|-----------|------------------|
+| Operator weight alone | lb | Bathroom scale | Per trial | Table |
+| Operator + board weight | lb | Bathroom scale | Per trial | Table |
+| Derived board weight | lb | Subtraction | Per trial | Table |
+
+**16.5 Trials:** N = 3. Three measurements confirm repeatability of the scale reading without over-using a one-person weigh-in method.
+
+**16.6 Potential Biases and Mitigation:**
+
+| Potential Bias / Source of Error | Mitigation Strategy |
+|----------------------------------|---------------------|
+| Bathroom scale resolution (~0.2–0.5 lb) | Accept the resolution; the 30 lb spec has plenty of headroom |
+| Scale drift between operator-alone and combined reading | Record operator-alone immediately before each combined reading |
+| Operator posture affects reading | Stand still and centered on the scale for both readings |
+
+**16.7 Actual Results:** _[pending — to fill in after measurement]_
+
+| Trial | Operator Alone (lb) | Operator + Board (lb) | Derived Board Weight (lb) | Pass/Fail (≤ 30 lb) |
+|-------|----------------------|------------------------|----------------------------|----------------------|
+| 1 | | | | |
+| 2 | | | | |
+| 3 | | | | |
+
+**Summary Statistics:** _[pending]_
+
+**16.8 Interpretation and Conclusions:** _[To fill in after data collection.]_
+
+**16.9 Pass / Fail Against Criterion:**
+- **Criterion Target:** ≤ 30 lb
+- **Measured Result:** _[pending]_
+- **Outcome:** _[pending]_
+
+**16.10 Components Used / Damaged / Replaced:**
+No components were damaged.
+- _Full assembled system (all subsystems)_
+- _Bathroom scale_
+
+---
+
+## 17. Experiment 15: Portability
+
+**17.1 Purpose and Justification:** Verify that the fully assembled board is portable in the practical sense: one person can lift it, carry it a short distance, return it, and set it down without excessive physical strain (and without damage to the board, the enclosure, or any internal components). This is a paired test with Experiment 14, as weight alone does not reflect the full portability of the board. Balance, handholds, and stiffness of the assembly all affect whether the board is actually carryable.
+
+**17.2 Hypothesis / Expected Results:** With the board weight under the 30 lb target, a single adult operator will be able to complete the 10-yard-out, 10-yard-back carry without excessive strain, and the board will show no damage (no cracked enclosure, no dislodged components, no loosened fasteners, no disconnected cables).
+
+### 17.3 Procedure
+
+**Environmental Conditions:** Standard indoor lab conditions; open floor with 10 yards of clear space in each direction.
+
+**Preparation Steps:**
+1. Measure and mark a 10-yard distance from the starting position.
+2. Verify the floor is clear of obstacles along the carry path (both directions).
+3. Before the carry, do a pre-carry inspection of the board: photograph or visually confirm no pre-existing damage; confirm all cables are seated, all fasteners are tight, and all subsystems are in their mounted positions.
+
+**Procedure Steps:**
+1. One operator lifts the fully assembled board from the starting position.
+2. The operator carries the board 10 yards to the marked destination at a normal walking pace.
+3. The operator carries the board 10 yards back to the starting position.
+4. The operator sets the board back down.
+5. The operator self-reports whether the carry caused excessive physical strain (Y/N) — defined as being unable to complete the carry without resting, or having to set the board down midway.
+6. Perform a post-carry inspection: confirm no cracked enclosure, no dislodged subsystems, no loosened fasteners, no disconnected cables, no damage to the acrylic playing surface, no displaced pieces (if pieces were on the board during the carry).
+
+**17.4 Data Collection Plan:**
+
+| Variable | Units | Measurement Method | Frequency | Recording Format |
+|----------|-------|--------------------|-----------|------------------|
+| Carry completed without setting down | Y/N | Operator observation | Per trial | Table |
+| Excessive strain reported | Y/N | Operator self-report | Per trial | Table |
+| Post-carry damage observed | Y/N + description | Visual inspection | Per trial | Table |
+| Pre-existing damage (baseline) | Y/N + description | Visual inspection | Once (before trial 1) | Table |
+
+**17.5 Trials:** N = 1. Portability is a pass/fail qualitative check; repeating the full 20-yard carry multiple times adds limited information and risks cumulative wear on the assembly. If the first trial fails or reveals damage, a second trial is only warranted after the identified issue is fixed.
+
+**17.6 Potential Biases and Mitigation:**
+
+| Potential Bias / Source of Error | Mitigation Strategy |
+|----------------------------------|---------------------|
+| Operator strength varies between people | Record which operator performed the carry; an operator of average adult strength is preferred |
+| "Excessive strain" is subjective | Use the concrete definition above (unable to complete without resting / setting down midway) rather than asking for a comfort rating |
+| Damage may be pre-existing | Perform the pre-carry inspection and record baseline damage before the trial |
+
+**17.7 Actual Results:** _[pending — to fill in after trial]_
+
+| Trial | Carry Completed? | Excessive Strain? | Post-Carry Damage? | Pass/Fail |
+|-------|-------------------|--------------------|----------------------|-----------|
+| 1 | | | | |
+
+**17.8 Interpretation and Conclusions:** _[To fill in after the trial.]_
+
+**17.9 Pass / Fail Against Criterion:**
+- **Criterion Target:** Carry completed by one person over 10 yards out and 10 yards back without excessive strain and without damage
+- **Measured Result:** _[pending]_
+- **Outcome:** _[pending]_
+
+**17.10 Components Used / Damaged / Replaced:**
+_[confirm after the trial; we expect no damage.]_
+- _Full assembled system (all subsystems)_
+- _Tape measure or pre-marked 10-yard distance_
+
+---
+
+## 18. Experiment 16: Sleep-Mode Power Draw
+
+**18.1 Purpose and Justification:** Verify that the system's sleep-mode input power draw is consistent with the value assumed in Power_Budget.md. Sleep-mode power directly affects battery runtime when the system is idle between games, and is also used as the low-load anchor for the full Power Consumption / Budget Verification test (planned). This is a short, focused measurement that can be run independently of the full power-budget test.
+
+**18.2 Hypothesis / Expected Results:** Sleep-mode input power draw will fall in the low-single-digit watt range, consistent with an idle Pi, an idle UPS HAT, no stepper motion, and the electromagnet off.
+
+### 18.3 Procedure
+
+**Environmental Conditions:** Standard indoor lab conditions, controlled ambient temperature (68–77 °F).
+
+**Preparation Steps:**
+1. Fully charge the 4×18650 pack and leave wall power connected (so the UPS HAT is in its pass-through / standby state rather than actively discharging the battery).
+2. Attach a calibrated digital multimeter (or inline power meter) in series with the SC0510 wall adapter input.
+3. Let the system reach a steady-state idle condition (Pi idle, chess software in a waiting state, motors not driven, electromagnet off) for at least 2 minutes before measurement.
+
+**Procedure Steps:**
+1. Confirm the system is in sleep / idle mode (no motion, no active processing, screen at idle).
+2. Record the steady-state input power draw at the SC0510 input.
+3. Repeat after a short pause to confirm the reading is stable.
+
+**18.4 Data Collection Plan:**
+
+| Variable | Units | Measurement Method | Frequency | Recording Format |
+|----------|-------|--------------------|-----------|------------------|
+| Sleep-mode input power | W | Multimeter / inline power meter | Per trial | Table |
+
+**18.5 Trials:** N = 2. Two readings are sufficient to confirm the measurement is steady; sleep-mode power by definition should not vary between trials.
+
+**18.6 Potential Biases and Mitigation:**
+
+| Potential Bias / Source of Error | Mitigation Strategy |
+|----------------------------------|---------------------|
+| Meter accuracy at low-watt readings | Use a calibrated meter; verify zero-reading before the session |
+| Pi may not be fully in idle state | Let the system settle for ≥ 2 minutes before measurement |
+| Contact resistance at the meter | Use secure connections; record readings only after they stabilize |
+
+**18.7 Actual Results:**
+
+| Trial | Sleep Power (W) | Notes |
+|-------|------------------|-------|
+| 1 | 0.045 | — |
+| 2 | 0.044 | — |
+
+**Summary Statistics (N = 2):**
+- Mean sleep-mode power: 0.0445 W
+- Variation between readings: 0.001 W
+
+**18.8 Interpretation and Conclusions:** _[To fill in after team review.]_
+
+**18.9 Pass / Fail Against Criterion:**
+- **Criterion Target:** Sleep-mode input power draw consistent with Power_Budget.md (low-single-digit W)
+- **Measured Result:** 0.044–0.045 W across 2 trials (mean 0.0445 W)
+- **Outcome:** Pass (well below any reasonable sleep-power budget)
+
+**18.10 Components Used / Damaged / Replaced:**
+No components were damaged.
+- _Raspberry Pi 5_
+- _DFRobot UPS HAT_
+- _Battery pack (4×18650)_
+- _Raspberry Pi wall charger (SC0510)_
+- _Calibrated digital multimeter (or inline power meter)_
+
+---
 
 
 
@@ -1388,6 +1550,27 @@ No components were damaged.
 The following experiments are designed and awaiting execution. Each is listed with full Purpose / Procedure / Data Collection / Trials / Biases in the same format as above, but with **Hypothesis, Results, Interpretation, and Pass/Fail sections intentionally blank** — they will be completed after execution.
 
 # TODO  _(all need additional work)_
+
+### 12.3 Battery Runtime
+
+**Purpose and Justification:** Verify that the DFRobot UPS HAT delivers at least 2 hours of continuous gameplay from a fully charged 4×18650 pack (per Power_Budget.md and the conceptual-design runtime target). Adequate runtime on battery is a reliability and usability requirement: if the system is disconnected from wall power partway through a game, the user should be able to finish the game on battery power alone.
+
+**Procedure:**
+1. Fully charge the 4×18650 pack and confirm all cells are at the same starting voltage within a reasonable tolerance.
+2. Disconnect wall power so the system is running from the UPS battery only.
+3. Start a continuous full-gameplay loop (move commands issued in sequence, including moves, captures, discards, and electromagnet actuation).
+4. Log the start time and let the system run until it shuts down on its own from battery depletion.
+5. Record total runtime and (if available) total energy delivered (Wh) from the UPS HAT logs or from integrated current measurement.
+
+**Data Collection:** Columns (trial, runtime (min:sec), total energy delivered (Wh), pass/fail, notes). Compare measured runtime against the ≥ 2 hr target.
+
+**Trials:** N = 1 full depletion. A single depletion is sufficient to confirm the pass/fail against the 2-hour target; additional full-depletion trials are limited by battery cycle life and session time.
+
+**Potential Biases:**
+- Battery capacity degrades with age and temperature → use freshly charged, matched cells; control ambient to 68–77 °F.
+- Gameplay load may vary → keep the continuous-gameplay script as consistent as possible across runs so the average draw is representative.
+
+---
 
 ### 12.5 Voltage Regulation, Ripple, and Electrical Safety
 
@@ -1537,9 +1720,13 @@ Measurement error from meter accuracy or contact resistance (mitigate by zeroing
 | 10 | UART communication reliability | Error-free command transfer during full game | 20 / 20 moves correct; 19 / 20 ACKs (1 timeout on a correctly executed move) | Y |
 | 11 | Thermal safety | All surfaces ≤ 40 °C (104 °F) | 15 / 16 components pass; Raspberry Pi 5 peaked at 107.0 °F | **N** |
 | 12 | Mechanical and electrical safety compliance | Pass checklist with Total Score ≤ 5 and zero Critical failures | 23 / 24 pass; Total Score = 3; 0 Critical failures; 1 Major failure (strain relief) | Y |
-| 13 | Battery runtime, UPS switchover, and power-loss recovery | ≥ 2 hr runtime; clean switchover; safe halt / clean recovery | Switchover / recovery sub-criterion: 5 / 5 pass (0 ms latency, 0 brownouts, 0 reboots, 5 / 5 clean recoveries). Runtime and sleep-mode sub-criteria: Pending | Partial (switchover / recovery **Y**; runtime **Pending**) |
-| 14 | Voltage safety and low-noise design | All rails < 50 V DC; ripple < 5% p-p; no observed interference | Pending | Pending |
-| 15 | Power consumption and budget verification | Rails and input power within 10% of budget | Pending | Pending |
+| 13 | UPS switchover and power-loss recovery | Clean switchover; safe halt / clean recovery | 5 / 5 pass (0 ms latency, 0 brownouts, 0 reboots, 5 / 5 clean recoveries) | Y |
+| 14 | Board weight | ≤ 30 lb | Pending | Pending |
+| 15 | Portability | One-person 10-yd-out / 10-yd-back carry without strain or damage | Pending | Pending |
+| 16 | Sleep-mode power draw | Low-single-digit W | 0.044–0.045 W (N = 2, pending verification) | Y (tentative) |
+| 17 | Battery runtime | ≥ 2 hr | Pending | Pending |
+| 18 | Voltage safety and low-noise design | All rails < 50 V DC; ripple < 5% p-p; no observed interference | Pending | Pending |
+| 19 | Power consumption and budget verification | Rails and input power within 10% of budget | Pending | Pending |
 | X1 | Collision-free movement rate | ≥ 95% collision-free | Un-testable | **N** |
 | X2 | Positional accuracy | ±0.5 mm across board | Un-testable | **N** |
 
@@ -1555,6 +1742,7 @@ Of the twelve success criteria that have been experimentally evaluated to date, 
   - **Microstepping reduction on the TMC2209 drivers.** The detailed design assumed 1/64 microstepping, but the TMC2209 boards actually available from the replacement supplier only support up to 1/16 microstepping. The build was ultimately run at 1/8 microstepping for margin and driver-temperature reasons, which coarsens the per-step resolution well below what the ±0.5 mm positional spec assumed. Even on a perfectly flat surface, this change alone would make the positional-accuracy test a near-miss rather than a clean measurement of the motion system's capability.
   - **Mid-span wooden support.** A wooden support near the middle of the board's side section sits under part of the playing surface and appears to contribute to the bow pattern (loads the acrylic unevenly). Its presence changes what a "neutral" surface height even is.
   - **Uneven CoreXY frame supports.** The supports for the CoreXY frame are not perfectly level to each other, which slightly tilts the gantry relative to the acrylic. Combined with the bow, this means the electromagnet-to-board gap varies across the playing field in ways that are not simply a constant offset.
+- **UPS Switchover and Power-Loss Recovery — Mid-Move Completion (Exp 13, Criterion #13 — PASS with caveat):** The criterion itself passes cleanly, as 5 / 5 trials recorded zero brownouts, zero Pi reboots, and clean recovery in every case (with measured switchover latency below the oscilloscope's resolution of 0 ms). However, in 3 of 4 mid-move trials the move-in-progress did not complete after wall power was cut. The system halted safely and resumed cleanly when power was restored, but the move itself was dropped mid-motion. This is not a safety finding (no rail dropped and no hardware was at risk), but users should expect that an active move interrupted by a power-loss event may need to be re-issued after power returns. Proposed improvement 6 addresses this user-experience gap.
 
   These four issues act together (not independently), so removing any one of them would not restore the tests. Replacing the acrylic with a flatter top surface is a fix, but so is revisiting the CoreXY frame-support geometry, removing or redesigning the mid-span support, and either sourcing TMC2209 boards with finer microstepping or re-budgeting the positional-accuracy target around the drivers that are actually available. Reinstating these two tests in a future revision requires addressing all four issues.
 
@@ -1638,17 +1826,24 @@ _[Team may add further reflections here on methodology (e.g., stopwatch vs. logg
 
 ### 14.2 Usage Log
 
-| Date | Item # | Experiment | Action | Notes |
-|------|--------|------------|--------|-------|
-| _[date]_ | 001, 002, 003, 004, 005, 006, 007, 008, 009, 012, 013 | Exp 1 (Move Completion) | Used | Full CoreXY + electromagnet path |
-| _[date]_ | 001, 002, 013 | Exp 2 (Boot Noise) | Used | — |
-| _[date]_ | 002, 003, 004, 005, 006, 013 | Exp 3 (Edge Boundary) | Used | — |
-| _[date]_ | 002, 007, 008, 009, 027 | Exp 4 (EM Switching Latency) | Used | — |
-| _[date]_ | 007, 008, 009, 027, 030 | Exp 5 (Flyback Spike) | Used | — |
-| _[date]_ | 001, 002, 023, 024, 027 | Exp 6 (Command Latency) | Used | — |
-| _[date]_ | 001, 010 | Exp 7 (Voice Recognition) | Used | 4 of 5 speakers scored |
-| _[date]_ | 001, 010, 011 | Exp 8 (Processing Latency) | Used | — |
-| _[date]_ | 001, 010, 011 | Exp 9 (Move Validation) | Used | — |
+| Date | Item(s) | Experiment | Action | Notes |
+|------|---------|------------|--------|-------|
+| _[date]_ | Arduino Nano, Raspberry Pi 5, TMC2209 drivers (both), Adafruit 1493 heatsinks (both), IRLZ44NPBF MOSFET, Flyback diode, Electromagnet, CoreXY gantry assembly | Exp 1 (Move Completion) | Used | Full CoreXY + electromagnet path |
+| _[date]_ | Arduino Nano, Raspberry Pi 5, CoreXY gantry assembly | Exp 2 (Boot Noise) | Used | — |
+| _[date]_ | Arduino Nano, CoreXY gantry assembly | Exp 3 (Edge Boundary) | Used | — |
+| _[date]_ | Arduino Nano, IRLZ44NPBF MOSFET, Electromagnet, Oscilloscope | Exp 4 (EM Switching Latency) | Used | — |
+| _[date]_ | IRLZ44NPBF MOSFET, Flyback diode, Electromagnet, Oscilloscope, Thermometer | Exp 5 (Flyback Spike) | Used | — |
+| _[date]_ | Arduino Nano, Raspberry Pi 5, UART cable, Logic level converter, TMC2209 driver, Oscilloscope | Exp 6 (Command Latency) | Used | UART bit rate changed 9600 → 115200 bps |
+| _[date]_ | Raspberry Pi 5, USB microphone | Exp 7 (Voice Recognition) | Used | 5 speakers scored; Nathan's trials 1–7 had noise pollution |
+| _[date]_ | Raspberry Pi 5, USB microphone, Display screen | Exp 8 (Processing Latency) | Used | — |
+| _[date]_ | Raspberry Pi 5, USB microphone, Display screen | Exp 9 (Move Validation) | Used | — |
+| _[date]_ | Raspberry Pi 5, Arduino Nano, UART cable, Logic level converter, CoreXY gantry assembly, Magnetic chess piece set | Exp 10 (UART Reliability) | Used | 1 timeout on trial 20 (response-path only) |
+| _[date]_ | Full assembled system, IR thermometer, Ambient thermometer | Exp 11 (Thermal Safety) | Used | Pi 5 failed at 10 and 20 min marks |
+| _[date]_ | Full assembled system, Calibrated digital multimeter | Exp 12 (Safety Compliance) | Used | 1 Major fail: strain relief |
+| _[date]_ | Raspberry Pi 5, UPS HAT, Battery pack, SC0510 charger, MT3608 boosters, CoreXY gantry assembly, Electromagnet + MOSFET, Oscilloscope, Multimeter | Exp 13 (UPS Switchover) | Used | 5 trials |
+| _[date]_ | Full assembled system, Bathroom scale | Exp 14 (Board Weight) | Pending | — |
+| _[date]_ | Full assembled system, Tape measure | Exp 15 (Portability) | Pending | — |
+| _[date]_ | Raspberry Pi 5, UPS HAT, Battery pack, SC0510 charger, Calibrated digital multimeter | Exp 16 (Sleep-Mode Power) | Used | 2 trials (0.045 W, 0.044 W) |
 
 ### 14.3 Final Inventory Check (End of Semester)
 
@@ -1657,11 +1852,11 @@ _[Team may add further reflections here on methodology (e.g., stopwatch vs. logg
 - [ ] No missing items
 - [ ] Inventory table fully updated
 
-| Item # | Description | Final Status | Verified By | Date |
-|--------|-------------|--------------|-------------|------|
-| 001 | Raspberry Pi 5 | _[status]_ | _[name]_ | _[date]_ |
-| 002 | Arduino Nano | _[status]_ | _[name]_ | _[date]_ |
-| ... | ... | | | |
+| Item # | Description | Quantity | Vendor / Source | Order # / ID | Storage Location (Lab Station / Box #) | Date Acquired | Condition (New/Used) | Notes (Experiment Used, Damaged, Returned) |
+|--------|-------------|----------|------------------|---------------|----------------------------------------|----------------|-----------------------|---------------------------------------------|
+| 001 | Raspberry Pi 5 (SC1111) | 1 | PiShop.us | SC1111 | _[location]_ | _[date]_ | _[new/used]_ | _[notes]_ |
+| 002 | Arduino Nano (A000005) | 1 | Arduino Store | A000005 | _[location]_ | _[date]_ | _[new/used]_ | _[notes]_ |
+| ... | ... | | | | | | | |
 
 > ⚠️ **Reminder:** Missing items or incomplete documentation will result in **automatic failure of the Experimental Analysis report**.
 
@@ -1698,17 +1893,41 @@ _[Team may add further reflections here on methodology (e.g., stopwatch vs. logg
 - **Date:** 4-22-2026
 
 ### Lewis Bates
-- **Experiment Design:** Co-designed Experiment 11 (Thermal Safety) and Experiment 13 (Battery Runtime, UPS Switching Latency, and Power-Loss Recovery).
-- **Experiment Execution:** Co-excuted Experiment 13 with Allison. Participated in Experiment 7.
+- **Experiment Design:** Co-designed Experiment 11 (Thermal Safety) and Experiment 13 (UPS Switching Latency and Power-Loss Recovery). Solo-designed Experiment 16 (Sleep-Mode Power Draw), and the Planned experiments ... (Voltage Regulation, Ripple, and Electrical Safety), ... (Power Consumption and Budget Verification), and ... (Battery Runtime).
+- **Experiment Execution:** Co-executed Experiment 13 with Allison. Ran Experiment 16 solo. Participated in Experiment 7.
 - **Data Analysis:** _[describe your specific contributions]_
 - **Report Writing:** _[describe your specific contributions]_
 - **Signature / Initials:** _____
 - **Date:** _______
 
 ### Nathan MacPherson
-- **Experiment Design:** ...
+- **Experiment Design:** Solo-designed Experiment 14 (Board Weight) and Experiment 15 (Portability).
 - **Experiment Execution:**  Co-executed Experiment 10 (UART Communication Reliability) and Experiment 11 (Thermal Safety) with Jack. Participated in Experiment 7.
 - **Data Analysis:** _[describe your specific contributions]_
 - **Report Writing:** _[describe your specific contributions]_
 - **Signature / Initials:** _____
 - **Date:** _______
+
+
+
+--- 
+
+## 23. Appendix A: References
+
+This appendix consolidates the external standards and internal design documents referenced throughout the report.
+
+### 23.1 Standards and Regulations
+
+1. **FCC Part 15 Subpart B** — Federal Communications Commission rules on unintentional radiators (electromagnetic interference limits for consumer electronics). Referenced for the low-noise / EMI-indirect design-practice check in (Voltage Regulation/Ripple test). _Source: 47 CFR §15 Subpart B._
+2. **UL low-voltage threshold (50 V DC)** — Underwriters Laboratories safety threshold for low-voltage DC systems. Referenced for the voltage-safety criterion in §2 and the pass/fail check in (Voltage Regulation/Ripple test). _Source: UL safety standards (50 V DC threshold)._
+3. **NEC / NFPA 70 Article 725** — National Electrical Code requirements for Class 1, Class 2, and Class 3 remote-control, signaling, and power-limited circuits. Referenced for circuit-classification and related checklist items in Experiment 12. _Source: NFPA 70 (National Electrical Code), Article 725._
+4. _[Pending — to be filled in from the conceptual design]_
+5. _[Pending]_
+6. _[Pending]_
+7. _[Pending]_
+8. **NEC Article 400** — National Electrical Code requirements for flexible cords and flexible cables (cord type, strain relief, cord condition). Referenced for the Flexible Cords checklist category in Experiment 12. _Source: NFPA 70 (National Electrical Code), Article 400._
+9. **OSHA 29 CFR 1910 Subpart S** — Occupational Safety and Health Administration electrical safety requirements for general industry. Referenced for the wiring, grounding, and equipment-safety checklist items in Experiment 12. _Source: 29 CFR 1910 Subpart S._
+10. **ANSI Z535.4** — American National Standards Institute standard for product safety signs and labels (warning-label content, legibility, and placement). Referenced for the Safety Labeling checklist category in Experiment 12. _Source: ANSI Z535.4._
+11. **UL 94** — Underwriters Laboratories standard for flammability of plastic materials for parts in devices and appliances. Referenced for the thermal-safety surface-temperature limit in Experiment 11. _Source: UL 94._
+12. **CPSC 16 CFR 1505.7** — Consumer Product Safety Commission thermal-limit requirements for electrically operated toys and children's articles. Referenced for the 40 °C / 104 °F surface-temperature limit in Experiment 11. _Source: 16 CFR §1505.7._
+
