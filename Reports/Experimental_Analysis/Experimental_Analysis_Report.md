@@ -1829,22 +1829,22 @@ _[Team may add further reflections here on methodology (e.g., stopwatch vs. logg
 
 | Date | Item(s) | Experiment | Action | Notes |
 |------|---------|------------|--------|-------|
-| _[date]_ | Arduino Nano, Raspberry Pi 5, TMC2209 drivers (both), Adafruit 1493 heatsinks (both), IRLZ44NPBF MOSFET, Flyback diode, Electromagnet, CoreXY gantry assembly | Exp 1 (Move Completion) | Used | Full CoreXY + electromagnet path |
-| _[date]_ | Arduino Nano, Raspberry Pi 5, CoreXY gantry assembly | Exp 2 (Boot Noise) | Used | — |
-| _[date]_ | Arduino Nano, CoreXY gantry assembly | Exp 3 (Edge Boundary) | Used | — |
-| _[date]_ | Arduino Nano, IRLZ44NPBF MOSFET, Electromagnet, Oscilloscope | Exp 4 (EM Switching Latency) | Used | — |
-| _[date]_ | IRLZ44NPBF MOSFET, Flyback diode, Electromagnet, Oscilloscope, Thermometer | Exp 5 (Flyback Spike) | Used | — |
-| _[date]_ | Arduino Nano, Raspberry Pi 5, UART cable, Logic level converter, TMC2209 driver, Oscilloscope | Exp 6 (Command Latency) | Used | UART bit rate changed 9600 → 115200 bps |
-| _[date]_ | Raspberry Pi 5, USB microphone | Exp 7 (Voice Recognition) | Used | 5 speakers scored; Nathan's trials 1–7 had noise pollution |
-| _[date]_ | Raspberry Pi 5, USB microphone, Display screen | Exp 8 (Processing Latency) | Used | — |
-| _[date]_ | Raspberry Pi 5, USB microphone, Display screen | Exp 9 (Move Validation) | Used | — |
-| _[date]_ | Raspberry Pi 5, Arduino Nano, UART cable, Logic level converter, CoreXY gantry assembly, Magnetic chess piece set | Exp 10 (UART Reliability) | Used | 1 timeout on trial 20 (response-path only) |
-| _[date]_ | Full assembled system, IR thermometer, Ambient thermometer | Exp 11 (Thermal Safety) | Used | Pi 5 failed at 10 and 20 min marks |
-| _[date]_ | Full assembled system, Calibrated digital multimeter | Exp 12 (Safety Compliance) | Used | 1 Major fail: strain relief |
-| _[date]_ | Raspberry Pi 5, UPS HAT, Battery pack, SC0510 charger, MT3608 boosters, CoreXY gantry assembly, Electromagnet + MOSFET, Oscilloscope, Multimeter | Exp 13 (UPS Switchover) | Used | 5 trials |
-| _[date]_ | Full assembled system, Bathroom scale | Exp 14 (Board Weight) | Pending | — |
-| _[date]_ | Full assembled system, Tape measure | Exp 15 (Portability) | Pending | — |
-| _[date]_ | Raspberry Pi 5, UPS HAT, Battery pack, SC0510 charger, Calibrated digital multimeter | Exp 16 (Sleep-Mode Power) | Used | 2 trials (0.045 W, 0.044 W) |
+| _04-18-2026_ | Arduino Nano, Raspberry Pi 5, TMC2209 drivers (both), Adafruit 1493 heatsinks (both), IRLZ44NPBF MOSFET, Flyback diode, Electromagnet, CoreXY gantry assembly | Exp 1 (Move Completion) | Used | Full CoreXY + electromagnet path |
+| _04-13-2026_ | Arduino Nano, Raspberry Pi 5, CoreXY gantry assembly | Exp 2 (Boot Noise) | Used | — |
+| _04-19-2026_ | Arduino Nano, CoreXY gantry assembly | Exp 3 (Edge Boundary) | Used | — |
+| _04-19-2026_ | Arduino Nano, IRLZ44NPBF MOSFET, Electromagnet, Oscilloscope | Exp 4 (Electromagnet Switching Latency) | Used | — |
+| _04-19-2026_ | IRLZ44NPBF MOSFET, Flyback diode, Electromagnet, Oscilloscope, Thermometer | Exp 5 (Flyback Spike) | Used | — |
+| _04-19-2026_ | Arduino Nano, Raspberry Pi 5, UART cable, Logic level converter, TMC2209 driver, Oscilloscope | Exp 6 (Command Latency) | Used | UART bit rate changed from 9600 to 115200 bps |
+| _04-15-2026_ | Raspberry Pi 5, USB microphone | Exp 7 (Voice Recognition) | Used | 5 speakers scored; Nathan's trials 1–7 had noise pollution |
+| _04-17-2026_ | Raspberry Pi 5, USB microphone, Display screen | Exp 8 (Processing Latency) | Used | — |
+| _04-16-2026_ | Raspberry Pi 5, USB microphone, Display screen | Exp 9 (Move Validation) | Used | — |
+| _04-19-2026_ | Raspberry Pi 5, Arduino Nano, UART cable, Logic level converter, CoreXY gantry assembly, Magnetic chess piece set | Exp 10 (UART Reliability) | Used | 1 timeout on trial 20 (response-path only) |
+| _04-21-2026_ | Full assembled system, IR thermometer, Ambient thermometer | Exp 11 (Thermal Safety) | Used | Pi 5 failed at 10 and 20 min marks |
+| _04-21-2026_ | Full assembled system, Calibrated digital multimeter | Exp 12 (Safety Compliance) | Used | 1 Major fail: strain relief |
+| _04-22-2026_ | Raspberry Pi 5, UPS HAT, Battery pack, SC0510 charger, MT3608 boosters, CoreXY gantry assembly, Electromagnet + MOSFET, Oscilloscope, Multimeter | Exp 13 (UPS Switchover) | Used | 5 trials |
+| _04-22-2026_ | Full assembled system, Bathroom scale | Exp 14 (Board Weight) | Pending | — |
+| _04-22-2026_ | Full assembled system, Tape measure | Exp 15 (Portability) | Pending | — |
+| _04-22-2026_ | Raspberry Pi 5, UPS HAT, Battery pack, SC0510 charger, Calibrated digital multimeter | Exp 16 (Sleep-Mode Power) | Used | 2 trials (0.045 W, 0.044 W) |
 
 ### 14.3 Final Inventory Check (End of Semester)
 
