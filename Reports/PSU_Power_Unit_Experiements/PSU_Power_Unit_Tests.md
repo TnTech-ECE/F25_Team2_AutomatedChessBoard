@@ -8,7 +8,6 @@
 This experiment measures the following criteria from the Detailed Design PSU and Power Tree (Detailed_Design_PSU.md, Power_Tree.md, and Power_Budget.md):  
 - The PSU shall provide a stable **5V DC rail** (up to 5 A) with ripple <5%.  
 - The **12V rail** (via MT3608 step-up) shall remain stable up to 1 A for stepper motors.  
-- The **3.3V sub-rail** (via Adafruit buck converter) shall remain stable.  
 - All rails must stay within ±5% of nominal voltage under no-load, average-load (~15.2 W input), and peak-load (~24.4 W input) conditions as defined in the power tree and budget breakdowns.  
 
 Stable voltage and low ripple are critical to prevent Raspberry Pi brownouts, stepper motor stalling, or electromagnet dropouts during gameplay.
@@ -16,7 +15,7 @@ Stable voltage and low ripple are critical to prevent Raspberry Pi brownouts, st
 **Procedure:**
 
 1. Power the system via the Raspberry Pi wall charger (SC0510) with fully charged 4×18650 batteries installed in the DFRobot UPS HAT.  
-2. Attach calibrated oscilloscope probes (or logic analyzer with voltage measurement capability) and a digital multimeter to the following test points: 5V rail (direct UPS HAT output), 12V rail (MT3608 output), and 3.3V rail (Adafruit buck converter output). Use shortest possible ground leads for accurate ripple measurement.  
+2. Attach calibrated oscilloscope probes (or logic analyzer with voltage measurement capability) and a digital multimeter to the following test points: 5V rail (direct UPS HAT output), and 12V rail (MT3608 output). Use shortest possible ground leads for accurate ripple measurement.  
 3. Run the system through the four defined operating states for at least 30 seconds each while continuously monitoring and logging:  
    - State 1: Idle/sleep (RPi idle, all motors and electromagnet off).  
    - State 2: Typical chess move (stepper motors + electromagnet active).  
@@ -27,10 +26,10 @@ Stable voltage and low ripple are critical to prevent Raspberry Pi brownouts, st
 6. Randomize the order of operating states across trials and have different team members perform measurements.
 
 **Data Collection:**  
-Record all measurements in the spreadsheet table provided in the Experimental Analysis Excel (columns: Trial Number, Operating State, Power Source, 5V Avg (V), 5V Ripple p-p (mV), 12V Avg (V), 12V Ripple p-p (mV), 3.3V Avg (V), 3.3V Ripple p-p (mV), Min Voltage (V), Max Voltage (V), Notes). Include oscilloscope screenshots for each state showing ripple waveforms. Calculate % deviation from nominal and flag any rail outside ±5%.
+Record all measurements in the spreadsheet table provided in the Experimental Analysis Excel (columns: Trial Number, Operating State, Power Source, 5V Avg (V), 5V Ripple p-p (mV), 12V Avg (V), 12V Ripple p-p (mV), Min Voltage (V), Max Voltage (V), Notes). Include oscilloscope screenshots for each state showing ripple waveforms. Calculate % deviation from nominal and flag any rail outside ±5%.
 
 **Trials:**  
-N = 20 minimum (5 trials per operating state). This sample size allows statistical confirmation of stability across load conditions and power sources.
+N = 12 minimum (3 trials per operating state). This sample size allows statistical confirmation of stability across load conditions and power sources.
 
 **Potential Biases:**  
 Each trial will use freshly calibrated instruments; ambient temperature will be controlled (68–77°F); load states will be randomized; different team members will perform measurements. Oscilloscope probe grounding inductance can artificially inflate ripple readings (mitigate with shortest ground leads and proper probe compensation).
@@ -80,7 +79,7 @@ This experiment measures battery runtime, UPS switchover latency, and sleep-mode
 Record all values in the spreadsheet table provided in the Experimental Analysis Excel (columns: Trial Number, Test Type, Runtime (min:sec), UPS Switch Latency (ms), Sleep Mode Power (W), Total Energy Delivered (Wh), Pass/Fail, Notes). Include oscilloscope captures of switchover events.
 
 **Trials:**  
-N = 13 minimum (1 full runtime trial + 10 UPS switch trials + 2 sleep-mode measurements). This ensures statistical confidence in latency and verifies runtime against the power budget.
+N = 8 minimum (1 full runtime trial + 5 UPS switch trials + 2 sleep-mode measurements). This ensures statistical confidence in latency and verifies runtime against the power budget.
 
 **Potential Biases:**  
 Battery capacity degrades with age and temperature (mitigate by using freshly charged, matched cells at controlled ambient temperature). Timing precision depends on oscilloscope trigger accuracy (use ≥1 MHz sampling).
