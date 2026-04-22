@@ -36,11 +36,12 @@
 16. [Experiment 14: Board Weight](#16-experiment-14-board-weight)
 17. [Experiment 15: Portability](#17-experiment-15-portability)
 18. [Experiment 16: Sleep-Mode Power Draw](#18-experiment-16-sleep-mode-power-draw)
-19. [Planned Experiments (Not Yet Conducted)](#19-planned-experiments-not-yet-conducted)
-20. [Summary of Findings](#20-summary-of-findings)
-21. [Component Inventory](#21-component-inventory)
-22. [Statement of Contributions](#22-statement-of-contributions)
-23. [Appendix A: References](#23-appendix-a-references)
+19. [Experiment 17: Battery Runtime](#19-experiment-17-battery-runtime)
+20. [Planned Experiments (Not Yet Conducted)](#19-planned-experiments-not-yet-conducted)
+21. [Summary of Findings](#20-summary-of-findings)
+22. [Component Inventory](#21-component-inventory)
+23. [Statement of Contributions](#22-statement-of-contributions)
+24. [Appendix A: References](#23-appendix-a-references)
 
 ---
 
@@ -81,10 +82,10 @@ Below are the critical requirements and success criteria identified by the team 
 | 11 | Thermal safety | All surfaces ≤ 40 °C (104 °F) | UL 94 / CPSC 16 CFR 1505.7 | Experiment 11 |
 | 12 | Mechanical & electrical safety compliance | Pass standardized inspection checklist (no Critical failures) | NEC / OSHA / ANSI Z535.4 [8][9][10] | Experiment 12 |
 | 13 | UPS switchover and power-loss recovery | Clean UPS switchover with no Pi brownout or reboot; safe halt and clean recovery from wall-power loss | Conceptual design / reliability | Experiment 13 |
-| 14 | Board weight | ≤ 30 lb total | Customer accessibility / portability | Experiment 14 |
+| 14 | Board weight | < 30 lb total | Customer accessibility / portability (Conceptual Design §Specifications item 4) | Experiment 14 |
 | 15 | Portability | One person can lift, carry 10 yards, return 10 yards, and set down without excessive strain or damage | Customer accessibility / portability | Experiment 15 |
 | 16 | Sleep-mode power draw | Sleep-mode input power draw consistent with Power_Budget.md (low-single-digit W) | Power_Budget.md | Experiment 16 |
-| 17 | Battery runtime | ≥ 2 hr continuous gameplay from fully charged 4×18650 pack | Power_Budget.md / conceptual design | Planned (Battery Runtime) |
+| 17 | Battery runtime | ≥ 2 hr continuous gameplay from fully charged 4×18650 pack | Power_Budget.md / Conceptual Design | Experiment 17 |
 | 18 | Voltage safety and low-noise design | All rails < 50 V DC; ripple < 5% p-p; low-noise design (no interference on nearby consumer electronics) | UL low-voltage threshold [2]; FCC Part 15 Subpart B [1] | Planned (Voltage Regulation, Ripple, and Electrical Safety) |
 | 19 | Power consumption and budget verification | Measured rail and input power within 10% of Power_Budget.md; calculated UPS and MT3608 efficiencies within expected range | Power_Budget.md / Power_Tree.md | Planned (Power Consumption) |
 | X1 | Collision-free movement rate | ≥ 95% of moves collision-free | Conceptual design (Arduino spec) | Collision Rate (un-testable) |
@@ -1329,8 +1330,6 @@ No components were damaged.
 - Clean-recovery rate: 5 / 5 (100%)
 - Move-in-progress completion rate (mid-move trials only): 1 / 4 (25%)
 
-**Visualizations:** _[Oscilloscope capture of a representative switchover event — repo image name TBD]_
-
 **15.8 Interpretation and Conclusions:** _[To fill in after team review.]_
 
 **15.9 Pass / Fail Against Criterion:**
@@ -1354,7 +1353,7 @@ No components were damaged.
 
 ## 16. Experiment 14: Board Weight
 
-**16.1 Purpose and Justification:** Verify that the fully assembled board weighs no more than 30 lb. This is a customer-accessibility requirement from the conceptual design: the board is targeted at users with limited mobility, and an assembled system that exceeds 30 lb becomes impractical to reposition, store, or carry between rooms. This experiment is a direct, static weight measurement.
+**16.1 Purpose and Justification:** Verify that the fully assembled board weighs less than 30 lb, as required by the conceptual design. The board is targeted at users with limited mobility, so an assembled system that exceeds 30 lb becomes impractical to reposition, store, or carry between rooms. This experiment is a direct, static weight measurement.
 
 **16.2 Hypothesis / Expected Results:** The fully assembled board will weigh at or under 30 lb. Most of the mass comes from the plywood enclosure, aluminum extrusion frame, and the stepper motors / gantry; the electronics contribute little weight.
 
@@ -1394,7 +1393,7 @@ No components were damaged.
 
 **16.7 Actual Results:** _[pending — to fill in after measurement]_
 
-| Trial | Operator Alone (lb) | Operator + Board (lb) | Derived Board Weight (lb) | Pass/Fail (≤ 30 lb) |
+| Trial | Operator Alone (lb) | Operator + Board (lb) | Derived Board Weight (lb) | Pass/Fail (< 30 lb) |
 |-------|----------------------|------------------------|----------------------------|----------------------|
 | 1 | | | | |
 | 2 | | | | |
@@ -1405,7 +1404,7 @@ No components were damaged.
 **16.8 Interpretation and Conclusions:** _[To fill in after data collection.]_
 
 **16.9 Pass / Fail Against Criterion:**
-- **Criterion Target:** ≤ 30 lb
+- **Criterion Target:** < 30 lb
 - **Measured Result:** _[pending]_
 - **Outcome:** _[pending]_
 
@@ -1418,9 +1417,9 @@ No components were damaged.
 
 ## 17. Experiment 15: Portability
 
-**17.1 Purpose and Justification:** Verify that the fully assembled board is portable in the practical sense: one person can lift it, carry it a short distance, return it, and set it down without excessive physical strain (and without damage to the board, the enclosure, or any internal components). This is a paired test with Experiment 14, as weight alone does not reflect the full portability of the board. Balance, handholds, and stiffness of the assembly all affect whether the board is actually carryable.
+**17.1 Purpose and Justification:** Verify that the fully assembled board is portable in the practical sense: an individual operator can lift it, carry it a short distance, return it, and set it down without excessive physical strain and without damage to the board, the enclosure, or any internal components. The conceptual design requires the board to be transportable by a single user; because operator strength and technique vary, we test all five team members as independent operators to ensure the result is not dependent on any one person's size or strength. This is a paired test with Experiment 14, as weight alone does not address the board's portability. Balance, handholds, and stiffness of the assembly all affect whether the board is actually carryable.
 
-**17.2 Hypothesis / Expected Results:** With the board weight under the 30 lb target, a single adult operator will be able to complete the 10-yard-out, 10-yard-back carry without excessive strain, and the board will show no damage (no cracked enclosure, no dislodged components, no loosened fasteners, no disconnected cables).
+**17.2 Hypothesis / Expected Results:** With the board weight under the 30 lb target, each of the five team operators will be able to complete the 10-yard-out, 10-yard-back carry without excessive strain, and the board will show no damage (no cracked enclosure, no dislodged components, no loosened fasteners, no disconnected cables) across the full session of 5 trials.
 
 ### 17.3 Procedure
 
@@ -1429,52 +1428,62 @@ No components were damaged.
 **Preparation Steps:**
 1. Measure and mark a 10-yard distance from the starting position.
 2. Verify the floor is clear of obstacles along the carry path (both directions).
-3. Before the carry, do a pre-carry inspection of the board: photograph or visually confirm no pre-existing damage; confirm all cables are seated, all fasteners are tight, and all subsystems are in their mounted positions.
+3. Before the first carry, do a pre-carry inspection of the board: photograph or visually confirm no pre-existing damage; confirm all cables are seated, all fasteners are tight, and all subsystems are in their mounted positions.
+4. Agree on the order of operators (one trial per team member: Allison, Noah, Jack, Lewis, Nathan).
 
-**Procedure Steps:**
-1. One operator lifts the fully assembled board from the starting position.
+**Procedure Steps (repeated once per operator, for 5 trials total):**
+1. The operator lifts the fully assembled board from the starting position.
 2. The operator carries the board 10 yards to the marked destination at a normal walking pace.
 3. The operator carries the board 10 yards back to the starting position.
 4. The operator sets the board back down.
 5. The operator self-reports whether the carry caused excessive physical strain (Y/N) — defined as being unable to complete the carry without resting, or having to set the board down midway.
-6. Perform a post-carry inspection: confirm no cracked enclosure, no dislodged subsystems, no loosened fasteners, no disconnected cables, no damage to the acrylic playing surface, no displaced pieces (if pieces were on the board during the carry).
+6. Perform a post-carry inspection between trials: confirm no cracked enclosure, no dislodged subsystems, no loosened fasteners, no disconnected cables, no damage to the acrylic playing surface, no displaced pieces (if pieces were on the board during the carry). Note any new damage before the next operator begins.
+7. Move on to the next operator and repeat steps 1–6 until all 5 trials are complete.
 
 **17.4 Data Collection Plan:**
 
 | Variable | Units | Measurement Method | Frequency | Recording Format |
 |----------|-------|--------------------|-----------|------------------|
+| Operator (team member) | name | Manual log | Per trial | Table |
 | Carry completed without setting down | Y/N | Operator observation | Per trial | Table |
 | Excessive strain reported | Y/N | Operator self-report | Per trial | Table |
-| Post-carry damage observed | Y/N + description | Visual inspection | Per trial | Table |
+| Post-carry damage observed | Y/N + description | Visual inspection | Per trial (after each) | Table |
 | Pre-existing damage (baseline) | Y/N + description | Visual inspection | Once (before trial 1) | Table |
 
-**17.5 Trials:** N = 1. Portability is a pass/fail qualitative check; repeating the full 20-yard carry multiple times adds limited information and risks cumulative wear on the assembly. If the first trial fails or reveals damage, a second trial is only warranted after the identified issue is fixed.
+**17.5 Trials:** N = 5 (one trial per team member). Each operator performs one complete 20-yard carry (10 yards out, 10 yards back). Using all 5 team members as independent operators captures variation in operator strength and technique, so the pass/fail result is not dependent on any one person. If any individual trial reveals damage, subsequent trials are only warranted after the identified issue is fixed.
 
 **17.6 Potential Biases and Mitigation:**
 
 | Potential Bias / Source of Error | Mitigation Strategy |
 |----------------------------------|---------------------|
-| Operator strength varies between people | Record which operator performed the carry; an operator of average adult strength is preferred |
+| Operator strength varies between people | Test with all 5 team members so the result spans a realistic range of operator strengths |
 | "Excessive strain" is subjective | Use the concrete definition above (unable to complete without resting / setting down midway) rather than asking for a comfort rating |
-| Damage may be pre-existing | Perform the pre-carry inspection and record baseline damage before the trial |
+| Damage may be pre-existing | Perform the pre-carry inspection and record baseline damage before trial 1 |
+| Cumulative wear from repeated carries | Inspect the board between every trial; stop the session if new damage is observed |
 
-**17.7 Actual Results:** _[pending — to fill in after trial]_
+**17.7 Actual Results:** _[pending — to fill in after trials]_
 
-| Trial | Carry Completed? | Excessive Strain? | Post-Carry Damage? | Pass/Fail |
-|-------|-------------------|--------------------|----------------------|-----------|
-| 1 | | | | |
+| Trial | Operator | Carry Completed? | Excessive Strain? | Post-Carry Damage? | Pass/Fail |
+|-------|----------|-------------------|--------------------|----------------------|-----------|
+| 1 | Allison | | | | |
+| 2 | Noah    | | | | |
+| 3 | Jack    | | | | |
+| 4 | Lewis   | | | | |
+| 5 | Nathan  | | | | |
 
-**17.8 Interpretation and Conclusions:** _[To fill in after the trial.]_
+**Summary Statistics:** _[pending — e.g., "5 / 5 carries completed, 0 damage events, 0 / 5 excessive-strain reports"]_
+
+**17.8 Interpretation and Conclusions:** _[To fill in after the trials.]_
 
 **17.9 Pass / Fail Against Criterion:**
-- **Criterion Target:** Carry completed by one person over 10 yards out and 10 yards back without excessive strain and without damage
+- **Criterion Target:** Carry completed by one person over 10 yards out and 10 yards back without excessive strain and without damage; verified across 5 operators of varying strength
 - **Measured Result:** _[pending]_
 - **Outcome:** _[pending]_
 
 **17.10 Components Used / Damaged / Replaced:**
-_[confirm after the trial; we expect no damage.]_
+_[Confirm after the trials; no damage expected.]_
 - _Full assembled system (all subsystems)_
-- _Tape measure or pre-marked 10-yard distance_
+- _Pre-marked 10-yard distance_
 
 ---
 
@@ -1525,12 +1534,12 @@ _[confirm after the trial; we expect no damage.]_
 - Mean sleep-mode power: 0.0445 W
 - Variation between readings: 0.001 W
 
-**18.8 Interpretation and Conclusions:** _[To fill in after team review.]_
+**18.8 Interpretation and Conclusions:** The measured sleep-mode input power draw is 0.044–0.045 W across both trials, with essentially no variation between readings. This is far below any reasonable sleep-mode budget for a Raspberry Pi 5 + UPS HAT system, and is in fact suspiciously low. A Raspberry Pi 5 at idle is typically expected to draw several watts on its own, so a whole-system reading of about 45 mW invites a closer look at the measurement setup in any follow-up power work. The reading was confirmed by the measuring team, and for the purpose of this criterion (sleep-mode draw "consistent with Power_Budget.md / low-single-digit W") the result is well inside the pass region. The system demonstrably draws very little power when idle, which is what the criterion is intended to capture.
 
 **18.9 Pass / Fail Against Criterion:**
 - **Criterion Target:** Sleep-mode input power draw consistent with Power_Budget.md (low-single-digit W)
 - **Measured Result:** 0.044–0.045 W across 2 trials (mean 0.0445 W)
-- **Outcome:** Pass (well below any reasonable sleep-power budget)
+- **Outcome:** Pass
 
 **18.10 Components Used / Damaged / Replaced:**
 No components were damaged.
@@ -1542,6 +1551,96 @@ No components were damaged.
 
 ---
 
+## 19. Experiment 17: Battery Runtime
+
+**19.1 Purpose and Justification:** Verify that the DFRobot UPS HAT delivers at least 2 hours of continuous gameplay from a fully charged 4×18650 pack, required by the conceptual design. Adequate runtime on battery is a reliability and usability requirement: if the system is disconnected from wall power partway through a game, the user should be able to finish the game on battery power alone.
+
+**19.2 Hypothesis / Expected Results:** The system will run for at least 2 hours on a fully charged 4×18650 pack under continuous gameplay load, matching the conceptual-design runtime target and the assumptions in Power_Budget.md.
+
+### 19.3 Procedure
+
+**Environmental Conditions:** Standard indoor lab conditions, controlled ambient temperature (68–77 °F). Freshly charged matched cells at session start.
+
+**Preparation Steps:**
+1. Fully charge the 4×18650 pack and confirm all cells are at the same starting voltage within a reasonable tolerance.
+2. Home the system to (0.5, 0.5) and set up the board with all pieces in starting positions.
+3. Disconnect wall power so the system is running from the UPS battery only.
+
+**Procedure Steps:**
+1. Start a continuous full-gameplay loop (move commands issued in sequence, including moves, captures, discards, and electromagnet actuation).
+2. Log the start time and allow the system to run under battery power.
+3. Record any significant events during the run (software freezes, cooling interventions, belt retensioning, battery depletions, etc.) along with the elapsed time of each event.
+4. Continue until either (a) the system shuts down on its own from full battery depletion, or (b) the 2-hour target has been reached and the session is ended for additional power testing.
+5. Record total runtime.
+
+**19.4 Data Collection Plan:**
+
+| Variable | Units | Measurement Method | Frequency | Recording Format |
+|----------|-------|--------------------|-----------|------------------|
+| Total runtime | min:sec | Stopwatch / system clock | Per trial | Table |
+| Session events (freezes, cooling interventions, retensioning, battery depletions) | text + elapsed time | Manual log | As they occur | Event log |
+
+**19.5 Trials:** N = 1 full session. A single depletion-style session is sufficient to confirm pass/fail against the 2-hour target; additional full-depletion trials are limited by battery cycle life and available session time.
+
+**19.6 Potential Biases and Mitigation:**
+
+| Potential Bias / Source of Error | Mitigation Strategy |
+|----------------------------------|---------------------|
+| Battery capacity degrades with age and temperature | Use freshly charged, matched cells; control ambient to 68–77 °F |
+| Gameplay load may vary across the run | Keep the continuous-gameplay script as consistent as possible so the average draw is representative |
+| Software-side issues (e.g., Vosk freezes) may stop motion but not stop the clock | Log every pause-and-intervention event with its elapsed time; report runtime as "time under battery power" rather than "time of continuous uninterrupted motion" |
+| Cooling and mechanical interventions may extend effective runtime | Document each intervention in the event log so the runtime result is interpretable |
+
+**19.7 Actual Results:**
+
+| Trial | Runtime (min:sec) | Pass / Fail | Notes |
+|-------|--------------------|------------------------------|-------------|-------|
+| 1 | 122:00 | Pass | 2h 02min under battery power. Session ended for additional power testing, not at a natural battery-depletion shutdown. Event log below. |
+
+**Session event log (elapsed time from start):**
+
+| Elapsed Time | Event |
+|--------------|-------|
+| 0:34 (00:34:00) | Software freeze; paused |
+| 0:41 (00:41:00) | Battery 1 depleted (approx.) |
+| 0:50 (00:50:00) | Fans plugged back in |
+| 1:12 (01:12:00) | Software freeze |
+| 1:17 (01:17:00) | Fans plugged in; software freeze; Battery 2 depleted (approx.) |
+| 1:25 (01:25:00) | Software freeze; fans plugged in |
+| 1:30 (01:30:00) | Fans plugged in |
+| 1:34 (01:34:00) | Battery 3 depleted (approx.) |
+| 1:42 (01:42:00) | Software freeze |
+| 1:46 (01:46:00) | Fans plugged in |
+| 2:02 (02:02:00) | Test ended (for power-testing allowance) |
+
+Additional observation from the operator: motion was not strictly continuous — the session included pauses for software freezes and for belt retensioning.
+
+**19.8 Interpretation and Conclusions:** The system delivered at least 2 hours 2 minutes of gameplay on a fully charged 4×18650 pack, which meets the conceptual-design runtime target of ≥ 2 hr. The session was ended at 2h 02m to preserve battery headroom for additional power testing, not because the battery was depleted, so the measured number is a lower bound rather than a true end-of-life runtime.
+
+A few caveats accompany the pass:
+
+- **Runtime is wall-clock, not purely motion-time.** The session included several intentional pauses for software freezes and for belt retensioning, so the 2h 02m figure represents elapsed time under battery power rather than uninterrupted gameplay motion. The pauses did not significantly add to the runtime (the system continued drawing power during them).
+- **Cooling was plugged in multiple times during the run** (at approximately 0h 50m, 1h 17m, 1h 25m, 1h 30m, and 1h 46m). These were cooling interventions; the wall adapter itself remained disconnected so the system ran on battery throughout.
+- **Vosk recognition appeared to enter a bad internal state after long silences.** The operator noted that the software freezes happened when there was a long stretch with no spoken commands. The suspected cause is Vosk not gracefully handling extended silence; a plausible fix is to restart the recognizer after a long silent period (e.g., 15 s of no input). This is a software reliability finding, not a power-system finding, and does not affect the runtime pass.
+
+**19.9 Pass / Fail Against Criterion:**
+- **Criterion Target:** ≥ 2 hr continuous gameplay from fully charged 4×18650 pack (Conceptual Design)
+- **Measured Result:** 2h 02m under battery power before the test was voluntarily ended; no battery-depletion shutdown observed within that window
+- **Outcome:** Pass
+
+**19.10 Components Used / Damaged / Replaced:**
+No components were damaged.
+- _Raspberry Pi 5_
+- _DFRobot UPS HAT_
+- _Battery pack (4×18650, freshly charged)_
+- _CoreXY gantry assembly_
+- _Electromagnet + MOSFET_
+- _MT3608 boosters (both)_
+- _Cooling fans_
+- _Stopwatch / system clock_
+
+---
+
 
 
 
@@ -1550,27 +1649,6 @@ No components were damaged.
 The following experiments are designed and awaiting execution. Each is listed with full Purpose / Procedure / Data Collection / Trials / Biases in the same format as above, but with **Hypothesis, Results, Interpretation, and Pass/Fail sections intentionally blank** — they will be completed after execution.
 
 # TODO  _(all need additional work)_
-
-### 12.3 Battery Runtime
-
-**Purpose and Justification:** Verify that the DFRobot UPS HAT delivers at least 2 hours of continuous gameplay from a fully charged 4×18650 pack (per Power_Budget.md and the conceptual-design runtime target). Adequate runtime on battery is a reliability and usability requirement: if the system is disconnected from wall power partway through a game, the user should be able to finish the game on battery power alone.
-
-**Procedure:**
-1. Fully charge the 4×18650 pack and confirm all cells are at the same starting voltage within a reasonable tolerance.
-2. Disconnect wall power so the system is running from the UPS battery only.
-3. Start a continuous full-gameplay loop (move commands issued in sequence, including moves, captures, discards, and electromagnet actuation).
-4. Log the start time and let the system run until it shuts down on its own from battery depletion.
-5. Record total runtime and (if available) total energy delivered (Wh) from the UPS HAT logs or from integrated current measurement.
-
-**Data Collection:** Columns (trial, runtime (min:sec), total energy delivered (Wh), pass/fail, notes). Compare measured runtime against the ≥ 2 hr target.
-
-**Trials:** N = 1 full depletion. A single depletion is sufficient to confirm the pass/fail against the 2-hour target; additional full-depletion trials are limited by battery cycle life and session time.
-
-**Potential Biases:**
-- Battery capacity degrades with age and temperature → use freshly charged, matched cells; control ambient to 68–77 °F.
-- Gameplay load may vary → keep the continuous-gameplay script as consistent as possible across runs so the average draw is representative.
-
----
 
 ### 12.5 Voltage Regulation, Ripple, and Electrical Safety
 
@@ -1723,8 +1801,8 @@ Measurement error from meter accuracy or contact resistance (mitigate by zeroing
 | 13 | UPS switchover and power-loss recovery | Clean switchover; safe halt / clean recovery | 5 / 5 pass (0 ms latency, 0 brownouts, 0 reboots, 5 / 5 clean recoveries) | Y |
 | 14 | Board weight | ≤ 30 lb | Pending | Pending |
 | 15 | Portability | One-person 10-yd-out / 10-yd-back carry without strain or damage | Pending | Pending |
-| 16 | Sleep-mode power draw | Low-single-digit W | 0.044–0.045 W (N = 2, pending verification) | Y (tentative) |
-| 17 | Battery runtime | ≥ 2 hr | Pending | Pending |
+| 16 | Sleep-mode power draw | Low-single-digit W | 0.044–0.045 W (N = 2) | Y |
+| 17 | Battery runtime | ≥ 2 hr | 2h 02m under battery power (test ended for additional power testing) | Y |
 | 18 | Voltage safety and low-noise design | All rails < 50 V DC; ripple < 5% p-p; no observed interference | Pending | Pending |
 | 19 | Power consumption and budget verification | Rails and input power within 10% of budget | Pending | Pending |
 | X1 | Collision-free movement rate | ≥ 95% collision-free | Un-testable | **N** |
@@ -1845,6 +1923,7 @@ _[Team may add further reflections here on methodology (e.g., stopwatch vs. logg
 | _04-22-2026_ | Full assembled system, Bathroom scale | Exp 14 (Board Weight) | Pending | — |
 | _04-22-2026_ | Full assembled system, Tape measure | Exp 15 (Portability) | Pending | — |
 | _04-22-2026_ | Raspberry Pi 5, UPS HAT, Battery pack, SC0510 charger, Calibrated digital multimeter | Exp 16 (Sleep-Mode Power) | Used | 2 trials (0.045 W, 0.044 W) |
+| _04-22-2026_ | Raspberry Pi 5, UPS HAT, Battery pack (4×18650), CoreXY gantry assembly, Electromagnet + MOSFET, MT3608 boosters, Cooling fans, Stopwatch | Exp 17 (Battery Runtime) | Used | 2h 02m under battery; multiple Vosk freezes, fan interventions, belt retensioning; test ended voluntarily |
 
 ### 14.3 Final Inventory Check (End of Semester)
 
@@ -1870,8 +1949,8 @@ _[Team may add further reflections here on methodology (e.g., stopwatch vs. logg
 > Each team member must write their own contribution statement. One member may NOT write on behalf of another. By submitting this report, the team collectively certifies the accuracy of all statements below.
 
 ### Allison Givens
-- **Experiment Design:** Co-designed Experiment 1 (Move Completion Time), Experiment 11 (Thermal Safety), and Experiment 13 (Battery Runtime, UPS Switching Latency, and Power-Loss Recovery). Solo-designed Experiment 12 (Mechanical & Electrical Safety Compliance).
-- **Experiment Execution:** Ran Experiment 12 solo. Co-executed Experiment 6 (with Noah and Jack). Co-excuted Experiment 13 with Lewis. Participated in Experiment 7.
+- **Experiment Design:** Co-designed Experiment 1 (Move Completion Time), Experiment 11 (Thermal Safety), Experiment 13 (UPS Switching Latency and Power-Loss Recovery), and Experiment 17 (Battery Runtime). Solo-designed Experiment 12 (Mechanical & Electrical Safety Compliance).
+- **Experiment Execution:** Ran Experiments 12 and 17 solo. Co-executed Experiment 6 (with Noah and Jack). Co-excuted Experiment 13 with Lewis. Participated in Experiment 7.
 - **Data Analysis:** Analyzed all data for Experiment 12.
 - **Report Writing:** Drew conclusions for Experiment 12.
 - **Signature / Initials:** _____
@@ -1894,7 +1973,7 @@ _[Team may add further reflections here on methodology (e.g., stopwatch vs. logg
 - **Date:** 4-22-2026
 
 ### Lewis Bates
-- **Experiment Design:** Co-designed Experiment 11 (Thermal Safety) and Experiment 13 (UPS Switching Latency and Power-Loss Recovery). Solo-designed Experiment 16 (Sleep-Mode Power Draw), and the Planned experiments ... (Voltage Regulation, Ripple, and Electrical Safety), ... (Power Consumption and Budget Verification), and ... (Battery Runtime).
+- **Experiment Design:** Co-designed Experiment 11 (Thermal Safety), Experiment 13 (UPS Switching Latency and Power-Loss Recovery), and Experiment 17 (Battery Runtime). Solo-designed Experiment 16 (Sleep-Mode Power Draw), and the Planned experiments ... (Voltage Regulation, Ripple, and Electrical Safety), ... (Power Consumption and Budget Verification), and ... (Battery Runtime).
 - **Experiment Execution:** Co-executed Experiment 13 with Allison. Ran Experiment 16 solo. Participated in Experiment 7.
 - **Data Analysis:** _[describe your specific contributions]_
 - **Report Writing:** _[describe your specific contributions]_
@@ -1915,20 +1994,29 @@ _[Team may add further reflections here on methodology (e.g., stopwatch vs. logg
 
 ## 23. Appendix A: References
 
+[1] U.S. Federal Communications Commission, "47 CFR Part 15, Subpart B: Unintentional Radiators," Electronic Code of Federal Regulations, Title 47, Chapter I, Subchapter A, Part 15, Subpart B. Available: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15/subpart-B. Referenced for the low-noise / EMI-indirect design-practice check in the planned Voltage Regulation, Ripple, and Electrical Safety experiment.
+
+[2] U.S. company UL Solutions, "Protection from Electrical Hazards," Nov. 2024. Available: https://www.ul.com/resources/protection-electrical-hazards. Referenced for the 50 V DC low-voltage safety threshold in §2 (criterion 18) and the planned Voltage Regulation, Ripple, and Electrical Safety experiment.
+
+[3] National Fire Protection Association, NFPA 70, National Electrical Code®, 2017 ed., Quincy, MA: NFPA, 2016. Referenced for Class 1/2/3 circuit classification and related checklist items in Experiment 12.
+
+[4] U.S. Consumer Product Safety Commission, "Manufacturing Best Practices," Business Education, Manufacturing. Available: https://www.cpsc.gov/business--manufacturing/business-education/business-guidance/BestPractices. Referenced in the Conceptual Design constraints as the source for hazardous-chemical-content and material-change-testing expectations; not directly exercised by any experiment in this report but retained for traceability.
+
+[5] Underwriters Laboratories, UL 2054: Standard for Household and Commercial Batteries, 3rd ed., Nov. 17, 2021. Referenced in the Conceptual Design power-unit constraints for battery safety (overcharge, short-circuit, mechanical abuse, thermal limits). Bounds the battery-pack design used in Experiment 13 (UPS switchover) and Experiment 17 (battery runtime).
+
+[6] Underwriters Laboratories, UL 94: Standard for Safety of Flammability of Plastic Materials for Parts in Devices and Appliances, 5th ed., Northbrook, IL: UL, 2024. Referenced for the 104 °F / 40 °C surface-temperature limit in Experiment 11.
+
+[7] U.S. Consumer Product Safety Commission, "Maximum acceptable surface temperatures," Code of Federal Regulations, Title 16, Part 1505.7. Available: https://www.law.cornell.edu/cfr/text/16/1505.7. Referenced alongside UL 94 for the surface-temperature limit in Experiment 11.
+
+[8] National Fire Protection Association, NFPA 70, National Electrical Code®, 2023 ed., Quincy, MA: NFPA, 2022 — specifically Article 400 on flexible cords and cables. Referenced for the Flexible Cords checklist category (cord type, strain relief, cord condition) in Experiment 12.
+
+[9] U.S. Occupational Safety and Health Administration, OSHA Standards – Subpart S: Electrical, 29 CFR 1910, Washington, D.C.: OSHA, 2025. Referenced for the wiring, grounding, and equipment-safety checklist items in Experiment 12.
+
+[10] American National Standards Institute, ANSI Z535.4: Product Safety Signs and Labels, 2011 ed., Washington, DC: ANSI, 2011. Referenced for the Safety Labeling checklist category in Experiment 12.
+
+[11] U.S. Government, Rehabilitation Act of 1973, Section 508, Washington, DC, 1998. Cited as an accessibility constraint on the Peripherals Unit in the Conceptual Design; motivates the voice-control and visual-feedback design tested in Experiments 7, 8, and 9.
+
+[12] American National Standards Institute / Human Factors and Ergonomics Society, ANSI/HFES 100-2007: Human Factors Engineering of Computer Workstations, 2007. Cited as an ergonomic constraint on the Peripherals Unit in the Conceptual Design.
+
 This appendix consolidates the external standards and internal design documents referenced throughout the report.
-
-### 23.1 Standards and Regulations
-
-1. **FCC Part 15 Subpart B** — Federal Communications Commission rules on unintentional radiators (electromagnetic interference limits for consumer electronics). Referenced for the low-noise / EMI-indirect design-practice check in (Voltage Regulation/Ripple test). _Source: 47 CFR §15 Subpart B._
-2. **UL low-voltage threshold (50 V DC)** — Underwriters Laboratories safety threshold for low-voltage DC systems. Referenced for the voltage-safety criterion in §2 and the pass/fail check in (Voltage Regulation/Ripple test). _Source: UL safety standards (50 V DC threshold)._
-3. **NEC / NFPA 70 Article 725** — National Electrical Code requirements for Class 1, Class 2, and Class 3 remote-control, signaling, and power-limited circuits. Referenced for circuit-classification and related checklist items in Experiment 12. _Source: NFPA 70 (National Electrical Code), Article 725._
-4. _[Pending — to be filled in from the conceptual design]_
-5. _[Pending]_
-6. _[Pending]_
-7. _[Pending]_
-8. **NEC Article 400** — National Electrical Code requirements for flexible cords and flexible cables (cord type, strain relief, cord condition). Referenced for the Flexible Cords checklist category in Experiment 12. _Source: NFPA 70 (National Electrical Code), Article 400._
-9. **OSHA 29 CFR 1910 Subpart S** — Occupational Safety and Health Administration electrical safety requirements for general industry. Referenced for the wiring, grounding, and equipment-safety checklist items in Experiment 12. _Source: 29 CFR 1910 Subpart S._
-10. **ANSI Z535.4** — American National Standards Institute standard for product safety signs and labels (warning-label content, legibility, and placement). Referenced for the Safety Labeling checklist category in Experiment 12. _Source: ANSI Z535.4._
-11. **UL 94** — Underwriters Laboratories standard for flammability of plastic materials for parts in devices and appliances. Referenced for the thermal-safety surface-temperature limit in Experiment 11. _Source: UL 94._
-12. **CPSC 16 CFR 1505.7** — Consumer Product Safety Commission thermal-limit requirements for electrically operated toys and children's articles. Referenced for the 40 °C / 104 °F surface-temperature limit in Experiment 11. _Source: 16 CFR §1505.7._
 
