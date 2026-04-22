@@ -1287,7 +1287,6 @@ These three requirements all act on the same voltage rails during the same opera
 3. Attach oscilloscope probes and multimeter to the three test points (use shortest possible ground leads for accurate ripple measurement):
    - 5 V rail (direct UPS HAT output)
    - 12 V rail (MT3608 output)
-   - 3.3 V rail (Adafruit buck converter output)
 4. Stage the sensitive electronics (radio / phone / laptop) within ~30 cm of the board for the interference observation step.
 
 **Procedure Steps:**
@@ -1310,7 +1309,6 @@ These three requirements all act on the same voltage rails during the same opera
 | Power source | wall / battery | Manual | Per trial | Spreadsheet |
 | 5 V avg / ripple (p-p) / min / max | V / mV / V / V | Oscilloscope + multimeter | Per trial | Spreadsheet |
 | 12 V avg / ripple (p-p) / min / max | V / mV / V / V | Oscilloscope + multimeter | Per trial | Spreadsheet |
-| 3.3 V avg / ripple (p-p) / min / max | V / mV / V / V | Oscilloscope + multimeter | Per trial | Spreadsheet |
 | % deviation from nominal | % | Derived | Per trial | Spreadsheet |
 | Safety (< 50 V on all rails) | Pass/Fail | Derived | Per trial | Spreadsheet |
 | Interference observed near sensitive electronics | Y/N + notes | Visual / audible | Per state | Spreadsheet |
@@ -1330,7 +1328,7 @@ These three requirements all act on the same voltage rails during the same opera
 
 **Actual Results:**
 
-| Trial | State | Source | 5V Avg (V) | 5V Ripple p-p (mV) | 12V Avg (V) | 12V Ripple p-p (mV) | 3.3V Avg (V) | 3.3V Ripple p-p (mV) | Min V (V) | Max V (V) | < 50 V? | Interference? | Notes |
+| Trial | State | Source | 5V Avg (V) | 5V Ripple p-p (mV) | 12V Avg (V) | 12V Ripple p-p (mV) | Min V (V) | Max V (V) | < 50 V? | Interference? | Notes |
 |-------|-------|--------|------------|---------------------|-------------|----------------------|---------------|------------------------|------------|------------|---------|----------------|-------|
 | 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |
