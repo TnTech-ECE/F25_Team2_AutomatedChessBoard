@@ -1687,7 +1687,7 @@ _[Team may add further reflections here on methodology (e.g., stopwatch vs. logg
 - **Date:** 4-20-2026
 
 ### Jack Tolleson
-- **Experiment Design:** Co-designed Experiments 1 (Move Completion Time), 2 (Boot Noise), 6 (Command Latency), and Experiment 11 (Thermal Safety). Solo-designed the voice recognition accuracy experiment (Experiment 7), 9 (Move Validation Correctness) and the Experiment 8 (Processing Latency).
+- **Experiment Design:** Co-designed Experiments 1 (Move Completion Time), 2 (Boot Noise), 6 (Command Latency), and Experiment 11 (Thermal Safety). Solo-designed the voice recognition accuracy experiment (Experiment 7), 9 (Move Validation Correctness) and Experiment 8 (Processing Latency).
 - **Experiment Execution:** Co-executed Experiments 1 and 2 (with Noah). Co-executed Experiment 6 (with Noah and Allison). Ran Experiments 8 and 9 solo. Co-executed Experiment 10 (UART Communication Reliability) and Experiment 11 (Thermal Safety) with Nathan. Participated in Experiment 7.
 - **Data Analysis:** Helped analyze data in Experiment 7 with Noah.
 - **Report Writing:** Experiments 8 (Processing Latency) and 9 (Move Validation Correctness) conclusions were co-written with Noah.
