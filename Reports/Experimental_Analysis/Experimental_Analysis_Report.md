@@ -1679,7 +1679,7 @@ _[Team may add further reflections here on methodology (e.g., stopwatch vs. logg
 - **Date:** _______
 
 ### Noah Beaty
-- **Experiment Design:** Co-designed Experiments 1 (Move Completion Time), 2 (Boot Noise), 6 (Command Latency), and Experiment 11 (Thermal Safety). Solo-designed Experiments 3 (Edge Boundary), 4 (Electromagnet Switching Latency), and 5 (Flyback Diode Inductive Spike). Also contributed to the voice recognition accuracy experiment (Experiment 7).
+- **Experiment Design:** Co-designed Experiments 1 (Move Completion Time), 2 (Boot Noise), 6 (Command Latency), and Experiment 11 (Thermal Safety). Solo-designed Experiments 3 (Edge Boundary), 4 (Electromagnet Switching Latency), and 5 (Flyback Diode Inductive Spike).
 - **Experiment Execution:** Co-executed Experiments 1 and 2 (with Jack). Ran Experiments 3, 4, and 5 solo. Co-executed Experiment 6 (with Jack and Allison). Participated in Experiment 7.
 - **Data Analysis:** Analyzed all data for Experiments 1-11.
 - **Report Writing:** Drew conclusions for Experiments 1–11. Experiments 8 (Processing Latency) and 9 (Move Validation Correctness) conclusions were co-written with Jack.
@@ -1687,12 +1687,12 @@ _[Team may add further reflections here on methodology (e.g., stopwatch vs. logg
 - **Date:** 4-20-2026
 
 ### Jack Tolleson
-- **Experiment Design:** Co-designed Experiments 1 (Move Completion Time), 2 (Boot Noise), 6 (Command Latency), and Experiment 11 (Thermal Safety). Solo-designed Experiments 8 (Processing Latency) and 9 (Move Validation Correctness). Also contributed to the voice recognition accuracy experiment (Experiment 7).
+- **Experiment Design:** Co-designed Experiments 1 (Move Completion Time), 2 (Boot Noise), 6 (Command Latency), and Experiment 11 (Thermal Safety). Solo-designed the voice recognition accuracy experiment (Experiment 7), 9 (Move Validation Correctness) and the Experiment 8 (Processing Latency).
 - **Experiment Execution:** Co-executed Experiments 1 and 2 (with Noah). Co-executed Experiment 6 (with Noah and Allison). Ran Experiments 8 and 9 solo. Co-executed Experiment 10 (UART Communication Reliability) and Experiment 11 (Thermal Safety) with Nathan. Participated in Experiment 7.
-- **Data Analysis:** _[describe your specific contributions]_
+- **Data Analysis:** Helped analyze data in Experiment 7 with Noah.
 - **Report Writing:** Experiments 8 (Processing Latency) and 9 (Move Validation Correctness) conclusions were co-written with Noah.
-- **Signature / Initials:** _____
-- **Date:** _______
+- **Signature / Initials:** JT
+- **Date:** 4-22-2026
 
 ### Lewis Bates
 - **Experiment Design:** Co-designed Experiment 11 (Thermal Safety).
