@@ -1336,9 +1336,9 @@ All three requirements are exercised by repeatedly disconnecting and reconnectin
 |-------|-----------|--------------------------|-----------|---------|------------------|------------------------------|-------------|-------|
 | 1 | No  | 0 | No | No | N/A | N/A (baseline, idle) | Pass | Idle baseline trial |
 | 2 | Yes | 0 | No | No | Yes | Recovered cleanly | Pass | Move completed from battery |
-| 3 | Yes | 0 | No | No | No  | Recovered cleanly | Pass | Move did not complete; system recovered cleanly |
-| 4 | Yes | 0 | No | No | No  | Recovered cleanly | Pass | Move did not complete; system recovered cleanly |
-| 5 | Yes | 0 | No | No | No  | Recovered cleanly | Pass | Move did not complete; system recovered cleanly |
+| 3 | Yes | 0 | No | No | Yes | Recovered cleanly | Pass | Move completed from battery |
+| 4 | Yes | 0 | No | No | Yes | Recovered cleanly | Pass | Move completed from battery |
+| 5 | Yes | 0 | No | No | Yes | Recovered cleanly | Pass | Move completed from battery |
 
 *Part C — Sleep-mode:*
 
