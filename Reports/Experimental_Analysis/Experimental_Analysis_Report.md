@@ -1974,7 +1974,7 @@ _[Team may add further reflections here on methodology (e.g., stopwatch vs. logg
 
 ### Lewis Bates
 - **Experiment Design:** Co-designed Experiment 11 (Thermal Safety), Experiment 13 (UPS Switching Latency and Power-Loss Recovery), and Experiment 17 (Battery Runtime). Solo-designed Experiment 16 (Sleep-Mode Power Draw), and the Planned experiments ... (Voltage Regulation, Ripple, and Electrical Safety), ... (Power Consumption and Budget Verification), and ... (Battery Runtime).
-- **Experiment Execution:** Co-executed Experiment 13 with Allison. Ran Experiment 16 solo. Participated in Experiment 7.
+- **Experiment Execution:** Co-executed Experiment 13 with Allison. Ran Experiment Section 12.5 & 16 & 17 solo. Participated in Experiment 7 & section 12.8.
 - **Data Analysis:** _[describe your specific contributions]_
 - **Report Writing:** _[describe your specific contributions]_
 - **Signature / Initials:** _____
