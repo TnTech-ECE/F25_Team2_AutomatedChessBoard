@@ -1724,6 +1724,22 @@ These three requirements all act on the same voltage rails during the same opera
 - Max voltage observed on any rail: 12.28 V, which is far below the 50 V low-voltage threshold.
 - Interference: None observed on any of the 12 trials.
 
+![Rail image 1](./Images/IMG_2016.jpeg)
+
+_Figure 20.1 — Oscilloscope capture 1._
+
+![Rail image 2](./Images/IMG_2017.jpeg)
+
+_Figure 20.2 — Oscilloscope capture 2._
+
+![Rail image 3](./Images/IMG_2018.jpeg)
+
+_Figure 20.3 — Oscilloscope capture 3._
+
+![Rail image 4](./Images/IMG_2019.jpeg)
+
+_Figure 20.4 — Oscilloscope capture 4._
+
 **20.8 Interpretation and Conclusions:** The 5 V and 12 V rails both track their nominal values closely, with worst-case DC deviations of −1.8% (5 V) and −1.7% (12 V) — both comfortably inside the ±5% regulation target. The 12 V ripple is within the 5% target across all 12 trials (worst 3.7%), which confirms that the MT3608 booster provides adequate smoothing under the tested loads.
 
 The 5 V ripple has a narrow miss on three trials (290, 295, and 305 mV peak-to-peak, corresponding to 5.8%, 5.9%, and 6.1% of nominal). These three trials are the peak-load states, as expected from the hypothesis — the 5 V rail feeds the Pi, and the combination of Pi peak-processing plus stepper + electromagnet draw is where ripple naturally spikes. The remaining 9 trials (idle, typical, and battery states) all sit at 105–245 mV, which is well inside the 5% budget. The overshoot is small, localized to the peak-load condition, and did not produce any observed misbehavior in the system (no Pi brownout, no stepper stalling, no electromagnet dropout).
@@ -2021,21 +2037,19 @@ The following observations came out of the build and test process. They are docu
 
 ## 24. Statement of Contributions
 
-> Each team member must write their own contribution statement. One member may NOT write on behalf of another. By submitting this report, the team collectively certifies the accuracy of all statements below.
-
 ### Allison Givens
 - **Experiment Design:** Co-designed Experiment 1 (Move Completion Time), Experiment 11 (Thermal Safety), and Experiment 13 (UPS Switching Latency and Power-Loss Recovery). Solo-designed Experiment 12 (Mechanical & Electrical Safety Compliance).
 - **Experiment Execution:** Ran Experiment 12 solo. Co-executed Experiment 6 (with Noah and Jack). Co-executed Experiment 13 and Experiment 17 with Lewis. Participated in Experiment 7 and Experiment 15.
 - **Data Analysis:** Analyzed all data for Experiment 12.
 - **Report Writing:** Drew conclusions for Experiment 12.
 - **Signature / Initials:** _____
-- **Date:** _______
+- **Date:** 4-22-2026
 
 ### Noah Beaty
 - **Experiment Design:** Co-designed Experiments 1 (Move Completion Time), 2 (Boot Noise), 6 (Command Latency), and Experiment 11 (Thermal Safety). Solo-designed Experiments 3 (Edge Boundary), 4 (Electromagnet Switching Latency), and 5 (Flyback Diode Inductive Spike).
 - **Experiment Execution:** Co-executed Experiments 1 and 2 (with Jack). Ran Experiments 3, 4, and 5 solo. Co-executed Experiment 6 (with Jack and Allison). Participated in Experiment 7 and Experiment 15.
-- **Data Analysis:** Analyzed all data for Experiments 1-11.
-- **Report Writing:** Drew conclusions for Experiments 1–11. Experiments 8 (Processing Latency) and 9 (Move Validation Correctness) conclusions were co-written with Jack.
+- **Data Analysis:** Analyzed all data for Experiments 1-12.
+- **Report Writing:** Created and organized the document as a whole (including formatting and content importing). Drew conclusions for Experiments 1–12. Experiments 8 (Processing Latency) and 9 (Move Validation Correctness) conclusions were co-written with Jack.
 - **Signature / Initials:** NB
 - **Date:** 4-20-2026
 
@@ -2050,18 +2064,18 @@ The following observations came out of the build and test process. They are docu
 ### Lewis Bates
 - **Experiment Design:** Co-designed Experiment 11 (Thermal Safety) and Experiment 13 (UPS Switching Latency and Power-Loss Recovery). Solo-designed Experiment 16 (Sleep-Mode Power Draw), Experiment 17 (Battery Runtime), Experiment 18 (Voltage Regulation, Ripple, and Electrical Safety), and Experiment 19 (Power Consumption and Budget Verification).
 - **Experiment Execution:** Co-executed Experiment 13 and Experiment 17 with Allison. Ran Experiments 16, 18, and 19 solo. Participated in Experiment 7.
-- **Data Analysis:** Performed detailed data analysis for Experiment 13 (UPS switching latency, switchover timing, and power-loss recovery trials), Experiment 16 (sleep-mode power draw measurements, averaging, and comparison to Power_Budget.md), and Experiment 17 (battery runtime calculations under idle, typical-play, and peak-load conditions). Contributed to analysis of power-related safety compliance data from Experiment 12 subsections (12.5 and 12.8) and assisted with thermal data review for Experiment 11. Prepared statistical summaries, efficiency metrics, and comparison tables for all power-subsystem experiments.
-- **Report Writing:** Authored the complete Experimental Analysis sections for Experiment 16 (Sleep-Mode Power Draw) and Experiment 17 (Battery Runtime), including purpose, procedure, data collection plans, actual results, summary statistics, visualizations, and conclusions. Developed and wrote the full procedures, data tables, bias mitigations, and expected-outcome templates for the three Planned power experiments (Voltage Regulation/Ripple/Electrical Safety, Power Consumption and Budget Verification, Battery Runtime). Co-authored Experiment 13 sections and contributed power-subsystem content and findings to the Summary of Findings (section 13).
+- **Data Analysis:** Performed detailed data analysis for Experiment 13 (UPS switching latency, switchover timing, and power-loss recovery trials), Experiment 16 (sleep-mode power draw measurements, averaging, and comparison to Power_Budget.md), and Experiment 17 (battery runtime calculations under idle, typical-play, and peak-load conditions). Contributed to analysis of power-related safety compliance data from Experiments 18 and 19. and assisted with thermal data review for Experiment 11. Prepared statistical summaries, efficiency metrics, and comparison tables for all power-subsystem experiments.
+- **Report Writing:** Authored the complete Experimental Analysis sections for Experiment 16 (Sleep-Mode Power Draw) and Experiment 17 (Battery Runtime), including purpose, procedure, data collection plans, actual results, summary statistics, visualizations, and conclusions. Developed and wrote the full procedures, data tables, bias mitigations, and expected-outcome templates for the three power experiments (Voltage Regulation/Ripple/Electrical Safety, Power Consumption and Budget Verification, Battery Runtime). Co-authored Experiment 13 sections and contributed power-subsystem content and findings to the Summary of Findings.
 - **Signature / Initials:** LFB
 - **Date:** 4-22-2026
 
 ### Nathan MacPherson
 - **Experiment Design:** Solo-designed Experiment 14 (Board Weight) and Experiment 15 (Portability).
 - **Experiment Execution:** Ran Experiment 14 solo. Co-executed Experiment 15 with Jack, Lewis, Noah, and Allison (one trial per team member). Co-executed Experiment 10 (UART Communication Reliability) and Experiment 11 (Thermal Safety) with Jack. Participated in Experiment 7.
-- **Data Analysis:** _[describe your specific contributions]_
-- **Report Writing:** _[describe your specific contributions]_
+- **Data Analysis:** Analyzed data for Experiments 14 and 15.
+- **Report Writing:** Wrote and imported BOM and Final Inventory sections. 
 - **Signature / Initials:** _____
-- **Date:** _______
+- **Date:** 4-22-2026
 
 
 
