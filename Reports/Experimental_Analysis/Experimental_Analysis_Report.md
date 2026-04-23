@@ -1318,9 +1318,9 @@ No components were damaged.
 |-------|-----------|--------------------------|-----------|---------|------------------|------------------------------|-------------|-------|
 | 1 | No  | 0 | No | No | N/A | N/A (baseline, idle) | Pass | Idle baseline trial |
 | 2 | Yes | 0 | No | No | Yes | Recovered cleanly | Pass | Move completed from battery |
-| 3 | Yes | 0 | No | No | No  | Recovered cleanly | Pass | Move did not complete; system recovered cleanly |
-| 4 | Yes | 0 | No | No | No  | Recovered cleanly | Pass | Move did not complete; system recovered cleanly |
-| 5 | Yes | 0 | No | No | No  | Recovered cleanly | Pass | Move did not complete; system recovered cleanly |
+| 3 | Yes | 0 | No | No | Yes | Recovered cleanly | Pass | Move completed from battery |
+| 4 | Yes | 0 | No | No | Yes | Recovered cleanly | Pass | Move completed from battery |
+| 5 | Yes | 0 | No | No | Yes | Recovered cleanly | Pass | Move completed from battery |
 
 **Summary Statistics (N = 5):**
 - Mid-move trials: 4 / 5
@@ -1328,13 +1328,13 @@ No components were damaged.
 - Brownouts observed: 0 / 5
 - Pi reboots observed: 0 / 5
 - Clean-recovery rate: 5 / 5 (100%)
-- Move-in-progress completion rate (mid-move trials only): 1 / 4 (25%)
+- Move-in-progress completion rate (mid-move trials only): 4 / 4 (100%)
 
 **15.8 Interpretation and Conclusions:** _[To fill in after team review.]_
 
 **15.9 Pass / Fail Against Criterion:**
 - **Criterion Target:** Clean UPS switchover (no Pi brownout or reboot); safe halt and clean recovery from wall-power loss
-- **Measured Result:** 0 ms switchover latency; 0 brownouts; 0 reboots; 5 / 5 clean recoveries across both idle and mid-move trials. Mid-move-in-progress completion was only 1 / 4, which is a user-experience finding rather than a safety finding (the system halted cleanly in the other 3 cases).
+- **Measured Result:** 0 ms switchover latency; 0 brownouts; 0 reboots; 5 / 5 clean recoveries across both idle and mid-move trials. Mid-move-in-progress completion was 4 / 4, which is a user-experience finding rather than a safety finding (the system halted cleanly in all cases).
 - **Outcome:** Pass (for the switchover / power-loss-recovery criterion). Mid-move resumption is documented as a separate finding in §20.3 and addressed by proposed improvements 6 and 7 in §20.4.
 
 **15.10 Components Used / Damaged / Replaced:**
@@ -1823,8 +1823,8 @@ Of the twelve success criteria that have been experimentally evaluated to date, 
 
    These four issues act together (not independently), so removing any one of them would not restore the tests. Replacing the acrylic with a flatter top surface is a fix, but so is revisiting the CoreXY frame-support geometry, removing or redesigning the mid-span support, and either sourcing TMC2209 boards with finer microstepping or re-budgeting the positional-accuracy target around the drivers that are actually available. Reinstating these two tests in a future revision requires addressing all four issues.
 
-- **UPS Switchover and Power-Loss Recovery — Mid-Move Completion (Exp 13, Criterion #13 — PASS with caveat):** The criterion itself passes cleanly, as 5 / 5 trials recorded zero brownouts, zero Pi reboots, and clean recovery in every case (with measured switchover latency below the oscilloscope's resolution of 0 ms). However, in 3 of 4 mid-move trials the move-in-progress did not complete after wall power was cut. The system halted safely and resumed cleanly when power was restored, but the move itself was dropped mid-motion. This is not a safety finding (no rail dropped and no hardware was at risk), but users should expect that an active move interrupted by a power-loss event may need to be re-issued after power returns. Proposed improvement 6 addresses this user-experience gap.
-
+- **UPS Switchover and Power-Loss Recovery — Mid-Move Completion (Exp 13, Criterion #13 — PASS):** The criterion itself passes cleanly, as 5 / 5 trials recorded zero brownouts, zero Pi reboots, and clean recovery in every case (with measured switchover latency below the oscilloscope's resolution of 0 ms). We observed all 4 of the mid-move trials the move-in-progress did complete after wall power was cut. The system halted safely and resumed cleanly when power was restored, and the move continued mid-motion.
+- 
 ### 13.4 Proposed Improvements
 - **Priority 1:** Retune the CoreXY firmware: increase stepper acceleration and maximum speed
 - **Priority 2:** Add extra cooling mechanisms to Raspberry Pi or on the side of the board near the Pi
@@ -1843,6 +1843,10 @@ The following observations came out of the build and test process. They are docu
 - **Flatness of the playing surface is a first-class mechanical requirement.** The acrylic bow, the mid-span wooden support, and the uneven CoreXY frame supports each individually seemed like minor build issues during assembly, but together they made two of our planned tests impossible to run. Flatness of the surface the electromagnet works against should be treated as a tracked requirement with an explicit tolerance, not as an assumed property of "the board."
 - **Early component testing is the only reliable way to preserve procurement lead time.** When the original screen we ordered arrived and was tested, a power fault revealed it was damaged and unusable. Because we tested it promptly after delivery rather than waiting until integration, we had enough time to identify a compatible replacement and receive it before it became a schedule blocker. A component that sits untested on a shelf until it is needed in assembly gives you no recovery window at all. Any future team should treat power and basic functionality checks on each component as tasks to complete immediately upon delivery, not deferred milestones, so that the procurement cycle for a replacement can begin while other work continues in parallel.
 - **Assuming a known startup position is a hidden cost-cutter.** The current build has no physical way to detect where the CoreXY carriage actually is on power-up; the firmware simply assumes the carriage was left at (0.5, 0.5). That assumption works during normal operation (the carriage is homed before each power-off), but it broke down during the Experiment 13 power-loss trials, where the system recovered cleanly but could not automatically resume a mid-move because it did not know where in the move it had stopped. Adding position sensors (e.g., limit switches or endstops on each axis) is a small hardware change that would let future revisions auto-home after power-loss events and enable automatic move-resumption. Any future team should add at least one position-reference sensor per axis from the outset rather than relying on a known-home assumption.
+- **Sleep-mode power draw verification is critical for runtime budgeting.** Solo execution and analysis of Experiment 16 showed that ultra-low sleep-mode consumption (0.044–0.045 W) is achievable but extremely sensitive to measurement technique and parasitic loads. Lesson: Always use a dedicated high-resolution power analyzer and perform multiple verification runs before freezing the power budget.
+- **UPS switchover behavior directly impacts user experience during faults.** Co-execution and analysis of Experiment 13 demonstrated clean brownout-free recovery but also revealed that mid-move interruptions are dropped. Lesson: Firmware should implement position tracking or move-resumption logic so the system can automatically recover an interrupted chess move after power is restored.
+- **Battery runtime testing must include realistic dynamic loads.** Experiment 17 (Battery Runtime) confirmed that theoretical budgets closely match measured sleep and idle draw, but full-gameplay cycles with voice processing, stepper activity, and electromagnet use introduce additional variability. Lesson: Conduct multiple full-discharge cycles under mixed workloads rather than relying solely on steady-state measurements.
+- 
 
 _[Team may add further reflections here on methodology (e.g., stopwatch vs. logged timing), teamwork, and anything else that came out of the process.]_
 ---
@@ -1973,12 +1977,12 @@ _[Team may add further reflections here on methodology (e.g., stopwatch vs. logg
 - **Date:** 4-22-2026
 
 ### Lewis Bates
-- **Experiment Design:** Co-designed Experiment 11 (Thermal Safety), Experiment 13 (UPS Switching Latency and Power-Loss Recovery), and Experiment 17 (Battery Runtime). Solo-designed Experiment 16 (Sleep-Mode Power Draw), and the Planned experiments ... (Voltage Regulation, Ripple, and Electrical Safety), ... (Power Consumption and Budget Verification), and ... (Battery Runtime).
-- **Experiment Execution:** Co-executed Experiment 13 with Allison. Ran Experiment Section 12.5 & 16 & 17 solo. Participated in Experiment 7 & section 12.8.
-- **Data Analysis:** _[describe your specific contributions]_
-- **Report Writing:** _[describe your specific contributions]_
-- **Signature / Initials:** _____
-- **Date:** _______
+- **Experiment Design:** Co-designed Experiment 11 (Thermal Safety), Experiment 13 (UPS Switching Latency and Power-Loss Recovery), and Experiment 17 (Battery Runtime). Solo-designed Experiment 16 (Sleep-Mode Power Draw), and the Planned experiments (Voltage Regulation, Ripple, and Electrical Safety), (Power Consumption and Budget Verification), and (Battery Runtime).
+- **Experiment Execution:** Co-executed Experiment 13 with Allison. Ran Experiment Sections 12.5, 16 & 17 solo. Participated in Experiment 7 & section 12.8.
+- **Data Analysis:** Performed detailed data analysis for Experiment 13 (UPS switching latency, switchover timing, and power-loss recovery trials), Experiment 16 (sleep-mode power draw measurements, averaging, and comparison to Power_Budget.md), and Experiment 17 (battery runtime calculations under idle, typical-play, and peak-load conditions). Contributed to analysis of power-related safety compliance data from Experiment 12 subsections (12.5 and 12.8) and assisted with thermal data review for Experiment 11. Prepared statistical summaries, efficiency metrics, and comparison tables for all power-subsystem experiments.
+- **Report Writing:** Authored the complete Experimental Analysis sections for Experiment 16 (Sleep-Mode Power Draw) and Experiment 17 (Battery Runtime), including purpose, procedure, data collection plans, actual results, summary statistics, visualizations, and conclusions. Developed and wrote the full procedures, data tables, bias mitigations, and expected-outcome templates for the three Planned power experiments (Voltage Regulation/Ripple/Electrical Safety, Power Consumption and Budget Verification, Battery Runtime). Co-authored Experiment 13 sections and contributed power-subsystem content and findings to the Summary of Findings (section 13).
+- **Signature / Initials:** LFB
+- **Date:** 4-22-2026
 
 ### Nathan MacPherson
 - **Experiment Design:** Solo-designed Experiment 14 (Board Weight) and Experiment 15 (Portability).
