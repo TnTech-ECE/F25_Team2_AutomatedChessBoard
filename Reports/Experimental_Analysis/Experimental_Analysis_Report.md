@@ -2088,7 +2088,7 @@ The following observations came out of the build and test process. They are docu
 - **Experiment Execution:** Ran Experiment 12 and 17 solo. Co-executed Experiment 6 (with Noah and Jack). Co-executed Experiment 13 with Lewis. Participated in Experiment 7 and Experiment 15.
 - **Data Analysis:** Analyzed all data for Experiment 12.
 - **Report Writing:** Drew conclusions for Experiment 12, assisted in proofreading.
-- **Signature / Initials:** ___
+- **Signature / Initials:** AG
 - **Date:** 4-22-2026
 
 ### Noah Beaty
