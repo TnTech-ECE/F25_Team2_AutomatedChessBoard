@@ -1599,7 +1599,7 @@ No components were damaged.
 **19.7 Actual Results:**
 
 | Trial | Runtime (min:sec) | Pass/Fail | Notes |
-|-------|--------------------|------------------------------|-----------|-------|
+|-------|-------------------|-----------|-----------|
 | 1 | 122:00 | Pass | 2h 02m under battery power. Session ended voluntarily for additional power testing, not at natural battery-depletion shutdown. Event log below. |
 
 **Session event log (elapsed time from start):**
@@ -1991,7 +1991,7 @@ The following observations came out of the build and test process. They are docu
 |          |                       |                                      |               |                          |                                                            |   **Total** | $686.17       |                                                                                                                                                                                                                                                                                                                  |
 
 
-# TODO
+
 
 ### 23.2 Usage Log
 
@@ -2020,29 +2020,75 @@ The following observations came out of the build and test process. They are docu
 
 ### 23.3 Final Inventory Check (End of Semester)
 
-- [ ] All items accounted for (returned, stored, or documented)
-- [ ] Lab station clean and organized
-- [ ] No missing items
-- [ ] Inventory table fully updated
-
-| Item # | Description | Quantity | Vendor / Source | Order # / ID | Storage Location (Lab Station / Box #) | Date Acquired | Condition (New/Used) | Notes (Experiment Used, Damaged, Returned) |
-|--------|-------------|----------|------------------|---------------|----------------------------------------|----------------|-----------------------|---------------------------------------------|
-| 001 | Raspberry Pi 5 (SC1111) | 1 | PiShop.us | SC1111 | _[location]_ | _[date]_ | _[new/used]_ | _[notes]_ |
-| 002 | Arduino Nano (A000005) | 1 | Arduino Store | A000005 | _[location]_ | _[date]_ | _[new/used]_ | _[notes]_ |
-| ... | ... | | | | | | | |
+| Item | Description                                                | Quantity | Distributor         | Distributor ID           | Storage Location                                | Date Acquired             | Condition | Notes                                         |
+| ---- | ---------------------------------------------------------- | -------- | ------------------- | ------------------------ | ----------------------------------------------- | ------------------------- | --------- | --------------------------------------------- |
+| 1    | Arduino Nano                                               | 1        | Arduino             | A000005                  | In use                                          | Tuesday, March 3, 2026    | New       | Used for project                              |
+| 2    | Stepper Driver Board (Heatsink Included)                   | 2        | Adafruit            | 6121                     | Two used, rest in Station 9, Box 1              | Tuesday, March 3, 2026    | New       | Used for project                              |
+| 3    | Stepper Driver Heatsink                                    | 2        | Adafruit            | 1493                     | Station 9, Box 1                                | Tuesday, March 3, 2026    | New       | Not Used, not returned                        |
+| 4    | MOSFET                                                     | 1        | Digikey             | IRLZ44NPBF-ND            | In use                                          | Tuesday, March 3, 2026    | New       | Used for project                              |
+| 5    | Flyback Diode                                              | 1        | Digikey             | 1655-1019-ND             | In use                                          | Tuesday, March 3, 2026    | New       | Used for project                              |
+| 6    | Pulldown Resistor                                          | 1        | Digikey             | 13-CFR-25JB-52-100K-ND   | In use                                          | Tuesday, March 3, 2026    | New       | Used for project                              |
+| 7    | Gate Resistor                                              | 1        | Digikey             | 13-MFR-25FRF52-100RCT-ND | In use                                          | Tuesday, March 3, 2026    | New       | Used for project                              |
+| 8    | Perfboard                                                  | 1        | Digikey             | 1528-4785-ND             | In use                                          | Tuesday, March 3, 2026    | New       | Used for project                              |
+| 9    | UPS HAT for Raspberry Pi                                   | 1        | DFRobot             | FIT0992                  | In use                                          | Friday, February 27, 2026 | New       | Used for project                              |
+| 10   | Raspberry Pi Power Supply (5V/5A USB-C)                    | 1        | Raspberry Pi        | SC0510                   | In use                                          | Friday, February 27, 2026 | New       | Used for project                              |
+| 11   | MT3608 Step-Up Converter Module                            | 1        | Amazon              | B07RNBJK5F               | In use, extras and damaged in Station 9, Box 5  | Friday, February 27, 2026 | New       | Used for project                              |
+| 12   | Adafruit AdjusStation Buck Converter (to 3.3V)             | 1        | Adafruit            | 2745                     | Station 9, Box 5                                | Friday, February 27, 2026 | New       | Not Used, not returned                        |
+| 13   | SparkFun Logic Level Converter (Bi-Directional)            | 1        | SparkFun            | BOB-12009                | In use                                          | Tuesday, March 3, 2026    | New       | Used for project                              |
+| 14   | 18650 Rechargeable Li-ion Batteries (3500mAh each)         | 4        | IMR Batteries       | INR18650-35E             | In use                                          | Friday, February 27, 2026 | New       | Used for project                              |
+| 15   | Inline Fuse Holders with Fuses (various ratings)           | 1        | Amazon              | B07D3QKF5S               | Station 9, Box 5                                | Tuesday, March 3, 2026    | New       | Not Used, not returned                        |
+| 16   | Pi Switch (for safe shutdown)                              | 1        | PiShop.us           | Pi-Supply-Switch         | Station 9, Box 5                                | Friday, February 27, 2026 | New       | Not Used, not returned                        |
+| 17   | Jumper Wires (Female-to-Male, 8-inch)                      | 1        | Amazon              | B01LZF1ZSZ               | In use, extras in Station 9, Box 5              | Friday, February 27, 2026 | New       |                                               |
+| 18   | 26-pin GPIO male to female extension for Raspberry Pi      | 1        | Adafruit            | 2101                     | Station 9, Box 2                                | Friday, February 27, 2026 | New       | Not Used, not returned                        |
+| 19   | 26-pin GPIO Ribbon Cable for Raspberry Pi                  | 1        | Adafruit            | 862                      | Station 9, Box 2                                | Friday, February 27, 2026 | New       | Not Used, not returned                        |
+| 20   | USB A to Mini-B cable (power/programming for Arduino Nano) | 1        | Amazon              | B09DCLRYH6               | One used, other in Station 9, Box 1             | Tuesday, March 3, 2026    | New       | One Used, One not used, not returned          |
+| 21   | Grove Electromagnet                                        | 1        | Mouser              | 713-101020073            | Station 9, Box 4                                | Friday, February 27, 2026 | New       | Not Used, not returned                        |
+| 22   | Nema 17 Stepper Motor                                      | 2        | Adafruit            | 324                      | In use                                          | Tuesday, March 3, 2026    | New       | Used for project                              |
+| 23   | GT2 Timing Belt, 10 m (6 mm width, 2 mm pitch)             | 1        | Amazon              | 3DP AMZN-10160           | In use, leftover belt in Station 9, Box 4       | Friday, February 27, 2026 | New       | Used for project                              |
+| 24   | GT2 Belt Pulley (16-tooth)                                 | 2        | McMaster-Carr       | 3684N12                  | In use                                          | Friday, February 27, 2026 | New       | Used for project                              |
+| 25   | Idler Pulley, Aluminum                                     | 1        | Amazon              | B07RV2T54M               | In use, extras in Station 9, Box 4              | Friday, February 27, 2026 | New       | Used for project                              |
+| 26   | 3D Printer Rollers                                         | 1        | Amazon              | ‎B08B4JDB67              | In use, extras in Station 9, Box 4              | Friday, February 27, 2026 | New       | Used for project                              |
+| 27   | Aluminum Extrusion Kit (2020 T-slot, 4x1220 mm)            | 1        | Amazon              | B0CLGX27MY               | In use, extras in Station 9, Box 4              | Friday, February 27, 2026 | New       | Used for project                              |
+| 28   | 2020 Aluminum Extrusion Corner Bracket Kit                 | 1        | Amazon              | B0FLD88X6Y               | In use, extras in Station 9, Box 4              | Friday, February 27, 2026 | New       | Used for project                              |
+| 29   | 3.5 inch LCD Screen                                        | 1        | Amazon              | B0BJDTL9J3               | Capstone Lab West Side Closet                   | Tuesday, March 3, 2026    | New       | Not Used, damaged                             |
+| 30   | Mounted USB Coupler                                        | 1        | Amazon              | B0DT4D13CK               | Station 9, Box                                  | Tuesday, March 3, 2026    | New       | Used for project                              |
+| 31   | USB Microphone                                             | 1        | Amazon              | B08ZQSCJS3               | In use, case in Station 9, Box 3                | Friday, February 27, 2026 | New       | Used for project                              |
+| 32   | 3/4 inch x 2 ft x 4 ft Plywood (Sides)                     | 1        | Lowe's              | 6654                     | In use                                          | Friday, March 6, 2026     | New       | Used for project                              |
+| 33   | 1/2 inch x 4 foot x 8 foot Plywood (Bottom)                | 1        | Lowe's              | 786167                   | In use, scrap wood propped against Station 9/10 | Friday, March 6, 2026     | New       | Used for project, leftover in Capstone Lab    |
+| 34   | 30 1" Steel Fender Washers                                 | 2        | Lowe's              | 2215                     | Station 9, Box 3                                | Friday, March 6, 2026     | New       | Not Used, not returned                        |
+| 35   | 1 1/2 in. Drywall Screws, 50ct                             | 1        | Lowe's              | 68135                    | Station 9, Box 3                                | Friday, March 6, 2026     | New       | Used for project                              |
+| 36   | 5mm - 0.8 x 20-mm Phillips -Drive Machine screws           | 2        | Lowe's              | 999994844                | In use, extras in Station 9, Box 4              | Friday, March 6, 2026     | New       | Used for project                              |
+| 37   | 5mm x 0.8 Zinc-plated Steel Hex Nut                        | 1        | Lowe's              | able                     | In use, extras in Station 9, Box 4              | Friday, March 6, 2026     | New       | Used for project                              |
+| 38   | 3mm - 0.5 x 10-mm Phillips -Drive Machine screws           | 1        | Lowe's              | 999994826                | In use, extras in Station 9, Box 4              | Friday, March 6, 2026     | New       | Used for project                              |
+| 39   | Screws 1.6mm                                               | 1        | Amazon              | B0192PBLX8               | In use, extras in Station 9, Box  1             | Wednesday, March 25, 2026 | New       | Used for project                              |
+| 40   | Quick Blow Glass Tube Fuse                                 | 1        | Amazon              | B07YC5ZTMV               | In use, extras in Station 9, Box 5              | Wednesday, March 25, 2026 | New       | Used for project                              |
+| 41   | Inline Screw Type Fuse Holder                              | 2        | Amazon              | B07SPS14WX               | Station 9, Box 5                                | Wednesday, March 25, 2026 | New       | Not Used, not returned                        |
+| 42   | Inline Screw Type Fuse Holder                              | 2        | Amazon              | B07SN9RG2Q               | In use, extras in Station 9, Box 5              | Wednesday, March 25, 2026 | New       | Used for project                              |
+| 43   | Inline Fuse Holder 12V                                     | 2        | Amazon              | B0D7D25G62               | Station 9, Box 5                                | Wednesday, March 25, 2026 | New       | Not Used, not returned                        |
+| 44   | LCD Screen                                                 | 1        | Amazon              | B0B1MK3SQ2               | In use, leftover cables in Station 9, Box 2     | Wednesday, March 25, 2026 | New       | Used for project                              |
+| 45   | Uart cable for rpi                                         | 1        | Digikey             | <br>1568-CAB-28698-ND    | In use                                          | Wednesday, March 25, 2026 | New       | Used for project                              |
+| 46   | Felt Pads                                                  | 1        | Amazon              | B0FN41J1D5               | In use, extras in Station 9, Box 3              | Wednesday, March 25, 2026 | New       | Used for project                              |
+| 47   | Wood Glue                                                  | 1        | Amazon              | B0006U20NY               | Station 9, Box 3                                | Wednesday, March 25, 2026 | New       | Not used, substituted for glue in Jeff's shop |
+| 48   | Standalone Electromagnet                                   |          | Digikey             | 1528-2689-ND             | In use                                          | Monday, March 30, 2026    | New       | Used for project                              |
+| 49   | 40mm Fans                                                  | 1        | Amazon              | B08ZY7X4CR               | In use                                          | Thursday, April 9, 2026   | New       | Used for project                              |
+| 50   | Raspberry Pi 5                                             | 1        | PiShop.us           | SC1111                   | In use                                          | Wednesday, April 22, 2026 | New       | Used for project                              |
+| 51   | Neodymium Magnets (to put in base of each piece)           | 1        | Amazon              | D03125H0125              | In use, extras in Station 9, Box 4              | Wednesday, April 22, 2026 | New       | Used for project                              |
+| 52   | Acrylic Sheet                                              | 2        | Dr. Van Neste's Lab | N/A                      | In use, extras returned to Dr. Van Neste's Lab  | Wednesday, April 8, 2026  | Used      | Used for project                              |
+| 53   | Mini HDMI to HDMI Cable                                    | 1        | Capstone Lab        | N/A                      | In use                                          | Wednesday, April 8, 2026  | Used      | Used for project                              |
+| 54   | Raspberry Pi Active Cooler                                 | 1        | PiShop.us           | SC1148                   | In use                                          | Wednesday, April 22, 2026 | New       | Used for project                              |
+| 55   | Pin Headers                                                | 1        | Dr. Van Neste's Lab | N/A                      | Half used, rest in Station 9, Box 2             | Wednesday, April 8, 2026  | Used      | Used for project                              |
 
 ---
 
-# TODO
 
 ## 24. Statement of Contributions
 
 ### Allison Givens
 - **Experiment Design:** Co-designed Experiment 1 (Move Completion Time), Experiment 11 (Thermal Safety), and Experiment 13 (UPS Switching Latency and Power-Loss Recovery). Solo-designed Experiment 12 (Mechanical & Electrical Safety Compliance).
-- **Experiment Execution:** Ran Experiment 12 solo. Co-executed Experiment 6 (with Noah and Jack). Co-executed Experiment 13 and Experiment 17 with Lewis. Participated in Experiment 7 and Experiment 15.
+- **Experiment Execution:** Ran Experiment 12 and 17 solo. Co-executed Experiment 6 (with Noah and Jack). Co-executed Experiment 13 with Lewis. Participated in Experiment 7 and Experiment 15.
 - **Data Analysis:** Analyzed all data for Experiment 12.
-- **Report Writing:** Drew conclusions for Experiment 12.
-- **Signature / Initials:** _____
+- **Report Writing:** Drew conclusions for Experiment 12, assisted in proofreading.
+- **Signature / Initials:** ___
 - **Date:** 4-22-2026
 
 ### Noah Beaty
@@ -2063,7 +2109,7 @@ The following observations came out of the build and test process. They are docu
 
 ### Lewis Bates
 - **Experiment Design:** Co-designed Experiment 11 (Thermal Safety) and Experiment 13 (UPS Switching Latency and Power-Loss Recovery). Solo-designed Experiment 16 (Sleep-Mode Power Draw), Experiment 17 (Battery Runtime), Experiment 18 (Voltage Regulation, Ripple, and Electrical Safety), and Experiment 19 (Power Consumption and Budget Verification).
-- **Experiment Execution:** Co-executed Experiment 13 and Experiment 17 with Allison. Ran Experiments 16, 18, and 19 solo. Participated in Experiment 7.
+- **Experiment Execution:** Co-executed Experiment 13 with Allison. Ran Experiments 16, 18, and 19 solo. Participated in Experiment 7.
 - **Data Analysis:** Performed detailed data analysis for Experiment 13 (UPS switching latency, switchover timing, and power-loss recovery trials), Experiment 16 (sleep-mode power draw measurements, averaging, and comparison to Power_Budget.md), and Experiment 17 (battery runtime calculations under idle, typical-play, and peak-load conditions). Contributed to analysis of power-related safety compliance data from Experiments 18 and 19. and assisted with thermal data review for Experiment 11. Prepared statistical summaries, efficiency metrics, and comparison tables for all power-subsystem experiments.
 - **Report Writing:** Authored the complete Experimental Analysis sections for Experiment 16 (Sleep-Mode Power Draw) and Experiment 17 (Battery Runtime), including purpose, procedure, data collection plans, actual results, summary statistics, visualizations, and conclusions. Developed and wrote the full procedures, data tables, bias mitigations, and expected-outcome templates for the three power experiments (Voltage Regulation/Ripple/Electrical Safety, Power Consumption and Budget Verification, Battery Runtime). Co-authored Experiment 13 sections and contributed power-subsystem content and findings to the Summary of Findings.
 - **Signature / Initials:** LFB
@@ -2074,7 +2120,7 @@ The following observations came out of the build and test process. They are docu
 - **Experiment Execution:** Ran Experiment 14 solo. Co-executed Experiment 15 with Jack, Lewis, Noah, and Allison (one trial per team member). Co-executed Experiment 10 (UART Communication Reliability) and Experiment 11 (Thermal Safety) with Jack. Participated in Experiment 7.
 - **Data Analysis:** Analyzed data for Experiments 14 and 15.
 - **Report Writing:** Wrote and imported BOM and Final Inventory sections. 
-- **Signature / Initials:** _____
+- **Signature / Initials:** NM
 - **Date:** 4-22-2026
 
 
