@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-Smart chessboards enhance the over-the-board chess experience through automated piece movement and AI opponent integration. Existing commercial options, however, cost hundreds to thousands of dollars (putting them out of reach for most players). Chess 2 Impress is a low-cost, accessible, voice-controlled chessboard (built for under $350 in materials). Players speak their moves using natural chess notation, and the board physically moves the pieces (using a CoreXY gantry with an under-board electromagnet). The system supports single-player games against the Stockfish chess engine, two-player games, and includes automated capture handling and board reset. Voice recognition runs locally on a Raspberry Pi (using the Vosk engine), requiring no internet connection. An LCD display provides real-time game feedback, and a battery-backed UPS allows over 2 hours of portable gameplay. The project demonstrates that a fully functional automated chess board can be built with off-the-shelf components (at a fraction of commercial prices), while maintaining accessibility for players with limited mobility or visual impairments.
+Smart chessboards enhance the over-the-board chess experience through automated piece movement and AI opponent integration. Existing commercial options, however, cost hundreds to thousands of dollars (putting them out of reach for most players). Chess 2 Impress is a low-cost, accessible, **voice-controlled** chessboard (built for under $660 in materials). Players speak their moves using natural chess notation, and the board physically moves the pieces (using a CoreXY gantry with an under-board electromagnet). The system supports single-player games against the Stockfish chess engine, two-player games, and includes automated capture handling and board reset. Voice recognition runs locally on a Raspberry Pi (using the Vosk engine), requiring no internet connection. An LCD display provides real-time game feedback, and a battery-backed UPS allows over 2 hours of portable gameplay. The project demonstrates that a fully functional automated chess board can be built with off-the-shelf components (at less than commercial prices), while maintaining accessibility for players with limited mobility or visual impairments.
 
 ## Capabilities
 
@@ -18,11 +18,11 @@ Smart chessboards enhance the over-the-board chess experience through automated 
 
 ## Salient Outcomes
 
-- **Voice recognition exceeded expectations**, achieving 97% first-try recognition and 95% correctness (across 5 speakers with varied accents). This was well above the 80% specification.
+- **Voice recognition exceeded expectations**: achieving 97% first-try recognition and 95% correctness (across 5 speakers with varied accents). This was well above the 80% specification.
 - **The edge-lane pathing algorithm** was one of the most complex and iterative parts of the firmware development. Pieces must travel along square edges (never through intermediate square centres) to avoid displacing adjacent pieces. The final algorithm handles straight, diagonal, knight, and arbitrary L-shaped moves (for captures and discards) using a unified exit-edge / entry-edge framework.
-- **Electromagnet switching latency measured at 3 microseconds** — over 3,300 times faster than the 10ms specification, demonstrating that the MOSFET circuit adds essentially zero delay to the move-completion budget.
+- **Electromagnet switching latency measured at 3 microseconds**: over 3,300 times faster than the 10ms specification, demonstrating that the MOSFET circuit adds essentially zero delay to the move-completion budget.
 - **The blown fuse debugging saga** taught the team that hardware failures can mimic software bugs. Multiple debugging sessions chasing "wrong direction" firmware issues were ultimately caused by a single blown fuse disabling one stepper motor, producing diagonal movement instead of the intended axis-aligned motion.
-- **Move completion time remains the primary unmet specification**. Even the shortest possible move takes over 5 seconds with current firmware settings, and worst-case moves approach 30 seconds. Increasing stepper speed and acceleration in firmware is the straightforward fix, but could not be implemented without drastic redesigns to the electromagnet and acryllic setup.
+- **Move completion time remains the primary unmet specification**: Even the shortest possible move takes over 5 seconds with current firmware settings, and worst-case moves approach 30 seconds. Increasing stepper speed and acceleration in firmware is the straightforward fix, but could not be implemented without drastic redesigns to the electromagnet and acryllic setup.
 
 ## Project Demonstration & Images
 
