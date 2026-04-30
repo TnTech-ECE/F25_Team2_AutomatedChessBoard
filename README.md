@@ -30,7 +30,13 @@ Smart chessboards enhance the over-the-board chess experience through automated 
 
 **Project Images:**
 
-*[Images to be added]*
+![Group Photo](./images/Group.jpg)
+
+![Top View](./images/Top.jpg)
+
+![Side View](./images/Side.jpg)
+
+![Gameplay Example](./images/Gameplay.jpg)
 
 ## About Us
 
