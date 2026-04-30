@@ -26,7 +26,7 @@ Smart chessboards enhance the over-the-board chess experience through automated 
 
 ## Project Demonstration & Images
 
-**Demo Video:** [Coming Soon — link to capstone YouTube video]
+**Demo Video:** (click the thumbnail below) [![Watch the video](https://img.youtube.com/vi/9_9py33vPpE/maxresdefault.jpg)](https://youtu.be/9_9py33vPpE?si=CPKPgexxfqgLKRPD)
 
 **Project Images:**
 
