@@ -32,3 +32,25 @@ This instruction manual will serve as a reference for starting up and maintainin
 5. Ensure that UPS charging light starts blinking red to show that it is charging.
 
 ## Diagrams and Troubleshooting
+### Frequent Issues: 
+__Software__
+- __Issue__: The Pi is on but the screen will not turn on.
+   - __Fix__: Make sure that both the HDMI and power cable to the LCD are plugged in well. If Pi stays on and LCD still does not turn on, try restarting the board.
+
+- __Issue__: When I give the board a move, the motors do not move and the program goes to the next turn.
+   - __Fix__: There is some issue with the arduino. Make sure that all of the GPIO pins are plugged in correctly and that both the UART and USB cables for the arduino are plugged in.
+
+__Hardware__
+- __Issue__: The belts on the CoreXY are making noise/slipping.
+   - __Fix__: Turn off the board, manually move the CoreXY and see if it feels stuck/difficult to move the bar. Try to see if there is any part of the CoreXY that is rubbing against each other. Also measure both ends of the CoreXY and make sure that it is square. Otherwise, try retensioning the belts.
+
+### Diagrams:
+
+
+![](./Images/Wire_Pins_Diagram.jpg)
+
+_Figure 1 - Raspberry Pi/UPS Wiring Diagram_
+
+![](./Images/Home_Square_Example.png)
+
+_Figure 2 - Electromagnet Home Square Example_
