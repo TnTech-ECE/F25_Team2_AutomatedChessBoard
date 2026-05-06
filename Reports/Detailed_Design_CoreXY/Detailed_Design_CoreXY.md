@@ -34,15 +34,15 @@ The CoreXY subsystem uses two pulleys arranged in a crossed configuration, with 
 
 All electrical and mechanical elements shall comply with NFPA 70 (National Electrical Code) [6][10], FCC Part 15 Subpart B [4], and UL 60950‑1 for grounding, insulation, and interference protection [13]. Wiring shall conform to NEC Article 400, with secure routing to avoid pinch points or mechanical stress, while all exposed surfaces shall remain below 40 °C per UL 94 [8] and CPSC maximum surface temperature standards [9]. Components shall be RoHS-compliant and sourced from verified distributors to ensure cost efficiency and system sustainability. Collectively, these measures ensure that the CoreXY subsystem operates precisely, safely, and reliably as part of the automated chessboard system.
 
-<div align="center"> 
-<img width="905" height="822" alt="image" src="https://github.com/user-attachments/assets/ee726420-2098-4fac-a716-fdc2a651918a" /> 
-</div>
-<div align="center"> 
-<strong> Figure 1. CoreXY belt routing and corresponding motion equations </strong> 
-</div>
-<div align="center"> 
-Diagram illustrates belt path configuration and the kinematic relationships used to translate motor rotations into X–Y motion [14]. 
-</div>
+<p align="center">
+  <img src="./images/Theory/Kinematics.png" alt="Kinematics" />
+</p>
+<p align="center">
+  <strong>Figure 1. CoreXY belt routing and corresponding motion equations</strong>
+</p>
+<p align="center">
+  Diagram illustrates belt path configuration and the kinematic relationships used to translate motor rotations into X–Y motion [14].
+</p>
 
 ## Interface with Other Subsystem
 
@@ -66,40 +66,41 @@ The CoreXY does not directly exchange signals with the Peripherals subsystem. Ho
 The following figures present detailed 3D visualizations of the CoreXY subsystem, the primary mechanical platform responsible for X–Y motion within the automated chessboard. Each view—isometric, top, and front—highlights the geometry, structural features, and spatial relationships of the CoreXY assembly, including the carriage, belt routing, pulleys, and mounting interfaces. These models provide a clear depiction of how the subsystem is constructed, aiding in design review, assembly planning, and verification of motion constraints and clearances.
 **Note:** The original CAD model was sourced from [15]. Dimensions and specific features of this model will be modified as needed to suit the actual design and mechanical constraints of the automated chessboard. Specifically, the size of the CoreXY will be adjusted to 570 mm × 950 mm instead of 419 mm × 382 mm. This modification does not affect the functionality of the model; it only adjusts the lengths of the aluminum extrusions.
 
-<div align="center"> 
-<img width="1600" height="573" alt="Isometric_CoreXY" src="https://github.com/user-attachments/assets/d00a0ba7-4fe0-460b-abcc-66b78e303a5c" />
-</div>
-<div align="center"> 
-<strong> Figure 2.1. Isometric view of CoreXY </strong> 
-</div>
-<div align="center"> 
+<p align="center">
+  <img src="./images/Models/Isometric_CoreXY.png" alt="Isometric CoreXY" />
+</p>
+<p align="center">
+  <strong>Figure 2.1. Isometric view of CoreXY</strong>
+</p>
+<p align="center">
 The image shows the complete CoreXY subsystem in isometric perspective, including the X–Y belt configuration, stepper motor positions, carriage assembly, and mounted electromagnet. This view illustrates the spatial arrangement of mechanical components and how the belts, pulleys, and carriage interact to achieve precise two-dimensional motion. This model has also been color coded to show where all custom modeled components will be located.
-</div><br />
+</p>
 
-<div align="center"> 
-<img width="885" height="789" alt="image" src="https://github.com/user-attachments/assets/a1c51523-0ddf-478a-95e9-dabefbdd4e89" />
-</div>
-<div align="center"> 
-<strong> Figure 2.2. Top view of CoreXY </strong> 
-</div>
-<div align="center"> 
+<p align="center">
+  <img src="./images/Models/Top_CoreXY.png" alt="Top View" />
+</p>
+<p align="center">
+  <strong>Figure 2.2. Top view of CoreXY</strong> 
+</p>
+<p align="center">
 The image presents the CoreXY subsystem from a top-down perspective, clearly showing the belt routing over the pulleys, stepper motor placement, and carriage path. This view emphasizes the planar layout of the X–Y motion system and the relative positions of the mechanical components that ensure precise, coordinated movement across the chessboard.
-</div><br />
-  
-<img width="1007" height="212" alt="image" src="https://github.com/user-attachments/assets/dd02239a-faba-4e4d-9743-f56b6e113a65" />
-</div>
-<div align="center"> 
-<strong> Figure 2.3. Front view of CoreXY </strong> 
-</div>
-<div align="center"> 
+</p>
+
+<p align="center">
+  <img src="./images/Models/Front_CoreXY.png" alt="Front View" />
+</p>
+<p align="center">
+  <strong>Figure 2.3. Front view of CoreXY</strong> 
+</p>
+<p align="center">
 The image presents the CoreXY subsystem from the front, illustrating the vertical alignment of the pulleys, carriage, and stepper motors. This perspective highlights the Z-axis clearance, structural supports, and overall mechanical stability necessary for smooth and precise X–Y motion across the chessboard.
-</div><br />
+</p>
 
 ### Electronics Mount
 The following figures present detailed 3D visualizations of the electronic mount on the CoreXY, designed to support electrical components from the CU. Together, these two parts form a bracket that securely holds a perfboard, which will house the Arduino and MOSFET circuitry required to control the stepper motors and electromagnet.
 
 <div align="center"> 
-<img width="357" height="757" alt="image" src="https://github.com/user-attachments/assets/5ac7acc7-f4ef-4f68-bc77-46eca74facb6" />
+<img src="./images/Models/Mount_Piece_A.png" alt="image" />
 </div>
 <div align="center"> 
 <strong> Figure 3.1. Mount Piece A </strong> 
@@ -109,7 +110,7 @@ The image presents the first section of the bracket. This segment is specificall
 </div><br />
 
 <div align="center"> 
-<img width="327" height="770" alt="image" src="https://github.com/user-attachments/assets/f8cdd19a-9d26-4d3a-a1e2-2b8ed12ee073" />
+<img src="./images/Models/Mount_Piece_B.png" alt="image"/>
 </div>
 <div align="center"> 
 <strong> Figure 3.2. Mount Piece B </strong> 
@@ -122,7 +123,7 @@ The image presents the second section of the bracket. This segment is specifical
 The following figures present detailed 3D visualizations of the pulley supports for the CoreXY, designed to support the corners of the frame. These components stabilize the frame corners and provide mounting points for the belt pulleys, ensuring accurate motion and structural integrity during operation.
 
 <div align="center"> 
-<img width="605" height="694" alt="image" src="https://github.com/user-attachments/assets/46a32081-a93f-4d4f-95d1-092610776f9a" />
+<img src="./images/Models/Pulley_Support_A.png" alt="image"/>
 </div>
 <div align="center"> 
 <strong> Figure 4.1. Pulley Support Piece A </strong> 
@@ -132,7 +133,7 @@ The image presents the support for the corner of the CoreXY across from motor A.
 </div><br />
 
 <div align="center"> 
-<img width="622" height="712" alt="image" src="https://github.com/user-attachments/assets/f25747c6-2a49-4a8a-b20d-3fe636752663" />
+<img src="./images/Models/Pulley_Support_B.png" alt="image"/>
 </div>
 <div align="center"> 
 <strong> Figure 4.2. Pulley Support Piece B </strong> 
@@ -145,7 +146,7 @@ The image presents the support for the corner of the CoreXY across from motor B.
 The following figures present detailed 3D visualizations of the trolley supports for the the CoreXY. These components hold the wheels that allow the carriage to move smoothly while maintaining stability and alignment on the frame.
 
 <div align="center"> 
-<img width="550" height="657" alt="image" src="https://github.com/user-attachments/assets/8cef73df-6c7f-412a-a0b6-0d5a7419b43d" />
+<img src="./images/Models/Trolley_Support_A.png" alt="image"/>
 </div>
 <div align="center"> 
 <strong> Figure 5.1. Trolley Support Piece A </strong> 
@@ -155,7 +156,7 @@ Trolley Support A is positioned on the left side of the CoreXY carriage, support
 </div><br />
 
 <div align="center"> 
-<img width="589" height="724" alt="image" src="https://github.com/user-attachments/assets/25f4ec2b-e82f-4c2c-afdd-d5c80e1132ec" />
+<img src="./images/Models/Trolley_Support_B.png" alt="image"/>
 </div>
 <div align="center"> 
 <strong> Figure 5.2. Trolley Support Piece B </strong> 
@@ -168,7 +169,7 @@ Trolley Support B is positioned on the right side of the CoreXY carriage, mirror
 The following figures present detailed 3D visualizations of the electromagnet support used in the CoreXY. This component will assist in mounting the electromagnet to the carriage.
 
 <div align="center"> 
-<img width="621" height="703" alt="image" src="https://github.com/user-attachments/assets/f3111dcc-4282-4340-b042-9e838da0d03e" />
+<img src="./images/Models/Isometric_Electro_Support.png" alt="image"/>
 </div>
 <div align="center">
 <strong>Figure 6.1. Isometric view of electromagnet support</strong>
@@ -178,7 +179,7 @@ Shows the overall geometry and structural features of the electromagnet support,
 </div><br />
 
 <div align="center"> 
-<img width="745" height="641" alt="image" src="https://github.com/user-attachments/assets/65a3a708-428b-4d84-8165-0b731933ceb0" />
+<img src="./images/Models/Top_Electro_Support.png" alt="image"/>
 </div>
 <div align="center">
 <strong>Figure 6.2. Top view of electromagnet support</strong>
@@ -188,7 +189,7 @@ Highlights the footprint of the support, the arrangement of mounting holes, and 
 </div><br />
 
 <div align="center"> 
-<img width="1031" height="541" alt="image" src="https://github.com/user-attachments/assets/921f23e0-a95a-4ef5-842b-5e27415d734c" />
+<img src="./images/Models/Front_Electro_Support.png" alt="image"/>
 </div>
 <div align="center">
 <strong>Figure 6.3. Front view of electromagnet support</strong>
@@ -201,7 +202,7 @@ Displays the height and profile of the support, illustrating vertical alignment,
 The following figures present detailed 3D visualizations of motor support A, which is designed to securely mount the stepper motor to the CoreXY frame. This component provides structural stability, maintains proper alignment, and ensures smooth motion of the CoreXY subsystem during operation.
 
 <div align="center"> 
-<img width="705" height="605" alt="image" src="https://github.com/user-attachments/assets/31b3d1f4-9882-4eee-8837-71848c33dabb" />
+<img src="./images/Models/Isometric_Motor_Support_A.png" alt="image"/>
 </div>
 <div align="center">
 <strong>Figure 7.1. Isometric view of motor support A</strong>
@@ -211,7 +212,7 @@ The isometric view illustrates the overall geometry of Motor Support A, showing 
 </div><br />
 
 <div align="center"> 
-<img width="751" height="674" alt="image" src="https://github.com/user-attachments/assets/ca8470b7-fcb6-466a-a123-2d701c29f616" />
+<img src="./images/Models/Top_Motor_Support_A.png" alt="image"/>
 </div>
 <div align="center">
 <strong>Figure 7.2. Top view of motor support A</strong>
@@ -221,7 +222,7 @@ The top view highlights the planar layout of the motor mounting holes, the width
 </div><br />
 
 <div align="center"> 
-<img width="609" height="548" alt="image" src="https://github.com/user-attachments/assets/477457b6-18fd-4ad2-a962-3b1c09e55cbd" />
+<img src="./images/Models/Front_Motor_Support_A.png" alt="image"/>
 </div>
 <div align="center">
 <strong>Figure 7.3. Front view of motor support A</strong>
@@ -234,7 +235,7 @@ The front view emphasizes the height and vertical support structures, showing ho
 The following figures present detailed 3D visualizations of motor support B, which is designed to securely mount the stepper motor to the CoreXY frame. This component provides structural stability, maintains proper alignment, and ensures smooth motion of the CoreXY subsystem during operation.
 
 <div align="center"> 
-<img width="770" height="728" alt="image" src="https://github.com/user-attachments/assets/1caf5b04-0a5e-4cb6-bc2d-11365d8630e8" />
+<img src="./images/Models/Isometric_Motor_Support_B.png" alt="image"/>
 </div>
 <div align="center">
 <strong>Figure 8.1. Isometric view of motor support B</strong>
@@ -244,7 +245,7 @@ The isometric view shows the complete geometry of Motor Support B, including the
 </div><br />
 
 <div align="center"> 
-<img width="594" height="547" alt="image" src="https://github.com/user-attachments/assets/1ea12a9f-222b-4f52-b141-b77c265d61fb" />
+<img src="./images/Models/Top_Motor_Support_B.png" alt="image"/>
 </div>
 <div align="center">
 <strong>Figure 8.2. Top view of motor support B</strong>
@@ -254,7 +255,7 @@ The top view emphasizes the layout of mounting holes and the shape of the base, 
 </div><br />
 
 <div align="center"> 
-<img width="755" height="674" alt="image" src="https://github.com/user-attachments/assets/d1957f5d-4638-4cbc-a4e4-4233570a9aa6" />
+<img src="./images/Models/Front_Motor_Support_B.png" alt="image"/>
 </div>
 <div align="center">
 <strong>Figure 8.3. Front view of motor support B</strong>
@@ -269,7 +270,7 @@ The figures show a detailed 3D visualization of the cable chain components. This
 
 #### Chain Segment
 <div align="center"> 
-<img width="496" height="528" alt="image" src="https://github.com/user-attachments/assets/570aa833-2763-47cf-8c0e-4bd8ab8c864d" />
+<img src="./images/Models/Isometric_Cable_Segment.png" alt="image"/>
 </div>
 <div align="center"> 
 <strong>Figure 9.1. Isometric view of cable chain segment</strong>
@@ -279,7 +280,7 @@ The isometric view illustrates a single segment of the cable chain, highlighting
 </div><br />
 
 <div align="center"> 
-<img width="421" height="555" alt="image" src="https://github.com/user-attachments/assets/d5aed83d-228f-44b2-8c4f-f4954fee83d4" />
+<img src="./images/Models/Top_Cable_Segment.png" alt="image" />
 </div>
 <div align="center"> 
 <strong>Figure 9.2. Top view of cable chain segment</strong>
@@ -289,7 +290,7 @@ The top view highlights the layout and footprint of a single cable chain segment
 </div><br />
 
 <div align="center"> 
-<img width="308" height="386" alt="image" src="https://github.com/user-attachments/assets/fadb70bb-8117-4aa4-ab90-4cc936c0f808" />
+<img src="./images/Models/Front_Cable_Segment.png" alt="image"/>
 </div>
 <div align="center"> 
 <strong>Figure 9.3. Front view of cable chain segment</strong>
@@ -300,7 +301,7 @@ The front view shows the vertical profile of a single cable chain segment, illus
 
 #### Chain Ends
 <div align="center"> 
-<img width="514" height="553" alt="image" src="https://github.com/user-attachments/assets/9bcb6012-4695-4826-9b6a-25f3fecbb47f" />
+<img src="./images/Models/Isometric_Cable_Ends.png" alt="image"/>
 </div>
 <div align="center"> 
 <strong>Figure 9.4. Isometric view of cable chain ends</strong>
@@ -310,7 +311,7 @@ The isometric view shows the cable chain ends, highlighting the mounting feature
 </div><br />
 
 <div align="center"> 
-<img width="187" height="543" alt="image" src="https://github.com/user-attachments/assets/1877624b-506f-49bb-bb57-579a4af65a86" />
+<img src="./images/Models/Top_Cable_Ends.png" alt="image"/>
 </div>
 <div align="center"> 
 <strong>Figure 9.5. Top view of cable chain ends</strong>
@@ -320,7 +321,7 @@ The top view displays the layout of the cable chain ends, showing the orientatio
 </div><br />
 
 <div align="center"> 
-<img width="639" height="525" alt="image" src="https://github.com/user-attachments/assets/921f607b-1b71-4e61-8b63-1f8f73aeab23" />
+<img src="./images/Models/Front_Cable_Ends.png" alt="image"/>
 </div>
 <div align="center"> 
 <strong>Figure 9.6. Front view of cable chain ends</strong>
@@ -334,7 +335,7 @@ The front view highlights the vertical alignment and profile of the cable chain 
 ### Stepper Motors
 
 <div align="center"> 
-<img width="8132" height="3652" alt="Stepper_Motors_Schematic" src="https://github.com/user-attachments/assets/812869f4-bd4c-486a-b737-b8a0b3a46faa" />
+<img src="./images/Schematics/Stepper_Motors_Schematic.png" alt="Stepper_Motors_Schematic"/>
 </div>
 <div align="center">
 <strong>Figure 10. Pinout for stepper motors to drivers</strong>
@@ -346,7 +347,7 @@ The diagram illustrates the pinout connections between the stepper motors and th
 ### Electromagnet
 
 <div align="center"> 
-<img width="10487" height="6588" alt="electromagnet drawio" src="https://github.com/user-attachments/assets/cdb9893a-973a-437a-974a-06e71711c859" /> 
+<img src="./images/Schematics/EM_Schematic.png" alt="electromagnet drawio"  /> 
 </div>
 <div align="center">
 <strong>Figure 11. Circuit for electromagnet</strong>
